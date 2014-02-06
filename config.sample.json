@@ -1,0 +1,7 @@
+{
+  "buckets": {
+    "graphMeta": "graphmeta",
+    "graph": "graph",
+    "space": "space"
+  }
+}
