@@ -11,8 +11,7 @@
   "dependencies": {
     "couchbase": "~1.2.1",
     "express": "~3.4.8",
-    "node-uuid": "~1.4.1",
-    "base64": "~2.1.0"
+    "node-uuid": "~1.4.1"
   },
   "scripts": {
     "start": "node bin/start.js"
