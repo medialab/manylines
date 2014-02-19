@@ -1,18 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TubeMyNet API testpage</title>
-  <style type="text/css">
-    pre {
-      white-space: normal;
-    }
-  </style>
+<title>TubeMyNet API testpage</title>
+<style type="text/css">
+body {
+  background: #fefefe;
+  font-family: sans-serif;
+}
+pre {
+  white-space: normal;
+}
+fieldset {
+  width: 300px;
+  margin: 10px;
+  display: inline-block;
+  vertical-align: top;
+  border: none;
+  box-shadow: 1px 1px 12px #555;
+}
+</style>
 </head>
 <body>
 
 <!-- SPACE ROUTES: -->
 <section data-section="space">
   <h2>Space related routes</h2>
+
+  <fieldset data-method="GET" data-url="/login/:id/:password">
+    <h3><code>[GET] /login/:id/:password</code> to log into an existing space</h3>
+    <h4>Form:</h4>
+    <div class="form">
+      <input type="text" data-mandatory="true" data-field="id" placeholder="id"/>
+      <input type="text" data-mandatory="true" data-field="password" placeholder="password"/>
+      <button class="call">Call route</button>
+    </div>
+    <h4>Output:</h4>
+    <pre class="output"></pre>
+  </fieldset>
+
+  <fieldset data-method="GET" data-url="/logout/:id">
+    <h3><code>[GET] /logout/:id</code> to log out a space</h3>
+    <h4>Form:</h4>
+    <div class="form">
+      <input type="text" data-mandatory="true" data-field="id" placeholder="id"/>
+      <button class="call">Call route</button>
+    </div>
+    <h4>Output:</h4>
+    <pre class="output"></pre>
+  </fieldset>
 
   <fieldset data-method="POST" data-url="/space/:email/:password">
     <h3><code>[POST] /space/:email/:password</code> to create a new space</h3>
@@ -26,12 +61,11 @@
     <pre class="output"></pre>
   </fieldset>
 
-  <fieldset data-method="DELETE" data-url="/space/:id/:password">
-    <h3><code>[DELETE] /space/:id/:password</code> to create a new space</h3>
+  <fieldset data-method="DELETE" data-url="/space/:id">
+    <h3><code>[DELETE] /space/:id</code> to delete an existing space</h3>
     <h4>Form:</h4>
     <div class="form">
       <input type="text" data-mandatory="true" data-field="id" placeholder="id"/>
-      <input type="text" data-mandatory="true" data-field="password" placeholder="password"/>
       <button class="call">Call route</button>
     </div>
     <h4>Output:</h4>
@@ -80,6 +114,9 @@ $(function() {
         data: data,
         success: function(data) {
           $('.output', dom).text(data);
+        },
+        error: function(j, t, e) {
+          $('.output', dom).text(t + '\n' + e);
         }
       });
     });
