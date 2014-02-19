@@ -12,7 +12,7 @@ exports.set = function(data, callback) {
     },
     data
   ))
-    throw 'models.space.set: Wrong data.';
+    return callback(new Error('models.space.set: Wrong data.'));
 
   var id = utils.uuid(),
       data = {
@@ -38,7 +38,7 @@ exports.set = function(data, callback) {
 
               // Execute callback without error:
               callback(err, {
-                key: id,
+                id: id,
                 value: data
               });
             }
@@ -52,7 +52,7 @@ exports.get = function(id, callback) {
     'string',
     id
   ))
-    throw 'models.space.get: Wrong data.';
+    return callback(new Error('models.space.get: Wrong data.'));
 
   var db = new couchbase.Connection(
     {
@@ -81,7 +81,7 @@ exports.remove = function(id, callback) {
     'string',
     id
   ))
-    throw 'models.space.remove: Wrong data.';
+    return callback(new Error('models.space.remove: Wrong data.'));
 
   var db = new couchbase.Connection(
     {

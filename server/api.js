@@ -1,4 +1,5 @@
 var express = require('express'),
+    config = require('../config.json'),
     app = express(),
     controllers = {
       graphMeta: require('./controllers/graphMeta.js'),
@@ -8,38 +9,44 @@ var express = require('express'),
     server;
 
 /**
- * SPACE ROUTES:
- * *************
+ * MIDDLEWARES:
+ * ************
  */
-app.put('/space/:email/:password', function(req, res) {
-  controllers.space.create({
-    password: req.params.password,
-    email: req.params.email
-  }, function(err, result) {
-    res.send(JSON.stringify(result));
+app.configure(function() {
+  // Cross origin policy:
+  app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:8000');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    return next();
   });
-});
-app.delete('/space/:id/:pwd', function(req, res) {
-  controllers.space.delete(req.params.id, function(err, result) {
-    res.send(JSON.stringify(result));
-  });
+
+  // Sessions:
+  app.use(express.cookieParser(config.api.secret));
+  app.use(express.session());
+  app.use(app.router);
 });
 
 /**
- * GRAPH ROUTES:
- * *************
+ * ROUTES:
+ * *******
  */
+app.get('/login/:space/:password', controllers.space.login);
+app.get('/logout/:space', controllers.space.logout);
+
+app.post('/space/:email/:password', controllers.space.create);
+app.delete('/space/:id/:password', controllers.space.delete);
+
 app.get('/graph/:id/:pwd', function(req, res) {
+  // TODO
+});
+app.get('/graph/:id', function(req, res) {
   // TODO
 });
 app.post('/graph/:id/:pwd', function(req, res) {
   // TODO
 });
 
-/**
- * GRAPH-META ROUTES:
- * ******************
- */
 app.get('/graphmeta/:id/:pwd', function(req, res) {
   // TODO
 });
@@ -47,17 +54,16 @@ app.post('/graphmeta/:id/:pwd', function(req, res) {
   // TODO
 });
 
+
+
+
 /**
  * EXPORT:
  * *******
  */
 exports.app = app;
 exports.start = function(port) {
-  server = app.listen(
-    arguments.length ?
-      port :
-      8000
-  );
+  server = app.listen(port);
 };
 exports.stop = function() {
   if (server)

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TubeMyNet API testpage</title>
+  <style type="text/css">
+    pre {
+      white-space: normal;
+    }
+  </style>
+</head>
+<body>
+
+<!-- SPACE ROUTES: -->
+<section data-section="space">
+  <h2>Space related routes</h2>
+
+  <fieldset data-method="POST" data-url="/space/:email/:password">
+    <h3><code>[POST] /space/:email/:password</code> to create a new space</h3>
+    <h4>Form:</h4>
+    <div class="form">
+      <input type="text" data-mandatory="true" data-field="email" placeholder="email"/>
+      <input type="text" data-mandatory="true" data-field="password" placeholder="password"/>
+      <button class="call">Call route</button>
+    </div>
+    <h4>Output:</h4>
+    <pre class="output"></pre>
+  </fieldset>
+
+  <fieldset data-method="DELETE" data-url="/space/:id/:password">
+    <h3><code>[DELETE] /space/:id/:password</code> to create a new space</h3>
+    <h4>Form:</h4>
+    <div class="form">
+      <input type="text" data-mandatory="true" data-field="id" placeholder="id"/>
+      <input type="text" data-mandatory="true" data-field="password" placeholder="password"/>
+      <button class="call">Call route</button>
+    </div>
+    <h4>Output:</h4>
+    <pre class="output"></pre>
+  </fieldset>
+</section>
+
+<!-- SCRIPTS: -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+$(function() {
+  var baseURL = 'http://localhost:8080',
+      baseDOM = $('body');
+
+  $('fieldset', baseDOM).each(function() {
+    var dom = $(this),
+        url = dom.data('url'),
+        data = {},
+        toResolve = url.match(/:([^\/]+)/g).map(function(s) {
+          return s.substring(1);
+        });
+
+    $('.call', dom).click(function() {
+      // Resolve URL and data:
+      $('*[data-field]', dom).each(function() {
+        var dom = $(this),
+            val = dom.val(),
+            field = dom.data('field');
+
+        if (!val) {
+          if (dom.data('mandatory'))
+            throw 'Field "' + field + '" is mandatory.';
+          else
+            return;
+        }
+
+        if (toResolve.indexOf(field) >= 0)
+          url = url.replace(':' + field, val);
+        else
+          data[field] = val;
+      });
+
+      $.ajax({
+        type: dom.data('method'),
+        url: baseURL + url,
+        data: data,
+        success: function(data) {
+          $('.output', dom).text(data);
+        }
+      });
+    });
+  });
+});
+</script>
+</body>
+</html>

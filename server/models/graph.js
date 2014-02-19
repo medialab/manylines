@@ -11,7 +11,7 @@ exports.set = function(data, callback) {
     },
     data
   ))
-    throw 'models.graph.set: Wrong data.';
+    return callback(new Error('models.graph.set: Wrong data.'));
 
   var id = utils.uuid(),
       db = new couchbase.Connection(
@@ -31,7 +31,7 @@ exports.set = function(data, callback) {
 
               // Execute callback without error:
               callback(err, {
-                key: id,
+                id: id,
                 value: result
               });
             }
@@ -45,7 +45,7 @@ exports.get = function(id, callback) {
     'string',
     id
   ))
-    throw 'models.graph.get: Wrong data.';
+    return callback(new Error('models.graph.get: Wrong data.'));
 
   var db = new couchbase.Connection(
     {
@@ -74,7 +74,7 @@ exports.remove = function(id, callback) {
     'string',
     id
   ))
-    throw 'models.graph.remove: Wrong data.';
+    return callback(new Error('models.graph.remove: Wrong data.'));
 
   var db = new couchbase.Connection(
     {

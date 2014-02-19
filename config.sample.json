@@ -1,4 +1,12 @@
 {
+  "static": {
+    "path": "public",
+    "port": 8000
+  },
+  "api": {
+    "port": 8080,
+    "secret": "s3cr3t"
+  },
   "buckets": {
     "graphMeta": "graphmeta",
     "graph": "graph",
