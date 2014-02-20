@@ -12,6 +12,7 @@ exports.login = function(req, res) {
     id: req.params.id
   };
 
+  // Check data:
   if (!struct.check(
     {
       password: 'string',
@@ -35,7 +36,7 @@ exports.login = function(req, res) {
       req.session.graphs = req.session.graphs || {};
       req.session.graphMetas = req.session.graphMetas || {};
 
-      req.session.space[data.id] = date;
+      req.session.spaces[data.id] = date;
       result.graphs.forEach(function(obj) {
         req.session.graphs[obj.id] = date;
         req.session.graphMetas[obj.metaId] = date;
@@ -54,6 +55,7 @@ exports.logout = function(req, res) {
     id: req.params.id
   };
 
+  // Check data:
   if (!struct.check(
     {
       id: 'string'
@@ -67,10 +69,10 @@ exports.logout = function(req, res) {
       return res.send(500); // TODO
 
     // Remove space, graphs metas and graphs from the session:
-    delete req.session.space[data.id];
+    delete (req.session.spaces || {})[data.id];
     result.graphs.forEach(function(obj) {
-      delete req.session.graphs[obj.id];
-      delete req.session.graphMetas[obj.metaId];
+      delete (req.session.graphs || {})[obj.id];
+      delete (req.session.graphMetas || {})[obj.metaId];
     });
 
     // Send response:
@@ -86,6 +88,7 @@ exports.create = function(req, res) {
     email: req.params.email
   };
 
+  // Check data:
   if (!struct.check(
     {
       password: 'string',
@@ -127,6 +130,7 @@ exports.delete = function(req, res) {
     id: req.params.id
   };
 
+  // Check data:
   if (!struct.check(
     {
       id: 'string'
@@ -134,6 +138,10 @@ exports.delete = function(req, res) {
     data
   ))
     return res.send(400);
+
+  // Check authorizations:
+  if (!(req.session.spaces || {})[data.id])
+    return res.send(401);
 
   var data,
       calls = 0,
@@ -150,6 +158,9 @@ exports.delete = function(req, res) {
           });
       };
 
+  // Remove space from the session:
+  delete req.session.spaces[data.id];
+
   models.space.get(data.id, function(err, data) {
     if (err)
       return res.send(500); // TODO
@@ -159,6 +170,9 @@ exports.delete = function(req, res) {
         calls += 2;
         models.graph.remove(obj.id, handler);
         models.graphMeta.remove(obj.metaId, handler);
+
+        delete req.session.graphs[obj.id];
+        delete req.session.graphMetas[obj.metaId];
       });
     else
       handler();

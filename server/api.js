@@ -22,37 +22,35 @@ app.configure(function() {
   });
 
   // Sessions:
-  app.use(express.cookieParser(config.api.secret));
-  app.use(express.session());
-  app.use(app.router);
+  app.use(express.cookieParser());
+  app.use(express.session({
+    secret: config.api.secret,
+    store: express.session.MemoryStore({ reapInterval: 60000 * 10 })
+    // cookie: {
+    //   path: '/',
+    //   httpOnly: true,
+    //   secure: true,
+    //   expires: false
+    // }
+  }));
 });
 
 /**
  * ROUTES:
  * *******
  */
-app.get('/login/:space/:password', controllers.space.login);
-app.get('/logout/:space', controllers.space.logout);
+app.get('/login/:id/:password', controllers.space.login);
+app.get('/logout/:id', controllers.space.logout);
 
 app.post('/space/:email/:password', controllers.space.create);
-app.delete('/space/:id/:password', controllers.space.delete);
+app.delete('/space/:id', controllers.space.delete);
 
-app.get('/graph/:id/:pwd', function(req, res) {
-  // TODO
-});
-app.get('/graph/:id', function(req, res) {
-  // TODO
-});
-app.post('/graph/:id/:pwd', function(req, res) {
-  // TODO
-});
+app.post('/graph/:id/:password', function(req, res) { /* TODO */ });
+app.get('/graph/:id/:password', function(req, res) { /* TODO */ });
+app.get('/graph/:id', function(req, res) { /* TODO */ });
 
-app.get('/graphmeta/:id/:pwd', function(req, res) {
-  // TODO
-});
-app.post('/graphmeta/:id/:pwd', function(req, res) {
-  // TODO
-});
+app.post('/graphmeta/:id/:password', function(req, res) { /* TODO */ });
+app.get('/graphmeta/:id/:password', function(req, res) { /* TODO */ });
 
 
 

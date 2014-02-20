@@ -22,9 +22,8 @@ fieldset {
 </head>
 <body>
 
-<!-- SPACE ROUTES: -->
 <section data-section="space">
-  <h2>Space related routes</h2>
+  <h2>Login / logout a space</h2>
 
   <fieldset data-method="GET" data-url="/login/:id/:password">
     <h3><code>[GET] /login/:id/:password</code> to log into an existing space</h3>
@@ -48,6 +47,10 @@ fieldset {
     <h4>Output:</h4>
     <pre class="output"></pre>
   </fieldset>
+</section>
+
+<section data-section="space">
+  <h2>Spaces related routes</h2>
 
   <fieldset data-method="POST" data-url="/space/:email/:password">
     <h3><code>[POST] /space/:email/:password</code> to create a new space</h3>
