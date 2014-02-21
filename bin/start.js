@@ -4,7 +4,4 @@ var config = require('../config.json');
 require('../server/api.js').start(config.api.port);
 
 // Launch static server:
-var connect = require('connect');
-connect.createServer(
-    connect.static(__dirname + '/../' + config.static.path)
-).listen(config.static.port);
+require('../server/static.js').start(config.static.port);

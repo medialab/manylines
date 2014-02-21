@@ -1,5 +1,7 @@
 var express = require('express'),
     config = require('../config.json'),
+    http = require('http'),
+    path = require('path'),
     app = express(),
     controllers = {
       graphMeta: require('./controllers/graphMeta.js'),
@@ -12,45 +14,38 @@ var express = require('express'),
  * MIDDLEWARES:
  * ************
  */
-app.configure(function() {
-  // Cross origin policy:
-  app.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:8000');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    return next();
-  });
+app.use(express.logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+app.use(express.cookieParser(config.api.secret));
+app.use(express.session({ domain: 'localhost:8080,localhost:8000' }));
+app.use(app.router);
 
-  // Sessions:
-  app.use(express.cookieParser());
-  app.use(express.session({
-    secret: config.api.secret,
-    store: express.session.MemoryStore({ reapInterval: 60000 * 10 })
-    // cookie: {
-    //   path: '/',
-    //   httpOnly: true,
-    //   secure: true,
-    //   expires: false
-    // }
-  }));
-});
+// development only
+if ('development' === app.get('env')) {
+  app.use(express.errorHandler());
+}
+
+
+
 
 /**
  * ROUTES:
  * *******
  */
-app.get('/login/:id/:password', controllers.space.login);
-app.get('/logout/:id', controllers.space.logout);
+app.get('/api/login/:id/:password', controllers.space.login);
+app.get('/api/logout/:id', controllers.space.logout);
 
-app.post('/space/:email/:password', controllers.space.create);
-app.delete('/space/:id', controllers.space.delete);
+app.post('/api/space/:email/:password', controllers.space.create);
+app.delete('/api/space/:id', controllers.space.delete);
 
-app.post('/graph/:id/:password', function(req, res) { /* TODO */ });
-app.get('/graph/:id/:password', function(req, res) { /* TODO */ });
-app.get('/graph/:id', function(req, res) { /* TODO */ });
+app.post('/api/graph/:id/:password', function(req, res) { /* TODO */ });
+app.get('/api/graph/:id/:password', function(req, res) { /* TODO */ });
+app.get('/api/graph/:id', function(req, res) { /* TODO */ });
 
-app.post('/graphmeta/:id/:password', function(req, res) { /* TODO */ });
-app.get('/graphmeta/:id/:password', function(req, res) { /* TODO */ });
+app.post('/api/graphmeta/:id/:password', function(req, res) { /* TODO */ });
+app.get('/api/graphmeta/:id/:password', function(req, res) { /* TODO */ });
 
 
 
@@ -61,7 +56,9 @@ app.get('/graphmeta/:id/:password', function(req, res) { /* TODO */ });
  */
 exports.app = app;
 exports.start = function(port) {
-  server = app.listen(port);
+  server = http.createServer(app).listen(port, function(){
+    console.log('API server listening on port ' + port);
+  });
 };
 exports.stop = function() {
   if (server)
