@@ -26,7 +26,7 @@ fieldset {
   <h2>Login / logout a space</h2>
 
   <fieldset data-method="GET" data-url="/login/:id/:password">
-    <h3><code>[GET] /login/:id/:password</code> to log into an existing space</h3>
+    <h3><code>[GET] /login/:id/:password</code> to <strong>log into an existing space</strong></h3>
     <h4>Form:</h4>
     <div class="form">
       <input type="text" data-mandatory="true" data-field="id" placeholder="id"/>
@@ -38,7 +38,7 @@ fieldset {
   </fieldset>
 
   <fieldset data-method="GET" data-url="/logout/:id">
-    <h3><code>[GET] /logout/:id</code> to log out a space</h3>
+    <h3><code>[GET] /logout/:id</code> to <strong>log out a space</strong></h3>
     <h4>Form:</h4>
     <div class="form">
       <input type="text" data-mandatory="true" data-field="id" placeholder="id"/>
@@ -53,7 +53,7 @@ fieldset {
   <h2>Spaces related routes</h2>
 
   <fieldset data-method="POST" data-url="/space/:email/:password">
-    <h3><code>[POST] /space/:email/:password</code> to create a new space</h3>
+    <h3><code>[POST] /space/:email/:password</code> to <strong>create a new space</strong></h3>
     <h4>Form:</h4>
     <div class="form">
       <input type="text" data-mandatory="true" data-field="email" placeholder="email"/>
@@ -65,7 +65,35 @@ fieldset {
   </fieldset>
 
   <fieldset data-method="DELETE" data-url="/space/:id">
-    <h3><code>[DELETE] /space/:id</code> to delete an existing space</h3>
+    <h3><code>[DELETE] /space/:id</code> to <strong>delete an existing space</strong></h3>
+    <h4>Form:</h4>
+    <div class="form">
+      <input type="text" data-mandatory="true" data-field="id" placeholder="id"/>
+      <button class="call">Call route</button>
+    </div>
+    <h4>Output:</h4>
+    <pre class="output"></pre>
+  </fieldset>
+</section>
+
+<section data-section="space">
+  <h2>Graph related routes</h2>
+
+  <fieldset data-method="POST" data-url="/graph/last/:id">
+    <h3><code>[POST] /graph/last/:id</code> to <strong>update the latest graph of a space</strong></h3>
+    <h4>Form:</h4>
+    <div class="form">
+      <input type="text" data-mandatory="true" data-field="id" placeholder="id"/>
+      <input type="text" data-json="true" data-field="graph" placeholder="graph"/>
+      <input type="text" data-json="true" data-field="meta" placeholder="meta"/>
+      <button class="call">Call route</button>
+    </div>
+    <h4>Output:</h4>
+    <pre class="output"></pre>
+  </fieldset>
+
+  <fieldset data-method="GET" data-url="/graph/last/:id">
+    <h3><code>[GET] /graph/last/:id</code> to <strong>get the latest graph of a space</strong></h3>
     <h4>Form:</h4>
     <div class="form">
       <input type="text" data-mandatory="true" data-field="id" placeholder="id"/>
@@ -80,7 +108,7 @@ fieldset {
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script>
 $(function() {
-  var baseURL = 'http://localhost:8000/api',
+  var baseURL = '/api',
       baseDOM = $('body');
 
   $('fieldset', baseDOM).each(function() {
@@ -98,6 +126,9 @@ $(function() {
             val = dom.val(),
             field = dom.data('field');
 
+        if (dom.data('json'))
+          val = val ? JSON.parse(val) : null;
+
         if (!val) {
           if (dom.data('mandatory'))
             throw 'Field "' + field + '" is mandatory.';
@@ -112,11 +143,12 @@ $(function() {
       });
 
       $.ajax({
-        type: dom.data('method'),
+        data: Object.keys(data).length ? JSON.stringify(data) : data,
         url: baseURL + url,
-        data: data,
+        type: dom.data('method'),
+        contentType: 'application/json',
         success: function(data) {
-          $('.output', dom).text(data);
+          $('.output', dom).text(JSON.stringify(data));
         },
         error: function(j, t, e) {
           $('.output', dom).text(t + '\n' + e);

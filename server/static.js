@@ -11,10 +11,16 @@ var express = require('express'),
  * MIDDLEWARES:
  * ************
  */
+proxy = httpProxy.createServer({ target: 'http://localhost:8080' });
+app.use(function(req, res, next) {
+  if (req.url.match(/\/api\/.*/))
+    return proxy.proxyRequest(req, res, { host: 'http://localhost' }, { port: '8080' });
+  else
+    return next();
+});
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -28,14 +34,6 @@ if ('development' === app.get('env')) {
  * *******
  */
 app.get('/*', express.static(__dirname + '/../' + config.static.path));
-
-proxy = httpProxy.createServer({ target: 'http://localhost:8080' });
-app.all('/api/*', function(req, res) {
-  proxy.proxyRequest(req, res);
-});
-
-
-
 
 /**
  * EXPORT:

@@ -17,7 +17,6 @@ var express = require('express'),
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(express.methodOverride());
 app.use(express.cookieParser(config.api.secret));
 app.use(express.session({ domain: 'localhost:8080,localhost:8000' }));
 app.use(app.router);
@@ -40,13 +39,16 @@ app.get('/api/logout/:id', controllers.space.logout);
 app.post('/api/space/:email/:password', controllers.space.create);
 app.delete('/api/space/:id', controllers.space.delete);
 
-app.post('/api/graph/:id/:password', function(req, res) { /* TODO */ });
-app.get('/api/graph/:id/:password', function(req, res) { /* TODO */ });
+app.post('/api/graph/last/:id', controllers.space.updateLast);
+app.get('/api/graph/last/:id', controllers.space.readLast);
+
+app.post('/api/graph/:id', function(req, res) { /* TODO */ });
 app.get('/api/graph/:id', function(req, res) { /* TODO */ });
 
 app.post('/api/graphmeta/:id/:password', function(req, res) { /* TODO */ });
 app.get('/api/graphmeta/:id/:password', function(req, res) { /* TODO */ });
 
+app.get('/*', express.static(__dirname + '/../' + config.static.path));
 
 
 

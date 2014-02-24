@@ -3,7 +3,7 @@ var settings = require('../../config.json'),
     utils = require('../../lib/utils.js'),
     couchbase = require('couchbase');
 
-exports.set = function(data, callback) {
+exports.set = function(data, id, callback) {
   if (!struct.check(
     {
       password: 'string',
@@ -14,8 +14,14 @@ exports.set = function(data, callback) {
   ))
     return callback(new Error('models.space.set: Wrong data.'));
 
-  var id = utils.uuid(),
+  if (arguments.length === 2) {
+    callback = id;
+    id = false;
+  }
+
+  var id = id || utils.uuid(),
       data = {
+        tbnType: 'space',
         graphs: data.graphs || [],
         password: data.password,
         created: Date.now(),
@@ -67,6 +73,9 @@ exports.get = function(id, callback) {
         function(err, result) {
           if (err)
             return callback(err, result);
+
+          // Remove the "tbnType" value:
+          delete result.value.tbnType;
 
           // Execute callback without error:
           callback(err, result.value);
