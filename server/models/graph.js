@@ -27,6 +27,8 @@ exports.set = function(data, id, callback) {
           if (err)
             return callback(err);
 
+          data.tbnType = 'graph';
+
           db.set(
             id,
             data,
@@ -34,12 +36,13 @@ exports.set = function(data, id, callback) {
               if (err)
                 return callback(err, result);
 
-              data.tbnValue = 'graphMeta';
+              // Remove the "tbnType" value:
+              delete data.tbnType;
 
               // Execute callback without error:
               callback(err, {
                 id: id,
-                value: result
+                value: data
               });
             }
           );

@@ -42,6 +42,9 @@ exports.set = function(data, id, callback) {
               if (err)
                 return callback(err, result);
 
+              // Remove the "tbnType" value:
+              delete data.tbnType;
+
               // Execute callback without error:
               callback(err, {
                 id: id,
