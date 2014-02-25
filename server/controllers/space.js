@@ -29,8 +29,14 @@ exports.login = function(req, res) {
     return res.send(400);
 
   models.space.get(params.id, function(err, result) {
-    if (err)
-      return res.send(500); // TODO
+    if (err) {
+      if (err.code === 13)
+        console.log('controllers.space.login: space "' + params.id + '" not found.');
+      else
+        console.log('controllers.space.login: unknown error.');
+
+      return res.send(401);
+    }
 
     if (result.password !== utils.encrypt(params.password))
       return res.send(401);
@@ -70,28 +76,46 @@ exports.logout = function(req, res) {
   // Check params:
   if (!struct.check(
     {
-      id: 'string'
+      id: '?string'
     },
     params
   ))
     return res.send(400);
 
-  models.space.get(params.id, function(err, result) {
-    if (err)
-      return res.send(500); // TODO
+  if (typeof params.id === 'string')
+    models.space.get(params.id, function(err, result) {
+      if (err) {
+        if (err.code === 13)
+          console.log('controllers.space.logout: space "' + params.id + '" not found.');
+        else
+          console.log('controllers.space.logout: unknown error.');
 
-    // Remove space, graphs metas and graphs from the session:
-    delete (req.session.spaces || {})[params.id];
-    result.graphs.forEach(function(obj) {
-      delete (req.session.graphs || {})[obj.id];
-      delete (req.session.graphMetas || {})[obj.metaId];
+        return res.json({
+          ok: true
+        });
+      }
+
+      // Remove space, graphs metas and graphs from the session:
+      delete (req.session.spaces || {})[params.id];
+      result.graphs.forEach(function(obj) {
+        delete (req.session.graphs || {})[obj.id];
+        delete (req.session.graphMetas || {})[obj.metaId];
+      });
+
+      // Send response:
+      return res.json({
+        ok: true
+      });
     });
+  else {
+    delete req.session.spaces;
+    delete req.session.graphs;
+    delete req.session.graphMetas;
 
-    // Send response:
     return res.json({
       ok: true
     });
-  });
+  }
 };
 
 /**
@@ -117,12 +141,16 @@ exports.create = function(req, res) {
     return res.send(400);
 
   models.graph.set({}, function(err, graphResult) {
-    if (err)
-      return res.send(500); // TODO
+    if (err) {
+      console.log('controllers.space.create: unknown error creating the graph object.');
+      return res.send(500);
+    }
 
     models.graphMeta.set({}, function(err, graphMetaResult) {
-      if (err)
-        return res.send(500); // TODO
+      if (err) {
+        console.log('controllers.space.create: unknown error creating the graph meta object.');
+        return res.send(500);
+      }
 
       models.space.set({
         password: utils.encrypt(params.password),
@@ -134,8 +162,10 @@ exports.create = function(req, res) {
           }
         ]
       }, function(err, spaceResult) {
-        if (err)
-          return res.send(500); // TODO
+        if (err) {
+          console.log('controllers.space.create: unknown error creating the space object.');
+          return res.send(500);
+        }
 
         return res.json(spaceResult);
       });
@@ -168,37 +198,60 @@ exports.delete = function(req, res) {
     return res.send(401);
 
   var calls = 0,
-      handler = function(err, result) {
-        if (err)
-          return res.send(500); // TODO
+      handlerFactory = function(service, id) {
+        return function(err, result) {
+          if (err) {
+            if (err.code === 13) {
+              console.log('controllers.space.delete: ' + service + ' "' + id + '" not found.');
+              return res.send(401);
+            } else
+              console.log('controllers.space.delete: unknown error deleting the ' + service + ' object "' + id + '".');
 
-        if (--calls === 0)
-          models.space.remove(params.id, function(err, spaceResult) {
-            if (err)
-              return res.send(500); // TODO
+            return res.send(500);
+          }
+          if (err) {
+            console.log('controllers.space.delete: unknown error deleting the ' + service + ' object "' + id + '".');
+            return res.send(500);
+          }
 
-            return res.json(spaceResult);
-          });
+          if (--calls === 0)
+            models.space.remove(params.id, function(err, spaceResult) {
+              if (err) {
+                console.log('controllers.space.delete: unknown error deleting the space object "' + params.id + '".');
+                return res.send(500);
+              }
+
+              return res.json(spaceResult);
+            });
+        }
       };
 
   // Remove space from the session:
   delete req.session.spaces[params.id];
 
   models.space.get(params.id, function(err, data) {
-    if (err)
-      return res.send(500); // TODO
+    if (err) {
+      if (err.code === 13) {
+        console.log('controllers.space.delete: space "' + params.id + '" not found.');
+        return res.send(401);
+      } else
+        console.log('controllers.space.delete: unknown error getting the space object "' + params.id + '".');
+
+      return res.send(500);
+    }
 
     if (data.graphs.length)
       data.graphs.map(function(obj) {
         calls += 2;
-        models.graph.remove(obj.id, handler);
-        models.graphMeta.remove(obj.metaId, handler);
+        models.graph.remove(obj.id, handlerFactory('graph', obj.id));
+        models.graphMeta.remove(obj.metaId, handlerFactory('graph meta',obj.metaId));
 
         delete req.session.graphs[obj.id];
         delete req.session.graphMetas[obj.metaId];
       });
     else
-      handler();
+      // Nothing is wrong
+      handlerFactory()();
   });
 };
 
@@ -227,8 +280,15 @@ exports.readLast = function(req, res) {
     return res.send(401);
 
   models.space.get(params.id, function(err, data) {
-    if (err)
-      return res.send(500, {  }); // TODO
+    if (err) {
+      if (err.code === 13) {
+        console.log('controllers.space.readLast: space "' + params.id + '" not found.');
+        return res.send(401);
+      } else
+        console.log('controllers.space.readLast: unknown error.');
+
+      return res.send(500);
+    }
 
     if (data.graphs.length) {
       var calls = 2,
@@ -236,8 +296,15 @@ exports.readLast = function(req, res) {
           last = data.graphs[data.graphs.length - 1];
 
       models.graph.get(last.id, function(err, data) {
-        if (err)
-          return res.send(500); // TODO
+        if (err) {
+          if (err.code === 13) {
+            console.log('controllers.space.readLast: graph "' + last.id + '" not found.');
+            return res.send(401);
+          } else
+            console.log('controllers.space.readLast: unknown error getting graph "' + last.id + '".');
+
+          return res.send(500);
+        }
 
         toSend.graph = data;
 
@@ -246,16 +313,25 @@ exports.readLast = function(req, res) {
       });
 
       models.graphMeta.get(last.metaId, function(err, data) {
-        if (err)
-          return res.send(500); // TODO
+        if (err) {
+          if (err.code === 13) {
+            console.log('controllers.space.readLast: graph meta "' + last.metaId + '" not found.');
+            return res.send(401);
+          } else
+            console.log('controllers.space.readLast: unknown error getting graph meta "' + last.metaId + '".');
+
+          return res.send(500);
+        }
 
         toSend.meta = data;
 
         if (--calls === 0)
           return res.json(toSend);
       });
-    } else
-      return res.send(500); // TODO
+    } else {
+      console.log('controllers.space.readLast: space "' + params.id + '" has no graph.');
+      return res.send(500);
+    }
   });
 };
 
@@ -288,11 +364,20 @@ exports.updateLast = function(req, res) {
     return res.send(401);
 
   models.space.get(params.id, function(err, data) {
-    if (err)
-      return res.send(500); // TODO
+    if (err) {
+      if (err.code === 13) {
+        console.log('controllers.space.updateLast: space "' + params.id + '" not found.');
+        return res.send(401);
+      } else
+        console.log('controllers.space.updateLast: unknown error.');
 
-    if (!data.graphs.length)
-      return res.send(500); // TODO
+      return res.send(500);
+    }
+
+    if (!data.graphs.length) {
+      console.log('controllers.space.updateLast: space "' + params.id + '" has no graph stored.');
+      return res.send(500);
+    }
 
     var calls = 0,
         toSend = {},
@@ -305,8 +390,10 @@ exports.updateLast = function(req, res) {
         params.graph,
         last.id,
         function(err, data) {
-          if (err)
-            return res.send(500); // TODO
+          if (err) {
+            console.log('controllers.space.updateLast: unknown error creating the graph object.');
+            return res.send(500);
+          }
 
           toSend.graph = data.value;
 
@@ -323,8 +410,10 @@ exports.updateLast = function(req, res) {
         params.meta,
         last.metaId,
         function(err, data) {
-          if (err)
-            return res.send(500); // TODO
+          if (err) {
+            console.log('controllers.space.updateLast: unknown error creating the graph meta object.');
+            return res.send(500);
+          }
 
           toSend.meta = data.value;
 
