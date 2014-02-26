@@ -18,55 +18,11 @@
 
     <!-- Page-specific CSS -->
     <style>
-/*
- * No navbar
- */
-body {
-  padding-top: 0px;
-}
-
-/*
- * Jumbotron
- */
-
-.jumbotron{
-  background-color: #334;
-  color: #FFF;
-  padding-bottom: 70px;
-}
-
-/* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  .jumbotron{
-    padding-top: 50px;
-  }
-}
-
-/* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) { 
-  .jumbotron{
-    padding-top: 100px;
-    padding-bottom: 100px;
-  }
-}
-
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-  .jumbotron{
-    padding-top: 160px;
-    padding-bottom: 160px;
-  }
-}
-
 /* Bring some air */
 .main {
-  padding-top: 10px;
-  padding-bottom: 150px;
+  padding-top: 50px;
+  padding-bottom: 200px;
 }
-.section {
-  padding-bottom: 20px;
-}
-
     </style>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -77,35 +33,36 @@ body {
   </head>
 
   <body>
-
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
-        <h1>TubeMyNet</h1>
-        <p>Make up and publish your network, and tell its story</p>
-        
-        <a type="button" class="btn btn-primary" href="upload.html">
-          <span class="glyphicon glyphicon-upload"></span>
-          Upload Now!
-        </a>
-
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">TubeMyNet</a>
+        </div>
+        <!-- <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">settings</a></li>
+            <li><a href="#">médialab tools</a></li>
+          </ul>
+        </div> -->
       </div>
     </div>
 
     <div class="container">
       <div class="main">
         <div class="row">
-          <div class="col-md-4 section">
-            <h2>Latest news</h2>
-            <p>We are still in progress again</p>
-          </div>
-          <div class="col-md-4 section">
-            <h2>Latest networks</h2>
-            <p>To be designed</p>
-         </div>
-          <div class="col-md-4 section">
-            <h2>Help</h2>
-            <p>To be designed</p>
+          <div class="col-xs-12">
+            <h2>Upload your network</h2>
+            <div class="form-group">
+              <!-- <label for="networkInputFile">Select a file or drag and drop it here</label> -->
+              <input type="file" id="networkInputFile">
+              <p class="help-block">Upload a GEXF file</p>
+            </div>
           </div>
         </div>
       </div>
@@ -123,6 +80,6 @@ body {
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>

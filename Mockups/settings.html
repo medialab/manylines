@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TubeMyNet</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/tubemynet.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Untitled Network</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="navbar-alert"><a href="#"><span class="glyphicon glyphicon-exclamation-sign"></span> Not saved</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="http://tools.medialab.sciences-po.fr"><span class="glyphicon glyphicon-plus"></span> Médialab Tools</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-4 col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="statistics.html">Statistics</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="scripts.html">Run Scripts</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="edit.html">Edit Nodes and Edges</a></li>
+            <li><a href="layout.html">Edit Layout</a></li>
+            <li><a href="categories.html">Edit Categories</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="views.html">Manage Net-views</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="publish.html">Publish Network</a></li>
+            <li><a href="widgets.html">Publish Widgets</a></li>
+            <li><a href="stories.html">Publish Stories</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="export.html">Export</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="settings.html">Settings</a></li>
+            <li><a href="save.html">Save</a></li>
+          </ul>
+        </div>
+        <div class="col-xs-8 col-xs-offset-4 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Settings</h1>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4">
+              <h4>Network</h4>
+              <div class="form-group">
+                <!-- <label for="titleInput">Title</label> -->
+                <input type="text" class="form-control" id="titleInput" placeholder="Enter a title">
+              </div>
+              <div class="form-group">
+                <label for="descriptionInput">Description</label>
+                <textarea class="form-control" id="descriptionInput" placeholder="Enter a short description (optional)" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+              <h4>Authors</h4>
+              <div class="form-group">
+                <!-- <label for="authorInput">Names</label> -->
+                <input type="text" class="form-control" id="authorInput" placeholder="Enter name(s)">
+              </div>
+              <div class="form-group">
+                <label for="aboutAuthorsInput">About authors</label>
+                <textarea class="form-control" id="aboutAuthorsInput" placeholder="Enter a short text (optional)" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+              <h4>Account</h4>
+              <div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="email" class="form-control" value="John.Smith@gmail.com" disabled>
+                    <span class="input-group-btn">
+                      <button class="btn btn-warning" type="button">Change email</button>
+                    </span>
+                  </div>
+                  <br/>
+                  <div class="input-group">
+                    <input type="password" class="form-control" value="*****" disabled>
+                    <span class="input-group-btn">
+                      <button class="btn btn-warning" type="button">Edit password</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br/>
+          <br/>
+          
+          <h2>Dangerous stuff</h2>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4">
+              <h4>Restart</h4>
+              <div class="form-group">
+                <button type="button" class="btn btn-danger">Upload new network</button>
+              </div>
+              <p class="text-info">
+                Erase everything and upload a new network instead of the current one
+              </p>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+              <h4>Remove</h4>
+              <div class="form-group">
+                <button type="button" class="btn btn-danger">Delete this network</button>
+              </div>
+              <p class="text-info">
+                Remove this network from TubeMyNet
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
