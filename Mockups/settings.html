@@ -13,86 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <style>
-/*
- * Base structure
- */
-
-/* Move down content because we have a fixed navbar that is 50px tall */
-body {
-  padding-top: 50px;
-}
-
-
-/*
- * Global add-ons
- */
-
-.sub-header {
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-
-/*
- * Sidebar
- */
-
-/* Hide for mobile, show later */
-.sidebar {
-  position: fixed;
-  top: 51px;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  display: block;
-  padding: 20px;
-  overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-  background-color: #f5f5f5;
-  border-right: 1px solid #eee;
-}
-
-
-/* Sidebar navigation */
-.nav-sidebar {
-  margin-right: -21px; /* 20px padding + 1px border */
-  margin-bottom: 20px;
-  margin-left: -20px;
-}
-.nav-sidebar > li > a {
-  padding-right: 20px;
-  padding-left: 20px;
-}
-.nav-sidebar > .active > a {
-  color: #fff;
-  background-color: #428bca;
-}
-
-
-/*
- * Main content
- */
-
-.main {
-  padding: 20px;
-  padding-right: 40px;
-  padding-left: 40px;
-}
-
-.main .page-header {
-  margin-top: 0;
-}
-
-/*
- * Navbar alert
- */
-.nav > li.navbar-alert > a{
-  background-color: #300;
-  color: #f99;
-}
-    </style>
+    <link href="css/tubemynet.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -146,6 +67,9 @@ body {
             <li><a href="publish.html">Publish Network</a></li>
             <li><a href="widgets.html">Publish Widgets</a></li>
             <li><a href="stories.html">Publish Stories</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="export.html">Export</a></li>
           </ul>
           <ul class="nav nav-sidebar">
             <li class="active"><a href="settings.html">Settings</a></li>
@@ -203,7 +127,7 @@ body {
           <br/>
           <br/>
           
-          <h1 class="page-header">Dangerous stuff</h1>
+          <h2>Dangerous stuff</h2>
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-4">
               <h4>Restart</h4>
