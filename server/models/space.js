@@ -25,7 +25,7 @@ exports.set = function(data, id, callback) {
         graphs: data.graphs || [],
         password: data.password,
         created: Date.now(),
-        email: data.email,
+        email: data.email
       },
       db = new couchbase.Connection(
         {
