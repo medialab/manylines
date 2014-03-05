@@ -10,11 +10,11 @@
     var stored,
         self = this;
 
-    if ('onhashchange' in window) { // event supported?
-      window.onhashchange = function (){
+    if ('onhashchange' in window)
+      window.onhashchange = function() {
         hashChanged(window.location.hash);
-      }
-    } else { // event not supported:
+      };
+    else {
       stored = window.location.hash;
       window.setInterval(function() {
         if (window.location.hash !== stored) {

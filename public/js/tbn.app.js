@@ -109,7 +109,12 @@
           }
 
           // Effectively update the hash:
-          window.location.hash = hash;
+          if (hash)
+            this.dispatchEvent('updateHash', {
+              hash: hash
+            });
+          else
+            this.die('Invalid state.');
         }
       },
       {
