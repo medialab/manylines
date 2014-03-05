@@ -1,23 +1,28 @@
-;(function(config) {
+;(function() {
   'use strict';
 
   // Default configuration:
   tbn.pkg('blf');
-  config = config || {};
-  config.i18n = config.i18n || {};
-  config.lang = config.lang || 'en';
-  config.baseDOM = config.baseDOM || $('body');
+  tbn.config = tbn.config || {};
+  tbn.config.i18n = tbn.config.i18n || {};
+  tbn.config.lang = tbn.config.lang || 'en';
+  tbn.config.baseDOM = tbn.config.baseDOM || $('body');
+  tbn.config.i18nURL = tbn.config.i18nURL || '/locales/__lng__/__ns__.json'
 
   // Load dictionary:
   i18n.init({
-    lng: config.lang,
-    fallbackLng: config.lang,
-    resGetPath: config.i18n.url,
+    lng: tbn.config.lang,
+    fallbackLng: tbn.config.lang,
+    resGetPath: tbn.config.i18nURL,
     ns: {
       namespaces: ['translation'],
       defaultNs: 'translation'
     }
   }, function(t) {
-    config.baseDOM.i18n();
+    // Translate DOM:
+    tbn.config.baseDOM.i18n();
+
+    // Instanciate layout:
+    tbn.control.addModule(tbn.modules.layout, [tbn.control]);
   });
 }).call(this);

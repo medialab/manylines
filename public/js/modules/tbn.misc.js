@@ -1,4 +1,6 @@
 ;(function() {
+  'use strict';
+
   tbn.pkg('tbn.modules');
 
   /**

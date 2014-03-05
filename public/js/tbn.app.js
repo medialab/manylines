@@ -1,4 +1,6 @@
 ;(function() {
+  'use strict';
+
   if (!domino.struct.isValid('Config'))
     domino.struct.add({
       id: 'Space',
@@ -26,8 +28,6 @@
       id: 'GraphMeta',
       struct: 'object'
     });
-
-
 
   tbn.control = new domino({
     properties: [

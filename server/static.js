@@ -3,6 +3,7 @@ var express = require('express'),
     httpProxy = require('http-proxy'),
     http = require('http'),
     path = require('path'),
+    fs = require('fs'),
     app = express(),
     server,
     proxy;
@@ -33,6 +34,12 @@ if ('development' === app.get('env')) {
  * ROUTES:
  * *******
  */
+app.get('/app/', function(req, res) {
+  res.send(fs.readFileSync(__dirname + '/../' + config.static.path + '/app.html', 'utf8'));
+});
+app.get('/', function(req, res) {
+  res.send(fs.readFileSync(__dirname + '/../' + config.static.path + '/site.html', 'utf8'));
+});
 app.get('/*', express.static(__dirname + '/../' + config.static.path));
 
 /**
