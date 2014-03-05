@@ -4,6 +4,43 @@
   tbn.pkg('tbn.modules');
 
   /**
+   * The module that sets with the URL.
+   */
+  tbn.modules.location = function() {
+    var stored,
+        self = this;
+
+    if ('onhashchange' in window) { // event supported?
+      window.onhashchange = function (){
+        hashChanged(window.location.hash);
+      }
+    } else { // event not supported:
+      stored = window.location.hash;
+      window.setInterval(function() {
+        if (window.location.hash !== stored) {
+          stored = window.location.hash;
+          hashChanged(stored);
+        }
+      }, 100);
+    }
+
+    function hashChanged() {
+      self.dispatchEvent('hashUpdated', {
+        hash: window.location.hash
+      });
+    }
+
+    this.triggers.events.updateHash = function(d, e) {
+      var hash = e.data.hash;
+
+      if (stored !== hash) {
+        stored = hash;
+        window.location.hash = hash;
+      }
+    }
+  };
+
+  /**
    * A basic DOM module to display the value of a property when this one is
    * updated.
    */

@@ -24,5 +24,10 @@
 
     // Instanciate layout:
     tbn.control.addModule(tbn.modules.layout, [tbn.control]);
+
+    // Read URL hash:
+    tbn.control.dispatchEvent('hashUpdated', {
+      hash: window.location.hash
+    });
   });
 }).call(this);

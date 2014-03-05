@@ -1,6 +1,12 @@
 ;(function() {
   'use strict';
 
+  domino.settings({
+    displayTime: true,
+    verbose: true,
+    strict: true
+  });
+
   if (!domino.struct.isValid('Config'))
     domino.struct.add({
       id: 'Space',
@@ -65,12 +71,58 @@
         id: 'view',
         triggers: 'updateView',
         dispatch: 'viewUpdated',
-        description: 'The current view.',
+        description: 'The current view. Available values: "explore", "settings", "scripts", "upload", "login"',
         type: 'string'
       }
     ],
     hacks: [
-      // TODO
+      /**
+       * HREF management:
+       * ****************
+       */
+      {
+        triggers: ['viewUpdated'],
+        method: function(e) {
+          var hash,
+              view = this.get('view');
+
+          switch (view) {
+            case 'upload':
+              hash = '#/upload';
+              break;
+
+            case 'explore':
+              hash = '#/explore';
+              break;
+
+            case 'settings':
+              hash = '#/settings';
+              break;
+
+            case 'scripts':
+              hash = '#/scripts';
+              break;
+
+            case 'login':
+              hash = '#/login';
+              break;
+          }
+
+          // Effectively update the hash:
+          window.location.hash = hash;
+        }
+      },
+      {
+        triggers: 'hashUpdated',
+        method: function(e) {
+          var hash = e.data.hash.replace(/^#\//, '').split('/'),
+              view = hash[0];
+
+          // Check view:
+          view = view || 'upload';
+          this.update('view', view);
+        }
+      }
     ],
     services: [
       {
