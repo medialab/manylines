@@ -1,0 +1,17 @@
+{
+  "menu": {
+    "explore": "Explore",
+    "statistics": "Statistics",
+    "run_scripts": "Run Scripts",
+    "edit_nodes_and_edges": "Edit Nodes and Edges",
+    "edit_layout": "Edit Layout",
+    "edit_categories": "Edit Categories",
+    "manage_net_views": "Manage Net-views",
+    "publish_network": "Publish Network",
+    "publish_widgets": "Publish Widgets",
+    "publish_stories": "Publish Stories",
+    "export": "Export",
+    "settings": "Settings",
+    "save": "Save"
+  }
+}

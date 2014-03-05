@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TubeMyNet</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/tbn.layout.css" rel="stylesheet">
+    <link href="css/tbn.app.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" data-property="" href="settings.html"></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="navbar-alert"><a href="#"><span class="glyphicon glyphicon-exclamation-sign"></span> Not saved</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="http://tools.medialab.sciences-po.fr"><span class="glyphicon glyphicon-plus"></span> Médialab Tools</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-4 col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="explore.html" data-i18n="menu.explore"></a></li>
+            <li><a class="todo" href="statistics.html" data-i18n="menu.statistics"></a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a class="todo" href="scripts.html" data-i18n="menu.run_scripts"></a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a class="todo" href="edit.html" data-i18n="menu.edit_nodes_and_edges"></a></li>
+            <li><a class="todo" href="layout.html" data-i18n="menu.edit_layout"></a></li>
+            <li><a class="todo" href="categories.html" data-i18n="menu.edit_categories"></a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a class="todo" href="views.html" data-i18n="menu.manage_net_views"></a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a class="todo" href="publish.html" data-i18n="menu.publish_network"></a></li>
+            <li><a class="todo" href="widgets.html" data-i18n="menu.publish_widgets"></a></li>
+            <li><a class="todo" href="stories.html" data-i18n="menu.publish_stories"></a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a class="todo" href="export.html" data-i18n="menu.export"></a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a class="todo" href="settings.html" data-i18n="menu.settings"></a></li>
+            <li><a class="todo" href="save.html" data-i18n="menu.save"></a></li>
+          </ul>
+        </div>
+
+        <div class="col-xs-8 col-xs-offset-4 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <!-- Main app container goes here-->
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript libraries
+    ================================================== -->
+    <script src="js/lib/jquery-v1.11.0.min.js"></script>
+    <script src="js/lib/handlebars-v1.3.0.min.js"></script>
+    <script src="js/lib/bootstrap-v3.1.1.min.js"></script>
+    <script src="js/lib/i18next-v1.7.2.min.js"></script>
+    <script src="js/lib/domino.min.js"></script>
+
+    <!-- JavaScript application files
+    ================================================== -->
+    <script src="js/tbn.utils.js"></script>
+    <script src="js/modules/tbn.misc.js"></script>
+    <script src="js/tbn.app.js"></script>
+    <script src="js/tbn.init.js"></script>
+  </body>
+</html>
