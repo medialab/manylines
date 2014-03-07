@@ -13,5 +13,11 @@
     "export": "Export",
     "settings": "Settings",
     "save": "Save"
+  },
+  "login": {
+    "login": "Login",
+    "email": "Mail address",
+    "password": "Password",
+    "signin": "Sign in"
   }
 }

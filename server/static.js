@@ -37,6 +37,9 @@ if ('development' === app.get('env')) {
 app.get('/app/', function(req, res) {
   res.send(fs.readFileSync(__dirname + '/../' + config.static.path + '/app.html', 'utf8'));
 });
+app.get('/app', function(req, res) {
+  res.redirect('/app/');
+});
 app.get('/', function(req, res) {
   res.send(fs.readFileSync(__dirname + '/../' + config.static.path + '/site.html', 'utf8'));
 });

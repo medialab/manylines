@@ -42,25 +42,36 @@
        * *****
        */
       {
+        id: 'spaceId',
+        triggers: 'updateSpaceId',
+        dispatch: 'spaceIdUpdated',
+        description: 'The ID of the space to load.',
+        type: '?string',
+        value: null
+      },
+      {
         id: 'space',
         triggers: 'updateSpace',
         dispatch: 'spaceUpdated',
         description: 'The current space (basically the historic of some graphs and the related metadata objects).',
-        type: '?Space'
+        type: '?Space',
+        value: null
       },
       {
         id: 'graph',
         triggers: 'updateGraph',
         dispatch: 'graphUpdated',
         description: 'The current graph.',
-        type: '?Graph'
+        type: '?Graph',
+        value: null
       },
       {
         id: 'graphMeta',
         triggers: 'updateGraphMeta',
         dispatch: 'graphMetaUpdated',
         description: 'The current graph meta object.',
-        type: '?GraphMeta'
+        type: '?GraphMeta',
+        value: null
       },
 
       /**
@@ -104,16 +115,21 @@
               break;
 
             case 'login':
-              hash = '#/login';
+              if (!this.get('spaceId')) {
+                this.log('There is no space ID to log into. The view is changed to "upload".');
+                hash = '#/upload';
+              } else {
+                hash = '#/login/' + this.get('spaceId');
+              }
               break;
           }
 
-          // Effectively update the hash:
-          if (hash)
+          if (hash) {
+            // Effectively update the hash:
             this.dispatchEvent('updateHash', {
               hash: hash
             });
-          else
+          } else
             this.die('Invalid state.');
         }
       },

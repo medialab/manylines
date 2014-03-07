@@ -1,0 +1,47 @@
+{{! Login form: }}
+<form class="form-horizontal">
+<fieldset>
+
+{{! Form Name }}
+<legend>{{t "login.login" }}</legend>
+
+{{! Text input}}
+<div class="form-group">
+  <label class="col-md-4 control-label" for="login-mail"></label>
+  <div class="col-md-4">
+  <input id="login-mail"
+         name="login-mail"
+         type="text"
+         placeholder="{{t "login.email" }}"
+         class="form-control input-md" required="">
+
+  </div>
+</div>
+
+{{! Password input}}
+<div class="form-group">
+  <label class="col-md-4 control-label" for="login-password"></label>
+  <div class="col-md-4">
+    <input id="login-password"
+           name="login-password"
+           type="password"
+           placeholder="{{t "login.password" }}"
+           class="form-control input-md" required="">
+
+  </div>
+</div>
+
+{{! Button }}
+<div class="form-group">
+  <label class="col-md-4 control-label" for="login-signin"></label>
+  <div class="col-md-4">
+    <button id="login-signin"
+            name="login-signin"
+            class="btn btn-primary">
+      {{t "login.signin" }}
+    </button>
+  </div>
+</div>
+
+</fieldset>
+</form>
