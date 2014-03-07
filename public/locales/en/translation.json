@@ -16,8 +16,8 @@
   },
   "login": {
     "login": "Login",
-    "email": "Mail address",
     "password": "Password",
+    "forgotpassword": "Forgot password?",
     "signin": "Sign in"
   }
 }

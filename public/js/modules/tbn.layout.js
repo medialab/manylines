@@ -4,7 +4,8 @@
   tbn.pkg('tbn.modules');
 
   tbn.modules.layout = function(control) {
-    var self = this;
+    var self = this,
+        module;
 
     // Initialize hash module:
     control.addModule(tbn.modules.location);
@@ -16,7 +17,14 @@
     this.triggers.events.viewUpdated = function(d) {
       var view = d.get('view'),
           template = tbn.templates.require('tbn.' + view, function(template) {
-            $('.main', tbn.baseDOM).empty().append(template());
+            var dom = template();
+            $('.main', tbn.baseDOM).empty().append(dom);
+
+            // Reinitialize module:
+            if (module)
+              control.killModule(module);
+
+            module = control.addModule(tbn.modules[view]);
 
             // Unlock UI:
             self.dispatchEvent('unlock');

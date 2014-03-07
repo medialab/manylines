@@ -88,13 +88,14 @@
     ],
     hacks: [
       /**
-       * HREF management:
-       * ****************
+       * URL Hash management:
+       * ********************
        */
       {
-        triggers: ['viewUpdated'],
+        triggers: ['viewUpdated', 'spaceIdUpdated'],
         method: function(e) {
           var hash,
+              spaceId = this.get('spaceId'),
               view = this.get('view');
 
           switch (view) {
@@ -102,24 +103,12 @@
               hash = '#/upload';
               break;
 
-            case 'explore':
-              hash = '#/explore';
-              break;
-
-            case 'settings':
-              hash = '#/settings';
-              break;
-
-            case 'scripts':
-              hash = '#/scripts';
-              break;
-
-            case 'login':
-              if (!this.get('spaceId')) {
-                this.log('There is no space ID to log into. The view is changed to "upload".');
-                hash = '#/upload';
+            default:
+              if (!spaceId) {
+                this.log('The space ID is missing. The view is set to "upload".');
+                hash = '#/' + view;
               } else {
-                hash = '#/login/' + this.get('spaceId');
+                hash = '#/login/' + spaceId;
               }
               break;
           }
@@ -142,6 +131,21 @@
           // Check view:
           view = view || 'upload';
           this.update('view', view);
+
+          switch (view) {
+            case 'upload':
+              this.update('spaceId', null);
+              break;
+
+            default:
+              if (hash.length <= 1) {
+                this.log('The space ID is missing. The view is set to "upload".');
+                this.update('view', 'upload')
+              } else {
+                this.update('spaceId', hash[1]);
+              }
+              break;
+          }
         }
       }
     ],
