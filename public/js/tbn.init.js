@@ -1,12 +1,14 @@
 ;(function() {
   'use strict';
 
+  // DOM root:
+  tbn.dom = tbn.dom || $('body');
+
   // Default configuration:
   tbn.pkg('blf');
   tbn.config = tbn.config || {};
   tbn.config.i18n = tbn.config.i18n || {};
   tbn.config.lang = tbn.config.lang || 'en';
-  tbn.config.baseDOM = tbn.config.baseDOM || $('body');
   tbn.config.i18nURL = tbn.config.i18nURL || '/locales/__lng__/__ns__.json'
 
   // Load dictionary:
@@ -20,7 +22,7 @@
     }
   }, function(t) {
     // Translate DOM:
-    tbn.config.baseDOM.i18n();
+    tbn.dom.i18n();
 
     // Instanciate layout:
     tbn.control.addModule(tbn.modules.layout, [tbn.control]);

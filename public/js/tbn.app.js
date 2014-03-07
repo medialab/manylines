@@ -98,6 +98,8 @@
               spaceId = this.get('spaceId'),
               view = this.get('view');
 
+          tbn.dom.attr('data-tbn-view', view);
+
           switch (view) {
             case 'upload':
               hash = '#/upload';

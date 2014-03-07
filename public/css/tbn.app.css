@@ -1,0 +1,15 @@
+/* Hide sidebar container initially */
+body:not([data-tbn-view]) .tbn-container {
+  display: none;
+}
+
+body[data-tbn-view="login"] .tbn-container-with-sidebar,
+body[data-tbn-view="upload"] .tbn-container-with-sidebar {
+  display: none;
+}
+
+body[data-tbn-view="explore"] .tbn-container-no-sidebar,
+body[data-tbn-view="scripts"] .tbn-container-no-sidebar,
+body[data-tbn-view="settings"] .tbn-container-no-sidebar {
+  display: none;
+}
