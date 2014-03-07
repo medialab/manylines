@@ -5,6 +5,10 @@
   tbn.modules.login = function(dom) {
     var self = this;
 
+    // Give focus to the "password" field:
+    // TODO: FIX IT, IT DOES NOT WORK
+    // $('#login-password', dom).focus();
+
     $('#login-signin', dom).click(function() {
       self.dispatchEvent('signin', {
         password: $('#login-password', dom).val()

@@ -24,7 +24,7 @@
             if (module)
               control.killModule(module);
 
-            module = control.addModule(tbn.modules[view]);
+            module = control.addModule(tbn.modules[view], [dom]);
 
             // Unlock UI:
             self.dispatchEvent('unlock');
