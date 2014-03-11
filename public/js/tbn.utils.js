@@ -10,13 +10,21 @@
     }, root);
   };
 
-  // Handlebars helpers:
+
+  /**
+   * Handlebars helpers:
+   * *******************
+   */
   Handlebars.registerHelper('t', function(i18n_key) {
     var result = i18n.t(i18n_key);
     return new Handlebars.SafeString(result);
   });
 
-  // Templates management:
+
+  /**
+   * Templates management:
+   * *********************
+   */
   tbn.pkg('tbn.templates.preloaded');
   var _override = {},
       _templates = {},
@@ -73,5 +81,26 @@
 
   tbn.templates.override = function(name, template) {
     _override[name] = template;
+  };
+
+
+  /**
+   * Alert utils:
+   * ************
+   */
+  tbn.success = function(msg) {
+    // TODO
+  };
+
+  tbn.info = function(msg) {
+    // TODO
+  };
+
+  tbn.warning = function(msg) {
+    // TODO
+  };
+
+  tbn.danger = function(msg) {
+    // TODO
   };
 }).call(this);

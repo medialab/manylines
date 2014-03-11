@@ -22,6 +22,7 @@
   },
   "upload": {
     "upload_network": "Upload your network",
-    "upload_gexf": "Upload a GEXF file"
+    "upload_gexf": "Upload a GEXF file",
+    "error_uploading_file": "An error occured while uploading the file"
   }
 }

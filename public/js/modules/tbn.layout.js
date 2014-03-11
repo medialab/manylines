@@ -7,6 +7,15 @@
     var self = this,
         module;
 
+    function bindDOM(dom) {
+      // TODO
+      // Finish this function to bind all the tbn.modules.dom* from modules/tbn.misc.js
+
+      // $('[data-tbn-domText]:not(.tbn-hasModule)', dom).each(function() {
+      //   control.addModule(tbn.modules.domText, [$(this).data('tbn-domText'), $(this)]);
+      // });
+    }
+
     // Initialize hash module:
     control.addModule(tbn.modules.location);
 

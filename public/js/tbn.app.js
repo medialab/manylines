@@ -23,7 +23,7 @@
     domino.struct.add({
       id: 'Graph',
       struct: {
-        id: 'string',
+        id: '?string',
         nodes: 'array',
         edges: 'array'
       }
@@ -83,7 +83,8 @@
         triggers: 'updateView',
         dispatch: 'viewUpdated',
         description: 'The current view. Available values: "explore", "settings", "scripts", "upload", "login"',
-        type: 'string'
+        type: 'string',
+        value: ''
       }
     ],
     hacks: [
@@ -101,15 +102,17 @@
           tbn.dom.attr('data-tbn-view', view);
 
           switch (view) {
+            // Views without spaceId:
             case 'upload':
               hash = '#/upload';
               break;
 
+            // Views with mandatory spaceId:
             case 'login':
-            case 'explore':
             case 'scripts':
             case 'settings':
               if (!spaceId) {
+                debugger;
                 this.log('The space ID is missing. The view is set to "upload".');
                 hash = '#/upload';
               } else {
@@ -117,6 +120,16 @@
               }
               break;
 
+            // Views with optional spaceId:
+            case 'explore':
+              if (!spaceId) {
+                hash = '#/' + view;
+              } else {
+                hash = '#/' + view + '/' + spaceId;
+              }
+              break;
+
+            // Default cases:
             default:
               hash = '#/upload';
               break;
@@ -126,6 +139,52 @@
           this.dispatchEvent('updateHash', {
             hash: hash
           });
+        }
+      },
+      {
+        triggers: 'hashUpdated',
+        method: function(e) {
+          var hash = e.data.hash.replace(/^#\//, '').split('/'),
+              view = hash[0];
+
+          // Check view:
+          view = view || 'upload';
+          this.update('view', view);
+
+          switch (view) {
+            // Views without spaceId:
+            case 'upload':
+              this.update('spaceId', null);
+              break;
+
+            // Views with mandatory spaceId:
+            case 'login':
+            case 'scripts':
+            case 'settings':
+              if (hash.length <= 1) {
+                this.log('The space ID is missing. The view is set to "upload".');
+                this.update('view', 'upload');
+                this.update('spaceId', null);
+              } else {
+                this.update('spaceId', hash[1]);
+              }
+              break;
+
+            // Views with optional spaceId:
+            case 'explore':
+              if (hash.length <= 1) {
+                this.update('spaceId', null);
+              } else {
+                this.update('spaceId', hash[1]);
+              }
+              break;
+
+            // Default cases:
+            default:
+              this.update('view', 'upload');
+              this.update('spaceId', null);
+              break;
+          }
         }
       },
 
@@ -144,29 +203,24 @@
         }
       },
       {
-        triggers: 'hashUpdated',
+        triggers: 'logout',
         method: function(e) {
-          var hash = e.data.hash.replace(/^#\//, '').split('/'),
-              view = hash[0];
+          this.request('logout');
+        }
+      },
 
-          // Check view:
-          view = view || 'upload';
-          this.update('view', view);
+      /**
+       * Graph uploading:
+       * ****************
+       */
+      {
+        triggers: 'graphUploaded',
+        method: function(e) {
+          var graph = e.data.graph;
 
-          switch (view) {
-            case 'upload':
-              this.update('spaceId', null);
-              break;
-
-            default:
-              if (hash.length <= 1) {
-                this.log('The space ID is missing. The view is set to "upload".');
-                this.update('view', 'upload')
-              } else {
-                this.update('spaceId', hash[1]);
-              }
-              break;
-          }
+          this.update('graph', graph);
+          this.update('spaceId', null);
+          this.update('view', 'explore');
         }
       }
     ],
@@ -179,7 +233,18 @@
           this.update('view', 'explore');
         },
         error: function(m, x, p) {
-
+          // TODO
+        }
+      },
+      {
+        id: 'logout',
+        url: '/api/logout/:spaceId',
+        success: function(data) {
+          this.update('spaceId', null);
+          this.update('view', 'upload');
+        },
+        error: function(m, x, p) {
+          // TODO
         }
       }
     ]
