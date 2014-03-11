@@ -39,6 +39,9 @@
             self.dispatchEvent('unlock');
           });
 
+      // Update DOM view:
+      tbn.dom.attr('data-tbn-view', view);
+
       // Lock UI until the template is loaded:
       self.dispatchEvent('lock');
     };
