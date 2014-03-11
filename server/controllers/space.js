@@ -56,7 +56,8 @@ exports.login = function(req, res) {
 
       // Send response:
       return res.json({
-        ok: true
+        id: params.id,
+        graphs: result.graphs
       });
     }
   });
@@ -167,7 +168,21 @@ exports.create = function(req, res) {
           return res.send(500);
         }
 
-        return res.json(spaceResult);
+        var date = Date.now();
+
+        // Add space, graphs metas and graphs to the session:
+        req.session.spaces = req.session.spaces || {};
+        req.session.graphs = req.session.graphs || {};
+        req.session.graphMetas = req.session.graphMetas || {};
+
+        req.session.spaces[spaceResult.id] = date;
+        req.session.graphs[spaceResult.value.graphs[0].id] = date;
+        req.session.graphMetas[spaceResult.value.graphs[0].metaId] = date;
+
+        return res.json({
+          id: spaceResult.id,
+          graphs: spaceResult.value.graphs
+        });
       });
     });
   });
