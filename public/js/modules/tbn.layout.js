@@ -17,7 +17,7 @@
     this.triggers.events.viewUpdated = function(d) {
       var view = d.get('view'),
           template = tbn.templates.require('tbn.' + view, function(template) {
-            var dom = template();
+            var dom = $(template());
             $('.main', tbn.dom).empty().filter(':visible').append(dom);
 
             // Reinitialize module:

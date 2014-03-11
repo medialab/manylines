@@ -105,23 +105,42 @@
               hash = '#/upload';
               break;
 
-            default:
+            case 'login':
+            case 'explore':
+            case 'scripts':
+            case 'settings':
               if (!spaceId) {
                 this.log('The space ID is missing. The view is set to "upload".');
-                hash = '#/' + view;
+                hash = '#/upload';
               } else {
-                hash = '#/login/' + spaceId;
+                hash = '#/' + view + '/' + spaceId;
               }
+              break;
+
+            default:
+              hash = '#/upload';
               break;
           }
 
-          if (hash) {
-            // Effectively update the hash:
-            this.dispatchEvent('updateHash', {
-              hash: hash
-            });
-          } else
-            this.die('Invalid state.');
+          // Effectively update the hash:
+          this.dispatchEvent('updateHash', {
+            hash: hash
+          });
+        }
+      },
+
+      /**
+       * Login / logout management:
+       * **************************
+       */
+      {
+        triggers: 'login',
+        method: function(e) {
+          this.request('login', {
+            shortcuts: {
+              password: e.data.password
+            }
+          });
         }
       },
       {
@@ -153,8 +172,15 @@
     ],
     services: [
       {
-        id: 'getSpace',
-        url: '/api/space/'
+        id: 'login',
+        url: '/api/login/:spaceId/:password',
+        success: function(data) {
+          this.update('space', data);
+          this.update('view', 'explore');
+        },
+        error: function(m, x, p) {
+
+        }
       }
     ]
   });
