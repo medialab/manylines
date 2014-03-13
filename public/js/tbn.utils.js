@@ -88,19 +88,36 @@
    * Alert utils:
    * ************
    */
+  var currentAlerts = {};
   tbn.success = function(msg) {
-    // TODO
+    var d = $('<div class="alert alert-success">' + msg + '</div>').appendTo(tbn.alertsDom);
+    setTimeout(function() {
+      if (tbn.alertsDom.has(d))
+        d.fadeOut(300, function() { $(this).remove(); });
+    }, tbn.config.alertsDelay || 2000);
   };
 
   tbn.info = function(msg) {
-    // TODO
+    var d = $('<div class="alert alert-info">' + msg + '</div>').appendTo(tbn.alertsDom);
+    setTimeout(function() {
+      if (tbn.alertsDom.has(d))
+        d.fadeOut(300, function() { $(this).remove(); });
+    }, tbn.config.alertsDelay || 2000);
   };
 
   tbn.warning = function(msg) {
-    // TODO
+    var d = $('<div class="alert alert-warning">' + msg + '</div>').appendTo(tbn.alertsDom);
+    setTimeout(function() {
+      if (tbn.alertsDom.has(d))
+        d.fadeOut(300, function() { $(this).remove(); });
+    }, tbn.config.alertsDelay || 2000);
   };
 
   tbn.danger = function(msg) {
-    // TODO
+    var d = $('<div class="alert alert-danger">' + msg + '</div>').appendTo(tbn.alertsDom);
+    setTimeout(function() {
+      if (tbn.alertsDom.has(d))
+        d.fadeOut(300, function() { $(this).remove(); });
+    }, tbn.config.alertsDelay || 2000);
   };
 }).call(this);

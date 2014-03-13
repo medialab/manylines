@@ -42,6 +42,19 @@ body {
 }
 
 
+/* Alerts container: */
+#tbn-alerts-container {
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  top: 20px;
+  z-index: 2000;
+}
+
+#tbn-alerts-container > .alert {
+  margin-bottom: 5px;
+}
+
 
 
 /* Sidebar navigation */

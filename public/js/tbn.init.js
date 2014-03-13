@@ -3,6 +3,7 @@
 
   // DOM root:
   tbn.dom = tbn.dom || $('body');
+  tbn.alertsDom = tbn.alertsDom || $('#tbn-alerts-container');
 
   // Default configuration:
   tbn.pkg('blf');
