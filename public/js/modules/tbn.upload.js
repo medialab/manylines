@@ -14,18 +14,35 @@
         reader.readAsText(file, 'UTF-8');
         reader.onload = function(e) {
           var data,
-              content = e.target.result;
+              content = e.target.result,
+              extension = file.name.split('.').pop().toLowerCase();
 
-          // Check that the graph is a valid JSON file:
-          try {
-            data = JSON.parse(content);
-          } catch (err) {
-            tbn.danger(i18n.t('upload.invalid_JSON_file'));
+          switch (extension) {
+            case 'json':
+              try {
+                data = JSON.parse(content);
+              } catch (err) {
+                tbn.danger(i18n.t('upload.invalid_JSON_file'));
+              }
+              break;
+            case 'gexf':
+              try {
+                sigma.parsers.gexf(
+                  (new DOMParser()).parseFromString(content, 'application/xml'),
+                  function(gexf) {
+                    // Remove metadata from GEXF:
+                    data = {
+                      nodes: gexf.nodes,
+                      edges: gexf.edges
+                    };
+                  }
+                );
+              } catch (err) {
+                tbn.danger(i18n.t('upload.invalid_GEXF_file'));
+              }
           }
 
-          // Check that the file is well structured:
-          // TODO
-
+          // If we have valid data, let's update:
           if (data)
             self.dispatchEvent('graphUploaded', {
               graph: data

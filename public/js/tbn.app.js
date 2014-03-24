@@ -85,6 +85,35 @@
         description: 'The current view. Available values: "explore", "settings", "scripts", "upload", "login"',
         type: 'string',
         value: ''
+      },
+      {
+        id: 'isModified',
+        triggers: 'updateIsModified',
+        dispatch: 'isModifiedUpdated',
+        description: 'An object specifying what has been updated since the last update.',
+        type: '?object',
+        value: null
+      },
+
+      /**
+       * EXPLORE:
+       * ********
+       */
+      {
+        id: 'explore-mode',
+        triggers: 'explore-updateMode',
+        dispatch: 'explore-modeUpdated',
+        description: '[explore view] The mode of exploration.',
+        type: 'string',
+        value: 'overview'
+      },
+      {
+        id: 'explore-layout',
+        triggers: 'explore-updateLayout',
+        dispatch: 'explore-layoutUpdated',
+        description: '[explore view] The currently used layout.',
+        type: '?string',
+        value: null
       }
     ],
     hacks: [
@@ -208,8 +237,8 @@
       },
 
       /**
-       * Graph uploading:
-       * ****************
+       * Data synchronization:
+       * *********************
        */
       {
         triggers: 'graphUploaded',
@@ -219,6 +248,43 @@
           this.update('graph', graph);
           this.update('spaceId', null);
           this.update('view', 'explore');
+        }
+      },
+      {
+        triggers: 'save',
+        method: function(e) {
+          var modified = this.get('isModified');
+
+          if (Object.keys(modified || {}).length) {
+            var k,
+                data = {};
+
+            for (k in modified)
+              data[k] = this.get(k);
+
+            // TODO:
+            // Deal with space creation here
+            return;
+            if (data)
+              this.request('save', data);
+          }
+        }
+      },
+      {
+        triggers: ['graphUpdated', 'graphMetaUpdated'],
+        method: function(e) {
+          var modified = this.get('isModified') || {};
+
+          switch (e.type) {
+            case 'graphUpdated':
+              modified.graph = true;
+              break;
+            case 'graphMetaUpdated':
+              modified.graphMeta = true;
+              break;
+          }
+
+          this.update('isModified', modified);
         }
       }
     ],
@@ -243,6 +309,27 @@
         success: function(data) {
           this.update('spaceId', null);
           this.update('view', 'upload');
+        },
+        error: function(m, x, p) {
+          tbn.error(i18n.t('errors.default'));
+        }
+      },
+      {
+        id: 'save',
+        url: '/graph/last/:spaceId',
+        success: function(data) {
+          this.update('spaceId', null);
+          this.update('isModified', null)
+        },
+        error: function(m, x, p) {
+          tbn.error(i18n.t('errors.default'));
+        }
+      },
+      {
+        id: 'createSpace',
+        url: '/api/space/:email/:password',
+        success: function(data) {
+          this.update('spaceId', data.id);
         },
         error: function(m, x, p) {
           tbn.error(i18n.t('errors.default'));

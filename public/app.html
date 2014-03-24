@@ -35,7 +35,11 @@
         </div>
         <div class="navbar-collapse collapse tbn-logged">
           <ul class="nav navbar-nav navbar-right">
-            <li class="navbar-alert"><a href="#"><span class="glyphicon glyphicon-exclamation-sign"></span> Not saved</a></li>
+            <li class="navbar-alert" data-tbn-domShow="isModified" data-tbn-domClick="save">
+              <a href="#">
+                <span class="glyphicon glyphicon-exclamation-sign" data-i18n="menu.unsaved"></span>
+              </a>
+            </li>
             <li><a href="#" data-i18n="menu.help"></a></li>
             <li><a href="http://tools.medialab.sciences-po.fr"><span class="glyphicon glyphicon-plus"></span> Médialab Tools</a></li>
           </ul>
@@ -63,11 +67,11 @@
       <div class="row">
         <div class="col-xs-4 col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="explore.html" data-tbn-view="explore" data-i18n="menu.explore"></a></li>
-            <li><a class="todo" href="statistics.html" data-tbn-view="statistics" data-i18n="menu.statistics"></a></li>
+            <li><a href="explore.html" data-tbn-updateView="explore" data-i18n="menu.explore"></a></li>
+            <li><a class="todo" href="statistics.html" data-tbn-updateView="statistics" data-i18n="menu.statistics"></a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a class="todo" href="scripts.html" data-tbn-view="scripts" data-i18n="menu.run_scripts"></a></li>
+            <li><a class="todo" href="scripts.html" data-tbn-updateView="scripts" data-i18n="menu.run_scripts"></a></li>
           </ul>
           <ul class="nav nav-sidebar">
             <li><a class="todo" href="edit.html" data-i18n="menu.edit_nodes_and_edges"></a></li>
@@ -86,7 +90,7 @@
             <li><a class="todo" href="export.html" data-i18n="menu.export"></a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a class="todo" href="settings.html" data-tbn-view="settings" data-i18n="menu.settings"></a></li>
+            <li><a class="todo" href="settings.html" data-tbn-updateView="settings" data-i18n="menu.settings"></a></li>
             <li><a class="todo" href="save.html" data-i18n="menu.save"></a></li>
           </ul>
         </div>
@@ -117,6 +121,8 @@
     <script src="/js/lib/bootstrap-v3.1.1.min.js"></script>
     <script src="/js/lib/i18next-v1.7.2.min.js"></script>
     <script src="/js/lib/domino-v1.3.5.min.js"></script>
+    <script src="/js/lib/sigma-v1.0.1.min.js"></script>
+    <script src="/js/lib/sigma.parsers.gexf.min.js"></script>
 
     <!-- JavaScript application files
     ================================================== -->
