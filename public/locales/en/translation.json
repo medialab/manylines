@@ -12,7 +12,9 @@
     "publish_stories": "Publish Stories",
     "export": "Export",
     "settings": "Settings",
-    "save": "Save"
+    "save": "Save",
+    "toggle_navigation": "Toggle navigation",
+    "help": "Help"
   },
   "login": {
     "login": "Login",
@@ -24,5 +26,10 @@
     "upload_network": "Upload your network",
     "upload_gexf": "Upload a GEXF file",
     "error_uploading_file": "An error occured while uploading the file"
+  },
+
+  "errors": {
+    "default": "An error occured.",
+    "unauthorized": "Unauthorized logon failed due to server configuration."
   }
 }

@@ -231,7 +231,10 @@
           this.update('view', 'explore');
         },
         error: function(m, x, p) {
-          // TODO
+          if (x.status)
+            tbn.info(i18n.t('errors.unauthorized'));
+          else
+            tbn.danger(i18n.t('errors.default'));
         }
       },
       {
@@ -242,7 +245,7 @@
           this.update('view', 'upload');
         },
         error: function(m, x, p) {
-          // TODO
+          tbn.error(i18n.t('errors.default'));
         }
       }
     ]
