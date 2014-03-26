@@ -40,6 +40,13 @@
     "select_mode": "Select a way to explore the network",
     "filter_panel": "Filter panel"
   },
+  "space": {
+    "save_graph": "Save the graph",
+    "save_graph_description": "You need to select a password to prevent your network to be edited by other people, and an email address in case you forget the password.",
+    "password": "Password",
+    "email": "Mail address",
+    "save": "Save"
+  },
 
   "graph": {
     "node": "__count__ node",

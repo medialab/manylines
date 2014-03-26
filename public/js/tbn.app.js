@@ -174,6 +174,8 @@
           var hash = e.data.hash.replace(/^#\//, '').split('/'),
               view = hash[0];
 
+          this.log('Hash updated:', hash);
+
           // Check view:
           view = view || 'upload';
           this.update('view', view);
@@ -200,8 +202,16 @@
             // Views with optional spaceId:
             case 'explore':
               if (hash.length <= 1) {
+                if (!this.get('graph')) {
+                  this.log('The space ID and graph are missing. The view is set to "upload".');
+                  this.update('view', 'upload');
+                }
+
                 this.update('spaceId', null);
               } else {
+                if (!this.get('graph'))
+                  this.request('loadLast');
+
                 this.update('spaceId', hash[1]);
               }
               break;
@@ -247,6 +257,9 @@
 
           this.update('graph', graph);
           this.update('spaceId', null);
+          this.update('isModified', {
+            graph: true
+          });
           this.update('view', 'explore');
         }
       },
@@ -255,31 +268,42 @@
         method: function(e) {
           var modified = this.get('isModified');
 
-          if (Object.keys(modified || {}).length) {
+          if (!this.get('spaceId'))
+            this.dispatchEvent('openSpaceForm');
+          else if (Object.keys(modified || {}).length) {
             var k,
                 data = {};
 
             for (k in modified)
               data[k] = this.get(k);
 
-            // TODO:
-            // Deal with space creation here
-            return;
-            if (data)
-              this.request('save', data);
+            this.request('save', {
+              data: data
+            });
           }
         }
       },
       {
-        triggers: ['graphUpdated', 'graphMetaUpdated'],
+        triggers: 'createSpace',
+        method: function(e) {
+          this.request('createSpace', {
+            shortcuts: {
+              email: e.data.email,
+              password: e.data.password
+            }
+          });
+        }
+      },
+      {
+        triggers: ['updateGraph', 'updateGraphMeta'],
         method: function(e) {
           var modified = this.get('isModified') || {};
 
           switch (e.type) {
-            case 'graphUpdated':
+            case 'updateGraph':
               modified.graph = true;
               break;
-            case 'graphMetaUpdated':
+            case 'updateGraphMeta':
               modified.graphMeta = true;
               break;
           }
@@ -292,6 +316,7 @@
       {
         id: 'login',
         url: '/api/login/:spaceId/:password',
+        dataType: 'json',
         success: function(data) {
           this.update('space', data);
           this.update('view', 'explore');
@@ -306,6 +331,7 @@
       {
         id: 'logout',
         url: '/api/logout/:spaceId',
+        dataType: 'json',
         success: function(data) {
           this.update('spaceId', null);
           this.update('view', 'upload');
@@ -316,9 +342,11 @@
       },
       {
         id: 'save',
-        url: '/graph/last/:spaceId',
+        url: '/api/graph/last/:spaceId',
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'POST',
         success: function(data) {
-          this.update('spaceId', null);
           this.update('isModified', null)
         },
         error: function(m, x, p) {
@@ -328,8 +356,24 @@
       {
         id: 'createSpace',
         url: '/api/space/:email/:password',
+        dataType: 'json',
+        type: 'POST',
         success: function(data) {
           this.update('spaceId', data.id);
+          this.dispatchEvent('save');
+        },
+        error: function(m, x, p) {
+          tbn.error(i18n.t('errors.default'));
+        }
+      },
+      {
+        id: 'loadLast',
+        url: '/api/graph/last/:spaceId',
+        dataType: 'json',
+        success: function(data) {
+          this.update('graphMeta', data.meta);
+          this.update('graph', data.graph);
+          this.update('isModified', null);
         },
         error: function(m, x, p) {
           tbn.error(i18n.t('errors.default'));

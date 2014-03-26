@@ -33,11 +33,10 @@
       });
     }
 
-    // Hash module:
+    // Various modules:
     control.addModule(tbn.modules.location);
-
-    // Views panel:
     control.addModule(tbn.modules.viewsPanel);
+    control.addModule(tbn.modules.spaceForm);
 
     // DOM modules:
     bindDOM(tbn.dom);
@@ -50,6 +49,10 @@
       // Update DOM view:
       tbn.dom.attr('data-tbn-view', view);
 
+      // Lock UI until the template is loaded:
+      self.dispatchEvent('lock');
+
+      // Load and render template:
       tbn.templates.require('tbn.' + view, function(template) {
         var dom = $(template()).i18n();
         $('.main', tbn.dom).empty().filter(':visible').append(dom);
@@ -63,9 +66,6 @@
         // Unlock UI:
         self.dispatchEvent('unlock');
       });
-
-      // Lock UI until the template is loaded:
-      self.dispatchEvent('lock');
     };
   };
 }).call(this);

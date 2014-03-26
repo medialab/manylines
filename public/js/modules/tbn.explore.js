@@ -41,6 +41,6 @@
     refresh();
 
     // Reference triggers:
-    this.triggers.properties.graphUpdate = refresh;
+    this.triggers.events.graphUpdated = refresh;
   };
 }).call(this);

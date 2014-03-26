@@ -35,6 +35,7 @@
 
       if (stored !== hash) {
         stored = hash;
+        d.log('Update hash:', hash);
         window.location.hash = hash;
       }
     }
@@ -58,6 +59,39 @@
     });
   };
 
+  /**
+   * The form to create a space.
+   */
+  tbn.modules.spaceForm = function(d) {
+    var modal,
+        self = this;
+
+    this.triggers.events.openSpaceForm = function(d) {
+      // Lock UI until the template is loaded:
+      self.dispatchEvent('lock');
+
+      tbn.templates.require('tbn.spaceForm', function(template) {
+        self.dispatchEvent('unlock');
+        if (modal)
+          modal.add($('body > .modal-backdrop')).remove();
+
+        // Initialize new modal:
+        modal = $(template()).i18n().modal();
+
+        // Bind event listeners:
+        $('button.close', modal).click(function() {
+          modal.add($('body > .modal-backdrop')).remove();
+        });
+        $('#space-save', modal).click(function() {
+          self.dispatchEvent('createSpace', {
+            email: $('#space-email', modal).val(),
+            password: $('#space-password', modal).val()
+          });
+          modal.add($('body > .modal-backdrop')).remove();
+        });
+      });
+    };
+  };
 
 
 
@@ -73,8 +107,10 @@
    */
   tbn.modules.domClick = function(event, domElement) {
     var self = this;
-    domElement.click(function() {
+    domElement.click(function(e) {
       self.dispatchEvent(event);
+      e.stopPropagation();
+      return false;
     });
   };
 

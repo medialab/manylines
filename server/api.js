@@ -19,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.cookieParser(config.api.secret));
 app.use(express.session({ domain: 'localhost:8080,localhost:8000' }));
+app.use(express.bodyParser({ limit: '50mb' }));
 app.use(app.router);
 
 // development only
