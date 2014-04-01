@@ -57,7 +57,9 @@
 
   "warnings": {
     "invalid_password": "Invalid password",
-    "invalid_email": "Invalid email"
+    "invalid_email": "Invalid email",
+    "missing_password": "Missing password",
+    "missing_email": "Missing email"
   },
   "errors": {
     "default": "An error occured.",

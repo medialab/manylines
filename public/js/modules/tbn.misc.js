@@ -67,7 +67,8 @@
         self = this;
 
     this.triggers.events.spaceIdUpdated = function(d) {
-      modal.add($('body > .modal-backdrop')).remove();
+      if (modal)
+        modal.add($('body > .modal-backdrop')).remove();
     };
 
     this.triggers.events.openSpaceForm = function(d) {
@@ -76,6 +77,7 @@
 
       tbn.templates.require('tbn.spaceForm', function(template) {
         self.dispatchEvent('unlock');
+
         if (modal)
           modal.add($('body > .modal-backdrop')).remove();
 
@@ -87,10 +89,18 @@
           modal.add($('body > .modal-backdrop')).remove();
         });
         $('#space-save', modal).click(function() {
-          self.dispatchEvent('createSpace', {
-            email: $('#space-email', modal).val(),
-            password: $('#space-password', modal).val()
-          });
+          var email = $('#space-email', modal).val(),
+              password = $('#space-password', modal).val();
+
+          if (email && password)
+            self.dispatchEvent('createSpace', {
+              email: email,
+              password: password
+            });
+          else if (!email)
+            tbn.info(i18n.t('warnings.missing_email'));
+          else if (!password)
+            tbn.info(i18n.t('warnings.missing_password'));
         });
       });
     };
