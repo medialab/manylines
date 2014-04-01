@@ -55,6 +55,10 @@
     "edge_plural": "__count__ edges"
   },
 
+  "warnings": {
+    "invalid_password": "Invalid password",
+    "invalid_email": "Invalid email"
+  },
   "errors": {
     "default": "An error occured.",
     "unauthorized": "Unauthorized logon failed due to server configuration."

@@ -337,7 +337,7 @@
           this.update('view', 'upload');
         },
         error: function(m, x, p) {
-          tbn.error(i18n.t('errors.default'));
+          tbn.danger(i18n.t('errors.default'));
         }
       },
       {
@@ -350,7 +350,7 @@
           this.update('isModified', null)
         },
         error: function(m, x, p) {
-          tbn.error(i18n.t('errors.default'));
+          tbn.danger(i18n.t('errors.default'));
         }
       },
       {
@@ -363,7 +363,12 @@
           this.dispatchEvent('save');
         },
         error: function(m, x, p) {
-          tbn.error(i18n.t('errors.default'));
+          if (m === 'Invalid email')
+            tbn.info(i18n.t('warnings.invalid_email'));
+          else if (m === 'Invalid password')
+            tbn.info(i18n.t('warnings.invalid_password'));
+          else
+            tbn.danger(i18n.t('errors.default'));
         }
       },
       {
@@ -376,7 +381,7 @@
           this.update('isModified', null);
         },
         error: function(m, x, p) {
-          tbn.error(i18n.t('errors.default'));
+          tbn.danger(i18n.t('errors.default'));
         }
       }
     ]

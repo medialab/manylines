@@ -27,9 +27,6 @@ if ('development' === app.get('env')) {
   app.use(express.errorHandler());
 }
 
-
-
-
 /**
  * ROUTES:
  * *******
@@ -50,8 +47,6 @@ app.post('/api/graphmeta/:id/:password', function(req, res) { /* TODO */ });
 app.get('/api/graphmeta/:id/:password', function(req, res) { /* TODO */ });
 
 app.get('/*', express.static(__dirname + '/../' + config.static.path));
-
-
 
 /**
  * EXPORT:

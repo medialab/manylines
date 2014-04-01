@@ -4,6 +4,14 @@ var settings = require('../../config.json'),
     couchbase = require('couchbase');
 
 exports.set = function(data, id, callback) {
+  if (
+    arguments.length === 2 &&
+    typeof id === 'function'
+  ) {
+    callback = id;
+    id = undefined;
+  }
+
   if (!struct.check(
     {
       password: 'string',
@@ -13,11 +21,6 @@ exports.set = function(data, id, callback) {
     data
   ))
     return callback(new Error('models.space.set: Wrong data.'));
-
-  if (arguments.length === 2) {
-    callback = id;
-    id = false;
-  }
 
   var id = id || utils.uuid(),
       data = {

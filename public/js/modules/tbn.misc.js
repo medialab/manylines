@@ -66,6 +66,10 @@
     var modal,
         self = this;
 
+    this.triggers.events.spaceIdUpdated = function(d) {
+      modal.add($('body > .modal-backdrop')).remove();
+    };
+
     this.triggers.events.openSpaceForm = function(d) {
       // Lock UI until the template is loaded:
       self.dispatchEvent('lock');
@@ -87,7 +91,6 @@
             email: $('#space-email', modal).val(),
             password: $('#space-password', modal).val()
           });
-          modal.add($('body > .modal-backdrop')).remove();
         });
       });
     };

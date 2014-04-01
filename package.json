@@ -16,7 +16,8 @@
     "crypto": "0.0.3",
     "http": "0.0.0",
     "path": "~0.4.9",
-    "http-proxy": "~1.0.2"
+    "http-proxy": "~1.0.2",
+    "validator": "~3.5.1"
   },
   "scripts": {
     "start": "node bin/start.js"

@@ -1,5 +1,7 @@
 var struct = require('../../lib/struct.js'),
     utils = require('../../lib/utils.js'),
+    errors = require('../../errors.json'),
+    validator = require('validator'),
     models = {
       graphMeta: require('../models/graphMeta.js'),
       graph: require('../models/graph.js'),
@@ -140,6 +142,12 @@ exports.create = function(req, res) {
     params
   ))
     return res.send(400);
+
+  if (!validator.isEmail(params.email))
+    return res.send(400, errors.INPUT_INVALID_EMAIL);
+
+  if (!validator.isLength(params.password, 8))
+    return res.send(400, errors.INPUT_INVALID_PASSWORD);
 
   models.graph.set({}, function(err, graphResult) {
     if (err) {
