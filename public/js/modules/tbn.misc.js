@@ -51,7 +51,7 @@
 
       if (!target.hasClass('todo'))
         self.dispatchEvent('updateView', {
-          view: target.data('tbn-updateView')
+          view: target.attr('data-tbn-updateView')
         });
 
       e.stopPropagation();
