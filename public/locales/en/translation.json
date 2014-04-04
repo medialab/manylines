@@ -40,6 +40,28 @@
     "select_mode": "Select a way to explore the network",
     "filter_panel": "Filter panel"
   },
+  "settings": {
+    "settings": "Settings",
+    "network": "Network",
+    "description": "Description",
+    "authors": "Authors",
+    "about_authors": "About authors",
+    "account": "Account",
+    "change_email": "Change email",
+    "edit_password": "Edit password",
+    "dangerous_stuff": "Dangerous stuff",
+    "restart": "Restart",
+    "upload": "Upload new network",
+    "upload_description": "Erase everything and upload a new network instead of the current one",
+    "delete": "Delete this network",
+    "delete_description": "Remove this network from TubeMyNet",
+    "remove": "Remove",
+
+    "title_placeholder": "Enter a title",
+    "description_placeholder": "Enter a short description",
+    "authors_placeholder": "Enter name(s)",
+    "authors_description_placeholder": "Enter a short text"
+  },
   "space": {
     "save_graph": "Save the graph",
     "save_graph_description": "You need to select a password to prevent your network to be edited by other people, and an email address in case you forget the password.",

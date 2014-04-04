@@ -1,2 +1,88 @@
 {{! Settings panel: }}
-{{! TODO }}
+<h1 class="page-header">{{t "settings.settings" }}</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <h4>{{t "settings.network" }}</h4>
+    <div class="form-group">
+      <input type="text"
+             class="form-control"
+             data-tbn-settings-meta="title"
+             placeholder="{{t "settings.title_placeholder" }}">
+    </div>
+    <div class="form-group">
+      <label for="tbn.settings.descriptionInput">{{t "settings.description" }}</label>
+      <textarea class="form-control"
+                id="tbn.settings.descriptionInput"
+                data-tbn-settings-meta="description"
+                placeholder="{{t "settings.description_placeholder" }}"
+                rows="3"></textarea>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <h4>{{t "settings.authors" }}</h4>
+    <div class="form-group">
+      <input type="text"
+             class="form-control"
+             data-tbn-settings-meta="authors"
+             placeholder="{{t "settings.authors_placeholder" }}">
+    </div>
+    <div class="form-group">
+      <label for="tbn.settings.authorsDescriptionInput">{{t "settings.about_authors" }}</label>
+      <textarea class="form-control"
+                id="tbn.settings.authorsDescriptionInput"
+                data-tbn-settings-meta="authors_description"
+                placeholder="{{t "settings.authors_description_placeholder" }}"
+                rows="3"></textarea>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <h4>{{t "settings.account" }}</h4>
+    <div>
+      <div class="form-group">
+        <div class="input-group">
+          <input type="email"
+                 class="form-control"
+                 data-tbn-settings-space="email"
+                 value=""
+                 disabled>
+          <span class="input-group-btn">
+            <button class="btn btn-warning" type="button">{{t "settings.change_email" }}</button>
+          </span>
+        </div>
+        <br/>
+        <div class="input-group">
+          <input type="password"
+                 class="form-control"
+                 data-tbn-settings-space="password"
+                 value=""
+                 disabled>
+          <span class="input-group-btn">
+            <button class="btn btn-warning" type="button">{{t "settings.edit_password" }}</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br/>
+<br/>
+
+<h2>{{t "settings.dangerous_stuff" }}</h2>
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <h4>{{t "settings.restart" }}</h4>
+    <div class="form-group">
+      <button type="button" class="btn btn-danger">{{t "settings.upload" }}</button>
+    </div>
+    <p class="text-info">{{t "settings.upload_description" }}</p>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <h4>{{t "settings.remove" }}</h4>
+    <div class="form-group">
+      <button type="button" class="btn btn-danger">{{t "settings.delete" }}</button>
+    </div>
+    <p class="text-info">{{t "settings.delete_description" }}</p>
+  </div>
+</div>
