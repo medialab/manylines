@@ -12,6 +12,7 @@
       id: 'Space',
       struct: {
         id: 'string',
+        email: '?string',
         graphs: [{
           metaId: 'string',
           id: 'string'
@@ -87,6 +88,14 @@
         value: ''
       },
       {
+        id: 'lastView',
+        triggers: 'updateLastView',
+        dispatch: 'lastViewUpdated',
+        description: 'The latest set view (useful when going to the logging view temporarily).',
+        type: 'string',
+        value: ''
+      },
+      {
         id: 'isModified',
         triggers: 'updateIsModified',
         dispatch: 'isModifiedUpdated',
@@ -139,7 +148,6 @@
             case 'scripts':
             case 'settings':
               if (!spaceId) {
-                debugger;
                 this.log('The space ID is missing. The view is set to "upload".');
                 hash = '#/upload';
               } else {
@@ -240,6 +248,14 @@
         }
       },
       {
+        triggers: 'requireLogin',
+        method: function(e) {
+          var view = this.get('view');
+          this.update('lastView', view !== 'login' ? view : null);
+          this.update('view', 'login');
+        }
+      },
+      {
         triggers: 'logout',
         method: function(e) {
           this.request('logout');
@@ -295,6 +311,13 @@
         }
       },
       {
+        triggers: 'spaceIdUpdated',
+        method: function(e) {
+          if (this.get('spaceId') !== (this.get('space') || {}).id && this.get('spaceId'))
+            this.request('getSpace');
+        }
+      },
+      {
         triggers: ['updateGraph', 'updateGraphMeta'],
         method: function(e) {
           var modified = this.get('isModified') || {};
@@ -319,7 +342,7 @@
         dataType: 'json',
         success: function(data) {
           this.update('space', data);
-          this.update('view', 'explore');
+          this.update('view', this.get('lastView') || 'explore');
         },
         error: function(m, x, p) {
           if (x.status)
@@ -372,6 +395,22 @@
         }
       },
       {
+        id: 'getSpace',
+        url: '/api/space/:spaceId',
+        dataType: 'json',
+        type: 'GET',
+        success: function(data) {
+          this.update('space', data);
+          this.update('spaceId', data.id);
+        },
+        error: function(m, x, p) {
+          if (+x.status === 401)
+            this.dispatchEvent('requireLogin');
+          else
+            tbn.danger(i18n.t('errors.default'));
+        }
+      },
+      {
         id: 'loadLast',
         url: '/api/graph/last/:spaceId',
         dataType: 'json',
@@ -381,7 +420,10 @@
           this.update('isModified', null);
         },
         error: function(m, x, p) {
-          tbn.danger(i18n.t('errors.default'));
+          if (+x.status === 401)
+            this.dispatchEvent('requireLogin');
+          else
+            tbn.danger(i18n.t('errors.default'));
         }
       }
     ]
