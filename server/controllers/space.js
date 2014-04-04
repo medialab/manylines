@@ -415,7 +415,7 @@ exports.updateLast = function(req, res) {
   if (!struct.check(
     {
       id: 'string',
-      meta: '?object',
+      graphMeta: '?object',
       graph: '?object'
     },
     params

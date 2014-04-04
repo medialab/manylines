@@ -30,9 +30,9 @@
       }
     });
 
-  if (!domino.struct.isValid('GraphMeta'))
+  if (!domino.struct.isValid('Meta'))
     domino.struct.add({
-      id: 'GraphMeta',
+      id: 'Meta',
       struct: 'object'
     });
 
@@ -67,11 +67,11 @@
         value: null
       },
       {
-        id: 'graphMeta',
-        triggers: 'updateGraphMeta',
-        dispatch: 'graphMetaUpdated',
+        id: 'meta',
+        triggers: 'updateMeta',
+        dispatch: 'metaUpdated',
         description: 'The current graph meta object.',
-        type: '?GraphMeta',
+        type: '?Meta',
         value: null
       },
 
@@ -203,6 +203,9 @@
                 this.update('view', 'upload');
                 this.update('spaceId', null);
               } else {
+                if (!this.get('graph'))
+                  this.request('loadLast');
+
                 this.update('spaceId', hash[1]);
               }
               break;
@@ -318,7 +321,7 @@
         }
       },
       {
-        triggers: ['updateGraph', 'updateGraphMeta'],
+        triggers: ['updateGraph', 'updateMeta'],
         method: function(e) {
           var modified = this.get('isModified') || {};
 
@@ -326,12 +329,28 @@
             case 'updateGraph':
               modified.graph = true;
               break;
-            case 'updateGraphMeta':
-              modified.graphMeta = true;
+            case 'updateMeta':
+              modified.meta = true;
               break;
           }
 
           this.update('isModified', modified);
+        }
+      },
+
+      /**
+       * Data update:
+       * ************
+       */
+      {
+        triggers: 'updateMetaKey',
+        method: function(e) {
+          var meta = this.get('meta') || {};
+          meta[e.data.key] = e.data.value;
+
+          this.dispatchEvent('updateMeta', {
+            meta: meta
+          });
         }
       }
     ],
@@ -415,7 +434,7 @@
         url: '/api/graph/last/:spaceId',
         dataType: 'json',
         success: function(data) {
-          this.update('graphMeta', data.meta);
+          this.update('meta', data.meta);
           this.update('graph', data.graph);
           this.update('isModified', null);
         },
