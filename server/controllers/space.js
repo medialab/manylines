@@ -59,6 +59,7 @@ exports.login = function(req, res) {
       // Send response:
       return res.json({
         id: params.id,
+        email: params.email,
         graphs: result.graphs
       });
     }
@@ -189,9 +190,48 @@ exports.create = function(req, res) {
 
         return res.json({
           id: spaceResult.id,
+          email: spaceResult.email,
           graphs: spaceResult.value.graphs
         });
       });
+    });
+  });
+};
+
+/**
+ * [get description]
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+exports.get = function(req, res) {
+  var params = {
+    id: req.params.id
+  };
+
+  // Check params:
+  if (!struct.check(
+    {
+      id: 'string'
+    },
+    params
+  ))
+    return res.send(400);
+
+  // Check authorizations:
+  if (!(req.session.spaces || {})[params.id])
+    return res.send(401);
+
+  models.space.get(params.id, function(err, result) {
+    if (err) {
+      console.log('controllers.space.get: unknown error retrieving the graph object.');
+      return res.send(500);
+    }
+
+    return res.json({
+      id: result.id,
+      email: result.email,
+      graphs: result.graphs
     });
   });
 };
