@@ -59,7 +59,7 @@ exports.login = function(req, res) {
       // Send response:
       return res.json({
         id: params.id,
-        email: params.email,
+        email: result.email,
         graphs: result.graphs
       });
     }
@@ -190,7 +190,7 @@ exports.create = function(req, res) {
 
         return res.json({
           id: spaceResult.id,
-          email: spaceResult.email,
+          email: spaceResult.value.email,
           graphs: spaceResult.value.graphs
         });
       });
@@ -229,7 +229,7 @@ exports.get = function(req, res) {
     }
 
     return res.json({
-      id: result.id,
+      id: req.params.id,
       email: result.email,
       graphs: result.graphs
     });
