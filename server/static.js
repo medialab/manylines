@@ -26,16 +26,27 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-if ('development' === app.get('env')) {
+if ('development' === app.get('env'))
   app.use(express.errorHandler());
-}
 
 /**
  * ROUTES:
  * *******
  */
 app.get('/app/', function(req, res) {
-  res.send(fs.readFileSync(__dirname + '/../' + config.static.path + '/app.html', 'utf8'));
+  var html = fs.readFileSync(__dirname + '/../' + config.static.path + '/app.html', 'utf8');
+
+  if (false && 'development' === app.get('env')) {
+    var json = JSON.parse(fs.readFileSync(__dirname + '/../imports.json', 'utf8'));
+
+    res.send(html.replace(/^[^<]*<link href=".*\/tbn\.min\.css" rel="stylesheet">/mg, json.css.map(function(path) {
+      return '    <link href="' + path + '" rel="stylesheet">';
+    }).join('\n')).replace(/^[^<]*<script src=".*\/tbn\.min\.js"><\/script>/mg, json.js.map(function(path) {
+      return '    <script src="' + path + '"></script>';
+    }).join('\n')));
+  } else {
+    res.send(html);
+  }
 });
 app.get('/app', function(req, res) {
   res.redirect('/app/');

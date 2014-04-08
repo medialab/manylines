@@ -11,6 +11,10 @@ pids
 logs
 results
 
+# Back-end:
 npm-debug.log
 node_modules
 config.json
+
+# Front-end:
+public/dist

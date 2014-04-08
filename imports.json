@@ -1,0 +1,28 @@
+{
+  "js": [
+    "/js/lib/jquery-v1.11.0.min.js",
+    "/js/lib/handlebars-v1.3.0.min.js",
+    "/js/lib/bootstrap-v3.1.1.min.js",
+    "/js/lib/i18next-v1.7.2.min.js",
+    "/js/lib/domino-v1.3.5.min.js",
+    "/js/lib/sigma-v1.0.1.min.js",
+    "/js/lib/sigma.parsers.gexf.min.js",
+
+    "/js/tbn.utils.js",
+    "/js/tbn.app.js",
+    "/js/modules/tbn.misc.js",
+    "/js/modules/tbn.login.js",
+    "/js/modules/tbn.layout.js",
+    "/js/modules/tbn.upload.js",
+    "/js/modules/tbn.explore.js",
+    "/js/modules/tbn.scripts.js",
+    "/js/modules/tbn.settings.js",
+
+    "/js/tbn.init.js"
+  ],
+  "css": [
+    "/css/bootstrap.min.css",
+    "/css/tbn.layout.css",
+    "/css/tbn.app.css"
+  ]
+}
