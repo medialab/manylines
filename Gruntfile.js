@@ -8,7 +8,10 @@ module.exports = function(grunt) {
     handlebars: {
       compile: {
         options: {
-          namespace: 'tbn.templates.preloaded'
+          namespace: 'tbn.templates.preloaded',
+          processName: function(str) {
+            return str.replace(/^public/, '');
+          }
         },
         files: {
           'public/dist/templates.js': 'public/templates/*.handlebars'
@@ -23,7 +26,7 @@ module.exports = function(grunt) {
         files: {
           'public/dist/tbn.min.js': imports.js.map(function(path) {
             return 'public' + path;
-          })
+          }).concat('public/dist/templates.js')
         }
       }
     },
@@ -42,3 +45,4 @@ module.exports = function(grunt) {
   // By default, will check lint, test and minify:
   grunt.registerTask('default', ['handlebars', 'uglify', 'cssmin']);
 };
+;
