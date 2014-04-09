@@ -92,8 +92,8 @@
         triggers: 'updateLastView',
         dispatch: 'lastViewUpdated',
         description: 'The latest set view (useful when going to the logging view temporarily).',
-        type: 'string',
-        value: ''
+        type: '?string',
+        value: null
       },
       {
         id: 'isModified',
