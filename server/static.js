@@ -36,7 +36,7 @@ if ('development' === app.get('env'))
 app.get('/app/', function(req, res) {
   var html = fs.readFileSync(__dirname + '/../' + config.static.path + '/app.html', 'utf8');
 
-  if (false && 'development' === app.get('env')) {
+  if ('development' === app.get('env')) {
     var json = JSON.parse(fs.readFileSync(__dirname + '/../imports.json', 'utf8'));
 
     res.send(html.replace(/^[^<]*<link href=".*\/tbn\.min\.css" rel="stylesheet">/mg, json.css.map(function(path) {
