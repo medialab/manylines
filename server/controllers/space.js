@@ -32,10 +32,13 @@ exports.login = function(req, res) {
 
   models.space.get(params.id, function(err, result) {
     if (err) {
-      if (err.code === 13)
+      if (err.code === 13) {
         console.log('controllers.space.login: space "' + params.id + '" not found.');
-      else
+        console.log('  -> Message: ' + err.message);
+      } else {
         console.log('controllers.space.login: unknown error.');
+        console.log('  -> Message: ' + err.message);
+      }
 
       return res.send(401);
     }
@@ -89,10 +92,13 @@ exports.logout = function(req, res) {
   if (typeof params.id === 'string')
     models.space.get(params.id, function(err, result) {
       if (err) {
-        if (err.code === 13)
+        if (err.code === 13) {
           console.log('controllers.space.logout: space "' + params.id + '" not found.');
-        else
+          console.log('  -> Message: ' + err.message);
+        } else {
           console.log('controllers.space.logout: unknown error.');
+          console.log('  -> Message: ' + err.message);
+        }
 
         return res.json({
           ok: true
@@ -153,12 +159,14 @@ exports.create = function(req, res) {
   models.graph.set({}, function(err, graphResult) {
     if (err) {
       console.log('controllers.space.create: unknown error creating the graph object.');
+      console.log('  -> Message: ' + err.message);
       return res.send(500);
     }
 
     models.graphMeta.set({}, function(err, graphMetaResult) {
       if (err) {
         console.log('controllers.space.create: unknown error creating the graph meta object.');
+        console.log('  -> Message: ' + err.message);
         return res.send(500);
       }
 
@@ -174,6 +182,7 @@ exports.create = function(req, res) {
       }, function(err, spaceResult) {
         if (err) {
           console.log('controllers.space.create: unknown error creating the space object.');
+          console.log('  -> Message: ' + err.message);
           return res.send(500);
         }
 
@@ -193,6 +202,77 @@ exports.create = function(req, res) {
           email: spaceResult.value.email,
           graphs: spaceResult.value.graphs
         });
+      });
+    });
+  });
+};
+
+/**
+ * [update description]
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+exports.update = function(req, res) {
+  var params = {
+    password: req.body.password,
+    email: req.body.email,
+    id: req.params.id
+  };
+
+  // Check params:
+  if (!struct.check(
+    {
+      password: '?string',
+      email: '?string',
+      id: 'string'
+    },
+    params
+  ))
+    return res.send(400);
+
+  if (params.email && !validator.isEmail(params.email))
+    return res.send(400, errors.INPUT_INVALID_EMAIL);
+
+  if (params.password && !validator.isLength(params.password, 8))
+    return res.send(400, errors.INPUT_INVALID_PASSWORD);
+
+  // Check authorizations:
+  if (!(req.session.spaces || {})[params.id])
+    return res.send(401);
+
+  models.space.get(params.id, function(err, result) {
+    if (err) {
+      console.log('controllers.space.update: unknown error retrieving the graph object.');
+      console.log('  -> Message: ' + err.message);
+      return res.send(500);
+    }
+
+    var data = {
+      graphs: result.graphs
+    };
+
+    if (params.email)
+      data.email = params.email;
+    else
+      data.email = result.email;
+
+    if (params.password)
+      data.password = utils.encrypt(params.password);
+    else
+      data.password = result.password;
+
+    models.space.set(data, params.id, function(err, spaceResult) {
+      if (err) {
+        console.log('controllers.space.update: unknown error updating the space object.');
+        console.log('  -> Message: ' + err.message);
+        return res.send(500);
+      }
+
+      return res.json({
+        id: spaceResult.id,
+        email: spaceResult.value.email,
+        graphs: spaceResult.value.graphs
       });
     });
   });
@@ -225,6 +305,7 @@ exports.get = function(req, res) {
   models.space.get(params.id, function(err, result) {
     if (err) {
       console.log('controllers.space.get: unknown error retrieving the graph object.');
+      console.log('  -> Message: ' + err.message);
       return res.send(500);
     }
 
@@ -266,14 +347,18 @@ exports.delete = function(req, res) {
           if (err) {
             if (err.code === 13) {
               console.log('controllers.space.delete: ' + service + ' "' + id + '" not found.');
+              console.log('  -> Message: ' + err.message);
               return res.send(401);
-            } else
+            } else {
               console.log('controllers.space.delete: unknown error deleting the ' + service + ' object "' + id + '".');
+              console.log('  -> Message: ' + err.message);
+            }
 
             return res.send(500);
           }
           if (err) {
             console.log('controllers.space.delete: unknown error deleting the ' + service + ' object "' + id + '".');
+            console.log('  -> Message: ' + err.message);
             return res.send(500);
           }
 
@@ -281,6 +366,7 @@ exports.delete = function(req, res) {
             models.space.remove(params.id, function(err, spaceResult) {
               if (err) {
                 console.log('controllers.space.delete: unknown error deleting the space object "' + params.id + '".');
+                console.log('  -> Message: ' + err.message);
                 return res.send(500);
               }
 
@@ -296,9 +382,12 @@ exports.delete = function(req, res) {
     if (err) {
       if (err.code === 13) {
         console.log('controllers.space.delete: space "' + params.id + '" not found.');
+        console.log('  -> Message: ' + err.message);
         return res.send(401);
-      } else
+      } else {
         console.log('controllers.space.delete: unknown error getting the space object "' + params.id + '".');
+        console.log('  -> Message: ' + err.message);
+      }
 
       return res.send(500);
     }
@@ -346,9 +435,12 @@ exports.readLast = function(req, res) {
     if (err) {
       if (err.code === 13) {
         console.log('controllers.space.readLast: space "' + params.id + '" not found.');
+        console.log('  -> Message: ' + err.message);
         return res.send(401);
-      } else
+      } else {
         console.log('controllers.space.readLast: unknown error.');
+        console.log('  -> Message: ' + err.message);
+      }
 
       return res.send(500);
     }
@@ -362,9 +454,12 @@ exports.readLast = function(req, res) {
         if (err) {
           if (err.code === 13) {
             console.log('controllers.space.readLast: graph "' + last.id + '" not found.');
+            console.log('  -> Message: ' + err.message);
             return res.send(401);
-          } else
+          } else {
             console.log('controllers.space.readLast: unknown error getting graph "' + last.id + '".');
+            console.log('  -> Message: ' + err.message);
+          }
 
           return res.send(500);
         }
@@ -379,9 +474,12 @@ exports.readLast = function(req, res) {
         if (err) {
           if (err.code === 13) {
             console.log('controllers.space.readLast: graph meta "' + last.metaId + '" not found.');
+            console.log('  -> Message: ' + err.message);
             return res.send(401);
-          } else
+          } else {
             console.log('controllers.space.readLast: unknown error getting graph meta "' + last.metaId + '".');
+            console.log('  -> Message: ' + err.message);
+          }
 
           return res.send(500);
         }
@@ -393,6 +491,7 @@ exports.readLast = function(req, res) {
       });
     } else {
       console.log('controllers.space.readLast: space "' + params.id + '" has no graph.');
+      console.log('  -> Message: ' + err.message);
       return res.send(500);
     }
   });
@@ -430,15 +529,19 @@ exports.updateLast = function(req, res) {
     if (err) {
       if (err.code === 13) {
         console.log('controllers.space.updateLast: space "' + params.id + '" not found.');
+        console.log('  -> Message: ' + err.message);
         return res.send(401);
-      } else
+      } else {
         console.log('controllers.space.updateLast: unknown error.');
+        console.log('  -> Message: ' + err.message);
+      }
 
       return res.send(500);
     }
 
     if (!data.graphs.length) {
       console.log('controllers.space.updateLast: space "' + params.id + '" has no graph stored.');
+      console.log('  -> Message: ' + err.message);
       return res.send(500);
     }
 
@@ -455,6 +558,7 @@ exports.updateLast = function(req, res) {
         function(err, data) {
           if (err) {
             console.log('controllers.space.updateLast: unknown error creating the graph object.');
+            console.log('  -> Message: ' + err.message);
             return res.send(500);
           }
 
@@ -475,6 +579,7 @@ exports.updateLast = function(req, res) {
         function(err, data) {
           if (err) {
             console.log('controllers.space.updateLast: unknown error creating the graph meta object.');
+            console.log('  -> Message: ' + err.message);
             return res.send(500);
           }
 

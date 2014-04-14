@@ -44,10 +44,13 @@
           <input type="email"
                  class="form-control"
                  data-tbn-settings-space="email"
-                 value=""
-                 disabled>
+                 value="">
           <span class="input-group-btn">
-            <button class="btn btn-warning" type="button">{{t "settings.change_email" }}</button>
+            <button class="btn btn-warning"
+                    type="button"
+                    data-tbn-settings-space-update="email">
+              {{t "settings.change_email" }}
+            </button>
           </span>
         </div>
         <br/>
@@ -55,10 +58,13 @@
           <input type="password"
                  class="form-control"
                  data-tbn-settings-space="password"
-                 value=""
-                 disabled>
+                 value="">
           <span class="input-group-btn">
-            <button class="btn btn-warning" type="button">{{t "settings.edit_password" }}</button>
+            <button class="btn btn-warning"
+                    type="button"
+                    data-tbn-settings-space-update="password">
+              {{t "settings.edit_password" }}
+            </button>
           </span>
         </div>
       </div>

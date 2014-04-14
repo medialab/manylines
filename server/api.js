@@ -35,6 +35,7 @@ app.get('/api/login/:id/:password', controllers.space.login);
 app.get('/api/logout/:id', controllers.space.logout);
 
 app.post('/api/space', controllers.space.create);
+app.post('/api/space/:id', controllers.space.update);
 app.get('/api/space/:id', controllers.space.get);
 app.delete('/api/space/:id', controllers.space.delete);
 

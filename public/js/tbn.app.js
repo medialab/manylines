@@ -352,6 +352,17 @@
             meta: meta
           });
         }
+      },
+      {
+        triggers: 'saveSpaceKey',
+        method: function(e) {
+          var space = this.get('space') || {};
+          space[e.data.key] = e.data.value;
+
+          this.request('updateSpace', {
+            data: space
+          });
+        }
       }
     ],
     services: [
@@ -409,6 +420,27 @@
             tbn.info(i18n.t('warnings.invalid_email'));
           else if (m === 'Invalid password')
             tbn.info(i18n.t('warnings.invalid_password'));
+          else
+            tbn.danger(i18n.t('errors.default'));
+        }
+      },
+      {
+        id: 'updateSpace',
+        url: '/api/space/:spaceId',
+        dataType: 'json',
+        type: 'POST',
+        success: function(data, input) {
+          var space = this.get('space');
+          space.email = data.email;
+          this.update('space', space);
+        },
+        error: function(m, x, p) {
+          if (m === 'Invalid email')
+            tbn.info(i18n.t('warnings.invalid_email'));
+          else if (m === 'Invalid password')
+            tbn.info(i18n.t('warnings.invalid_password'));
+          else if (+x.status === 401)
+            this.dispatchEvent('requireLogin');
           else
             tbn.danger(i18n.t('errors.default'));
         }

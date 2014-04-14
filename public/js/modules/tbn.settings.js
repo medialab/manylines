@@ -13,6 +13,14 @@
       });
     });
 
+    $('button[data-tbn-settings-space-update]', dom).click(function() {
+      var el = $(this);
+      self.dispatchEvent('saveSpaceKey', {
+        key: el.attr('data-tbn-settings-space-update'),
+        value: el.parents('.input-group').find('input[data-tbn-settings-space]').val()
+      });
+    });
+
     function refresh() {
       // Graph meta:
       var meta = d.get('meta') || {};
