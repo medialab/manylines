@@ -306,7 +306,7 @@
         triggers: 'createSpace',
         method: function(e) {
           this.request('createSpace', {
-            shortcuts: {
+            data: {
               email: e.data.email,
               password: e.data.password
             }
@@ -397,7 +397,7 @@
       },
       {
         id: 'createSpace',
-        url: '/api/space/:email/:password',
+        url: '/api/space',
         dataType: 'json',
         type: 'POST',
         success: function(data) {

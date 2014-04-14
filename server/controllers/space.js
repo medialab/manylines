@@ -130,8 +130,8 @@ exports.logout = function(req, res) {
  */
 exports.create = function(req, res) {
   var params = {
-    password: req.params.password,
-    email: req.params.email
+    password: req.body.password,
+    email: req.body.email
   };
 
   // Check params:
