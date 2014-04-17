@@ -194,8 +194,16 @@
               this.update('spaceId', null);
               break;
 
-            // Views with mandatory spaceId:
+            // Specific "login" view case:
             case 'login':
+              if (hash.length <= 1) {
+                this.log('The space ID is missing. The view is set to "upload".');
+                this.update('view', 'upload');
+                this.update('spaceId', null);
+              } else
+                this.update('spaceId', hash[1]);
+              break;
+
             case 'scripts':
             case 'settings':
               if (hash.length <= 1) {
@@ -254,7 +262,9 @@
         triggers: 'requireLogin',
         method: function(e) {
           var view = this.get('view');
-          this.update('lastView', view !== 'login' ? view : null);
+
+          if (view !== 'login')
+            this.update('lastView', view !== 'login' ? view : null);
           this.update('view', 'login');
         }
       },
@@ -316,7 +326,11 @@
       {
         triggers: 'spaceIdUpdated',
         method: function(e) {
-          if (this.get('spaceId') !== (this.get('space') || {}).id && this.get('spaceId'))
+          if (
+            this.get('spaceId') !== (this.get('space') || {}).id &&
+            this.get('spaceId') &&
+            this.get('view') !== 'login'
+          )
             this.request('getSpace');
         }
       },
@@ -371,8 +385,10 @@
         url: '/api/login/:spaceId/:password',
         dataType: 'json',
         success: function(data) {
+          var lastView = this.get('lastView');
           this.update('space', data);
-          this.update('view', this.get('lastView') || 'explore');
+          this.update('lastView', null);
+          this.update('view', lastView || 'explore');
         },
         error: function(m, x, p) {
           if (x.status)
