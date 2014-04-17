@@ -57,6 +57,7 @@
     "delete_description": "Remove this network from TubeMyNet",
     "remove": "Remove",
 
+    "password_placeholder": "Type your new password",
     "title_placeholder": "Enter a title",
     "description_placeholder": "Enter a short description",
     "authors_placeholder": "Enter name(s)",
