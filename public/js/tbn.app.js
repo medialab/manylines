@@ -370,7 +370,7 @@
       {
         triggers: 'saveSpaceKey',
         method: function(e) {
-          var space = this.get('space') || {};
+          var space = domino.utils.clone(this.get('space')) || {};
           space[e.data.key] = e.data.value;
 
           this.request('updateSpace', {
@@ -426,6 +426,7 @@
         id: 'createSpace',
         url: '/api/space',
         dataType: 'json',
+        contentType: 'application/json',
         type: 'POST',
         success: function(data) {
           this.update('spaceId', data.id);
@@ -444,6 +445,7 @@
         id: 'updateSpace',
         url: '/api/space/:spaceId',
         dataType: 'json',
+        contentType: 'application/json',
         type: 'POST',
         success: function(data, input) {
           var space = this.get('space');
@@ -481,6 +483,7 @@
         id: 'loadLast',
         url: '/api/graph/last/:spaceId',
         dataType: 'json',
+        type: 'GET',
         success: function(data) {
           this.update('meta', data.meta);
           this.update('graph', data.graph);
