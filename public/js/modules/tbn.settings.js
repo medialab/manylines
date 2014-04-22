@@ -21,6 +21,10 @@
       });
     });
 
+    $('button[data-tbn-settings-action]', dom).click(function() {
+      self.dispatchEvent($(this).attr('data-tbn-settings-action'));
+    });
+
     function refresh() {
       // Graph meta:
       var meta = d.get('meta') || {};

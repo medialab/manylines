@@ -138,15 +138,8 @@
               view = this.get('view');
 
           switch (view) {
-            // Views without spaceId:
-            case 'upload':
-              hash = '#/upload';
-              break;
-
             // Views with mandatory spaceId:
             case 'login':
-            case 'scripts':
-            case 'settings':
               if (!spaceId) {
                 this.log('The space ID is missing. The view is set to "upload".');
                 hash = '#/upload';
@@ -156,12 +149,14 @@
               break;
 
             // Views with optional spaceId:
+            case 'upload':
+            case 'scripts':
+            case 'settings':
             case 'explore':
-              if (!spaceId) {
+              if (!spaceId)
                 hash = '#/' + view;
-              } else {
+              else
                 hash = '#/' + view + '/' + spaceId;
-              }
               break;
 
             // Default cases:
@@ -189,11 +184,6 @@
           this.update('view', view);
 
           switch (view) {
-            // Views without spaceId:
-            case 'upload':
-              this.update('spaceId', null);
-              break;
-
             // Specific "login" view case:
             case 'login':
               if (hash.length <= 1) {
@@ -204,21 +194,17 @@
                 this.update('spaceId', hash[1]);
               break;
 
-            case 'scripts':
-            case 'settings':
-              if (hash.length <= 1) {
-                this.log('The space ID is missing. The view is set to "upload".');
-                this.update('view', 'upload');
+            // Specific "upload" view case:
+            case 'upload':
+              if (hash.length <= 1)
                 this.update('spaceId', null);
-              } else {
-                if (!this.get('graph'))
-                  this.request('loadLast');
-
+              else
                 this.update('spaceId', hash[1]);
-              }
               break;
 
             // Views with optional spaceId:
+            case 'scripts':
+            case 'settings':
             case 'explore':
               if (hash.length <= 1) {
                 if (!this.get('graph')) {
@@ -285,7 +271,6 @@
           var graph = e.data.graph;
 
           this.update('graph', graph);
-          this.update('spaceId', null);
           this.update('isModified', {
             graph: true
           });
@@ -376,6 +361,18 @@
           this.request('updateSpace', {
             data: space
           });
+        }
+      },
+      {
+        triggers: 'deleteSpace',
+        method: function(e) {
+          this.request('deleteSpace');
+        }
+      },
+      {
+        triggers: 'uploadGraph',
+        method: function(e) {
+          this.update('view', 'upload');
         }
       }
     ],
@@ -471,6 +468,23 @@
         success: function(data) {
           this.update('space', data);
           this.update('spaceId', data.id);
+        },
+        error: function(m, x, p) {
+          if (+x.status === 401)
+            this.dispatchEvent('requireLogin');
+          else
+            tbn.danger(i18n.t('errors.default'));
+        }
+      },
+      {
+        id: 'deleteSpace',
+        url: '/api/space/:spaceId',
+        dataType: 'json',
+        type: 'DELETE',
+        success: function(data) {
+          this.update('space', null);
+          this.update('spaceId', null);
+          this.update('view', 'upload');
         },
         error: function(m, x, p) {
           if (+x.status === 401)

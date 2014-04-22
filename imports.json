@@ -4,7 +4,7 @@
     "/js/lib/handlebars-v1.3.0.min.js",
     "/js/lib/bootstrap-v3.1.1.min.js",
     "/js/lib/i18next-v1.7.2.min.js",
-    "/js/lib/domino-v1.3.5.min.js",
+    "/js/lib/domino-v1.3.6.min.js",
     "/js/lib/sigma-v1.0.1.min.js",
     "/js/lib/sigma.parsers.gexf.min.js",
 
