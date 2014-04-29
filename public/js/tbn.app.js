@@ -52,7 +52,7 @@
       },
       {
         id: 'space',
-        triggers: 'updateSpace',
+        triggers: ['updateData', 'updateSpace'],
         dispatch: 'spaceUpdated',
         description: 'The current space (basically the historic of some graphs and the related metadata objects).',
         type: '?Space',
@@ -60,7 +60,7 @@
       },
       {
         id: 'graph',
-        triggers: 'updateGraph',
+        triggers: ['updateData', 'updateGraph'],
         dispatch: 'graphUpdated',
         description: 'The current graph.',
         type: '?Graph',
@@ -68,7 +68,7 @@
       },
       {
         id: 'meta',
-        triggers: 'updateMeta',
+        triggers: ['updateData', 'updateMeta'],
         dispatch: 'metaUpdated',
         description: 'The current graph meta object.',
         type: '?Meta',
@@ -320,7 +320,7 @@
         }
       },
       {
-        triggers: ['updateGraph', 'updateMeta'],
+        triggers: ['updateGraph', 'updateMeta', 'updateData'],
         method: function(e) {
           var modified = this.get('isModified') || {};
 

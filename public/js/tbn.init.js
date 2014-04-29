@@ -28,6 +28,9 @@
     // Instanciate layout:
     tbn.control.addModule(tbn.modules.layout, [tbn.control]);
 
+    // Load localStorage:
+    tbn.control.dispatchEvent('loadLocalStorage');
+
     // Read URL hash:
     tbn.control.dispatchEvent('hashUpdated', {
       hash: window.location.hash

@@ -35,8 +35,9 @@
 
     // Various modules:
     control.addModule(tbn.modules.location);
-    control.addModule(tbn.modules.viewsPanel);
     control.addModule(tbn.modules.spaceForm);
+    control.addModule(tbn.modules.viewsPanel);
+    control.addModule(tbn.modules.localStorage);
 
     // DOM modules:
     bindDOM(tbn.dom);

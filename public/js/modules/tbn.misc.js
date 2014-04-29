@@ -42,6 +42,49 @@
   };
 
   /**
+   * This module will store locally the unsaved changes, using the LocalStorage
+   * API.
+   */
+  tbn.modules.localStorage = function(d) {
+    var self = this;
+
+    function save() {
+      var key = d.get('spaceId') || 'tbn-current',
+          data = {};
+
+      if (d.get('space'))
+        data.space = d.get('space');
+      if (d.get('graph'))
+        data.graph = d.get('graph');
+      if (d.get('meta'))
+        data.meta = d.get('meta');
+
+      localStorage.setItem(
+        key,
+        JSON.stringify(data)
+      );
+    }
+
+    function load() {
+      var k,
+          key = d.get('spaceId') || 'tbn-current',
+          data = localStorage.getItem(key);
+
+      try {
+        data = JSON.parse(data);
+      } catch(e) {
+        data = null;
+      }
+
+      if (data)
+        self.dispatchEvent('updateData', data);
+    };
+
+    this.triggers.events.isModifiedUpdated = save;
+    this.triggers.events.loadLocalStorage = load;
+  };
+
+  /**
    * The ad-hoc module to deal with views navigation.
    */
   tbn.modules.viewsPanel = function(d) {
