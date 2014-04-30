@@ -1,12 +1,28 @@
 ;(function() {
   'use strict';
 
+  /**
+   * Custom settings:
+   * ****************
+   */
   domino.settings({
     displayTime: true,
     verbose: true,
     strict: true
   });
 
+  /**
+   * Useful tricks:
+   * **************
+   */
+  var tbnBefore = function() {
+    return this.get('initialized');
+  };
+
+  /**
+   * Custom data structures:
+   * ***********************
+   */
   if (!domino.struct.isValid('Config'))
     domino.struct.add({
       id: 'Space',
@@ -25,8 +41,8 @@
       id: 'Graph',
       struct: {
         id: '?string',
-        nodes: 'array',
-        edges: 'array'
+        nodes: '?array',
+        edges: '?array'
       }
     });
 
@@ -53,7 +69,7 @@
       {
         id: 'space',
         triggers: ['updateData', 'updateSpace'],
-        dispatch: 'spaceUpdated',
+        dispatch: ['dataUpdated', 'spaceUpdated'],
         description: 'The current space (basically the historic of some graphs and the related metadata objects).',
         type: '?Space',
         value: null
@@ -61,7 +77,7 @@
       {
         id: 'graph',
         triggers: ['updateData', 'updateGraph'],
-        dispatch: 'graphUpdated',
+        dispatch: ['dataUpdated', 'graphUpdated'],
         description: 'The current graph.',
         type: '?Graph',
         value: null
@@ -69,7 +85,7 @@
       {
         id: 'meta',
         triggers: ['updateData', 'updateMeta'],
-        dispatch: 'metaUpdated',
+        dispatch: ['dataUpdated', 'metaUpdated'],
         description: 'The current graph meta object.',
         type: '?Meta',
         value: null
@@ -79,6 +95,12 @@
        * APP STATE:
        * **********
        */
+      {
+        id: 'initialized',
+        description: 'A flag indicating if the controller has been properly initialized.',
+        type: 'boolean',
+        value: false
+      },
       {
         id: 'view',
         triggers: 'updateView',
@@ -126,6 +148,62 @@
       }
     ],
     hacks: [
+      /**
+       * Initialization process:
+       * ***********************
+       */
+      {
+        triggers: 'loadHash',
+        method: function() {
+          // Basically, what we need here is to retrieve app state from
+          // the HASH and data from the STORAGE. But it has to happen at
+          // once, to avoid side effect with the hacks bound on state events.
+          if (this.get('initialized'))
+            return;
+
+          // Read URL hash:
+          this.dispatchEvent('hashUpdated', {
+            hash: window.location.hash
+          });
+        }
+      },
+      {
+        triggers: 'loadWebStorage',
+        method: function() {
+          if (this.get('initialized'))
+            return;
+
+          // Load localStorage:
+          if (tbn.support.webStorage)
+            this.dispatchEvent('loadLocalStorage');
+          else
+            this.dispatchEvent('initialUpdate');
+        }
+      },
+      {
+        triggers: 'initialUpdate',
+        method: function(e) {
+          if (this.get('initialized'))
+            return;
+
+          var data = e.data || {};
+
+          if (Object.keys(data).length)
+            this.update(data);
+
+          // Finally unleash the features:
+          this.update('initialized', true);
+
+          // Load the data if not done yet:
+          if (
+            this.get('spaceId') &&
+            this.get('view') !== 'login' &&
+            !data.graph
+          )
+            this.request('loadLast');
+        }
+      },
+
       /**
        * URL Hash management:
        * ********************
@@ -227,6 +305,10 @@
               this.update('spaceId', null);
               break;
           }
+
+          // For initialization purpose:
+          if (!this.get('initialized'))
+            this.dispatchEvent('loadWebStorage');
         }
       },
 
@@ -322,18 +404,22 @@
       {
         triggers: ['updateGraph', 'updateMeta', 'updateData'],
         method: function(e) {
-          var modified = this.get('isModified') || {};
+          var modified = this.get('isModified') || {},
+              update = false;
 
           switch (e.type) {
             case 'updateGraph':
+              update = true;
               modified.graph = true;
               break;
             case 'updateMeta':
+              update = true;
               modified.meta = true;
               break;
           }
 
-          this.update('isModified', modified);
+          if (update)
+            this.update('isModified', modified);
         }
       },
 
@@ -381,6 +467,7 @@
         id: 'login',
         url: '/api/login/:spaceId/:password',
         dataType: 'json',
+        before: tbnBefore,
         success: function(data) {
           var lastView = this.get('lastView');
           this.update('space', data);
@@ -398,6 +485,7 @@
         id: 'logout',
         url: '/api/logout/:spaceId',
         dataType: 'json',
+        before: tbnBefore,
         success: function(data) {
           this.update('spaceId', null);
           this.update('view', 'upload');
@@ -412,6 +500,7 @@
         dataType: 'json',
         contentType: 'application/json',
         type: 'POST',
+        before: tbnBefore,
         success: function(data) {
           this.update('isModified', null)
         },
@@ -425,6 +514,7 @@
         dataType: 'json',
         contentType: 'application/json',
         type: 'POST',
+        before: tbnBefore,
         success: function(data) {
           this.update('spaceId', data.id);
           this.dispatchEvent('save');
@@ -444,6 +534,7 @@
         dataType: 'json',
         contentType: 'application/json',
         type: 'POST',
+        before: tbnBefore,
         success: function(data, input) {
           var space = this.get('space');
           space.email = data.email;
@@ -465,6 +556,7 @@
         url: '/api/space/:spaceId',
         dataType: 'json',
         type: 'GET',
+        before: tbnBefore,
         success: function(data) {
           this.update('space', data);
           this.update('spaceId', data.id);
@@ -481,6 +573,7 @@
         url: '/api/space/:spaceId',
         dataType: 'json',
         type: 'DELETE',
+        before: tbnBefore,
         success: function(data) {
           this.update('space', null);
           this.update('spaceId', null);
@@ -498,6 +591,7 @@
         url: '/api/graph/last/:spaceId',
         dataType: 'json',
         type: 'GET',
+        before: tbnBefore,
         success: function(data) {
           this.update('meta', data.meta);
           this.update('graph', data.graph);

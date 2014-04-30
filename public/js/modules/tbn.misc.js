@@ -48,16 +48,24 @@
   tbn.modules.localStorage = function(d) {
     var self = this;
 
+    // Detect browser support:
+    var mod = 'tbn-ls-support';
+    tbn.pkg('tbn.support');
+    try {
+      localStorage.setItem(mod, mod);
+      localStorage.removeItem(mod);
+      tbn.support.webStorage = true;
+    } catch(e) {
+      tbn.support.webStorage = false;
+    }
+
     function save() {
       var key = d.get('spaceId') || 'tbn-current',
           data = {};
 
-      if (d.get('space'))
-        data.space = d.get('space');
-      if (d.get('graph'))
-        data.graph = d.get('graph');
-      if (d.get('meta'))
-        data.meta = d.get('meta');
+      data.meta = d.get('meta');
+      data.graph = d.get('graph');
+      data.isModified = d.get('isModified');
 
       localStorage.setItem(
         key,
@@ -76,12 +84,15 @@
         data = null;
       }
 
-      if (data)
-        self.dispatchEvent('updateData', data);
+      if (!d.get('initialized'))
+        self.dispatchEvent('initialUpdate', data);
     };
 
-    this.triggers.events.isModifiedUpdated = save;
-    this.triggers.events.loadLocalStorage = load;
+    if (tbn.support.webStorage) {
+      this.triggers.events.dataUpdated = save;
+      this.triggers.events.isModifiedUpdated = save;
+      this.triggers.events.loadLocalStorage = load;
+    }
   };
 
   /**
