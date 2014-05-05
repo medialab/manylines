@@ -28,7 +28,8 @@
     "upload_gexf_json": "Upload a GEXF or JSON graph file",
     "error_uploading_file": "An error occured while uploading the file",
     "invalid_JSON_file": "The JSON file is not valid.",
-    "invalid_GEXF_file": "The GEXF file is not valid."
+    "invalid_GEXF_file": "The GEXF file is not valid.",
+    "invalid_file_format": "The file format is not recognized yet."
   },
   "explore": {
     "overview": "Overview",

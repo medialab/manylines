@@ -350,13 +350,25 @@
       {
         triggers: 'graphUploaded',
         method: function(e) {
-          var graph = e.data.graph;
+          var k,
+              meta = this.get('meta') || {},
+              graph = e.data.graph;
 
-          this.update('graph', graph);
-          this.update('isModified', {
-            graph: true
+          if (e.data.model)
+            meta.model = e.data.model;
+          if (e.data.meta)
+            for (k in e.data.meta)
+              meta[k] = e.data.meta[k];
+
+          this.update({
+            graph: graph,
+            meta: meta,
+            view: 'explore',
+            isModified: {
+              graph: true,
+              meta: true
+            }
           });
-          this.update('view', 'explore');
         }
       },
       {
