@@ -8,11 +8,20 @@ var struct = require('../../lib/struct.js'),
       space: require('../models/space.js')
     };
 
+
+
+
 /**
- * [login description]
- * @param  {[type]} req [description]
- * @param  {[type]} res [description]
- * @return {[type]}     [description]
+ * login:
+ * ******
+ * This route will log an user into a space and every graphs and metas attached
+ * to it.
+ *
+ * Params:
+ *   - id: string
+ *       The space ID.
+ *   - password: string
+ *       The password of the space.
  */
 exports.login = function(req, res) {
   var params = {
@@ -63,17 +72,25 @@ exports.login = function(req, res) {
       return res.json({
         id: params.id,
         email: result.email,
-        graphs: result.graphs
+        version: result.graphs.length
       });
     }
   });
 };
 
+
+
+
 /**
- * [logout description]
- * @param  {[type]} req [description]
- * @param  {[type]} res [description]
- * @return {[type]}     [description]
+ * logout:
+ * *******
+ * This route will log an user out a space and every graphs and metas attached
+ * to it. If no ID is specified, then the user will be logged out of every
+ * spaces, graphs and metas he wes logged into.
+ *
+ * Params:
+ *   - id: string
+ *       The space ID.
  */
 exports.logout = function(req, res) {
   var params = {
@@ -128,11 +145,20 @@ exports.logout = function(req, res) {
   }
 };
 
+
+
+
 /**
- * [create description]
- * @param  {[type]} req [description]
- * @param  {[type]} res [description]
- * @return {[type]}     [description]
+ * create:
+ * *******
+ * This route will create a new space, with an empty graph and an empty meta
+ * object attached to it.
+ *
+ * Params:
+ *   - email: string
+ *       The space email.
+ *   - password: string
+ *       The space password.
  */
 exports.create = function(req, res) {
   var params = {
@@ -200,18 +226,28 @@ exports.create = function(req, res) {
         return res.json({
           id: spaceResult.id,
           email: spaceResult.value.email,
-          graphs: spaceResult.value.graphs
+          version: spaceResult.value.graphs.length
         });
       });
     });
   });
 };
 
+
+
+
 /**
- * [update description]
- * @param  {[type]} req [description]
- * @param  {[type]} res [description]
- * @return {[type]}     [description]
+ * update:
+ * *******
+ * This route will update the meta of a space.
+ *
+ * Params:
+ *   - id: string
+ *       The space ID.
+ *   - email: ?string
+ *       The space email.
+ *   - password: ?string
+ *       The space password.
  */
 exports.update = function(req, res) {
   var params = {
@@ -272,17 +308,23 @@ exports.update = function(req, res) {
       return res.json({
         id: spaceResult.id,
         email: spaceResult.value.email,
-        graphs: spaceResult.value.graphs
+        version: spaceResult.value.graphs.length
       });
     });
   });
 };
 
+
+
+
 /**
- * [get description]
- * @param  {[type]} req [description]
- * @param  {[type]} res [description]
- * @return {[type]}     [description]
+ * get:
+ * ****
+ * This route will return the meta of a space.
+ *
+ * Params:
+ *   - id: string
+ *       The space ID.
  */
 exports.get = function(req, res) {
   var params = {
@@ -312,16 +354,22 @@ exports.get = function(req, res) {
     return res.json({
       id: req.params.id,
       email: result.email,
-      graphs: result.graphs
+      version: result.graphs.length
     });
   });
 };
 
+
+
+
 /**
- * [delete description]
- * @param  {[type]} req [description]
- * @param  {[type]} res [description]
- * @return {[type]}     [description]
+ * delete:
+ * *******
+ * This route will delete a space, and every graphs and metas attached to it.
+ *
+ * Params:
+ *   - id: string
+ *       The space ID.
  */
 exports.delete = function(req, res) {
   var params = {
@@ -370,7 +418,9 @@ exports.delete = function(req, res) {
                 return res.send(500);
               }
 
-              return res.json(spaceResult);
+              return res.json({
+                id: params.id
+              });
             });
         }
       };
@@ -407,21 +457,32 @@ exports.delete = function(req, res) {
   });
 };
 
+
+
+
 /**
- * [readLast description]
- * @param  {[type]} req [description]
- * @param  {[type]} res [description]
- * @return {[type]}     [description]
+ * readGraph:
+ * **********
+ * This route will return the n-th graph and its meta object of a space, n
+ * being its version in the space.
+ *
+ * Params:
+ *   - id: string
+ *       The space ID.
+ *   - version: integer
+ *       The version of the graph in the space.
  */
-exports.readLast = function(req, res) {
+exports.readGraph = function(req, res) {
   var params = {
-    id: req.params.id
+    id: req.params.id,
+    version: +req.params.version
   };
 
   // Check params:
   if (!struct.check(
     {
-      id: 'string'
+      id: 'string',
+      version: 'integer'
     },
     params
   ))
@@ -434,76 +495,210 @@ exports.readLast = function(req, res) {
   models.space.get(params.id, function(err, data) {
     if (err) {
       if (err.code === 13) {
-        console.log('controllers.space.readLast: space "' + params.id + '" not found.');
+        console.log('controllers.space.readGraph: space "' + params.id + '" not found.');
         console.log('  -> Message: ' + err.message);
         return res.send(401);
       } else {
-        console.log('controllers.space.readLast: unknown error.');
+        console.log('controllers.space.readGraph: unknown error.');
         console.log('  -> Message: ' + err.message);
       }
-
       return res.send(500);
     }
 
-    if (data.graphs.length) {
-      var calls = 2,
-          toSend = {},
-          last = data.graphs[data.graphs.length - 1];
-
-      models.graph.get(last.id, function(err, data) {
-        if (err) {
-          if (err.code === 13) {
-            console.log('controllers.space.readLast: graph "' + last.id + '" not found.');
-            console.log('  -> Message: ' + err.message);
-            return res.send(401);
-          } else {
-            console.log('controllers.space.readLast: unknown error getting graph "' + last.id + '".');
-            console.log('  -> Message: ' + err.message);
-          }
-
-          return res.send(500);
-        }
-
-        toSend.graph = data;
-
-        if (--calls === 0)
-          return res.json(toSend);
-      });
-
-      models.graphMeta.get(last.metaId, function(err, data) {
-        if (err) {
-          if (err.code === 13) {
-            console.log('controllers.space.readLast: graph meta "' + last.metaId + '" not found.');
-            console.log('  -> Message: ' + err.message);
-            return res.send(401);
-          } else {
-            console.log('controllers.space.readLast: unknown error getting graph meta "' + last.metaId + '".');
-            console.log('  -> Message: ' + err.message);
-          }
-
-          return res.send(500);
-        }
-
-        toSend.meta = data;
-
-        if (--calls === 0)
-          return res.json(toSend);
-      });
-    } else {
-      console.log('controllers.space.readLast: space "' + params.id + '" has no graph.');
+    if (!data.graphs.length) {
+      console.log('controllers.space.readGraph: space "' + params.id + '" has no graph.');
       console.log('  -> Message: ' + err.message);
       return res.send(500);
     }
+
+    if ((params.version > data.graphs.length - 1) || (params.version < 0)) {
+      console.log('controllers.space.readGraph: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').');
+      console.log('  -> Message: ' + err.message);
+      return res.send(400);
+    }
+
+    var calls = 2,
+        toSend = {},
+        last = data.graphs[params.version];
+
+    models.graph.get(last.id, function(err, data) {
+      if (err) {
+        if (err.code === 13) {
+          console.log('controllers.space.readGraph: graph "' + last.id + '" not found.');
+          console.log('  -> Message: ' + err.message);
+          return res.send(401);
+        } else {
+          console.log('controllers.space.readGraph: unknown error getting graph "' + last.id + '".');
+          console.log('  -> Message: ' + err.message);
+        }
+
+        return res.send(500);
+      }
+
+      toSend.graph = data;
+
+      if (--calls === 0)
+        return res.json(toSend);
+    });
+
+    models.graphMeta.get(last.metaId, function(err, data) {
+      if (err) {
+        if (err.code === 13) {
+          console.log('controllers.space.readGraph: graph meta "' + last.metaId + '" not found.');
+          console.log('  -> Message: ' + err.message);
+          return res.send(401);
+        } else {
+          console.log('controllers.space.readGraph: unknown error getting graph meta "' + last.metaId + '".');
+          console.log('  -> Message: ' + err.message);
+        }
+
+        return res.send(500);
+      }
+
+      toSend.meta = data;
+
+      if (--calls === 0)
+        return res.json(toSend);
+    });
   });
 };
 
+
+
+
 /**
- * [updateLast description]
- * @param  {[type]} req [description]
- * @param  {[type]} res [description]
- * @return {[type]}     [description]
+ * updateGraph:
+ * ************
+ * This route will update the n-th graph or/and its meta object of a space, n
+ * being its version in the space.
+ *
+ * Params:
+ *   - id: string
+ *       The space ID.
+ *   - meta: ?object
+ *       Eventually the new meta object.
+ *   - graph: ?object
+ *       Eventually the new graph object.
+ *   - version: integer
+ *       The version of the graph in the space.
  */
-exports.updateLast = function(req, res) {
+exports.updateGraph = function(req, res) {
+  var params = {
+    id: req.params.id,
+    meta: req.body.meta,
+    graph: req.body.graph,
+    version: +req.params.version
+  };
+
+  // Check params:
+  if (!struct.check(
+    {
+      id: 'string',
+      meta: '?object',
+      graph: '?object',
+      version: 'integer'
+    },
+    params
+  ))
+    return res.send(400);
+
+  // Check authorizations:
+  if (!(req.session.spaces || {})[params.id])
+    return res.send(401);
+
+  models.space.get(params.id, function(err, data) {
+    if (err) {
+      if (err.code === 13) {
+        console.log('controllers.space.updateGraph: space "' + params.id + '" not found.');
+        console.log('  -> Message: ' + err.message);
+        return res.send(401);
+      } else {
+        console.log('controllers.space.updateGraph: unknown error.');
+        console.log('  -> Message: ' + err.message);
+      }
+      return res.send(500);
+    }
+
+    if (!data.graphs.length) {
+      console.log('controllers.space.updateGraph: space "' + params.id + '" has no graph stored.');
+      console.log('  -> Message: ' + err.message);
+      return res.send(500);
+    }
+
+    if ((params.version > data.graphs.length - 1) || (params.version < 0)) {
+      console.log('controllers.space.updateGraph: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').');
+      console.log('  -> Message: ' + err.message);
+      return res.send(400);
+    }
+
+    var calls = 0,
+        toSend = {},
+        graph = data.graphs[params.version];
+
+    if (params.graph) {
+      calls++;
+
+      models.graph.set(
+        params.graph,
+        graph.id,
+        function(err, data) {
+          if (err) {
+            console.log('controllers.space.updateGraph: unknown error creating the graph object.');
+            console.log('  -> Message: ' + err.message);
+            return res.send(500);
+          }
+
+          toSend.graph = data.value;
+
+          if (--calls === 0)
+            return res.json(toSend);
+        }
+      );
+    }
+
+    if (params.meta) {
+      calls++;
+
+      models.graphMeta.set(
+        params.meta,
+        graph.metaId,
+        function(err, data) {
+          if (err) {
+            console.log('controllers.space.updateGraph: unknown error creating the graph meta object.');
+            console.log('  -> Message: ' + err.message);
+            return res.send(500);
+          }
+
+          toSend.meta = data.value;
+
+          if (--calls === 0)
+            return res.json(toSend);
+        }
+      );
+    }
+
+    if (!calls)
+      return res.send(400);
+  });
+};
+
+
+
+
+/**
+ * addGraph:
+ * *********
+ * This route will add a graph and its meta object to a space.
+ *
+ * Params:
+ *   - id: string
+ *       The space ID.
+ *   - meta: ?object
+ *       Eventually the new meta object.
+ *   - graph: ?object
+ *       Eventually the new graph object.
+ */
+exports.addGraph = function(req, res) {
   var params = {
     id: req.params.id,
     meta: req.body.meta,
@@ -525,73 +720,65 @@ exports.updateLast = function(req, res) {
   if (!(req.session.spaces || {})[params.id])
     return res.send(401);
 
-  models.space.get(params.id, function(err, data) {
+  // Check authorizations:
+  if (!(req.session.spaces || {})[params.id])
+    return res.send(401);
+
+  models.space.get(params.id, function(err, spaceResult) {
     if (err) {
-      if (err.code === 13) {
-        console.log('controllers.space.updateLast: space "' + params.id + '" not found.');
-        console.log('  -> Message: ' + err.message);
-        return res.send(401);
-      } else {
-        console.log('controllers.space.updateLast: unknown error.');
-        console.log('  -> Message: ' + err.message);
-      }
-
-      return res.send(500);
-    }
-
-    if (!data.graphs.length) {
-      console.log('controllers.space.updateLast: space "' + params.id + '" has no graph stored.');
+      console.log('controllers.space.addGraph: unknown error retrieving the graph object.');
       console.log('  -> Message: ' + err.message);
       return res.send(500);
     }
 
-    var calls = 0,
-        toSend = {},
-        last = data.graphs[data.graphs.length - 1];
+    models.graph.set(params.graph || {}, function(err, graphResult) {
+      if (err) {
+        console.log('controllers.space.addGraph: unknown error setting the graph object.');
+        console.log('  -> Message: ' + err.message);
+        return res.send(500);
+      }
 
-    if (params.graph) {
-      calls++;
-
-      models.graph.set(
-        params.graph,
-        last.id,
-        function(err, data) {
-          if (err) {
-            console.log('controllers.space.updateLast: unknown error creating the graph object.');
-            console.log('  -> Message: ' + err.message);
-            return res.send(500);
-          }
-
-          toSend.graph = data.value;
-
-          if (--calls === 0)
-            return res.json(toSend);
+      models.graphMeta.set(params.meta || {}, function(err, graphMetaResult) {
+        if (err) {
+          console.log('controllers.space.addGraph: unknown error setting the graph meta object.');
+          console.log('  -> Message: ' + err.message);
+          return res.send(500);
         }
-      );
-    }
 
-    if (params.meta) {
-      calls++;
+        var data = spaceResult;
+        data.graphs = data.graphs || [];
+        data.graphs.push({
+          id: graphResult.id,
+          metaId: graphMetaResult.id
+        });
 
-      models.graphMeta.set(
-        params.meta,
-        last.metaId,
-        function(err, data) {
-          if (err) {
-            console.log('controllers.space.updateLast: unknown error creating the graph meta object.');
-            console.log('  -> Message: ' + err.message);
-            return res.send(500);
+        models.space.set(
+          data,
+          params.id,
+          function(err, spaceResult) {
+            if (err) {
+              console.log('controllers.space.addGraph: unknown error updating the space object.');
+              console.log('  -> Message: ' + err.message);
+              return res.send(500);
+            }
+
+            var date = Date.now();
+
+            // Add space, graphs metas and graphs to the session:
+            req.session.graphs = req.session.graphs || {};
+            req.session.graphMetas = req.session.graphMetas || {};
+
+            req.session.graphs[graphResult.id] = date;
+            req.session.graphMetas[graphMetaResult.graphs[0].metaId] = date;
+
+            return res.json({
+              id: spaceResult.id,
+              email: spaceResult.value.email,
+              version: spaceResult.value.graphs.length
+            });
           }
-
-          toSend.meta = data.value;
-
-          if (--calls === 0)
-            return res.json(toSend);
-        }
-      );
-    }
-
-    if (!calls)
-      return res.send(400);
+        );
+      });
+    });
   });
 };

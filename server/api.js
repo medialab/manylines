@@ -39,8 +39,9 @@ app.post('/api/space/:id', controllers.space.update);
 app.get('/api/space/:id', controllers.space.get);
 app.delete('/api/space/:id', controllers.space.delete);
 
-app.post('/api/graph/last/:id', controllers.space.updateLast);
-app.get('/api/graph/last/:id', controllers.space.readLast);
+app.post('/api/space/graph/:id', controllers.space.addGraph);
+app.get('/api/space/graph/:id/:version', controllers.space.readGraph);
+app.post('/api/space/graph/:id/:version', controllers.space.updateGraph);
 
 app.post('/api/graph/:id', function(req, res) { /* TODO */ });
 app.get('/api/graph/:id', function(req, res) { /* TODO */ });
