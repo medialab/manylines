@@ -29,10 +29,7 @@
       struct: {
         id: 'string',
         email: '?string',
-        graphs: [{
-          metaId: 'string',
-          id: 'string'
-        }],
+        version: 'number'
       }
     });
 
@@ -64,6 +61,14 @@
         dispatch: 'spaceIdUpdated',
         description: 'The ID of the space to load.',
         type: '?string',
+        value: null
+      },
+      {
+        id: 'version',
+        triggers: 'updateVersion',
+        dispatch: 'versionUpdated',
+        description: 'The version of the graph / meta in the space.',
+        type: '?number',
         value: null
       },
       {
@@ -200,7 +205,7 @@
             this.get('view') !== 'login' &&
             !data.graph
           )
-            this.request('loadLast');
+            this.request('loadGraphData');
         }
       },
 
@@ -212,6 +217,7 @@
         triggers: ['viewUpdated', 'spaceIdUpdated'],
         method: function(e) {
           var hash,
+              version = this.get('version'),
               spaceId = this.get('spaceId'),
               view = this.get('view');
 
@@ -222,7 +228,7 @@
                 this.log('The space ID is missing. The view is set to "upload".');
                 hash = '#/upload';
               } else {
-                hash = '#/' + view + '/' + spaceId;
+                hash = '#/' + view + '/' + spaceId + '/' + version;
               }
               break;
 
@@ -231,10 +237,10 @@
             case 'scripts':
             case 'settings':
             case 'explore':
-              if (!spaceId)
+              if (!spaceId || typeof version !== 'number')
                 hash = '#/' + view;
               else
-                hash = '#/' + view + '/' + spaceId;
+                hash = '#/' + view + '/' + spaceId + '/' + version;
               break;
 
             // Default cases:
@@ -268,34 +274,48 @@
                 this.log('The space ID is missing. The view is set to "upload".');
                 this.update('view', 'upload');
                 this.update('spaceId', null);
-              } else
+                this.update('version', null);
+              } else if (hash.length <= 2) {
                 this.update('spaceId', hash[1]);
+                this.update('version', null);
+              } else {
+                this.update('spaceId', hash[1]);
+                this.update('version', +hash[2]);
+              }
               break;
 
             // Specific "upload" view case:
             case 'upload':
-              if (hash.length <= 1)
+              if (hash.length <= 1) {
                 this.update('spaceId', null);
-              else
+                this.update('version', null);
+              } else if (hash.length <= 2) {
                 this.update('spaceId', hash[1]);
+                this.update('version', null);
+              } else {
+                this.update('spaceId', hash[1]);
+                this.update('version', +hash[2]);
+              }
               break;
 
-            // Views with optional spaceId:
+            // Views with optional spaceId / version:
             case 'scripts':
             case 'settings':
             case 'explore':
-              if (hash.length <= 1) {
+              if (hash.length <= 2) {
                 if (!this.get('graph')) {
                   this.log('The space ID and graph are missing. The view is set to "upload".');
                   this.update('view', 'upload');
                 }
 
                 this.update('spaceId', null);
+                this.update('version', null);
               } else {
                 if (!this.get('graph'))
-                  this.request('loadLast');
+                  this.request('loadGraphData');
 
                 this.update('spaceId', hash[1]);
+                this.update('version', +hash[2]);
               }
               break;
 
@@ -303,6 +323,7 @@
             default:
               this.update('view', 'upload');
               this.update('spaceId', null);
+              this.update('version', null);
               break;
           }
 
@@ -385,7 +406,10 @@
             for (k in modified)
               data[k] = this.get(k);
 
-            this.request('save', {
+            if (typeof this.get('version') !== 'number')
+              this.update('version', 0);
+
+            this.request('saveGraphData', {
               data: data
             });
           }
@@ -410,7 +434,7 @@
             this.get('spaceId') &&
             this.get('view') !== 'login'
           )
-            this.request('getSpace');
+            this.request('loadSpace');
         }
       },
       {
@@ -456,7 +480,7 @@
           var space = domino.utils.clone(this.get('space')) || {};
           space[e.data.key] = e.data.value;
 
-          this.request('updateSpace', {
+          this.request('saveSpace', {
             data: space
           });
         }
@@ -475,6 +499,10 @@
       }
     ],
     services: [
+      /**
+       * Login management:
+       * *****************
+       */
       {
         id: 'login',
         url: '/api/login/:spaceId/:password',
@@ -506,20 +534,11 @@
           tbn.danger(i18n.t('errors.default'));
         }
       },
-      {
-        id: 'save',
-        url: '/api/graph/last/:spaceId',
-        dataType: 'json',
-        contentType: 'application/json',
-        type: 'POST',
-        before: tbnBefore,
-        success: function(data) {
-          this.update('isModified', null)
-        },
-        error: function(m, x, p) {
-          tbn.danger(i18n.t('errors.default'));
-        }
-      },
+
+      /**
+       * Space management:
+       * *****************
+       */
       {
         id: 'createSpace',
         url: '/api/space',
@@ -541,7 +560,26 @@
         }
       },
       {
-        id: 'updateSpace',
+        id: 'loadSpace',
+        url: '/api/space/:spaceId',
+        dataType: 'json',
+        type: 'GET',
+        before: tbnBefore,
+        success: function(data) {
+          this.update('space', data);
+
+          if (typeof this.get('version') !== 'number')
+            this.update('version', 0);
+        },
+        error: function(m, x, p) {
+          if (+x.status === 401)
+            this.dispatchEvent('requireLogin');
+          else
+            tbn.danger(i18n.t('errors.default'));
+        }
+      },
+      {
+        id: 'saveSpace',
         url: '/api/space/:spaceId',
         dataType: 'json',
         contentType: 'application/json',
@@ -551,6 +589,9 @@
           var space = this.get('space');
           space.email = data.email;
           this.update('space', space);
+
+          if (typeof this.get('version') !== 'number')
+            this.update('version', 0);
         },
         error: function(m, x, p) {
           if (m === 'Invalid email')
@@ -558,23 +599,6 @@
           else if (m === 'Invalid password')
             tbn.info(i18n.t('warnings.invalid_password'));
           else if (+x.status === 401)
-            this.dispatchEvent('requireLogin');
-          else
-            tbn.danger(i18n.t('errors.default'));
-        }
-      },
-      {
-        id: 'getSpace',
-        url: '/api/space/:spaceId',
-        dataType: 'json',
-        type: 'GET',
-        before: tbnBefore,
-        success: function(data) {
-          this.update('space', data);
-          this.update('spaceId', data.id);
-        },
-        error: function(m, x, p) {
-          if (+x.status === 401)
             this.dispatchEvent('requireLogin');
           else
             tbn.danger(i18n.t('errors.default'));
@@ -598,11 +622,16 @@
             tbn.danger(i18n.t('errors.default'));
         }
       },
+
+      /**
+       * Graph and meta management:
+       * **************************
+       */
       {
-        id: 'loadLast',
-        url: '/api/graph/last/:spaceId',
+        id: 'createGraphData',
+        url: '/api/space/graph/:spaceId',
         dataType: 'json',
-        type: 'GET',
+        type: 'POST',
         before: tbnBefore,
         success: function(data) {
           this.update('meta', data.meta);
@@ -614,6 +643,46 @@
             this.dispatchEvent('requireLogin');
           else
             tbn.danger(i18n.t('errors.default'));
+        }
+      },
+      {
+        id: 'loadGraphData',
+        url: '/api/space/graph/:spaceId/:version',
+        dataType: 'json',
+        type: 'GET',
+        before: function() {
+          if (typeof this.get('version') !== 'number')
+            return this.warn('A version number is needed for this request.');
+          tbnBefore.apply(this, arguments);
+        },
+        success: function(data) {
+          this.update('meta', data.meta);
+          this.update('graph', data.graph);
+          this.update('isModified', null);
+        },
+        error: function(m, x, p) {
+          if (+x.status === 401)
+            this.dispatchEvent('requireLogin');
+          else
+            tbn.danger(i18n.t('errors.default'));
+        }
+      },
+      {
+        id: 'saveGraphData',
+        url: '/api/space/graph/:spaceId/:version',
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'POST',
+        before: function() {
+          if (typeof this.get('version') !== 'number')
+            return this.warn('A version number is needed for this request.');
+          tbnBefore.apply(this, arguments);
+        },
+        success: function(data) {
+          this.update('isModified', null)
+        },
+        error: function(m, x, p) {
+          tbn.danger(i18n.t('errors.default'));
         }
       }
     ]
