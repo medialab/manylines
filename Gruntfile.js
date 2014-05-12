@@ -10,11 +10,11 @@ module.exports = function(grunt) {
         options: {
           namespace: 'tbn.templates.preloaded',
           processName: function(str) {
-            return str.replace(/^public/, '');
+            return str.replace(/^static/, '');
           }
         },
         files: {
-          'public/dist/templates.js': 'public/templates/*.handlebars'
+          'static/dist/templates.js': 'static/templates/*.handlebars'
         }
       }
     },
@@ -24,16 +24,16 @@ module.exports = function(grunt) {
       },
       prod: {
         files: {
-          'public/dist/tbn.min.js': imports.js.map(function(path) {
-            return 'public' + path;
-          }).concat('public/dist/templates.js')
+          'static/dist/tbn.min.js': imports.js.map(function(path) {
+            return 'static' + path;
+          }).concat('static/dist/templates.js')
         }
       }
     },
     cssmin: {
       minify: {
-        src: 'public/css/*.css',
-        dest: 'public/dist/tbn.min.css'
+        src: 'static/css/*.css',
+        dest: 'static/dist/tbn.min.css'
       }
     }
   });

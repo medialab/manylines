@@ -17,4 +17,4 @@ node_modules
 config.json
 
 # Front-end:
-public/dist
+static/dist

@@ -1,6 +1,6 @@
 {
   "static": {
-    "path": "public",
+    "path": "app",
     "port": 8000
   },
   "api": {
