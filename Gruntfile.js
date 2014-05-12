@@ -6,15 +6,15 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     handlebars: {
-      compile: {
+      app: {
         options: {
-          namespace: 'tbn.templates.preloaded',
+          namespace: 'app.templates.preloaded',
           processName: function(str) {
             return str.replace(/^static/, '');
           }
         },
         files: {
-          'static/dist/templates.js': 'static/templates/*.handlebars'
+          'static/dist/app.templates.js': 'static/templates/*.handlebars'
         }
       }
     },
@@ -22,18 +22,33 @@ module.exports = function(grunt) {
       options: {
         banner: '/* tubemy.net - <%= pkg.description %> - Version: <%= pkg.version %> */\n'
       },
-      prod: {
+      app: {
         files: {
-          'static/dist/tbn.min.js': imports.js.map(function(path) {
+          'static/dist/app.min.js': imports.app.js.map(function(path) {
             return 'static' + path;
-          }).concat('static/dist/templates.js')
+          }).concat('static/dist/app.templates.js')
+        }
+      },
+      embed: {
+        files: {
+          'static/dist/embed.min.js': imports.embed.js.map(function(path) {
+            return 'static' + path;
+          })
         }
       }
     },
     cssmin: {
-      minify: {
-        src: 'static/css/*.css',
-        dest: 'static/dist/tbn.min.css'
+      app: {
+        src: imports.app.css.map(function(path) {
+          return 'static' + path;
+        }),
+        dest: 'static/dist/app.min.css'
+      },
+      embed: {
+        src: imports.embed.css.map(function(path) {
+          return 'static' + path;
+        }),
+        dest: 'static/dist/embed.min.css'
       }
     }
   });

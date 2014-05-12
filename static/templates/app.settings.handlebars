@@ -7,14 +7,14 @@
     <div class="form-group">
       <input type="text"
              class="form-control"
-             data-tbn-settings-meta="title"
+             data-app-settings-meta="title"
              placeholder="{{t "settings.title_placeholder" }}">
     </div>
     <div class="form-group">
-      <label for="tbn.settings.descriptionInput">{{t "settings.description" }}</label>
+      <label for="app.settings.descriptionInput">{{t "settings.description" }}</label>
       <textarea class="form-control"
-                id="tbn.settings.descriptionInput"
-                data-tbn-settings-meta="description"
+                id="app.settings.descriptionInput"
+                data-app-settings-meta="description"
                 placeholder="{{t "settings.description_placeholder" }}"
                 rows="3"></textarea>
     </div>
@@ -24,14 +24,14 @@
     <div class="form-group">
       <input type="text"
              class="form-control"
-             data-tbn-settings-meta="authors"
+             data-app-settings-meta="authors"
              placeholder="{{t "settings.authors_placeholder" }}">
     </div>
     <div class="form-group">
-      <label for="tbn.settings.authorsDescriptionInput">{{t "settings.about_authors" }}</label>
+      <label for="app.settings.authorsDescriptionInput">{{t "settings.about_authors" }}</label>
       <textarea class="form-control"
-                id="tbn.settings.authorsDescriptionInput"
-                data-tbn-settings-meta="authors_description"
+                id="app.settings.authorsDescriptionInput"
+                data-app-settings-meta="authors_description"
                 placeholder="{{t "settings.authors_description_placeholder" }}"
                 rows="3"></textarea>
     </div>
@@ -43,12 +43,12 @@
         <div class="input-group">
           <input type="email"
                  class="form-control"
-                 data-tbn-settings-space="email"
+                 data-app-settings-space="email"
                  value="">
           <span class="input-group-btn">
             <button class="btn btn-warning"
                     type="button"
-                    data-tbn-settings-space-update="email">
+                    data-app-settings-space-update="email">
               {{t "settings.change_email" }}
             </button>
           </span>
@@ -57,13 +57,13 @@
         <div class="input-group">
           <input type="password"
                  class="form-control"
-                 data-tbn-settings-space="password"
+                 data-app-settings-space="password"
                  placeholder="{{t "settings.password_placeholder" }}"
                  value="">
           <span class="input-group-btn">
             <button class="btn btn-warning"
                     type="button"
-                    data-tbn-settings-space-update="password">
+                    data-app-settings-space-update="password">
               {{t "settings.edit_password" }}
             </button>
           </span>
@@ -83,7 +83,7 @@
     <div class="form-group">
       <button type="button"
               class="btn btn-danger"
-              data-tbn-settings-action="uploadGraph">
+              data-app-settings-action="uploadGraph">
         {{t "settings.upload" }}
       </button>
     </div>
@@ -94,7 +94,7 @@
     <div class="form-group">
       <button type="button"
               class="btn btn-danger"
-              data-tbn-settings-action="deleteSpace">
+              data-app-settings-action="deleteSpace">
         {{t "settings.delete" }}
       </button>
     </div>

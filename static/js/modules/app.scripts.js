@@ -1,8 +1,8 @@
 ;(function() {
   'use strict';
 
-  tbn.pkg('tbn.modules');
-  tbn.modules.scripts = function(dom) {
+  app.pkg('app.modules');
+  app.modules.scripts = function(dom) {
     var self = this;
 
     // TODO

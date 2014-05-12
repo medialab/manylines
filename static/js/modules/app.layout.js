@@ -1,22 +1,22 @@
 ;(function() {
   'use strict';
 
-  tbn.pkg('tbn.modules');
+  app.pkg('app.modules');
 
-  tbn.modules.layout = function(control) {
+  app.modules.layout = function(control) {
     var self = this,
         module;
 
     function bindDOM(dom) {
       /**
-       * This function checks if a DOM element is already used in a TBN module
+       * This function checks if a DOM element is already used in a app module
        * or not, by marking it with a DOM attribute:
        */
       function checkModule(dom, module) {
-        if (dom.data('tbn-module-' + module))
+        if (dom.data('app-module-' + module))
           return false;
         else
-          return dom.attr('data-tbn-module-' + module, 'true');
+          return dom.attr('data-app-module-' + module, 'true');
       }
 
       // Simple modules:
@@ -25,22 +25,22 @@
         'domHide',
         'domClick'
       ].forEach(function(module) {
-        $('*[data-tbn-' + module + ']', dom).each(function() {
+        $('*[data-app-' + module + ']', dom).each(function() {
           var dom = $(this);
           if (checkModule(dom, module))
-            control.addModule(tbn.modules[module], [dom.attr('data-tbn-' + module + ''), dom]);
+            control.addModule(app.modules[module], [dom.attr('data-app-' + module + ''), dom]);
         });
       });
     }
 
     // Various modules:
-    control.addModule(tbn.modules.location);
-    control.addModule(tbn.modules.spaceForm);
-    control.addModule(tbn.modules.viewsPanel);
-    control.addModule(tbn.modules.localStorage);
+    control.addModule(app.modules.location);
+    control.addModule(app.modules.spaceForm);
+    control.addModule(app.modules.viewsPanel);
+    control.addModule(app.modules.localStorage);
 
     // DOM modules:
-    bindDOM(tbn.dom);
+    bindDOM(app.dom);
 
     // Bind layout triggers:
     this.triggers.events.viewUpdated = function(d) {
@@ -48,21 +48,21 @@
           view = d.get('view');
 
       // Update DOM view:
-      tbn.dom.attr('data-tbn-view', view);
+      app.dom.attr('data-app-view', view);
 
       // Lock UI until the template is loaded:
       self.dispatchEvent('lock');
 
       // Load and render template:
-      tbn.templates.require('tbn.' + view, function(template) {
+      app.templates.require('app.' + view, function(template) {
         var dom = $(template()).i18n();
-        $('.main', tbn.dom).empty().filter(':visible').append(dom);
+        $('.main', app.dom).empty().filter(':visible').append(dom);
 
         // Reinitialize module:
         if (module)
           control.killModule(module);
 
-        module = control.addModule(tbn.modules[view], [dom]);
+        module = control.addModule(app.modules[view], [dom]);
 
         // Unlock UI:
         self.dispatchEvent('unlock');

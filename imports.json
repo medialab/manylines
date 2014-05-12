@@ -1,28 +1,42 @@
 {
-  "js": [
-    "/js/lib/jquery-v1.11.0.min.js",
-    "/js/lib/handlebars-v1.3.0.min.js",
-    "/js/lib/bootstrap-v3.1.1.min.js",
-    "/js/lib/i18next-v1.7.2.min.js",
-    "/js/lib/domino-v1.3.6.min.js",
-    "/js/lib/sigma-v1.0.1.min.js",
-    "/js/lib/sigma.parsers.gexf.min.js",
+  "app": {
+    "js": [
+      "/js/lib/jquery-v1.11.0.min.js",
+      "/js/lib/handlebars-v1.3.0.min.js",
+      "/js/lib/bootstrap-v3.1.1.min.js",
+      "/js/lib/i18next-v1.7.2.min.js",
+      "/js/lib/domino-v1.3.6.min.js",
+      "/js/lib/sigma-v1.0.1.min.js",
+      "/js/lib/sigma.parsers.gexf.min.js",
+      "/js/app.utils.js",
+      "/js/app.main.js",
+      "/js/modules/app.misc.js",
+      "/js/modules/app.login.js",
+      "/js/modules/app.layout.js",
+      "/js/modules/app.upload.js",
+      "/js/modules/app.explore.js",
+      "/js/modules/app.scripts.js",
+      "/js/modules/app.settings.js",
+      "/js/app.init.js"
+    ],
 
-    "/js/tbn.utils.js",
-    "/js/tbn.app.js",
-    "/js/modules/tbn.misc.js",
-    "/js/modules/tbn.login.js",
-    "/js/modules/tbn.layout.js",
-    "/js/modules/tbn.upload.js",
-    "/js/modules/tbn.explore.js",
-    "/js/modules/tbn.scripts.js",
-    "/js/modules/tbn.settings.js",
+    "css": [
+      "/css/bootstrap.min.css",
+      "/css/app.layout.css",
+      "/css/app.main.css"
+    ]
+  },
 
-    "/js/tbn.init.js"
-  ],
-  "css": [
-    "/css/bootstrap.min.css",
-    "/css/tbn.layout.css",
-    "/css/tbn.app.css"
-  ]
+  "embed": {
+    "js": [
+      "/js/lib/jquery-v1.11.0.min.js",
+      "/js/lib/sigma-v1.0.1.min.js",
+      "/js/lib/sigma.parsers.gexf.min.js",
+      "/js/embed.main.js"
+    ],
+
+    "css": [
+      "/css/embed.main.css"
+    ]
+  }
 }

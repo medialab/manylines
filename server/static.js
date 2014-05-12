@@ -39,9 +39,9 @@ app.get('/app/', function(req, res) {
   if ('development' === app.get('env')) {
     var json = JSON.parse(fs.readFileSync(__dirname + '/../imports.json', 'utf8'));
 
-    res.send(html.replace(/^[^<]*<link href=".*\/tbn\.min\.css" rel="stylesheet">/mg, json.css.map(function(path) {
+    res.send(html.replace(/^[^<]*<link href=".*\/app\.min\.css" rel="stylesheet">/mg, json.app.css.map(function(path) {
       return '    <link href="' + path + '" rel="stylesheet">';
-    }).join('\n')).replace(/^[^<]*<script src=".*\/tbn\.min\.js"><\/script>/mg, json.js.map(function(path) {
+    }).join('\n')).replace(/^[^<]*<script src=".*\/app\.min\.js"><\/script>/mg, json.app.js.map(function(path) {
       return '    <script src="' + path + '"></script>';
     }).join('\n')));
   } else {

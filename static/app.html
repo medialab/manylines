@@ -10,7 +10,7 @@
     <title>TubeMyNet</title>
 
     <!-- Application stylesheet -->
-    <link href="/dist/tbn.min.css" rel="stylesheet">
+    <link href="/dist/app.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -23,7 +23,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
       <!-- Logged header: -->
-        <div class="navbar-header tbn-logged">
+        <div class="navbar-header app-logged">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -32,9 +32,9 @@
           </button>
           <a class="navbar-brand" data-property="" href="settings.html"></a>
         </div>
-        <div class="navbar-collapse collapse tbn-logged">
+        <div class="navbar-collapse collapse app-logged">
           <ul class="nav navbar-nav navbar-right">
-            <li class="navbar-alert" data-tbn-domShow="isModified" data-tbn-domClick="save">
+            <li class="navbar-alert" data-app-domShow="isModified" data-app-domClick="save">
               <a href="#">
                 <span class="glyphicon glyphicon-exclamation-sign" data-i18n="menu.unsaved"></span>
               </a>
@@ -45,7 +45,7 @@
         </div>
 
         <!-- Unlogged header: -->
-        <div class="navbar-header tbn-unlogged">
+        <div class="navbar-header app-unlogged">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only" data-i18n="menu.toggle_navigation"></span>
             <span class="icon-bar"></span>
@@ -54,7 +54,7 @@
           </button>
           <a class="navbar-brand" href="index.html">TubeMyNet</a>
         </div>
-        <div class="navbar-collapse collapse tbn-unlogged">
+        <div class="navbar-collapse collapse app-unlogged">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">médialab tools</a></li>
           </ul>
@@ -62,15 +62,15 @@
       </div>
     </div>
 
-    <div class="container-fluid tbn-container tbn-logged">
+    <div class="container-fluid app-container app-logged">
       <div class="row">
         <div class="col-xs-4 col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="#" data-tbn-updateView="explore" data-i18n="menu.explore"></a></li>
-            <li><a class="todo" href="statistics.html" data-tbn-updateView="statistics" data-i18n="menu.statistics"></a></li>
+            <li><a href="#" data-app-updateView="explore" data-i18n="menu.explore"></a></li>
+            <li><a class="todo" href="statistics.html" data-app-updateView="statistics" data-i18n="menu.statistics"></a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="#" data-tbn-updateView="scripts" data-i18n="menu.run_scripts"></a></li>
+            <li><a href="#" data-app-updateView="scripts" data-i18n="menu.run_scripts"></a></li>
           </ul>
           <ul class="nav nav-sidebar">
             <li><a class="todo" href="edit.html" data-i18n="menu.edit_nodes_and_edges"></a></li>
@@ -89,8 +89,8 @@
             <li><a class="todo" href="export.html" data-i18n="menu.export"></a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="#" data-tbn-updateView="settings" data-i18n="menu.settings"></a></li>
-            <li><a href="#" data-tbn-domClick="save" data-i18n="menu.save"></a></li>
+            <li><a href="#" data-app-updateView="settings" data-i18n="menu.settings"></a></li>
+            <li><a href="#" data-app-domClick="save" data-i18n="menu.save"></a></li>
           </ul>
         </div>
 
@@ -100,7 +100,7 @@
       </div>
     </div>
 
-    <div class="container-fluid tbn-container tbn-unlogged">
+    <div class="container-fluid app-container app-unlogged">
       <div class="row">
         <div class="col-xs-8 col-xs-offset-2 main">
           <!-- Main app container goes here-->
@@ -109,10 +109,10 @@
     </div>
 
     <!-- Application alerts container -->
-    <div id="tbn-alerts-container">
+    <div id="app-alerts-container">
     </div>
 
     <!-- JavaScript application -->
-    <script src="/dist/tbn.min.js"></script>
+    <script src="/dist/app.min.js"></script>
   </body>
 </html>

@@ -1,8 +1,8 @@
 ;(function() {
   'use strict';
 
-  tbn.pkg('tbn.modules');
-  tbn.modules.login = function(dom) {
+  app.pkg('app.modules');
+  app.modules.login = function(dom) {
     var self = this;
 
     // Give focus to the "password" field:

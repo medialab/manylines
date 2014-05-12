@@ -1,8 +1,8 @@
 ;(function() {
   'use strict';
 
-  tbn.pkg('tbn.modules');
-  tbn.modules.explore = function(dom, d) {
+  app.pkg('app.modules');
+  app.modules.explore = function(dom, d) {
     var self = this,
         sig = new sigma({
           container: $('.sigma-panel .sigma-expand', dom)[0]
@@ -14,10 +14,10 @@
       sig.refresh();
 
       // Refresh texts:
-      $('*[data-tbn-explore]', dom).each(function() {
+      $('*[data-app-explore]', dom).each(function() {
         var val,
             el = $(this),
-            attr = el.attr('data-tbn-explore');
+            attr = el.attr('data-app-explore');
 
         switch (attr) {
           case 'node':

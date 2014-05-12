@@ -1,0 +1,17 @@
+/* Hide sidebar container initially */
+body:not([data-app-view]) .app-container,
+body:not([data-app-view]) .app-logged {
+  display: none!important;
+}
+
+/* Views-related global layout */
+body[data-app-view="login"] .app-logged,
+body[data-app-view="upload"] .app-logged {
+  display: none!important;
+}
+
+body[data-app-view="explore"] .app-unlogged,
+body[data-app-view="scripts"] .app-unlogged,
+body[data-app-view="settings"] .app-unlogged {
+  display: none!important;
+}

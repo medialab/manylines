@@ -1,12 +1,12 @@
 ;(function() {
   'use strict';
 
-  tbn.pkg('tbn.modules');
+  app.pkg('app.modules');
 
   /**
    * The module that sets with the URL.
    */
-  tbn.modules.location = function() {
+  app.modules.location = function() {
     var stored,
         self = this;
 
@@ -45,22 +45,22 @@
    * This module will store locally the unsaved changes, using the LocalStorage
    * API.
    */
-  tbn.modules.localStorage = function(d) {
+  app.modules.localStorage = function(d) {
     var self = this;
 
     // Detect browser support:
-    var mod = 'tbn-ls-support';
-    tbn.pkg('tbn.support');
+    var mod = 'app-ls-support';
+    app.pkg('app.support');
     try {
       localStorage.setItem(mod, mod);
       localStorage.removeItem(mod);
-      tbn.support.webStorage = true;
+      app.support.webStorage = true;
     } catch(e) {
-      tbn.support.webStorage = false;
+      app.support.webStorage = false;
     }
 
     function save() {
-      var key = d.get('spaceId') || 'tbn-current',
+      var key = d.get('spaceId') || 'app-current',
           data = {};
 
       data.meta = d.get('meta');
@@ -75,7 +75,7 @@
 
     function load() {
       var k,
-          key = d.get('spaceId') || 'tbn-current',
+          key = d.get('spaceId') || 'app-current',
           data = localStorage.getItem(key);
 
       try {
@@ -88,7 +88,7 @@
         self.dispatchEvent('initialUpdate', data);
     };
 
-    if (tbn.support.webStorage) {
+    if (app.support.webStorage) {
       this.triggers.events.dataUpdated = save;
       this.triggers.events.isModifiedUpdated = save;
       this.triggers.events.loadLocalStorage = load;
@@ -98,14 +98,14 @@
   /**
    * The ad-hoc module to deal with views navigation.
    */
-  tbn.modules.viewsPanel = function(d) {
+  app.modules.viewsPanel = function(d) {
     var self = this;
-    tbn.dom.on('click', 'a[data-tbn-updateView]', function(e) {
+    app.dom.on('click', 'a[data-app-updateView]', function(e) {
       var target = $(e.target);
 
       if (!target.hasClass('todo'))
         self.dispatchEvent('updateView', {
-          view: target.attr('data-tbn-updateView')
+          view: target.attr('data-app-updateView')
         });
 
       e.stopPropagation();
@@ -116,7 +116,7 @@
   /**
    * The form to create a space.
    */
-  tbn.modules.spaceForm = function(d) {
+  app.modules.spaceForm = function(d) {
     var modal,
         self = this;
 
@@ -129,7 +129,7 @@
       // Lock UI until the template is loaded:
       self.dispatchEvent('lock');
 
-      tbn.templates.require('tbn.spaceForm', function(template) {
+      app.templates.require('app.spaceForm', function(template) {
         self.dispatchEvent('unlock');
 
         if (modal)
@@ -152,9 +152,9 @@
               password: password
             });
           else if (!email)
-            tbn.info(i18n.t('warnings.missing_email'));
+            app.info(i18n.t('warnings.missing_email'));
           else if (!password)
-            tbn.info(i18n.t('warnings.missing_password'));
+            app.info(i18n.t('warnings.missing_password'));
         });
       });
     };
@@ -172,7 +172,7 @@
    * A basic DOM module to dispatch an event when a DOM element is clicked. The
    * content of this event is specified in "obj".
    */
-  tbn.modules.domClick = function(event, domElement) {
+  app.modules.domClick = function(event, domElement) {
     var self = this;
     domElement.click(function(e) {
       self.dispatchEvent(event);
@@ -185,7 +185,7 @@
    * A basic DOM module that shows an element when a property is true and hide
    * it when it's falsy.
    */
-  tbn.modules.domShow = function(property, domElement) {
+  app.modules.domShow = function(property, domElement) {
     this.triggers.properties[property] = function(d) {
       if (d.get(property))
         domElement.show();
@@ -198,7 +198,7 @@
    * A basic DOM module that shows an element when a property is falsy and hide
    * it when it's truthy.
    */
-  tbn.modules.domHide = function(property, domElement) {
+  app.modules.domHide = function(property, domElement) {
     this.triggers.properties[property] = function(d) {
       if (d.get(property))
         domElement.hide();

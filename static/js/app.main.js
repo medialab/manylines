@@ -49,7 +49,7 @@
       struct: 'object'
     });
 
-  tbn.control = new domino({
+  app.control = new domino({
     properties: [
       /**
        * DATA:
@@ -179,7 +179,7 @@
             return;
 
           // Load localStorage:
-          if (tbn.support.webStorage)
+          if (app.support.webStorage)
             this.dispatchEvent('loadLocalStorage');
           else
             this.dispatchEvent('initialUpdate');
@@ -516,9 +516,9 @@
         },
         error: function(m, x, p) {
           if (x.status)
-            tbn.info(i18n.t('errors.unauthorized'));
+            app.info(i18n.t('errors.unauthorized'));
           else
-            tbn.danger(i18n.t('errors.default'));
+            app.danger(i18n.t('errors.default'));
         }
       },
       {
@@ -531,7 +531,7 @@
           this.update('view', 'upload');
         },
         error: function(m, x, p) {
-          tbn.danger(i18n.t('errors.default'));
+          app.danger(i18n.t('errors.default'));
         }
       },
 
@@ -552,11 +552,11 @@
         },
         error: function(m, x, p) {
           if (m === 'Invalid email')
-            tbn.info(i18n.t('warnings.invalid_email'));
+            app.info(i18n.t('warnings.invalid_email'));
           else if (m === 'Invalid password')
-            tbn.info(i18n.t('warnings.invalid_password'));
+            app.info(i18n.t('warnings.invalid_password'));
           else
-            tbn.danger(i18n.t('errors.default'));
+            app.danger(i18n.t('errors.default'));
         }
       },
       {
@@ -575,7 +575,7 @@
           if (+x.status === 401)
             this.dispatchEvent('requireLogin');
           else
-            tbn.danger(i18n.t('errors.default'));
+            app.danger(i18n.t('errors.default'));
         }
       },
       {
@@ -595,13 +595,13 @@
         },
         error: function(m, x, p) {
           if (m === 'Invalid email')
-            tbn.info(i18n.t('warnings.invalid_email'));
+            app.info(i18n.t('warnings.invalid_email'));
           else if (m === 'Invalid password')
-            tbn.info(i18n.t('warnings.invalid_password'));
+            app.info(i18n.t('warnings.invalid_password'));
           else if (+x.status === 401)
             this.dispatchEvent('requireLogin');
           else
-            tbn.danger(i18n.t('errors.default'));
+            app.danger(i18n.t('errors.default'));
         }
       },
       {
@@ -619,7 +619,7 @@
           if (+x.status === 401)
             this.dispatchEvent('requireLogin');
           else
-            tbn.danger(i18n.t('errors.default'));
+            app.danger(i18n.t('errors.default'));
         }
       },
 
@@ -642,7 +642,7 @@
           if (+x.status === 401)
             this.dispatchEvent('requireLogin');
           else
-            tbn.danger(i18n.t('errors.default'));
+            app.danger(i18n.t('errors.default'));
         }
       },
       {
@@ -664,7 +664,7 @@
           if (+x.status === 401)
             this.dispatchEvent('requireLogin');
           else
-            tbn.danger(i18n.t('errors.default'));
+            app.danger(i18n.t('errors.default'));
         }
       },
       {
@@ -682,7 +682,7 @@
           this.update('isModified', null)
         },
         error: function(m, x, p) {
-          tbn.danger(i18n.t('errors.default'));
+          app.danger(i18n.t('errors.default'));
         }
       }
     ]

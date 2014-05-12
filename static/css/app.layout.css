@@ -43,7 +43,7 @@ body {
 
 
 /* Alerts container: */
-#tbn-alerts-container {
+#app-alerts-container {
   position: absolute;
   left: 20%;
   right: 20%;
@@ -51,7 +51,7 @@ body {
   z-index: 2000;
 }
 
-#tbn-alerts-container > .alert {
+#app-alerts-container > .alert {
   margin-bottom: 5px;
 }
 

@@ -1,8 +1,8 @@
 ;(function() {
   'use strict';
 
-  tbn.pkg('tbn.modules');
-  tbn.modules.upload = function(dom) {
+  app.pkg('app.modules');
+  app.modules.upload = function(dom) {
     var self = this;
 
     $('input:file').change(function() {
@@ -28,7 +28,7 @@
               try {
                 data.graph = JSON.parse(content);
               } catch (err) {
-                tbn.danger(i18n.t('upload.invalid_JSON_file'));
+                app.danger(i18n.t('upload.invalid_JSON_file'));
               }
               break;
             case 'gexf':
@@ -45,11 +45,11 @@
                   }
                 );
               } catch (err) {
-                tbn.danger(i18n.t('upload.invalid_GEXF_file'));
+                app.danger(i18n.t('upload.invalid_GEXF_file'));
               }
               break;
             default:
-              tbn.danger(i18n.t('upload.invalid_file_format'));
+              app.danger(i18n.t('upload.invalid_file_format'));
           }
 
           // If we have valid data, let's update:
@@ -57,7 +57,7 @@
             self.dispatchEvent('graphUploaded', data);
         };
         reader.onerror = function(e) {
-          tbn.danger(i18n.t('upload.error_uploading_file'));
+          app.danger(i18n.t('upload.error_uploading_file'));
         };
       }
     });
