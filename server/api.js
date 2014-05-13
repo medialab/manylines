@@ -3,6 +3,11 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     app = express(),
+    morgan = require('morgan'),
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session'),
+    errorHandler = require('errorhandler'),
     controllers = {
       graphMeta: require('./controllers/graphMeta.js'),
       graph: require('./controllers/graph.js'),
@@ -15,18 +20,18 @@ var express = require('express'),
  * MIDDLEWARES:
  * ************
  */
-app.use(express.logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.cookieParser(config.api.secret));
-app.use(express.session({ domain: 'localhost:8080,localhost:8000' }));
-app.use(express.bodyParser({ limit: '50mb' }));
-app.use(app.router);
+app.use(morgan({format: 'dev', immediate: true}));
+app.use(bodyParser({limit: '50mb'}));
+app.use(cookieParser());
+app.use(session({
+  secret: config.api.secret,
+  trustProxy: true,
+  domain: 'localhost:8000,localhost:8080'
+}));
 
 // development only
-if ('development' === app.get('env')) {
-  app.use(express.errorHandler());
-}
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development')
+  app.use(errorHandler());
 
 /**
  * API ROUTES:
