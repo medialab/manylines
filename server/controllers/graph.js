@@ -6,35 +6,43 @@ var struct = require('../../lib/struct.js'),
       space: require('../models/space.js')
     };
 
+
+
+
+/**
+ * get:
+ * ****
+ * This route will return the meta of a graph.
+ *
+ * Params:
+ *   - id: string
+ *       The graph ID.
+ */
 exports.get = function(req, res) {
-  var data = {
-    id: req.params.password
+  var params = {
+    id: req.params.id
   };
 
-  // Check data:
+  // Check params:
   if (!struct.check(
     {
-      password: 'string',
-      email: 'string'
+      id: 'string'
     },
-    data
+    params
   ))
     return res.send(400);
 
-  models.space.get(data.id, function(err, data) {
-    if (err)
-      return res.send(500); // TODO
+  // Check authorizations:
+  if (!(req.session.graphs || {})[params.id])
+    return res.send(401);
 
-    if (data.graphs.length)
-      data.graphs.map(function(obj) {
-        calls += 2;
-        models.graph.remove(obj.id, handler);
-        models.graphMeta.remove(obj.metaId, handler);
+  models.graph.get(params.id, function(err, result) {
+    if (err) {
+      console.log('controllers.graph.get: unknown error retrieving the graph object.');
+      console.log('  -> Message: ' + err.message);
+      return res.send(500);
+    }
 
-        delete req.session.graphs[obj.id];
-        delete req.session.graphMetas[obj.metaId];
-      });
-    else
-      return res.send(500); // TODO
+    return res.json(result);
   });
 };

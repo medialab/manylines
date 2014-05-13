@@ -346,7 +346,7 @@ exports.get = function(req, res) {
 
   models.space.get(params.id, function(err, result) {
     if (err) {
-      console.log('controllers.space.get: unknown error retrieving the graph object.');
+      console.log('controllers.space.get: unknown error retrieving the space object.');
       console.log('  -> Message: ' + err.message);
       return res.send(500);
     }

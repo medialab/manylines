@@ -43,11 +43,11 @@ app.post('/api/space/graph/:id', controllers.space.addGraph);
 app.get('/api/space/graph/:id/:version', controllers.space.readGraph);
 app.post('/api/space/graph/:id/:version', controllers.space.updateGraph);
 
-app.post('/api/graph/:id', function(req, res) { /* TODO */ });
-app.get('/api/graph/:id', function(req, res) { /* TODO */ });
+// app.post('/api/graph/:id', function(req, res) { /* TODO */ });
+app.get('/api/graph/:id', controllers.graph.get);
 
-app.post('/api/graphmeta/:id/:password', function(req, res) { /* TODO */ });
-app.get('/api/graphmeta/:id/:password', function(req, res) { /* TODO */ });
+// app.post('/api/graphmeta/:id', function(req, res) { /* TODO */ });
+// app.get('/api/graphmeta/:id', function(req, res) { /* TODO */ });
 
 /**
  * STATIC FILES:
