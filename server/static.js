@@ -5,6 +5,9 @@ var express = require('express'),
     path = require('path'),
     fs = require('fs'),
     app = express(),
+    morgan = require('morgan'),
+    bodyParser = require('body-parser'),
+    serveStatic = require('serve-static'),
     server,
     proxy;
 
@@ -19,14 +22,12 @@ app.use(function(req, res, next) {
   else
     return next();
 });
-app.use(express.logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'app')));
+app.use(morgan());
+app.use(bodyParser());
+app.use(serveStatic(path.join(__dirname, 'app')));
 
 // development only
-if ('development' === app.get('env'))
+if (process.env.NODE_ENV === 'devlopment')
   app.use(express.errorHandler());
 
 /**
