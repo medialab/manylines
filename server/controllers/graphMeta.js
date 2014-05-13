@@ -3,6 +3,7 @@ var struct = require('../../lib/struct.js'),
     models = {
       graphMeta: require('../models/graphMeta.js'),
       graph: require('../models/graph.js'),
+      embed: require('../models/embed.js'),
       space: require('../models/space.js')
     };
 

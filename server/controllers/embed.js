@@ -13,7 +13,7 @@ var struct = require('../../lib/struct.js'),
 /**
  * get:
  * ****
- * This route will return a graph.
+ * This route will return an embed object.
  *
  * Params:
  *   - id: string
@@ -33,13 +33,11 @@ exports.get = function(req, res) {
   ))
     return res.send(400);
 
-  // Check authorizations:
-  if (!(req.session.graphs || {})[params.id])
-    return res.send(401);
+  // Embeds are all public, no need to check authorization (session):
 
-  models.graph.get(params.id, function(err, result) {
+  models.embed.get(params.id, function(err, result) {
     if (err) {
-      console.log('controllers.graph.get: unknown error retrieving the graph object.');
+      console.log('controllers.embed.get: unknown error retrieving the embed object.');
       console.log('  -> Message: ' + err.message);
       return res.send(500);
     }

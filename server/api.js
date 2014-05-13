@@ -6,6 +6,7 @@ var express = require('express'),
     controllers = {
       graphMeta: require('./controllers/graphMeta.js'),
       graph: require('./controllers/graph.js'),
+      embed: require('./controllers/embed.js'),
       space: require('./controllers/space.js')
     },
     server;
@@ -43,11 +44,9 @@ app.post('/api/space/graph/:id', controllers.space.addGraph);
 app.get('/api/space/graph/:id/:version', controllers.space.readGraph);
 app.post('/api/space/graph/:id/:version', controllers.space.updateGraph);
 
-// app.post('/api/graph/:id', function(req, res) { /* TODO */ });
 app.get('/api/graph/:id', controllers.graph.get);
-
-// app.post('/api/graphmeta/:id', function(req, res) { /* TODO */ });
- app.get('/api/graphmeta/:id', controllers.graphMeta.get);
+app.get('/api/graphmeta/:id', controllers.graphMeta.get);
+app.get('/api/embed/:id', controllers.embed.get);
 
 /**
  * STATIC FILES:
