@@ -1,6 +1,6 @@
 {
   "static": {
-    "path": "app",
+    "path": "static",
     "port": 8000
   },
   "api": {
@@ -8,8 +8,8 @@
     "secret": "s3cr3t"
   },
   "buckets": {
-    "graphMeta": "graphmeta",
-    "graph": "graph",
-    "space": "space"
+    "graphMeta": "tubemynet",
+    "graph": "tubemynet",
+    "space": "tubemynet"
   }
 }
