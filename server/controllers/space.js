@@ -203,7 +203,8 @@ exports.create = function(req, res) {
         graphs: [
           {
             id: graphResult.id,
-            metaId: graphMetaResult.id
+            metaId: graphMetaResult.id,
+            exports: []
           }
         ]
       }, function(err, spaceResult) {
@@ -721,10 +722,6 @@ exports.addGraph = function(req, res) {
   if (!(req.session.spaces || {})[params.id])
     return res.send(401);
 
-  // Check authorizations:
-  if (!(req.session.spaces || {})[params.id])
-    return res.send(401);
-
   models.space.get(params.id, function(err, spaceResult) {
     if (err) {
       console.log('controllers.space.addGraph: unknown error retrieving the graph object.');
@@ -750,7 +747,8 @@ exports.addGraph = function(req, res) {
         data.graphs = data.graphs || [];
         data.graphs.push({
           id: graphResult.id,
-          metaId: graphMetaResult.id
+          metaId: graphMetaResult.id,
+          exports: []
         });
 
         models.space.set(
@@ -781,5 +779,124 @@ exports.addGraph = function(req, res) {
         );
       });
     });
+  });
+};
+
+
+
+
+/**
+ * addGraph:
+ * *********
+ * This route will add a graph and its meta object to a space.
+ *
+ * Params:
+ *   - id: string
+ *       The space ID.
+ *   - meta: ?object
+ *       Eventually the new meta object.
+ *   - graph: ?object
+ *       Eventually the new graph object.
+ */
+exports.exportGraph = function(req, res) {
+  var params = {
+    id: req.params.id,
+    version: +req.params.version,
+    view: req.body.view
+  };
+
+  // Check params:
+  if (!struct.check(
+    {
+      id: 'string',
+      version: 'integer',
+      view: '?object'
+    },
+    params
+  ))
+    return res.send(400);
+
+  // Check authorizations:
+  if (!(req.session.spaces || {})[params.id])
+    return res.send(401);
+
+  var embed = {};
+  if (params.view)
+    embed.view = params.view;
+
+  models.space.get(params.id, function(err, spaceResult) {
+    if (err) {
+      if (err.code === 13) {
+        console.log('controllers.space.exportGraph: space "' + params.id + '" not found.');
+        console.log('  -> Message: ' + err.message);
+        return res.send(401);
+      } else {
+        console.log('controllers.space.exportGraph: unknown error.');
+        console.log('  -> Message: ' + err.message);
+      }
+      return res.send(500);
+    }
+
+    if (!spaceResult.graphs.length) {
+      console.log('controllers.space.exportGraph: space "' + params.id + '" has no graph stored.');
+      console.log('  -> Message: ' + err.message);
+      return res.send(500);
+    }
+
+    if ((params.version > spaceResult.graphs.length - 1) || (params.version < 0)) {
+      console.log('controllers.space.exportGraph: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').');
+      console.log('  -> Message: ' + err.message);
+      return res.send(400);
+    }
+
+    models.graph.get(
+      data.graphs[params.version].id,
+      function(err, graphResult) {
+        if (err) {
+          if (err.code === 13) {
+            console.log('controllers.space.exportGraph: graph "' + last.id + '" not found.');
+            console.log('  -> Message: ' + err.message);
+            return res.send(401);
+          } else {
+            console.log('controllers.space.exportGraph: unknown error getting graph "' + last.id + '".');
+            console.log('  -> Message: ' + err.message);
+          }
+
+          return res.send(500);
+        }
+
+        embed.graph = graphResult;
+
+        models.embed.set(embed, function(err, embedResult) {
+          if (err) {
+            console.log('controllers.space.exportGraph: unknown error setting the embed object.');
+            console.log('  -> Message: ' + err.message);
+            return res.send(500);
+          }
+
+          var graphVersion = spaceResult.graphs[params.version];
+          graphVersion.exports = graphVersion.exports || [];
+          graphVersion.exports.push({
+            id: embedResult.id
+          });
+
+          models.space.set(
+            spaceResult,
+            params.id,
+            function(err, spaceResult) {
+              if (err) {
+                console.log('controllers.space.exportGraph: unknown error updating the space object.');
+                console.log('  -> Message: ' + err.message);
+                return res.send(500);
+              }
+
+              return res.json({
+                id: embedResult.id
+              });
+            }
+          );
+        });
+      }
+    );
   });
 };

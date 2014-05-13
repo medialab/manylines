@@ -49,6 +49,8 @@ app.post('/api/space/graph/:id', controllers.space.addGraph);
 app.get('/api/space/graph/:id/:version', controllers.space.readGraph);
 app.post('/api/space/graph/:id/:version', controllers.space.updateGraph);
 
+app.post('/api/space/export/:id/:version', controllers.space.exportGraph);
+
 app.get('/api/graph/:id', controllers.graph.get);
 app.get('/api/graphmeta/:id', controllers.graphMeta.get);
 app.get('/api/embed/:id', controllers.embed.get);
