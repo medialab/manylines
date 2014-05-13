@@ -29,9 +29,8 @@
 
   "embed": {
     "js": [
-      "/js/lib/jquery-v1.11.0.min.js",
       "/js/lib/sigma-v1.0.1.min.js",
-      "/js/lib/sigma.parsers.gexf.min.js",
+      "/js/lib/sigma.parsers.json.min.js",
       "/js/embed.main.js"
     ],
 

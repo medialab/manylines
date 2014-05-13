@@ -28,8 +28,8 @@ if ('development' === app.get('env')) {
 }
 
 /**
- * ROUTES:
- * *******
+ * API ROUTES:
+ * ***********
  */
 app.get('/api/login/:id/:password', controllers.space.login);
 app.get('/api/logout/:id', controllers.space.logout);
@@ -49,6 +49,10 @@ app.get('/api/graph/:id', function(req, res) { /* TODO */ });
 app.post('/api/graphmeta/:id/:password', function(req, res) { /* TODO */ });
 app.get('/api/graphmeta/:id/:password', function(req, res) { /* TODO */ });
 
+/**
+ * STATIC FILES:
+ * *************
+ */
 app.get('/*', express.static(__dirname + '/../' + config.static.path));
 
 /**
