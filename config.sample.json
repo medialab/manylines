@@ -10,6 +10,7 @@
   "buckets": {
     "graphMeta": "tubemynet",
     "graph": "tubemynet",
-    "space": "tubemynet"
+    "space": "tubemynet",
+    "embed": "tubemynet"
   }
 }

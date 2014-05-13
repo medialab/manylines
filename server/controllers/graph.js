@@ -12,7 +12,7 @@ var struct = require('../../lib/struct.js'),
 /**
  * get:
  * ****
- * This route will return the meta of a graph.
+ * This route will return a graph.
  *
  * Params:
  *   - id: string

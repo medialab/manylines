@@ -47,7 +47,7 @@ app.post('/api/space/graph/:id/:version', controllers.space.updateGraph);
 app.get('/api/graph/:id', controllers.graph.get);
 
 // app.post('/api/graphmeta/:id', function(req, res) { /* TODO */ });
-// app.get('/api/graphmeta/:id', function(req, res) { /* TODO */ });
+ app.get('/api/graphmeta/:id', controllers.graphMeta.get);
 
 /**
  * STATIC FILES:
