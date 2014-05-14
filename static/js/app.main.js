@@ -95,6 +95,14 @@
         type: '?Meta',
         value: null
       },
+      {
+        id: 'exports',
+        triggers: 'updateExports',
+        dispatch: 'exportsUpdated',
+        description: 'The array of every exports of the graph.',
+        type: '?array',
+        value: null
+      },
 
       /**
        * APP STATE:
@@ -427,12 +435,17 @@
       {
         triggers: 'spaceIdUpdated',
         method: function(e) {
+          // Load the space data if needed:
           if (
             this.get('spaceId') !== (this.get('space') || {}).id &&
             this.get('spaceId') &&
             this.get('view') !== 'login'
           )
             this.request('loadSpace');
+
+          // Load the space data if needed:
+          if (this.get('spaceId'))
+            this.request('loadAllExports');
         }
       },
       {
@@ -493,6 +506,19 @@
         triggers: 'uploadGraph',
         method: function(e) {
           this.update('view', 'upload');
+        }
+      },
+
+      /**
+       * Temporary development stuffs:
+       * *****************************
+       */
+      {
+        triggers: 'exportGraph',
+        method: function(e) {
+          var cam = e.data.camera;
+
+          this.request();
         }
       }
     ],
@@ -677,10 +703,71 @@
           appBefore.apply(this, arguments);
         },
         success: function(data) {
-          this.update('isModified', null)
+          this.update('isModified', null);
         },
         error: function(m, x, p) {
           app.danger(i18n.t('errors.default'));
+        }
+      },
+
+      /**
+       * Temporary development stuffs:
+       * *****************************
+       */
+      {
+        id: 'exportGraph',
+        url: '/api/space/export/:spaceId/:version',
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'POST',
+        before: function() {
+          if (typeof this.get('version') !== 'number')
+            return this.warn('A version number is needed for this request.');
+          tbnBefore.apply(this, arguments);
+        },
+        success: function(data) {
+          this.request('loadAllExports');
+        },
+        error: function(m, x, p) {
+          app.danger(i18n.t('errors.default'));
+        }
+      },
+      {
+        id: 'loadExports',
+        url: '/api/space/export/:spaceId/:version',
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'GET',
+        before: function() {
+          if (typeof this.get('version') !== 'number')
+            return this.warn('A version number is needed for this request.');
+          tbnBefore.apply(this, arguments);
+        },
+        success: function(data) {
+          this.update('isModified', null);
+        },
+        error: function(m, x, p) {
+          if (+x.status === 401)
+            this.dispatchEvent('requireLogin');
+          else
+            app.danger(i18n.t('errors.default'));
+        }
+      },
+      {
+        id: 'loadAllExports',
+        url: '/api/space/export/:spaceId',
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'GET',
+        before: tbnBefore,
+        success: function(data) {
+          this.update('exports', data);
+        },
+        error: function(m, x, p) {
+          if (+x.status === 401)
+            this.dispatchEvent('requireLogin');
+          else
+            app.danger(i18n.t('errors.default'));
         }
       }
     ]

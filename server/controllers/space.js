@@ -786,17 +786,17 @@ exports.addGraph = function(req, res) {
 
 
 /**
- * addGraph:
- * *********
- * This route will add a graph and its meta object to a space.
+ * exportGraph:
+ * ************
+ * This route will export a graph and its view, using the "embed" model.
  *
  * Params:
  *   - id: string
  *       The space ID.
- *   - meta: ?object
- *       Eventually the new meta object.
- *   - graph: ?object
- *       Eventually the new graph object.
+ *   - version: integer
+ *       The version of the graph to export.
+ *   - view: ?object
+ *       Eventually an object describing the view.
  */
 exports.exportGraph = function(req, res) {
   var params = {
@@ -898,5 +898,85 @@ exports.exportGraph = function(req, res) {
         });
       }
     );
+  });
+};
+
+
+
+
+/**
+ * getExports:
+ * ***********
+ * This route will return the IDs of every exports of a graph, or only the exports related to one of its versions.
+ *
+ * Params:
+ *   - id: string
+ *       The space ID.
+ *   - version: integer
+ *       The version of the graph to export.
+ *   - view: ?object
+ *       Eventually an object describing the view.
+ */
+exports.getExports = function(req, res) {
+  var params = {
+    id: req.params.id,
+    version: req.params.version ? +req.params.version : null
+  };
+
+  // Check params:
+  if (!struct.check(
+    {
+      id: 'string',
+      version: '?integer'
+    },
+    params
+  ))
+    return res.send(400);
+
+  // Check authorizations:
+  if (!(req.session.spaces || {})[params.id])
+    return res.send(401);
+
+  var embed = {};
+  if (params.view)
+    embed.view = params.view;
+
+  models.space.get(params.id, function(err, spaceResult) {
+    if (err) {
+      if (err.code === 13) {
+        console.log('controllers.space.getExports: space "' + params.id + '" not found.');
+        console.log('  -> Message: ' + err.message);
+        return res.send(401);
+      } else {
+        console.log('controllers.space.getExports: unknown error.');
+        console.log('  -> Message: ' + err.message);
+      }
+      return res.send(500);
+    }
+
+    if (!spaceResult.graphs.length) {
+      console.log('controllers.space.getExports: space "' + params.id + '" has no graph stored.');
+      console.log('  -> Message: ' + err.message);
+      return res.send(500);
+    }
+
+    var exports;
+
+    // If the version number is specified, send only the related exports:
+    if (typeof params.version === 'number') {
+      if ((params.version > spaceResult.graphs.length - 1) || (params.version < 0)) {
+        console.log('controllers.space.getExports: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').');
+        console.log('  -> Message: ' + err.message);
+        return res.send(400);
+      }
+
+      exports = spaceResult.graphs[params.version].exports || [];
+    } else {
+      exports = spaceResult.graphs.reduce(function(exports, graph) {
+        return exports.concat(graph.exports || []);
+      }, []);
+    }
+
+    return res.json(exports);
   });
 };
