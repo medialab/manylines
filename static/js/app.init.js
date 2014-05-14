@@ -29,6 +29,6 @@
     app.control.addModule(app.modules.layout, [app.control]);
 
     // Trigger init hack:
-    app.control.dispatchEvent('loadHash');
+    app.control.dispatchEvent('loadWebStorage');
   });
 }).call(this);
