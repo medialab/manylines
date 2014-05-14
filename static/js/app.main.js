@@ -15,7 +15,7 @@
    * Useful tricks:
    * **************
    */
-  var tbnBefore = function() {
+  var appBefore = function() {
     return this.get('initialized');
   };
 
@@ -505,7 +505,7 @@
         id: 'login',
         url: '/api/login/:spaceId/:password',
         dataType: 'json',
-        before: tbnBefore,
+        before: appBefore,
         success: function(data) {
           var lastView = this.get('lastView');
           this.update('space', data);
@@ -523,7 +523,7 @@
         id: 'logout',
         url: '/api/logout/:spaceId',
         dataType: 'json',
-        before: tbnBefore,
+        before: appBefore,
         success: function(data) {
           this.update('spaceId', null);
           this.update('view', 'upload');
@@ -543,7 +543,7 @@
         dataType: 'json',
         contentType: 'application/json',
         type: 'POST',
-        before: tbnBefore,
+        before: appBefore,
         success: function(data) {
           this.update('spaceId', data.id);
           this.dispatchEvent('save');
@@ -562,7 +562,7 @@
         url: '/api/space/:spaceId',
         dataType: 'json',
         type: 'GET',
-        before: tbnBefore,
+        before: appBefore,
         success: function(data) {
           this.update('space', data);
 
@@ -582,7 +582,7 @@
         dataType: 'json',
         contentType: 'application/json',
         type: 'POST',
-        before: tbnBefore,
+        before: appBefore,
         success: function(data, input) {
           var space = this.get('space');
           space.email = data.email;
@@ -607,7 +607,7 @@
         url: '/api/space/:spaceId',
         dataType: 'json',
         type: 'DELETE',
-        before: tbnBefore,
+        before: appBefore,
         success: function(data) {
           this.update('space', null);
           this.update('spaceId', null);
@@ -630,7 +630,7 @@
         url: '/api/space/graph/:spaceId',
         dataType: 'json',
         type: 'POST',
-        before: tbnBefore,
+        before: appBefore,
         success: function(data) {
           this.update('meta', data.meta);
           this.update('graph', data.graph);
@@ -651,7 +651,7 @@
         before: function() {
           if (typeof this.get('version') !== 'number')
             return this.warn('A version number is needed for this request.');
-          tbnBefore.apply(this, arguments);
+          appBefore.apply(this, arguments);
         },
         success: function(data) {
           this.update('meta', data.meta);
@@ -674,7 +674,7 @@
         before: function() {
           if (typeof this.get('version') !== 'number')
             return this.warn('A version number is needed for this request.');
-          tbnBefore.apply(this, arguments);
+          appBefore.apply(this, arguments);
         },
         success: function(data) {
           this.update('isModified', null)

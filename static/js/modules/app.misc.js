@@ -71,6 +71,9 @@
         key,
         JSON.stringify(data)
       );
+
+      if ('app-current' in localStorage && key !== 'app-current')
+        clean();
     }
 
     function load() {
@@ -88,10 +91,16 @@
         self.dispatchEvent('initialUpdate', data);
     };
 
+    // Called when we need to delete pre-saved space data
+    function clean() {
+      localStorage.removeItem('app-current');
+    }
+
     if (app.support.webStorage) {
       this.triggers.events.dataUpdated = save;
       this.triggers.events.isModifiedUpdated = save;
       this.triggers.events.loadLocalStorage = load;
+      this.triggers.events.graphUploaded = clean;
     }
   };
 
