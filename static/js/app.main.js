@@ -163,8 +163,8 @@
           // Basically, what we need here is to retrieve app state from
           // the HASH and data from the STORAGE. But it has to happen at
           // once, to avoid side effect with the hacks bound on state events.
-          if (this.get('initialized'))
-            return;
+          // if (this.get('initialized'))
+          //   return;
 
           // Read URL hash:
           this.dispatchEvent('hashUpdated', {
@@ -206,6 +206,8 @@
             !data.graph
           )
             this.request('loadGraphData');
+
+          this.dispatchEvent('loadHash');
         }
       },
 
@@ -326,10 +328,6 @@
               this.update('version', null);
               break;
           }
-
-          // For initialization purpose:
-          if (!this.get('initialized'))
-            this.dispatchEvent('loadWebStorage');
         }
       },
 
