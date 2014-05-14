@@ -8,6 +8,7 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
     errorHandler = require('errorhandler'),
+    env = process.env.NODE_ENV || 'development',
     controllers = {
       graphMeta: require('./controllers/graphMeta.js'),
       graph: require('./controllers/graph.js'),
@@ -30,7 +31,7 @@ app.use(session({
 }));
 
 // development only
-if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development')
+if (env === 'development')
   app.use(errorHandler());
 
 /**

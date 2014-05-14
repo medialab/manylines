@@ -9,6 +9,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     serveStatic = require('serve-static'),
     errorHandler = require('errorhandler'),
+    env = process.env.NODE_ENV || 'development',
     server,
     proxy;
 
@@ -28,7 +29,7 @@ app.use(bodyParser());
 app.use(serveStatic(path.join(__dirname, 'app')));
 
 // development only
-if (!process.env.NODE_ENV || process.env.NODE_ENV === 'devlopment')
+if (env === 'development')
   app.use(errorHandler());
 
 /**
@@ -38,7 +39,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'devlopment')
 app.get('/app/', function(req, res) {
   var html = fs.readFileSync(__dirname + '/../' + config.static.path + '/app.html', 'utf8');
 
-  if ('development' === app.get('env')) {
+  if (env === 'development') {
     var json = JSON.parse(fs.readFileSync(__dirname + '/../imports.json', 'utf8'));
 
     res.send(html.replace(/^[^<]*<link href=".*\/app\.min\.css" rel="stylesheet">/mg, json.app.css.map(function(path) {
@@ -53,7 +54,7 @@ app.get('/app/', function(req, res) {
 app.get('/embed/', function(req, res) {
   var html = fs.readFileSync(__dirname + '/../' + config.static.path + '/embed.html', 'utf8');
 
-  if ('development' === app.get('env')) {
+  if (env === 'development') {
     var json = JSON.parse(fs.readFileSync(__dirname + '/../imports.json', 'utf8'));
 
     res.send(html.replace(/^[^<]*<link href=".*\/embed\.min\.css" rel="stylesheet">/mg, json.embed.css.map(function(path) {
