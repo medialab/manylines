@@ -6,6 +6,7 @@ var express = require('express'),
     fs = require('fs'),
     app = express(),
     morgan = require('morgan'),
+    log = require('../lib/log'),
     bodyParser = require('body-parser'),
     serveStatic = require('serve-static'),
     errorHandler = require('errorhandler'),
@@ -24,7 +25,7 @@ app.use(function(req, res, next) {
   else
     return next();
 });
-app.use(morgan({format: 'dev', immediate: true}));
+app.use(morgan({format: log.formats.static, immediate: true}));
 app.use(bodyParser());
 app.use(serveStatic(path.join(__dirname, 'app')));
 
