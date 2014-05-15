@@ -25,7 +25,7 @@ app.use(function(req, res, next) {
   else
     return next();
 });
-app.use(morgan({format: log.formats.static, immediate: true}));
+app.use(morgan({format: log.formats.static}));
 app.use(bodyParser());
 app.use(serveStatic(path.join(__dirname, 'app')));
 
