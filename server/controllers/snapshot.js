@@ -1,9 +1,9 @@
 var struct = require('../../lib/struct.js'),
     utils = require('../../lib/utils.js'),
     models = {
+      snapshot: require('../models/snapshot.js'),
       graphMeta: require('../models/graphMeta.js'),
       graph: require('../models/graph.js'),
-      embed: require('../models/embed.js'),
       space: require('../models/space.js')
     };
 
@@ -13,7 +13,7 @@ var struct = require('../../lib/struct.js'),
 /**
  * get:
  * ****
- * This route will return an embed object.
+ * This route will return an snapshot object.
  *
  * Params:
  *   - id: string
@@ -33,11 +33,11 @@ exports.get = function(req, res) {
   ))
     return res.send(400);
 
-  // Embeds are all public, no need to check authorization (session):
+  // snapshots are all public, no need to check authorization (session):
 
-  models.embed.get(params.id, function(err, result) {
+  models.snapshot.get(params.id, function(err, result) {
     if (err) {
-      console.log('controllers.embed.get: unknown error retrieving the embed object.');
+      console.log('controllers.snapshot.get: unknown error retrieving the snapshot object.');
       console.log('  -> Message: ' + err.message);
       return res.send(500);
     }

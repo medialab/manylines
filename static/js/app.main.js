@@ -716,7 +716,7 @@
        */
       {
         id: 'exportGraph',
-        url: '/api/space/export/:spaceId/:version',
+        url: '/api/space/snapshot/:spaceId/:version',
         dataType: 'json',
         contentType: 'application/json',
         type: 'POST',
@@ -734,7 +734,7 @@
       },
       {
         id: 'loadExports',
-        url: '/api/space/export/:spaceId/:version',
+        url: '/api/space/snapshot/:spaceId/:version',
         dataType: 'json',
         contentType: 'application/json',
         type: 'GET',
@@ -755,7 +755,7 @@
       },
       {
         id: 'loadAllExports',
-        url: '/api/space/export/:spaceId',
+        url: '/api/space/snapshot/:spaceId',
         dataType: 'json',
         contentType: 'application/json',
         type: 'GET',

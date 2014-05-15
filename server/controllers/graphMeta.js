@@ -1,9 +1,9 @@
 var struct = require('../../lib/struct.js'),
     utils = require('../../lib/utils.js'),
     models = {
+      snapshot: require('../models/snapshot.js'),
       graphMeta: require('../models/graphMeta.js'),
       graph: require('../models/graph.js'),
-      embed: require('../models/embed.js'),
       space: require('../models/space.js')
     };
 

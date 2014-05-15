@@ -51,15 +51,15 @@ app.get('/app/', function(req, res) {
     res.send(html);
   }
 });
-app.get('/embed/', function(req, res) {
-  var html = fs.readFileSync(__dirname + '/../' + config.static.path + '/embed.html', 'utf8');
+app.get('/snapshot/', function(req, res) {
+  var html = fs.readFileSync(__dirname + '/../' + config.static.path + '/snapshot.html', 'utf8');
 
   if (env === 'development') {
     var json = JSON.parse(fs.readFileSync(__dirname + '/../imports.json', 'utf8'));
 
-    res.send(html.replace(/^[^<]*<link href=".*\/embed\.min\.css" rel="stylesheet">/mg, json.embed.css.map(function(path) {
+    res.send(html.replace(/^[^<]*<link href=".*\/snapshot\.min\.css" rel="stylesheet">/mg, json.snapshot.css.map(function(path) {
       return '    <link href="' + path + '" rel="stylesheet">';
-    }).join('\n')).replace(/^[^<]*<script src=".*\/embed\.min\.js"><\/script>/mg, json.embed.js.map(function(path) {
+    }).join('\n')).replace(/^[^<]*<script src=".*\/snapshot\.min\.js"><\/script>/mg, json.snapshot.js.map(function(path) {
       return '    <script src="' + path + '"></script>';
     }).join('\n')));
   } else {
@@ -69,8 +69,8 @@ app.get('/embed/', function(req, res) {
 app.get('/app', function(req, res) {
   res.redirect('/app/');
 });
-app.get('/embed', function(req, res) {
-  res.redirect('/embed/');
+app.get('/snapshot', function(req, res) {
+  res.redirect('/snapshot/');
 });
 app.get('/', function(req, res) {
   res.send(fs.readFileSync(__dirname + '/../' + config.static.path + '/site.html', 'utf8'));

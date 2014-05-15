@@ -11,7 +11,7 @@ exports.set = function(data, id, callback) {
     },
     data
   ))
-    return callback(new Error('models.embed.set: Wrong data.'));
+    return callback(new Error('models.snapshot.set: Wrong data.'));
 
   if (arguments.length === 2) {
     callback = id;
@@ -21,13 +21,13 @@ exports.set = function(data, id, callback) {
   var id = id || utils.uuid(),
       db = new couchbase.Connection(
         {
-          bucket: settings.buckets.embed
+          bucket: settings.buckets.snapshot
         },
         function(err) {
           if (err)
             return callback(err);
 
-          data.tbnType = 'embed';
+          data.tbnType = 'snapshot';
 
           db.set(
             id,
@@ -55,11 +55,11 @@ exports.get = function(id, callback) {
     'string',
     id
   ))
-    return callback(new Error('models.embed.get: Wrong data.'));
+    return callback(new Error('models.snapshot.get: Wrong data.'));
 
   var db = new couchbase.Connection(
     {
-      bucket: settings.buckets.embed
+      bucket: settings.buckets.snapshot
     },
     function(err) {
       if (err)
@@ -87,11 +87,11 @@ exports.remove = function(id, callback) {
     'string',
     id
   ))
-    return callback(new Error('models.embed.remove: Wrong data.'));
+    return callback(new Error('models.snapshot.remove: Wrong data.'));
 
   var db = new couchbase.Connection(
     {
-      bucket: settings.buckets.embed
+      bucket: settings.buckets.snapshot
     },
     function(err) {
       if (err)

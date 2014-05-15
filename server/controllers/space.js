@@ -3,9 +3,9 @@ var struct = require('../../lib/struct.js'),
     errors = require('../../errors.json'),
     validator = require('validator'),
     models = {
+      snapshot: require('../models/snapshot.js'),
       graphMeta: require('../models/graphMeta.js'),
       graph: require('../models/graph.js'),
-      embed: require('../models/embed.js'),
       space: require('../models/space.js')
     };
 
@@ -786,9 +786,9 @@ exports.addGraph = function(req, res) {
 
 
 /**
- * exportGraph:
+ * addSnapshot:
  * ************
- * This route will export a graph and its view, using the "embed" model.
+ * This route will export a graph and its view, using the "snapshot" model.
  *
  * Params:
  *   - id: string
@@ -798,7 +798,7 @@ exports.addGraph = function(req, res) {
  *   - view: ?object
  *       Eventually an object describing the view.
  */
-exports.exportGraph = function(req, res) {
+exports.addSnapshot = function(req, res) {
   var params = {
     id: req.params.id,
     version: +req.params.version,
@@ -820,9 +820,9 @@ exports.exportGraph = function(req, res) {
   if (!(req.session.spaces || {})[params.id])
     return res.send(401);
 
-  var embed = {};
+  var snapshot = {};
   if (params.view)
-    embed.view = params.view;
+    snapshot.view = params.view;
 
   models.space.get(params.id, function(err, spaceResult) {
     if (err) {
@@ -865,11 +865,11 @@ exports.exportGraph = function(req, res) {
           return res.send(500);
         }
 
-        embed.graph = graphResult;
+        snapshot.graph = graphResult;
 
-        models.embed.set(embed, function(err, embedResult) {
+        models.snapshot.set(snapshot, function(err, snapshotResult) {
           if (err) {
-            console.log('controllers.space.exportGraph: unknown error setting the embed object.');
+            console.log('controllers.space.exportGraph: unknown error setting the snapshot object.');
             console.log('  -> Message: ' + err.message);
             return res.send(500);
           }
@@ -877,7 +877,7 @@ exports.exportGraph = function(req, res) {
           var graphVersion = spaceResult.graphs[params.version];
           graphVersion.exports = graphVersion.exports || [];
           graphVersion.exports.push({
-            id: embedResult.id
+            id: snapshotResult.id
           });
 
           models.space.set(
@@ -891,7 +891,7 @@ exports.exportGraph = function(req, res) {
               }
 
               return res.json({
-                id: embedResult.id
+                id: snapshotResult.id
               });
             }
           );
@@ -905,9 +905,9 @@ exports.exportGraph = function(req, res) {
 
 
 /**
- * getExports:
- * ***********
- * This route will return the IDs of every exports of a graph, or only the exports related to one of its versions.
+ * getSnapshot:
+ * ************
+ * This route will return the IDs of every snapshots of a space, or only the exports related to one of its versions.
  *
  * Params:
  *   - id: string
@@ -917,7 +917,7 @@ exports.exportGraph = function(req, res) {
  *   - view: ?object
  *       Eventually an object describing the view.
  */
-exports.getExports = function(req, res) {
+exports.getSnapshot = function(req, res) {
   var params = {
     id: req.params.id,
     version: req.params.version ? +req.params.version : null
@@ -937,9 +937,9 @@ exports.getExports = function(req, res) {
   if (!(req.session.spaces || {})[params.id])
     return res.send(401);
 
-  var embed = {};
+  var snapshot = {};
   if (params.view)
-    embed.view = params.view;
+    snapshot.view = params.view;
 
   models.space.get(params.id, function(err, spaceResult) {
     if (err) {
