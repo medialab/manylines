@@ -24,7 +24,8 @@
     "serve-static": "^1.1.0",
     "cookie-parser": "^1.1.0",
     "express-session": "^1.1.0",
-    "errorhandler": "^1.0.1"
+    "errorhandler": "^1.0.1",
+    "winston": "^0.7.3"
   },
   "devDependencies": {
     "findit": "^1.2.0",

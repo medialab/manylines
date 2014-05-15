@@ -3,7 +3,6 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     app = express(),
-    morgan = require('morgan'),
     log = require('../lib/log'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -22,7 +21,7 @@ var express = require('express'),
  * MIDDLEWARES:
  * ************
  */
-app.use(morgan({format: log.formats.api}));
+app.use(log.api.middleware);
 app.use(bodyParser({limit: '50mb'}));
 app.use(cookieParser());
 app.use(session({

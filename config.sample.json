@@ -12,5 +12,9 @@
     "graph": "tubemynet",
     "space": "tubemynet",
     "embed": "tubemynet"
+  },
+  "log": {
+    "console": true,
+    "file": false
   }
 }
