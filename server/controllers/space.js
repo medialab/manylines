@@ -2,12 +2,8 @@ var struct = require('../../lib/struct.js'),
     utils = require('../../lib/utils.js'),
     errors = require('../../errors.json'),
     validator = require('validator'),
-    models = {
-      snapshot: require('../models/snapshot.js'),
-      graphMeta: require('../models/graphMeta.js'),
-      graph: require('../models/graph.js'),
-      space: require('../models/space.js')
-    };
+    logger = require('../../lib/log.js').api.logger,
+    models = require('../models.js');
 
 
 
