@@ -3,7 +3,7 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     app = express(),
-    morgan = require('morgan'),
+    colors = require('colors'),
     log = require('../lib/log'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -22,7 +22,7 @@ var express = require('express'),
  * MIDDLEWARES:
  * ************
  */
-app.use(morgan({format: log.formats.api}));
+app.use(log.api.middleware);
 app.use(bodyParser({limit: '50mb'}));
 app.use(cookieParser());
 app.use(session({
@@ -72,8 +72,7 @@ app.get('/*', express.static(__dirname + '/../' + config.static.path));
 exports.app = app;
 exports.start = function(port) {
   server = http.createServer(app).listen(port, function(){
-    console.log('\x1b[92m[api]   \x1b[0m server listening on port ' +
-                '\x1b[93m' + port + '\x1b[0m');
+    log.api.logger.info('server listening on port ' + ('' + port).yellow);
   });
 };
 exports.stop = function() {

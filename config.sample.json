@@ -11,6 +11,11 @@
     "snapshot": "tubemynet",
     "graphMeta": "tubemynet",
     "graph": "tubemynet",
-    "space": "tubemynet"
+    "space": "tubemynet",
+    "embed": "tubemynet"
+  },
+  "log": {
+    "console": true,
+    "file": false
   }
 }
