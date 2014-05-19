@@ -33,6 +33,9 @@ body {
 .top-row .save.save-alert a{
   color: #EF371F;
 }
+.top-row a.top-row-brand{
+  padding: 5px 0px 0px 0px;
+}
 
 /*
  * Menu
