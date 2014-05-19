@@ -499,7 +499,7 @@
         triggers: 'graphUpdated',
         method: function(e) {
           var s = this.get('mainSigma');
-          s.graph.read(this.get('graph'));
+          s.graph.clear().read(this.get('graph'));
           s.refresh();
         }
       },
