@@ -1,7 +1,12 @@
 var config = require('../config.json');
 
-// Launch API:
-require('../server/api.js').start(config.api.port);
+// Initializing database connection
+require('../server/buckets').connect(function() {
+  console.log('');
 
-// Launch static server:
-require('../server/static.js').start(config.static.port);
+  // Launch API:
+  require('../server/api').start(config.api.port);
+
+  // Launch static server:
+  require('../server/static').start(config.static.port);
+});

@@ -1,7 +1,7 @@
 var settings = require('../../config.json'),
     struct = require('../../lib/struct.js'),
     utils = require('../../lib/utils.js'),
-    couchbase = require('couchbase');
+    bucket = require('../buckets.js').buckets.space;
 
 exports.set = function(data, id, callback) {
   if (
@@ -29,34 +29,25 @@ exports.set = function(data, id, callback) {
         password: data.password,
         created: Date.now(),
         email: data.email
-      },
-      db = new couchbase.Connection(
-        {
-          bucket: settings.buckets.space
-        },
-        function(err) {
-          if (err)
-            return callback(err);
+      };
 
-          db.set(
-            id,
-            data,
-            function(err, result) {
-              if (err)
-                return callback(err, result);
+  bucket.set(
+    id,
+    data,
+    function(err, result) {
+      if (err)
+        return callback(err, result);
 
-              // Remove the "tbnType" value:
-              delete data.tbnType;
+      // Remove the "tbnType" value:
+      delete data.tbnType;
 
-              // Execute callback without error:
-              callback(err, {
-                id: id,
-                value: data
-              });
-            }
-          );
-        }
-      );
+      // Execute callback without error:
+      callback(err, {
+        id: id,
+        value: data
+      });
+    }
+  );
 };
 
 exports.get = function(id, callback) {
@@ -66,27 +57,17 @@ exports.get = function(id, callback) {
   ))
     return callback(new Error('models.space.get: Wrong data.'));
 
-  var db = new couchbase.Connection(
-    {
-      bucket: settings.buckets.space
-    },
-    function(err) {
+  bucket.get(
+    id,
+    function(err, result) {
       if (err)
-        return callback(err);
+        return callback(err, result);
 
-      db.get(
-        id,
-        function(err, result) {
-          if (err)
-            return callback(err, result);
+      // Remove the "tbnType" value:
+      delete result.value.tbnType;
 
-          // Remove the "tbnType" value:
-          delete result.value.tbnType;
-
-          // Execute callback without error:
-          callback(err, result.value);
-        }
-      );
+      // Execute callback without error:
+      callback(err, result.value);
     }
   );
 };
@@ -98,24 +79,14 @@ exports.remove = function(id, callback) {
   ))
     return callback(new Error('models.space.remove: Wrong data.'));
 
-  var db = new couchbase.Connection(
-    {
-      bucket: settings.buckets.space
-    },
-    function(err) {
+  bucket.remove(
+    id,
+    function(err, result) {
       if (err)
-        return callback(err);
+        return callback(err, result);
 
-      db.remove(
-        id,
-        function(err, result) {
-          if (err)
-            return callback(err, result);
-
-          // Execute callback without error:
-          callback(err, result);
-        }
-      );
+      // Execute callback without error:
+      callback(err, result);
     }
   );
 };
