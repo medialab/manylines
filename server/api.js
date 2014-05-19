@@ -51,9 +51,9 @@ app.post('/api/space/graph/:id', controllers.space.addGraph);
 app.get('/api/space/graph/:id/:version', controllers.space.readGraph);
 app.post('/api/space/graph/:id/:version', controllers.space.updateGraph);
 
-app.post('/api/space/snapshot/:id/:version', controllers.space.exportGraph);
-app.get('/api/space/snapshot/:id/:version', controllers.space.getExports);
-app.get('/api/space/snapshot/:id', controllers.space.getExports);
+app.post('/api/space/snapshot/:id/:version', controllers.space.addSnapshot);
+app.get('/api/space/snapshot/:id/:version', controllers.space.getSnapshot);
+app.get('/api/space/snapshot/:id', controllers.space.getSnapshot);
 
 app.get('/api/graph/:id', controllers.graph.get);
 app.get('/api/graphmeta/:id', controllers.graphMeta.get);
