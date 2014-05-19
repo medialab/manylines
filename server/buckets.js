@@ -1,5 +1,5 @@
 // Storing couchbase connections
-var settings = require('../config.json'),
+var config = require('./config.js'),
     async = require('async'),
     logger = require('../lib/log').api.logger,
     couchbase = require('couchbase'),
@@ -8,7 +8,7 @@ var settings = require('../config.json'),
 
 function connectFn(i) {
   return function(cb) {
-    var b = settings.buckets[i];
+    var b = config.buckets[i];
 
     // Announcing
     logger.verbose(i.blue + ' connection through the ' +
@@ -39,7 +39,7 @@ function connect(next) {
       i;
 
   // Functions to be run by async
-  for (i in settings.buckets)
+  for (i in config.buckets)
     connectFunctions.push(connectFn(i));
 
   // Opening buckets connection

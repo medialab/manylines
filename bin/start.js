@@ -1,4 +1,4 @@
-var config = require('../config.json');
+var config = require('../server/config.js');
 
 // Initializing database connection
 require('../server/buckets').connect(function() {

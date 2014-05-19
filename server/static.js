@@ -1,5 +1,5 @@
 var express = require('express'),
-    config = require('../config.json'),
+    config = require('./config.js'),
     httpProxy = require('http-proxy'),
     http = require('http'),
     path = require('path'),
