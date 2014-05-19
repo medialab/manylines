@@ -4,15 +4,16 @@
   app.pkg('app.modules');
   app.modules.explore = function(dom, d) {
     var self = this,
-        sig = new sigma({
-          container: $('.sigma-panel .sigma-expand', dom)[0]
+        renderer = d.get('mainSigma').addRenderer({
+          container: $('.sigma-panel .sigma-expand', dom)[0],
+          camera: 'mainCamera',
+          id: 'tubemynet-explore'
         });
 
-    function refresh() {
-      // Refresh sigma rendering:
-      sig.graph.clear().read(d.get('graph') || {});
-      sig.refresh();
+    // Refresh rendering:
+    d.get('mainSigma').refresh();
 
+    function refresh() {
       // Refresh texts:
       $('*[data-app-explore]', dom).each(function() {
         var val,
@@ -40,7 +41,11 @@
 
     refresh();
 
+    this.kill = function() {
+      d.get('mainSigma').killRenderer('tubemynet-explore');
+    };
+
     // Reference triggers:
-    this.triggers.events.graphUpdated = refresh;
+    this.triggers.events.dataUpdated = refresh;
   };
 }).call(this);

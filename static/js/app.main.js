@@ -2,6 +2,13 @@
   'use strict';
 
   /**
+   * Initialize the main sigma instance:
+   * ***********************************
+   */
+  var s = new sigma();
+  s.addCamera('mainCamera');
+
+  /**
    * Custom settings:
    * ****************
    */
@@ -48,6 +55,14 @@
       id: 'Meta',
       struct: 'object'
     });
+
+  if (!domino.struct.isValid('sigma'))
+    domino.struct.add(
+      'sigma',
+      function(v) {
+        return v instanceof sigma;
+      }
+    );
 
   app.control = new domino({
     properties: [
@@ -102,6 +117,17 @@
         description: 'The array of every exports of the graph.',
         type: '?array',
         value: null
+      },
+
+      /**
+       * SIGMA:
+       * ******
+       */
+      {
+        id: 'mainSigma',
+        description: 'The main sigma instance.',
+        type: 'sigma',
+        value: s
       },
 
       /**
@@ -469,6 +495,14 @@
             this.update('isModified', modified);
         }
       },
+      {
+        triggers: 'graphUpdated',
+        method: function(e) {
+          var s = this.get('mainSigma');
+          s.graph.read(this.get('graph'));
+          s.refresh();
+        }
+      },
 
       /**
        * Data update:
@@ -515,10 +549,21 @@
        */
       {
         triggers: 'exportGraph',
-        method: function(e) {
-          var cam = e.data.camera;
+        method: function() {
+          var cam = this.get('mainSigma').cameras['mainCamera'];
 
-          this.request();
+          this.request('exportGraph', {
+            data: {
+              view: {
+                camera: {
+                  x: cam.x,
+                  y: cam.y,
+                  ratio: cam.ratio,
+                  angle: cam.angle
+                }
+              }
+            }
+          });
         }
       }
     ],
