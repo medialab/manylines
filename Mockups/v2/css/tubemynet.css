@@ -65,3 +65,14 @@ body {
   padding: 0px;
   margin: 0px;
 }
+
+/*
+ * Central panel (ex: upload)
+ */
+div > div.central-panel{
+  padding: 8% 0;
+  text-align: center;
+}
+div.central-panel{
+  padding: 10% 0
+}
