@@ -37,8 +37,10 @@ exports.get = function(req, res) {
 
   models.snapshot.get(params.id, function(err, result) {
     if (err) {
-      console.log('controllers.snapshot.get: unknown error retrieving the snapshot object.');
-      console.log('  -> Message: ' + err.message);
+      logger.error(
+        'controllers.snapshot.get: unknown error retrieving the snapshot object.',
+        {errorMsg: err.message}
+      );
       return res.send(500);
     }
 

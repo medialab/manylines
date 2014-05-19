@@ -39,8 +39,10 @@ exports.get = function(req, res) {
 
   models.graphMeta.get(params.id, function(err, result) {
     if (err) {
-      console.log('controllers.graphMeta.get: unknown error retrieving the graph meta object.');
-      console.log('  -> Message: ' + err.message);
+      logger.error(
+        'controllers.graphMeta.get: unknown error retrieving the graph meta object.',
+        {errorMsg: err.message}
+      );
       return res.send(500);
     }
 

@@ -1,5 +1,6 @@
 var struct = require('../../lib/struct.js'),
     utils = require('../../lib/utils.js'),
+    logger = require('../../lib/log').api.logger,
     models = {
       snapshot: require('../models/snapshot.js'),
       graphMeta: require('../models/graphMeta.js'),
@@ -39,8 +40,10 @@ exports.get = function(req, res) {
 
   models.graph.get(params.id, function(err, result) {
     if (err) {
-      console.log('controllers.graph.get: unknown error retrieving the graph object.');
-      console.log('  -> Message: ' + err.message);
+      logger.error(
+        'controllers.graph.get: unknown error retrieving the graph object.',
+        {errorMsg: err.message}
+      );
       return res.send(500);
     }
 

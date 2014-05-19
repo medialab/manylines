@@ -43,11 +43,15 @@ exports.login = function(req, res) {
   models.space.get(params.id, function(err, result) {
     if (err) {
       if (err.code === 13) {
-        console.log('controllers.space.login: space "' + params.id + '" not found.');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.login: space "' + params.id + '" not found.',
+          {errorMsg: err.message}
+        );
       } else {
-        console.log('controllers.space.login: unknown error.');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.login: unknown error.',
+          {errorMsg: err.message}
+        );
       }
 
       return res.send(401);
@@ -111,11 +115,17 @@ exports.logout = function(req, res) {
     models.space.get(params.id, function(err, result) {
       if (err) {
         if (err.code === 13) {
-          console.log('controllers.space.logout: space "' + params.id + '" not found.');
-          console.log('  -> Message: ' + err.message);
+          logger.error(
+            'controllers.space.logout: space "' + params.id + '" not found.',
+            {errorMsg: err.message}
+          );
+ 
         } else {
-          console.log('controllers.space.logout: unknown error.');
-          console.log('  -> Message: ' + err.message);
+          logger.error(
+            'controllers.space.logout: unknown error.',
+            {errorMsg: err.message}
+          );
+ 
         }
 
         return res.json({
@@ -185,15 +195,17 @@ exports.create = function(req, res) {
 
   models.graph.set({}, function(err, graphResult) {
     if (err) {
-      console.log('controllers.space.create: unknown error creating the graph object.');
-      console.log('  -> Message: ' + err.message);
+      logger.error(
+        'controllers.space.create: unknown error creating the graph object.')
       return res.send(500);
     }
 
     models.graphMeta.set({}, function(err, graphMetaResult) {
       if (err) {
-        console.log('controllers.space.create: unknown error creating the graph meta object.');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.create: unknown error creating the graph meta object.',
+          {errorMsg: err.message}
+        );
         return res.send(500);
       }
 
@@ -209,8 +221,11 @@ exports.create = function(req, res) {
         ]
       }, function(err, spaceResult) {
         if (err) {
-          console.log('controllers.space.create: unknown error creating the space object.');
-          console.log('  -> Message: ' + err.message);
+          logger.error(
+            'controllers.space.create: unknown error creating the space object.',
+            {errorMsg: err.message}
+          );
+ 
           return res.send(500);
         }
 
@@ -281,8 +296,8 @@ exports.update = function(req, res) {
 
   models.space.get(params.id, function(err, result) {
     if (err) {
-      console.log('controllers.space.update: unknown error retrieving the graph object.');
-      console.log('  -> Message: ' + err.message);
+      logger.error(
+        'controllers.space.update: unknown error retrieving the graph object.')
       return res.send(500);
     }
 
@@ -302,8 +317,10 @@ exports.update = function(req, res) {
 
     models.space.set(data, params.id, function(err, spaceResult) {
       if (err) {
-        console.log('controllers.space.update: unknown error updating the space object.');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.update: unknown error updating the space object.',
+          {errorMsg: err.message}
+        );
         return res.send(500);
       }
 
@@ -348,8 +365,8 @@ exports.get = function(req, res) {
 
   models.space.get(params.id, function(err, result) {
     if (err) {
-      console.log('controllers.space.get: unknown error retrieving the space object.');
-      console.log('  -> Message: ' + err.message);
+      logger.error(
+        'controllers.space.get: unknown error retrieving the space object.')
       return res.send(500);
     }
 
@@ -396,27 +413,39 @@ exports.delete = function(req, res) {
         return function(err, result) {
           if (err) {
             if (err.code === 13) {
-              console.log('controllers.space.delete: ' + service + ' "' + id + '" not found.');
-              console.log('  -> Message: ' + err.message);
+              logger.error(
+                'controllers.space.delete: ' + service + ' "' + id + '" not found.',
+                {errorMsg: err.message}
+              );
+     
               return res.send(401);
             } else {
-              console.log('controllers.space.delete: unknown error deleting the ' + service + ' object "' + id + '".');
-              console.log('  -> Message: ' + err.message);
+              logger.error(
+                'controllers.space.delete: unknown error deleting the ' + service + ' object "' + id + '".',
+                {errorMsg: err.message}
+              );
+     
             }
 
             return res.send(500);
           }
           if (err) {
-            console.log('controllers.space.delete: unknown error deleting the ' + service + ' object "' + id + '".');
-            console.log('  -> Message: ' + err.message);
+            logger.error(
+              'controllers.space.delete: unknown error deleting the ' + service + ' object "' + id + '".',
+              {errorMsg: err.message}
+            );
+   
             return res.send(500);
           }
 
           if (--calls === 0)
             models.space.remove(params.id, function(err, spaceResult) {
               if (err) {
-                console.log('controllers.space.delete: unknown error deleting the space object "' + params.id + '".');
-                console.log('  -> Message: ' + err.message);
+                logger.error(
+                  'controllers.space.delete: unknown error deleting the space object "' + params.id + '".',
+                  {errorMsg: err.message}
+                );
+       
                 return res.send(500);
               }
 
@@ -433,12 +462,16 @@ exports.delete = function(req, res) {
   models.space.get(params.id, function(err, data) {
     if (err) {
       if (err.code === 13) {
-        console.log('controllers.space.delete: space "' + params.id + '" not found.');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.delete: space "' + params.id + '" not found.',
+          {errorMsg: err.message}
+        );
         return res.send(401);
       } else {
-        console.log('controllers.space.delete: unknown error getting the space object "' + params.id + '".');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.delete: unknown error getting the space object "' + params.id + '".',
+          {errorMsg: err.message}
+        );
       }
 
       return res.send(500);
@@ -497,25 +530,29 @@ exports.readGraph = function(req, res) {
   models.space.get(params.id, function(err, data) {
     if (err) {
       if (err.code === 13) {
-        console.log('controllers.space.readGraph: space "' + params.id + '" not found.');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.readGraph: space "' + params.id + '" not found.',
+          {errorMsg: err.message}
+        );
         return res.send(401);
       } else {
-        console.log('controllers.space.readGraph: unknown error.');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.readGraph: unknown error.',
+          {errorMsg: err.message}
+        );
       }
       return res.send(500);
     }
 
     if (!data.graphs.length) {
-      console.log('controllers.space.readGraph: space "' + params.id + '" has no graph.');
-      console.log('  -> Message: ' + err.message);
+      logger.error(
+        'controllers.space.readGraph: space "' + params.id + '" has no graph.')
       return res.send(500);
     }
 
     if ((params.version > data.graphs.length - 1) || (params.version < 0)) {
-      console.log('controllers.space.readGraph: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').');
-      console.log('  -> Message: ' + err.message);
+      logger.error(
+        'controllers.space.readGraph: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').')
       return res.send(400);
     }
 
@@ -526,12 +563,18 @@ exports.readGraph = function(req, res) {
     models.graph.get(last.id, function(err, data) {
       if (err) {
         if (err.code === 13) {
-          console.log('controllers.space.readGraph: graph "' + last.id + '" not found.');
-          console.log('  -> Message: ' + err.message);
+          logger.error(
+            'controllers.space.readGraph: graph "' + last.id + '" not found.',
+            {errorMsg: err.message}
+          );
+ 
           return res.send(401);
         } else {
-          console.log('controllers.space.readGraph: unknown error getting graph "' + last.id + '".');
-          console.log('  -> Message: ' + err.message);
+          logger.error(
+            'controllers.space.readGraph: unknown error getting graph "' + last.id + '".',
+            {errorMsg: err.message}
+          );
+ 
         }
 
         return res.send(500);
@@ -546,12 +589,18 @@ exports.readGraph = function(req, res) {
     models.graphMeta.get(last.metaId, function(err, data) {
       if (err) {
         if (err.code === 13) {
-          console.log('controllers.space.readGraph: graph meta "' + last.metaId + '" not found.');
-          console.log('  -> Message: ' + err.message);
+          logger.error(
+            'controllers.space.readGraph: graph meta "' + last.metaId + '" not found.',
+            {errorMsg: err.message}
+          );
+ 
           return res.send(401);
         } else {
-          console.log('controllers.space.readGraph: unknown error getting graph meta "' + last.metaId + '".');
-          console.log('  -> Message: ' + err.message);
+          logger.error(
+            'controllers.space.readGraph: unknown error getting graph meta "' + last.metaId + '".',
+            {errorMsg: err.message}
+          );
+ 
         }
 
         return res.send(500);
@@ -611,25 +660,29 @@ exports.updateGraph = function(req, res) {
   models.space.get(params.id, function(err, data) {
     if (err) {
       if (err.code === 13) {
-        console.log('controllers.space.updateGraph: space "' + params.id + '" not found.');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.updateGraph: space "' + params.id + '" not found.',
+          {errorMsg: err.message}
+        );
         return res.send(401);
       } else {
-        console.log('controllers.space.updateGraph: unknown error.');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.updateGraph: unknown error.',
+          {errorMsg: err.message}
+        );
       }
       return res.send(500);
     }
 
     if (!data.graphs.length) {
-      console.log('controllers.space.updateGraph: space "' + params.id + '" has no graph stored.');
-      console.log('  -> Message: ' + err.message);
+      logger.error(
+        'controllers.space.updateGraph: space "' + params.id + '" has no graph stored.')
       return res.send(500);
     }
 
     if ((params.version > data.graphs.length - 1) || (params.version < 0)) {
-      console.log('controllers.space.updateGraph: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').');
-      console.log('  -> Message: ' + err.message);
+      logger.error(
+        'controllers.space.updateGraph: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').')
       return res.send(400);
     }
 
@@ -645,8 +698,11 @@ exports.updateGraph = function(req, res) {
         graph.id,
         function(err, data) {
           if (err) {
-            console.log('controllers.space.updateGraph: unknown error creating the graph object.');
-            console.log('  -> Message: ' + err.message);
+            logger.error(
+              'controllers.space.updateGraph: unknown error creating the graph object.',
+              {errorMsg: err.message}
+            );
+   
             return res.send(500);
           }
 
@@ -666,8 +722,11 @@ exports.updateGraph = function(req, res) {
         graph.metaId,
         function(err, data) {
           if (err) {
-            console.log('controllers.space.updateGraph: unknown error creating the graph meta object.');
-            console.log('  -> Message: ' + err.message);
+            logger.error(
+              'controllers.space.updateGraph: unknown error creating the graph meta object.',
+              {errorMsg: err.message}
+            );
+   
             return res.send(500);
           }
 
@@ -724,22 +783,27 @@ exports.addGraph = function(req, res) {
 
   models.space.get(params.id, function(err, spaceResult) {
     if (err) {
-      console.log('controllers.space.addGraph: unknown error retrieving the graph object.');
-      console.log('  -> Message: ' + err.message);
+      logger.error(
+        'controllers.space.addGraph: unknown error retrieving the graph object.')
       return res.send(500);
     }
 
     models.graph.set(params.graph || {}, function(err, graphResult) {
       if (err) {
-        console.log('controllers.space.addGraph: unknown error setting the graph object.');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.addGraph: unknown error setting the graph object.',
+          {errorMsg: err.message}
+        );
         return res.send(500);
       }
 
       models.graphMeta.set(params.meta || {}, function(err, graphMetaResult) {
         if (err) {
-          console.log('controllers.space.addGraph: unknown error setting the graph meta object.');
-          console.log('  -> Message: ' + err.message);
+          logger.error(
+            'controllers.space.addGraph: unknown error setting the graph meta object.',
+            {errorMsg: err.message}
+          );
+ 
           return res.send(500);
         }
 
@@ -756,8 +820,11 @@ exports.addGraph = function(req, res) {
           params.id,
           function(err, spaceResult) {
             if (err) {
-              console.log('controllers.space.addGraph: unknown error updating the space object.');
-              console.log('  -> Message: ' + err.message);
+              logger.error(
+                'controllers.space.addGraph: unknown error updating the space object.',
+                {errorMsg: err.message}
+              );
+     
               return res.send(500);
             }
 
@@ -827,25 +894,29 @@ exports.addSnapshot = function(req, res) {
   models.space.get(params.id, function(err, spaceResult) {
     if (err) {
       if (err.code === 13) {
-        console.log('controllers.space.exportGraph: space "' + params.id + '" not found.');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.exportGraph: space "' + params.id + '" not found.',
+          {errorMsg: err.message}
+        );
         return res.send(401);
       } else {
-        console.log('controllers.space.exportGraph: unknown error.');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.exportGraph: unknown error.',
+          {errorMsg: err.message}
+        );
       }
       return res.send(500);
     }
 
     if (!spaceResult.graphs.length) {
-      console.log('controllers.space.exportGraph: space "' + params.id + '" has no graph stored.');
-      console.log('  -> Message: ' + err.message);
+      logger.error(
+        'controllers.space.exportGraph: space "' + params.id + '" has no graph stored.')
       return res.send(500);
     }
 
     if ((params.version > spaceResult.graphs.length - 1) || (params.version < 0)) {
-      console.log('controllers.space.exportGraph: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').');
-      console.log('  -> Message: ' + err.message);
+      logger.error(
+        'controllers.space.exportGraph: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').')
       return res.send(400);
     }
 
@@ -854,12 +925,18 @@ exports.addSnapshot = function(req, res) {
       function(err, graphResult) {
         if (err) {
           if (err.code === 13) {
-            console.log('controllers.space.exportGraph: graph "' + last.id + '" not found.');
-            console.log('  -> Message: ' + err.message);
+            logger.error(
+              'controllers.space.exportGraph: graph "' + last.id + '" not found.',
+              {errorMsg: err.message}
+            );
+   
             return res.send(401);
           } else {
-            console.log('controllers.space.exportGraph: unknown error getting graph "' + last.id + '".');
-            console.log('  -> Message: ' + err.message);
+            logger.error(
+              'controllers.space.exportGraph: unknown error getting graph "' + last.id + '".',
+              {errorMsg: err.message}
+            );
+   
           }
 
           return res.send(500);
@@ -869,8 +946,11 @@ exports.addSnapshot = function(req, res) {
 
         models.snapshot.set(snapshot, function(err, snapshotResult) {
           if (err) {
-            console.log('controllers.space.exportGraph: unknown error setting the snapshot object.');
-            console.log('  -> Message: ' + err.message);
+            logger.error(
+              'controllers.space.exportGraph: unknown error setting the snapshot object.',
+              {errorMsg: err.message}
+            );
+   
             return res.send(500);
           }
 
@@ -885,8 +965,11 @@ exports.addSnapshot = function(req, res) {
             params.id,
             function(err, spaceResult) {
               if (err) {
-                console.log('controllers.space.exportGraph: unknown error updating the space object.');
-                console.log('  -> Message: ' + err.message);
+                logger.error(
+                  'controllers.space.exportGraph: unknown error updating the space object.',
+                  {errorMsg: err.message}
+                );
+       
                 return res.send(500);
               }
 
@@ -944,19 +1027,23 @@ exports.getSnapshot = function(req, res) {
   models.space.get(params.id, function(err, spaceResult) {
     if (err) {
       if (err.code === 13) {
-        console.log('controllers.space.getExports: space "' + params.id + '" not found.');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.getExports: space "' + params.id + '" not found.',
+          {errorMsg: err.message}
+        );
         return res.send(401);
       } else {
-        console.log('controllers.space.getExports: unknown error.');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.getExports: unknown error.',
+          {errorMsg: err.message}
+        );
       }
       return res.send(500);
     }
 
     if (!spaceResult.graphs.length) {
-      console.log('controllers.space.getExports: space "' + params.id + '" has no graph stored.');
-      console.log('  -> Message: ' + err.message);
+      logger.error(
+        'controllers.space.getExports: space "' + params.id + '" has no graph stored.')
       return res.send(500);
     }
 
@@ -965,8 +1052,10 @@ exports.getSnapshot = function(req, res) {
     // If the version number is specified, send only the related exports:
     if (typeof params.version === 'number') {
       if ((params.version > spaceResult.graphs.length - 1) || (params.version < 0)) {
-        console.log('controllers.space.getExports: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').');
-        console.log('  -> Message: ' + err.message);
+        logger.error(
+          'controllers.space.getExports: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').',
+          {errorMsg: err.message}
+        );
         return res.send(400);
       }
 
