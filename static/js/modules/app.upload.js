@@ -5,7 +5,7 @@
   app.modules.upload = function(dom) {
     var self = this;
 
-    $('input:file').change(function() {
+    $('input:file', dom).change(function() {
       var reader,
           file = $(this)[0].files[0];
 
