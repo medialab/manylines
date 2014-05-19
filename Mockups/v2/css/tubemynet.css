@@ -113,6 +113,21 @@ div.central-panel{
   left: 0;
 }
 
+.sigma-tools {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+
+  border: 1px solid #E2E2E2;
+  background-color: #FFF;
+}
+.sigma-tools ul{
+  display-style: table;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+
 
 /*
  * Full-height layout
@@ -131,17 +146,89 @@ html,body,.container-fullheight
     box-sizing: border-box;
 }
 
-.container-fullheight .row
+.container-fullheight .row-fullheight
 {
     height: 100%;
     display: table-row;
 }
 .container-fullheight .col-left, .container-fullheight .col-right
 {
-    display: table-cell;
-    float: none; /* thanks baxxabit */
+  display: table-cell;
+  float: none; /* thanks baxxabit */
+  vertical-align: top;
 }
-.col-left{
-  padding-left: 0px;
+.col-left, .col-right{
+  padding: 0px;
 }
 
+
+/*
+ * Right panel
+ */
+.forcelayout-container{
+  height: 60px;
+  padding-top: 12px;
+  text-align: center;
+  border-bottom: 1px solid #E2E2E2;
+}
+.tirette{
+  border-left: 1px solid #E2E2E2;
+  width: 40px;
+  height: 40px;
+  -webkit-border-top-left-radius: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+  -moz-border-radius-topleft: 20px;
+  -moz-border-radius-bottomleft: 20px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+
+  margin-top: -2px;
+  margin-bottom: -38px;
+  margin-left: -21px;
+
+  background-color: #FFF;
+}
+.tirette a{
+  margin-top: 4px;
+  margin-left: -4px;
+  color: #ccc;
+}
+.container-networklist{
+  padding: 0px;
+}
+.container-networklist .col{
+
+}
+.network-item{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #E2E2E2;
+  font-size: 12px;
+  cursor: pointer;
+}
+.network-item:hover{
+  background-color: #eee;
+}
+.network-item .network-thumbnail{
+  margin-left: 12px;
+  height: 80px;
+  background-color: #F5F5F5;
+}
+.network-abstract{
+  margin-top: 18px;
+  margin-left: -17px;
+}
+.network-abstract-title{
+  margin: 0px;
+  text-transform:uppercase;
+  padding: 0px;
+  height: 18px;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+.network-abstract-subtitle{
+  color:#29ABE2;
+  margin: 0px;
+  padding: 0px;
+}
