@@ -156,8 +156,8 @@ html,body,.container-fullheight
 {
     display:table;
     width: 100%;
-    margin-top: -110px;
-    padding: 110px 0 0 0; /*set left/right padding according to needs*/
+    margin-top: -96px;
+    padding: 96px 0 0 0; /*set left/right padding according to needs*/
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
@@ -221,6 +221,9 @@ html,body,.container-fullheight
   border-bottom: 1px solid #E2E2E2;
   font-size: 12px;
   cursor: pointer;
+}
+.network-item .row{
+  margin-right: 0px;
 }
 .network-item:hover{
   background-color: #eee;
