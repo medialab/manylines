@@ -22,7 +22,6 @@
 
     "css": [
       "/css/bootstrap.min.css",
-      "/css/app.layout.css",
       "/css/app.main.css"
     ]
   },

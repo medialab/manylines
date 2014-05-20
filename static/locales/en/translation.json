@@ -1,21 +1,14 @@
 {
-  "menu": {
+  "main": {
+    "tubemynet": "tubemynet",
+
+    "not_saved_yet": "Not saved yet",
+
+    "new_network": "New network",
+    "basemap": "Basemap",
     "explore": "Explore",
-    "statistics": "Statistics",
-    "run_scripts": "Run Scripts",
-    "edit_nodes_and_edges": "Edit Nodes and Edges",
-    "edit_layout": "Edit Layout",
-    "edit_categories": "Edit Categories",
-    "manage_net_views": "Manage Net-views",
-    "publish_network": "Publish Network",
-    "publish_widgets": "Publish Widgets",
-    "publish_stories": "Publish Stories",
-    "export": "Export",
-    "settings": "Settings",
-    "save": "Save",
-    "unsaved": " Not saved",
-    "toggle_navigation": "Toggle navigation",
-    "help": "Help"
+    "make_views": "Make views",
+    "explore_make_views": "Explore + make views"
   },
   "login": {
     "login": "Login",
@@ -24,69 +17,10 @@
     "signin": "Sign in"
   },
   "upload": {
-    "upload_network": "Upload your network",
-    "upload_gexf_json": "Upload a GEXF or JSON graph file",
+    "upload_network": "Upload a network",
     "error_uploading_file": "An error occured while uploading the file",
     "invalid_JSON_file": "The JSON file is not valid.",
     "invalid_GEXF_file": "The GEXF file is not valid.",
     "invalid_file_format": "The file format is not recognized yet."
-  },
-  "explore": {
-    "overview": "Overview",
-    "overview_description": "Browse the whole network, search nodes",
-
-    "local": "Local exploration",
-    "local_description": "Explore the neighborhood of a node, live layout",
-
-    "select_mode": "Select a way to explore the network",
-    "filter_panel": "Filter panel"
-  },
-  "settings": {
-    "settings": "Settings",
-    "network": "Network",
-    "description": "Description",
-    "authors": "Authors",
-    "about_authors": "About authors",
-    "account": "Account",
-    "change_email": "Change email",
-    "edit_password": "Edit password",
-    "dangerous_stuff": "Dangerous stuff",
-    "restart": "Restart",
-    "upload": "Upload new network",
-    "upload_description": "Erase everything and upload a new network instead of the current one",
-    "delete": "Delete this network",
-    "delete_description": "Remove this network from TubeMyNet",
-    "remove": "Remove",
-
-    "password_placeholder": "Type your new password",
-    "title_placeholder": "Enter a title",
-    "description_placeholder": "Enter a short description",
-    "authors_placeholder": "Enter name(s)",
-    "authors_description_placeholder": "Enter a short text"
-  },
-  "space": {
-    "save_graph": "Save the graph",
-    "save_graph_description": "You need to select a password to prevent your network to be edited by other people, and an email address in case you forget the password.",
-    "password": "Password",
-    "email": "Mail address",
-    "save": "Save"
-  },
-
-  "graph": {
-    "node": "__count__ node",
-    "node_plural": "__count__ nodes",
-    "edge": "__count__ edge",
-    "edge_plural": "__count__ edges"
-  },
-
-  "warnings": {
-    "invalid_password": "Invalid password",
-    "invalid_email": "Invalid email",
-    "missing_password": "Missing password",
-    "missing_email": "Missing email"
-  },
-  "errors": {
-    "default": "An error occured.",
-    "unauthorized": "Unauthorized logon failed due to server configuration."
   }
 }

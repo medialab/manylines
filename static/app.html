@@ -20,89 +20,52 @@
   </head>
 
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-      <!-- Logged header: -->
-        <div class="navbar-header app-logged">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" data-property="" href="/"></a>
-        </div>
-        <div class="navbar-collapse collapse app-logged">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="navbar-alert" data-app-domShow="isModified" data-app-domClick="save">
-              <a href="#">
-                <span class="glyphicon glyphicon-exclamation-sign" data-i18n="menu.unsaved"></span>
-              </a>
-            </li>
-            <li><a href="#" data-i18n="menu.help"></a></li>
-            <li><a href="http://tools.medialab.sciences-po.fr"><span class="glyphicon glyphicon-plus"></span> Médialab Tools</a></li>
-          </ul>
-        </div>
 
-        <!-- Unlogged header: -->
-        <div class="navbar-header app-unlogged">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only" data-i18n="menu.toggle_navigation"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">TubeMyNet</a>
-        </div>
-        <div class="navbar-collapse collapse app-unlogged">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">médialab tools</a></li>
-          </ul>
+    <div class="container-fluid">
+      <div class="row top-row">
+          <div class="col-xs-2 top-row-item">
+            <a href="/" class="top-row-brand"><img src="/img/tmn_header.png" class="tmn-brand"></a>
+          </div>
+          <div class="col-xs-3"></div>
+          <div class="col-xs-2 top-row-item save save-alert">
+            <a href="#" data-i18n="main.not_saved_yet"></a>
+          </div>
+          <div class="col-xs-3"></div>
+          <div class="col-xs-2 top-row-item">
+            <a href="http://medialab.sciences-po.fr" target="_blank" class="top-row-brand pull-right"><img src="/img/medialab.png" class="medialab-brand"></a>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="container-fluid app-container app-logged">
+    <div class="container-fluid" role="navigation">
       <div class="row">
-        <div class="col-xs-4 col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li><a href="#" data-app-updateView="explore" data-i18n="menu.explore"></a></li>
-            <li><a class="todo" href="statistics.html" data-app-updateView="statistics" data-i18n="menu.statistics"></a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="#" data-app-updateView="scripts" data-i18n="menu.run_scripts"></a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a class="todo" href="edit.html" data-i18n="menu.edit_nodes_and_edges"></a></li>
-            <li><a class="todo" href="layout.html" data-i18n="menu.edit_layout"></a></li>
-            <li><a class="todo" href="categories.html" data-i18n="menu.edit_categories"></a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a class="todo" href="views.html" data-i18n="menu.manage_net_views"></a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a class="todo" href="publish.html" data-i18n="menu.publish_network"></a></li>
-            <li><a class="todo" href="widgets.html" data-i18n="menu.publish_widgets"></a></li>
-            <li><a class="todo" href="stories.html" data-i18n="menu.publish_stories"></a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a class="todo" href="export.html" data-i18n="menu.export"></a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="#" data-app-updateView="settings" data-i18n="menu.settings"></a></li>
-            <li><a href="#" data-app-domClick="save" data-i18n="menu.save"></a></li>
-          </ul>
-        </div>
-
-        <div class="col-xs-8 col-xs-offset-4 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <!-- Main app container goes here-->
-        </div>
+        <ul class="nav nav-tmn-menu">
+          <li class="active">
+            <a href="#">
+              <p class="nav-tmn-title" data-i18n="main.new_network">New network</p>
+              <p class="nav-tmn-subtitle">01.</p>
+            </a>
+          </li>
+          <li class="">
+            <a href="#">
+              <p class="nav-tmn-title" data-i18n="main.basemap">Basemap</p>
+              <p class="nav-tmn-subtitle">02.</p>
+            </a>
+          </li>
+          <li class="">
+            <a href="#">
+              <p class="nav-tmn-title" data-i18n="main.explore_make_views">Explore + Make views</p>
+              <p class="nav-tmn-subtitle">03.</p>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
 
-    <div class="container-fluid app-container app-unlogged">
+    <div class="container-fluid app-container">
       <div class="row">
-        <div class="col-xs-8 col-xs-offset-2 main">
+        <div class="col-xs-12 main">
           <!-- Main app container goes here-->
         </div>
       </div>

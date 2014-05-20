@@ -1,7 +1,11 @@
 {{! Upload form: }}
-<h2>{{t  "upload.upload_network" }}</h2>
-<div class="form-group">
-  <!-- <label for="networkInputFile">Select a file or drag and drop it here</label> -->
-  <input type="file" id="networkInputFile">
-  <p class="help-block">{{t "upload.upload_gexf_json" }}</p>
+<div class="form-group" data-app-module="upload">
+  <div>
+    <div class="central-panel">
+      <div class="fileinput-container">
+         <input type="file" />
+      </div>
+      <a href="#" class="btn btn-primary" role="button">{{t "upload.upload_network" }}</a>
+    </div>
+  </div>
 </div>

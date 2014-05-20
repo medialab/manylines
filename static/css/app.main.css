@@ -1,17 +1,298 @@
-/* Hide sidebar container initially */
-body:not([data-app-view]) .app-container,
-body:not([data-app-view]) .app-logged {
-  display: none!important;
+/*
+ * Global color and font
+ */
+body {
+  color: #555;
+  /*font-family: 'Roboto Condensed', sans-serif;*/
+  font-family: 'Roboto', sans-serif;
+}
+.label, .badge{
+  font-family: sans-serif;
 }
 
-/* Views-related global layout */
-body[data-app-view="login"] .app-logged,
-body[data-app-view="upload"] .app-logged {
-  display: none!important;
+/*
+ * Navbar
+ */
+.top-row{
+  border-bottom: 1px solid #E2E2E2;
+  height: 40px;
+}
+.top-row .top-row-item a{
+  display: block;
+  padding: 12px;
+  height: 40px;
+}
+.top-row .top-row-item.save a{
+  text-transform:uppercase;
+  border-left: 1px solid #E2E2E2;
+  border-right: 1px solid #E2E2E2;
+  border-bottom: 1px solid #EF371F;
+  font-size: 10px;
+  text-align: center;
+}
+.top-row .save.save-alert a{
+  color: #EF371F;
+}
+.top-row a.top-row-brand{
+  padding: 5px 0px 0px 0px;
 }
 
-body[data-app-view="explore"] .app-unlogged,
-body[data-app-view="scripts"] .app-unlogged,
-body[data-app-view="settings"] .app-unlogged {
-  display: none!important;
+/*
+ * Menu
+ */
+.nav-tmn-menu{
+  border-bottom: 1px solid #E2E2E2;
+  margin-left: 3px;
+}
+.nav-tmn-menu li{
+  display: inline-block;
+  margin-left: -3px;
+  border-right: 1px solid #E2E2E2;
+}
+.nav-tmn-menu li a{
+  color: #9EA1A7;
+  font-size: 10px;
+  padding: 9px 12px 12px 12px;
+  border-top: 3px solid #FFFFFF;
+}
+.nav-tmn-menu li a:hover{
+  border-top: 3px solid #eeeeee;
+}
+.nav-tmn-menu li .nav-tmn-title{
+  text-transform:uppercase;
+}
+.nav-tmn-menu li.active a{
+  border-top: 3px solid #E2E2E2;
+
+  border-bottom: 2px solid #FFF;
+  margin-bottom: -2px;
+  z-index:10;
+}
+.nav-tmn-menu li.active.active-sigma a{
+  border-top: 3px solid #E2E2E2;
+
+  background: rgb(248,248,248);
+
+  border-bottom: 6px solid rgb(248,248,248);
+  margin-bottom: -6px;
+  z-index:10;
+}
+.nav-tmn-menu li.active .nav-tmn-title{
+  color:#000;
+}
+.nav-tmn-menu li.active .nav-tmn-subtitle{
+  color:#29ABE2;
+}
+.nav-tmn-menu li p{
+  padding: 0px;
+  margin: 0px;
+}
+
+/*
+ * Central panel (ex: upload)
+ */
+div > div.central-panel{
+  padding: 8% 0;
+  text-align: center;
+}
+div.central-panel{
+  padding: 10% 0
+}
+
+/*
+ * Sigma
+ */
+.sigma-panel{
+  height: 100%;
+  min-height: 200px;
+
+  /* from http://www.colorzilla.com/gradient-editor/ */
+  background: rgb(248,248,248); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(248,248,248,1) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(248,248,248,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+  -webkit-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
+  -moz-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
+  box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
+}
+
+.sigma-expand {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.sigma-tools {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+
+  border: 1px solid #E2E2E2;
+  background-color: #FFF;
+}
+.sigma-tools ul{
+  display-style: table;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+
+/*
+ * Full-height layout
+ */
+html,body,.container-fullheight
+{
+    height:100%;
+}
+.container-fullheight
+{
+    display:table;
+    width: 100%;
+    margin-top: -96px;
+    padding: 96px 0 0 0; /*set left/right padding according to needs*/
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.container-fullheight .row-fullheight
+{
+    height: 100%;
+    display: table-row;
+}
+.container-fullheight .col-left, .container-fullheight .col-middle, .container-fullheight .col-right
+{
+  display: table-cell;
+  float: none; /* thanks baxxabit */
+  vertical-align: top;
+}
+.col-left, .col-middle, .col-right{
+  padding: 0px;
+}
+
+
+/*
+ * Right panel
+ */
+.righ-col-container{
+
+}
+.forcelayout-container{
+  height: 60px;
+  padding-top: 12px;
+  text-align: center;
+  border-bottom: 1px solid #E2E2E2;
+  margin-left: -1px;
+}
+.forcelayout-container.active, .network-item.active{
+  border-left: 1px solid #FFF;
+  z-index: 10;
+}
+.tirette{
+  border-left: 1px solid #E2E2E2;
+  width: 40px;
+  height: 40px;
+  -webkit-border-top-left-radius: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+  -moz-border-radius-topleft: 20px;
+  -moz-border-radius-bottomleft: 20px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+
+  margin-top: -2px;
+  margin-bottom: -38px;
+  margin-left: -21px;
+
+  background-color: #FFF;
+}
+.tirette a{
+  margin-top: 4px;
+  margin-left: -4px;
+  color: #ccc;
+}
+.container-networklist{
+  margin-left: -1px;
+  padding: 0px;
+  overflow-y: auto;
+  height: 100%;
+  padding-top: 60px;
+}
+.subcontainer-networklist{
+  margin-top: -60px;
+}
+.col-right{
+  border-left: 1px solid #E2E2E2;
+}
+.network-item{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #E2E2E2;
+  font-size: 12px;
+  cursor: pointer;
+}
+.network-item .row{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.network-item .row > .col{
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.network-item:hover{
+  background-color: #eee;
+}
+.network-item .network-thumbnail{
+  height: 80px;
+  background-color: #F5F5F5;
+}
+.network-abstract{
+  margin-top: 18px;
+  margin-left: -12px;
+}
+.network-abstract-title{
+  margin: 0px;
+  text-transform:uppercase;
+  padding: 0px;
+  height: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+.network-abstract-subtitle{
+  color:#29ABE2;
+  margin: 0px;
+  padding: 0px;
+}
+
+/*
+ * Layout settings
+ */
+.settings-container{
+  padding: 0px 24px 0px 24px;
+  height: 100%;
+  overflow-y: auto;
+}
+.settings-container .setting-item{
+  padding-bottom: 12px;
+  border-bottom: 1px solid #E2E2E2;
+  padding-top: 18px;
+}
+.settings-container .title{
+  font-weight: 700;
+}
+
+/*
+ * Modules
+ */
+div[data-app-module="upload"] .fileinput-container {
+  overflow: hidden;
+  height: 0;
 }
