@@ -141,6 +141,11 @@
         value: false
       },
       {
+        id: 'dataLoaded',
+        description: 'A flag indicating if the controller has loaded relevant data.',
+        value: false
+      },
+      {
         id: 'view',
         triggers: 'updateView',
         dispatch: 'viewUpdated',
@@ -197,7 +202,6 @@
           // This hack is the first to be called by the controller in order
           // to initialize the application.
           // Its role for the time being is just to process the hash
-          // and fetch data from localStorage or database if needed.
 
           // Temporary dirty scheme
           this.update('initialized', true);
@@ -216,36 +220,33 @@
       },
       {
         triggers: 'loadWebStorage',
-        method: function() {
+        method: function(e) {
 
-          // Load localStorage:
-          if (app.support.webStorage)
-            this.dispatchEvent('loadLocalStorage');
+          // First we try reaching the server to get data
+
+          // If the space does not exist, we kick the user
+
+          // If we succeed, we try getting the localStorage items to check
+          // whether some unsave data exists
+
+          // TODO: If server is unreachable we hit localStorage
+          // else we kick the user
+
+          // Requesting server data only if spaceId is present, else localStorage
+          if (this.get('spaceId'))
+            this.request('loadGraphData');
           else
-            this.dispatchEvent('initialUpdate');
+            this.dispatchEvent('loadLocalStorage');
         }
       },
       {
-        triggers: 'initialUpdate',
+        triggers: 'localStorageLoaded',
         method: function(e) {
 
-          var data = e.data || {};
+          if (e.data)
+            this.update(e.data);
 
-          if (Object.keys(data).length)
-            this.update(data);
-
-          // Finally unleash the features:
-          this.update('initialized', true);
-
-          // Load the data if not done yet:
-          if (
-            this.get('spaceId') &&
-            this.get('view') !== 'login' &&
-            !data.graph
-          )
-            this.request('loadGraphData');
-
-          this.dispatchEvent('loadHash');
+          this.update('dataLoaded', false);
         }
       },
 
@@ -346,7 +347,7 @@
               // Do we need to initialize data?
               if (!this.get('graph')) {
                 this.update('spaceId', hash[1]);
-                this.update('version', +hash[2]);
+                this.update('version', + (hash[2] || 0));
 
                 this.dispatchEvent('loadWebStorage');
               } else if (hash.length <= 2) {
@@ -423,6 +424,7 @@
               meta[k] = e.data.meta[k];
 
           this.update({
+            dataLoaded: true,
             graph: graph,
             meta: meta,
             view: 'explore',
@@ -447,7 +449,8 @@
             for (k in modified)
               data[k] = this.get(k);
 
-            if (typeof this.get('version') !== 'number')
+            if (typeof this.get('version') !== 'number' ||
+                isNaN(this.get('version')))
               this.update('version', 0);
 
             this.request('saveGraphData', {
@@ -737,6 +740,7 @@
           this.update('meta', data.meta);
           this.update('graph', data.graph);
           this.update('isModified', null);
+          this.dispatchEvent('loadLocalStorage');
         },
         error: function(m, x, p) {
           if (+x.status === 401)
