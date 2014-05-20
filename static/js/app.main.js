@@ -192,13 +192,19 @@
        * ***********************
        */
       {
+        triggers: 'init',
+        method: function() {
+          // This hack is the first to be called by the controller in order
+          // to initialize the application.
+          // Its role for the time being is just to process the hash
+          // and fetch data from localStorage or database if needed.
+
+          this.dispatchEvent('loadHash');
+        }
+      },
+      {
         triggers: 'loadHash',
         method: function() {
-          // Basically, what we need here is to retrieve app state from
-          // the HASH and data from the STORAGE. But it has to happen at
-          // once, to avoid side effect with the hacks bound on state events.
-          // if (this.get('initialized'))
-          //   return;
 
           // Read URL hash:
           this.dispatchEvent('hashUpdated', {
@@ -338,7 +344,14 @@
             case 'scripts':
             case 'settings':
             case 'explore':
-              if (hash.length <= 2) {
+
+              // Do we need to initialize data?
+              if (!this.get('initialized')) {
+                this.dispatchEvent('loadWebStorage');
+
+                this.update('spaceId', hash[1]);
+                this.update('version', +hash[2]);
+              } else if (hash.length <= 2) {
                 if (!this.get('graph')) {
                   this.log('The space ID and graph are missing. The view is set to "upload".');
                   this.update('view', 'upload');
@@ -347,8 +360,6 @@
                 this.update('spaceId', null);
                 this.update('version', null);
               } else {
-                if (!this.get('graph'))
-                  this.request('loadGraphData');
 
                 this.update('spaceId', hash[1]);
                 this.update('version', +hash[2]);

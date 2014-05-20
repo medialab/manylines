@@ -3,8 +3,9 @@ var config = require('./config.js'),
     async = require('async'),
     logger = require('../lib/log').api.logger,
     couchbase = require('couchbase'),
-    buckets = {},
-    actualBuckets = {};
+    actualBuckets = {},
+    buckets = {};
+
 
 function connectFn(i) {
   return function(cb) {
@@ -51,8 +52,21 @@ function connect(next) {
   });
 }
 
+function connectForTests(next) {
+  var mock = require('couchbase').Mock,
+      i;
+
+  actualBuckets['test'] = new mock.Connection();
+
+  for (i in config.buckets)
+    buckets[i] = actualBuckets['test'];
+
+  next();
+}
+
 // Exporting connections
 module.exports = {
   connect: connect,
+  connectForTests: connectForTests,
   buckets: buckets
 };
