@@ -1,0 +1,38 @@
+/*
+ * Alerts container
+ */
+#app-alerts-container {
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  top: 15px;
+  z-index: 2000;
+}
+
+#app-alerts-container > .alert {
+  margin-bottom: 5px;
+}
+
+/*
+ * Modules
+ */
+div[data-app-module="upload"] .fileinput-container {
+  overflow: hidden;
+  height: 0;
+}
+
+form[data-app-module="login"] > fieldset {
+  text-align: right;
+  margin-top: 30px;
+}
+
+/*
+ * Override
+ */
+.nav-tmn-menu li.disabled:not(.active) a:hover{
+  cursor: default;
+  border-top: none;
+}
+.nav-tmn-menu li:not(.disabled) a:hover{
+  cursor: pointer;
+}
