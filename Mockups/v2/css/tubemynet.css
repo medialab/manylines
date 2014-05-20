@@ -288,3 +288,51 @@ html,body,.container-fullheight
 .settings-container .title{
   font-weight: 700;
 }
+
+.categories-container{
+  padding: 0px 24px 0px 24px;
+  height: 100%;
+  overflow-y: auto;
+}
+.categories-container .title{
+  text-transform:uppercase;
+  font-weight: 700;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #F2F2F2;
+}
+.category-item > .row .col{
+  padding: 0px;
+}
+.category-item{
+  min-height: 30px;
+  margin-bottom: 6px;
+}
+.category-item .cat-item-label{
+  text-align: right;
+  min-height: 30px;
+  border-right: 1px solid #999;
+  padding-top: 6px;
+  margin-right: 6px;
+  padding-right: 6px;
+}
+.category-item .cat-item-color{
+  margin-right: 6px;
+  height: 30px;
+}
+.category-item .cat-item-chart{
+  margin-right: 6px;
+  height: 30px;
+}
+.category-item .cat-item-chart .bar{
+  border-left: 1px solid #999;
+  background-color: #E2E2E2;
+  height: 30px;
+  display: inline-block;
+}
+.category-item .cat-item-chart-count{
+  margin-left: 4px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -20px;
+}
