@@ -78,7 +78,7 @@
 
     <div class="container-fluid container-fullheight">
       <div class="row row-fullheight">
-        <div class="col-left col-xs-9">
+        <div class="col-left col-xs-6">
           <div class="sigma-panel">
             <div class="sigma-expand"></div>
             <div class="sigma-overlay">
@@ -98,46 +98,161 @@
             </div>
           </div>
         </div>
-        <div class="col-right col-xs-3">
-          <div class="forcelayout-container">
+
+        <div class="col-middle col-xs-3">
+          <div class="tirette-container">
             <div class="tirette">
               <a href="#" class="btn btn-link" role="button">
-                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="glyphicon glyphicon-chevron-right"></span>
               </a>
             </div>
+          </div>
+          <div class="settings-container">
+            <div class="setting-item">
+              <p class="title">LinLog mode</p>
+              <p>
+                <form role="form">
+                  <label class="checkbox-inline">
+                    <input type="checkbox" value="linlog"> LinLog mode
+                  </label>
+                </form>
+              </p>
+              <p class="text-info">
+                Different equations with slower convergence but more clustering
+              </p>
+            </div>
+            <div class="setting-item">
+              <p class="title">gravity</p>
+              <p>
+                <form role="form">
+                  <input type="number" class="form-control" placeholder="Enter a number" value="1.0">
+                </form>
+              </p>
+              <p class="text-info">
+                Attracts all nodes to the center, preventing disconnected components to drift away
+              </p>
+            </div>
+            <div class="setting-item">
+              <p class="title">stronger gravity</p>
+              <p>
+                <form role="form">
+                  <label class="checkbox-inline">
+                    <input type="checkbox" value="stronger_gravity"> stronger gravity
+                  </label>
+                </form>
+              </p>
+              <p class="text-info">
+                Another gravity equation that keeps nodes in a close circle
+              </p>
+            </div>
+            <div class="setting-item">
+              <p class="title">no overlapping</p>
+              <p>
+                <form role="form">
+                  <label class="checkbox-inline">
+                    <input type="checkbox" value="no_overlapping"> no overlapping
+                  </label>
+                </form>
+              </p>
+              <p class="text-info">
+                When the layout is converged, prevents node to overlap
+                <br>Note: If you do this too early, the network might get entangled
+              </p>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-right col-xs-3">
+          <div class="forcelayout-container active">
             <div>
-              <a href="#" class="btn btn-primary" role="button">Apply layout &nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-play"></span></a>
+              <a href="#" class="btn btn-default" role="button">Stop layout &nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-stop"></span></a>
             </div>
           </div>
 
-          <div class="container-fluid container-networklist">
+          <div class="container-networklist">
+            <div class="subcontainer-networklist">
             
-            <div class="network-item" role="button">
-              <div class="row">
-                <div class="col-xs-5">
-                  <div class="network-thumbnail"></div>
-                </div>
-                <div class="col-xs-7">
-                  <div class="network-abstract">
-                    <p class="network-abstract-title">Nombre de langages y compris les multiples</p>
-                    <p class="network-abstract-subtitle">5 categories</p>
+              <div class="network-item" role="button">
+                <div class="row">
+                  <div class="col col-xs-5">
+                    <div class="network-thumbnail"></div>
+                  </div>
+                  <div class="col col-xs-7">
+                    <div class="network-abstract">
+                      <p class="network-abstract-title">Nombre de langages y compris les multiples</p>
+                      <p class="network-abstract-subtitle">5 categories</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="network-item" role="button">
-              <div class="row">
-                <div class="col-xs-5">
-                  <div class="network-thumbnail"></div>
-                </div>
-                <div class="col-xs-7">
-                  <div class="network-abstract">
-                    <p class="network-abstract-title">Pays</p>
-                    <p class="network-abstract-subtitle">12 categories</p>
+              <div class="network-item" role="button">
+                <div class="row">
+                  <div class="col col-xs-5">
+                    <div class="network-thumbnail"></div>
+                  </div>
+                  <div class="col col-xs-7">
+                    <div class="network-abstract">
+                      <p class="network-abstract-title">Pays</p>
+                      <p class="network-abstract-subtitle">12 categories</p>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div class="network-item" role="button">
+                <div class="row">
+                  <div class="col col-xs-5">
+                    <div class="network-thumbnail"></div>
+                  </div>
+                  <div class="col col-xs-7">
+                    <div class="network-abstract">
+                      <p class="network-abstract-title">Pays</p>
+                      <p class="network-abstract-subtitle">12 categories</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="network-item" role="button">
+                <div class="row">
+                  <div class="col col-xs-5">
+                    <div class="network-thumbnail"></div>
+                  </div>
+                  <div class="col col-xs-7">
+                    <div class="network-abstract">
+                      <p class="network-abstract-title">Pays</p>
+                      <p class="network-abstract-subtitle">12 categories</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="network-item" role="button">
+                <div class="row">
+                  <div class="col col-xs-5">
+                    <div class="network-thumbnail"></div>
+                  </div>
+                  <div class="col col-xs-7">
+                    <div class="network-abstract">
+                      <p class="network-abstract-title">Pays</p>
+                      <p class="network-abstract-subtitle">12 categories</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="network-item" role="button">
+                <div class="row">
+                  <div class="col col-xs-5">
+                    <div class="network-thumbnail"></div>
+                  </div>
+                  <div class="col col-xs-7">
+                    <div class="network-abstract">
+                      <p class="network-abstract-title">Pays</p>
+                      <p class="network-abstract-subtitle">12 categories</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </div>
