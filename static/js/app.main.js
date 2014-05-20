@@ -199,6 +199,8 @@
           // Its role for the time being is just to process the hash
           // and fetch data from localStorage or database if needed.
 
+          // Temporary dirty scheme
+          this.update('initialized', true);
           this.dispatchEvent('loadHash');
         }
       },
@@ -215,8 +217,6 @@
       {
         triggers: 'loadWebStorage',
         method: function() {
-          if (this.get('initialized'))
-            return;
 
           // Load localStorage:
           if (app.support.webStorage)
@@ -228,8 +228,6 @@
       {
         triggers: 'initialUpdate',
         method: function(e) {
-          if (this.get('initialized'))
-            return;
 
           var data = e.data || {};
 
@@ -346,11 +344,11 @@
             case 'explore':
 
               // Do we need to initialize data?
-              if (!this.get('initialized')) {
-                this.dispatchEvent('loadWebStorage');
-
+              if (!this.get('graph')) {
                 this.update('spaceId', hash[1]);
                 this.update('version', +hash[2]);
+
+                this.dispatchEvent('loadWebStorage');
               } else if (hash.length <= 2) {
                 if (!this.get('graph')) {
                   this.log('The space ID and graph are missing. The view is set to "upload".');

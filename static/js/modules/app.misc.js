@@ -87,8 +87,7 @@
         data = null;
       }
 
-      if (!d.get('initialized'))
-        self.dispatchEvent('initialUpdate', data);
+      self.dispatchEvent('initialUpdate', data);
     };
 
     // Called when we need to delete pre-saved space data
