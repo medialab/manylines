@@ -181,6 +181,10 @@ html,body,.container-fullheight
 /*
  * Right panel
  */
+.righ-col-container{
+  overflow-y: auto;
+  height: 100%;
+}
 .forcelayout-container{
   height: 60px;
   padding-top: 12px;
