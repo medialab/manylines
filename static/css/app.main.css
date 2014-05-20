@@ -296,3 +296,8 @@ div[data-app-module="upload"] .fileinput-container {
   overflow: hidden;
   height: 0;
 }
+
+form[data-app-module="login"] > fieldset {
+  text-align: right;
+  margin-top: 30px;
+}
