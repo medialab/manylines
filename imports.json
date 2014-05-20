@@ -14,6 +14,7 @@
       "/js/modules/app.login.js",
       "/js/modules/app.layout.js",
       "/js/modules/app.upload.js",
+      "/js/modules/app.basemap.js",
       "/js/modules/app.explore.js",
       "/js/modules/app.scripts.js",
       "/js/modules/app.settings.js",

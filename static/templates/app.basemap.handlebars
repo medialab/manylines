@@ -1,0 +1,56 @@
+{{! Base map view: }}
+<div class="col-left col-xs-9" data-app-module="basemap">
+  <div class="sigma-panel">
+    <div class="sigma-expand"></div>
+    <div class="sigma-overlay">
+      <!-- UNCOMMENT TO USE PROGRESS BARS -->
+      <!-- <div class="progress progress-striped active">
+        <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+          Network loading...
+        </div>
+      </div> -->
+    </div>
+    <div class="sigma-tools">
+      <ul>
+        <li><a class="btn btn-link btn-sm" role="button"><span class="glyphicon glyphicon-record"></span></a></li>
+        <li><a class="btn btn-link btn-sm" role="button"><span class="glyphicon glyphicon-plus"></span></a></li>
+        <li><a class="btn btn-link btn-sm" role="button"><span class="glyphicon glyphicon-minus"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="col-right col-xs-3" data-app-module="basemap">
+  <div class="forcelayout-container">
+    <div class="tirette">
+      <a href="#" class="btn btn-link" role="button">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+    </div>
+    <div data-app-basemap-switchlayout="off">
+      <a href="#" class="btn btn-primary on" role="button">{{t "basemap.apply_layout"}} &nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-play"></span></a>
+      <a href="#" class="btn btn-default off" role="button">{{t "basemap.stop_layout"}} &nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-stop"></span></a>
+    </div>
+  </div>
+
+  <div class="container-networklist">
+    <div class="subcontainer-networklist">
+      <!-- Here is an example of how to format the network list items:
+      <div class="network-item" role="button">
+        <div class="row">
+          <div class="col col-xs-5">
+            <div class="network-thumbnail"></div>
+          </div>
+          <div class="col col-xs-7">
+            <div class="network-abstract">
+              <p class="network-abstract-title">Nombre de langages y compris les multiples</p>
+              <p class="network-abstract-subtitle">5 categories</p>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+    </div>
+
+  </div>
+</div>

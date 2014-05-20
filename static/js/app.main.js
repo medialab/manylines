@@ -144,7 +144,7 @@
         id: 'view',
         triggers: 'updateView',
         dispatch: 'viewUpdated',
-        description: 'The current view. Available values: "explore", "settings", "scripts", "upload", "login"',
+        description: 'The current view. Available values: "explore", "settings", "upload", "login", "basemap"',
         type: 'string',
         value: ''
       },
@@ -277,6 +277,7 @@
             case 'scripts':
             case 'settings':
             case 'explore':
+            case 'basemap':
               if (!spaceId || typeof version !== 'number')
                 hash = '#/' + view;
               else
@@ -342,6 +343,7 @@
             case 'scripts':
             case 'settings':
             case 'explore':
+            case 'basemap':
 
               // Do we need to initialize data?
               if (!this.get('graph')) {
@@ -425,7 +427,7 @@
           this.update({
             graph: graph,
             meta: meta,
-            view: 'explore',
+            view: 'basemap',
             isModified: {
               graph: true,
               meta: true
@@ -590,7 +592,7 @@
           var lastView = this.get('lastView');
           this.update('space', data);
           this.update('lastView', null);
-          this.update('view', lastView || 'explore');
+          this.update('view', lastView || 'basemap');
         },
         error: function(m, x, p) {
           if (x.status)

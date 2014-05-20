@@ -10,6 +10,7 @@
     "make_views": "Make views",
     "explore_make_views": "Explore + make views"
   },
+
   "login": {
     "login": "Login",
     "password": "Password",
@@ -22,6 +23,10 @@
     "invalid_JSON_file": "The JSON file is not valid.",
     "invalid_GEXF_file": "The GEXF file is not valid.",
     "invalid_file_format": "The file format is not recognized yet."
+  },
+  "basemap": {
+    "apply_layout": "Apply layout",
+    "stop_layout": "Stop layout"
   },
 
   "warnings": {
