@@ -60,6 +60,9 @@
     }
 
     function save() {
+      if (!d.get('dataLoaded'))
+        return false;
+
       var key = d.get('spaceId') || 'app-current',
           data = {};
 
@@ -71,26 +74,22 @@
         key,
         JSON.stringify(data)
       );
-
-      if ('app-current' in localStorage && key !== 'app-current')
-        clean();
     }
 
     function load() {
       var k,
           key = d.get('spaceId') || 'app-current',
           data = localStorage.getItem(key);
-
       try {
         data = JSON.parse(data);
       } catch(e) {
         data = null;
       }
 
-      self.dispatchEvent('initialUpdate', data);
+      self.dispatchEvent('localStorageLoaded', data);
     };
 
-    // Called when we need to delete pre-saved space data
+    // Removing the 'app-current' key from localStorage.
     function clean() {
       localStorage.removeItem('app-current');
     }
@@ -99,7 +98,6 @@
       this.triggers.events.dataUpdated = save;
       this.triggers.events.isModifiedUpdated = save;
       this.triggers.events.loadLocalStorage = load;
-      this.triggers.events.graphUploaded = clean;
     }
   };
 
