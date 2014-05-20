@@ -9,7 +9,8 @@ var config = require('./config.js'),
 
 function connectFn(i) {
   return function(cb) {
-    var b = config.buckets[i];
+    var b = config.couchbase.buckets[i],
+        params;
 
     // Announcing
     logger.verbose(i.blue + ' connection through the ' +
@@ -20,10 +21,16 @@ function connectFn(i) {
       cb(null);
     }
     else {
+      params = {
+        bucket: b,
+        host: config.couchbase.host + ':' + config.couchbase.port
+      };
+
+      if (config.couchbase.password)
+        params.password = config.couchbase.password;
+
       actualBuckets[b] = buckets[i] = new couchbase.Connection(
-        {
-          bucket: b
-        },
+        params,
         function(err) {
           if (err)
             cb(err);
@@ -40,7 +47,7 @@ function connect(next) {
       i;
 
   // Functions to be run by async
-  for (i in config.buckets)
+  for (i in config.couchbase.buckets)
     connectFunctions.push(connectFn(i));
 
   // Opening buckets connection

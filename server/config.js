@@ -11,11 +11,16 @@ var defaults = {
     port: 8080,
     secret: 's3cr3t'
   },
-  buckets: {
-    snapshot: 'tubemynet',
-    graphMeta: 'tubemynet',
-    graph: 'tubemynet',
-    space: 'tubemynet'
+  couchbase: {
+    host: 'localhost',
+    port: 8091,
+    password: null,
+    buckets: {
+      snapshot: 'tubemynet',
+      graphMeta: 'tubemynet',
+      graph: 'tubemynet',
+      space: 'tubemynet'
+    }
   },
   log: {
     console: true,
