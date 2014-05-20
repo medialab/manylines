@@ -182,8 +182,7 @@ html,body,.container-fullheight
  * Right panel
  */
 .righ-col-container{
-  overflow-y: auto;
-  height: 100%;
+
 }
 .forcelayout-container{
   height: 60px;
@@ -221,6 +220,12 @@ html,body,.container-fullheight
 .container-networklist{
   margin-left: -1px;
   padding: 0px;
+  overflow-y: auto;
+  height: 100%;
+  padding-top: 60px;
+}
+.subcontainer-networklist{
+  margin-top: -60px;
 }
 .col-right{
   border-left: 1px solid #E2E2E2;
@@ -257,6 +262,7 @@ html,body,.container-fullheight
   padding: 0px;
   height: 18px;
   overflow: hidden;
+  white-space: nowrap;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
