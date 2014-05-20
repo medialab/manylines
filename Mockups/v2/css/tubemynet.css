@@ -167,13 +167,13 @@ html,body,.container-fullheight
     height: 100%;
     display: table-row;
 }
-.container-fullheight .col-left, .container-fullheight .col-right
+.container-fullheight .col-left, .container-fullheight .col-middle, .container-fullheight .col-right
 {
   display: table-cell;
   float: none; /* thanks baxxabit */
   vertical-align: top;
 }
-.col-left, .col-right{
+.col-left, .col-middle, .col-right{
   padding: 0px;
 }
 
@@ -186,6 +186,11 @@ html,body,.container-fullheight
   padding-top: 12px;
   text-align: center;
   border-bottom: 1px solid #E2E2E2;
+  margin-left: -1px;
+}
+.forcelayout-container.active, .network-item.active{
+  border-left: 1px solid #FFF;
+  z-index: 10;
 }
 .tirette{
   border-left: 1px solid #E2E2E2;
@@ -210,10 +215,11 @@ html,body,.container-fullheight
   color: #ccc;
 }
 .container-networklist{
+  margin-left: -1px;
   padding: 0px;
 }
-.container-networklist .col{
-
+.col-right{
+  border-left: 1px solid #E2E2E2;
 }
 .network-item{
   padding-top: 12px;
@@ -223,19 +229,23 @@ html,body,.container-fullheight
   cursor: pointer;
 }
 .network-item .row{
+  margin-left: 0px;
   margin-right: 0px;
+}
+.network-item .row > .col{
+  padding-left: 12px;
+  padding-right: 12px;
 }
 .network-item:hover{
   background-color: #eee;
 }
 .network-item .network-thumbnail{
-  margin-left: 12px;
   height: 80px;
   background-color: #F5F5F5;
 }
 .network-abstract{
   margin-top: 18px;
-  margin-left: -17px;
+  margin-left: -12px;
 }
 .network-abstract-title{
   margin: 0px;
@@ -250,4 +260,21 @@ html,body,.container-fullheight
   color:#29ABE2;
   margin: 0px;
   padding: 0px;
+}
+
+/*
+ * Layout settings
+ */
+.settings-container{
+  padding: 0px 24px 0px 24px;
+  height: 100%;
+  overflow-y: auto;
+}
+.settings-container .setting-item{
+  padding-bottom: 12px;
+  border-bottom: 1px solid #E2E2E2;
+  padding-top: 18px;
+}
+.settings-container .title{
+  font-weight: 700;
 }
