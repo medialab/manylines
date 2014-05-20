@@ -50,6 +50,25 @@
       // Update DOM view:
       app.dom.attr('data-app-view', view);
 
+      // Check navigation buttons:
+      var test,
+          navButtons = $('.container-fluid[role="navigation"] li[data-app-updateView]', app.dom);
+
+      if (navButtons.is('li[data-app-updateView="' + view + '"]'))
+        $('.container-fluid[role="navigation"] li[data-app-updateView]', app.dom).each(function() {
+          var t = $(this);
+
+          if (t.attr('data-app-updateView') === view) {
+            test = true;
+            t.addClass('active').addClass('disabled');
+          } else if (test)
+            t.removeClass('active').addClass('disabled');
+          else
+            t.removeClass('active').removeClass('disabled');
+        });
+      else
+        navButtons.removeClass('active').addClass('disabled');
+
       // Lock UI until the template is loaded:
       self.dispatchEvent('lock');
 

@@ -55,11 +55,12 @@ body {
   padding: 9px 12px 12px 12px;
   border-top: 3px solid #FFFFFF;
 }
-.nav-tmn-menu li a:hover{
+.nav-tmn-menu li:not(.disabled) a:hover{
+  cursor: pointer;
   border-top: 3px solid #eeeeee;
 }
 .nav-tmn-menu li .nav-tmn-title{
-  text-transform:uppercase;
+  text-transform: uppercase;
 }
 .nav-tmn-menu li.active a{
   border-top: 3px solid #E2E2E2;
@@ -287,6 +288,22 @@ html,body,.container-fullheight
 }
 .settings-container .title{
   font-weight: 700;
+}
+
+
+/*
+ * Alerts container
+ */
+#app-alerts-container {
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  top: 15px;
+  z-index: 2000;
+}
+
+#app-alerts-container > .alert {
+  margin-bottom: 5px;
 }
 
 /*

@@ -22,5 +22,16 @@
     "invalid_JSON_file": "The JSON file is not valid.",
     "invalid_GEXF_file": "The GEXF file is not valid.",
     "invalid_file_format": "The file format is not recognized yet."
+  },
+
+  "warnings": {
+    "invalid_password": "Invalid password",
+    "invalid_email": "Invalid email",
+    "missing_password": "Missing password",
+    "missing_email": "Missing email"
+  },
+  "errors": {
+    "default": "An error occured.",
+    "unauthorized": "Unauthorized logon failed due to server configuration."
   }
 }

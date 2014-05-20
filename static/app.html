@@ -31,7 +31,7 @@
           </div>
           <div class="col-xs-3"></div>
           <div class="col-xs-2 top-row-item save save-alert">
-            <a href="#" data-i18n="main.not_saved_yet" data-app-domShow="isModified" data-app-domClick="save"></a>
+            <a data-i18n="main.not_saved_yet" data-app-domShow="isModified" data-app-domClick="save"></a>
           </div>
           <div class="col-xs-3"></div>
           <div class="col-xs-2 top-row-item">
@@ -44,21 +44,21 @@
     <div class="container-fluid" role="navigation">
       <div class="row">
         <ul class="nav nav-tmn-menu">
-          <li class="active">
-            <a href="#">
-              <p class="nav-tmn-title" data-i18n="main.new_network">New network</p>
+          <li data-app-updateView="upload" class="active">
+            <a>
+              <p class="nav-tmn-title" data-i18n="main.new_network"></p>
               <p class="nav-tmn-subtitle">01.</p>
             </a>
           </li>
-          <li class="">
-            <a href="#">
-              <p class="nav-tmn-title" data-i18n="main.basemap">Basemap</p>
+          <li data-app-updateView="basemap" class="">
+            <a>
+              <p class="nav-tmn-title" data-i18n="main.basemap"></p>
               <p class="nav-tmn-subtitle">02.</p>
             </a>
           </li>
-          <li class="">
-            <a href="#">
-              <p class="nav-tmn-title" data-i18n="main.explore_make_views">Explore + Make views</p>
+          <li data-app-updateView="explore" class="">
+            <a>
+              <p class="nav-tmn-title" data-i18n="main.explore_make_views"></p>
               <p class="nav-tmn-subtitle">03.</p>
             </a>
           </li>

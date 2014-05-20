@@ -108,10 +108,13 @@
    */
   app.modules.viewsPanel = function(d) {
     var self = this;
-    app.dom.on('click', 'a[data-app-updateView]', function(e) {
+    app.dom.on('click', '*[data-app-updateView]', function(e) {
       var target = $(e.target);
+      target = target.attr('data-app-updateView') ?
+        target :
+        target.parents('[data-app-updateView]');
 
-      if (!target.hasClass('todo'))
+      if (!target.hasClass('todo') && !target.hasClass('disabled'))
         self.dispatchEvent('updateView', {
           view: target.attr('data-app-updateView')
         });
