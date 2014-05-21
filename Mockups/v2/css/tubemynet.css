@@ -63,19 +63,18 @@ body {
 }
 .nav-tmn-menu li.active a{
   border-top: 3px solid #E2E2E2;
-
-  border-bottom: 2px solid #FFF;
-  margin-bottom: -2px;
+  
+  border-bottom: 1px solid #FFF;
+  margin-bottom: -1px;
   z-index:10;
+  
 }
 .nav-tmn-menu li.active.active-sigma a{
-  border-top: 3px solid #E2E2E2;
+  margin-bottom: -2px;
+  border-bottom: 2px solid rgb(240,240,240);
 
   background: rgb(248,248,248);
-  
-  border-bottom: 6px solid rgb(248,248,248);
-  margin-bottom: -6px;
-  z-index:10;
+
 }
 .nav-tmn-menu li.active .nav-tmn-title{
   color:#000;
@@ -106,7 +105,7 @@ div.central-panel{
   height: 100%;
   min-height: 200px;
 
-  /* from http://www.colorzilla.com/gradient-editor/ */
+  /* from    */
   background: rgb(248,248,248); /* Old browsers */
   background: -moz-linear-gradient(top, rgba(248,248,248,1) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(248,248,248,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
