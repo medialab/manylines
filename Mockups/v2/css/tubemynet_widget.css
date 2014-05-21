@@ -1,0 +1,107 @@
+html, body, .widget-container{
+  height: 100%;
+}
+body {
+  color: #555;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+.col{
+  padding: 0px;
+}
+.row.top-row{
+  height: 60%;
+}
+.row.bottom-row{
+  height: 40%;
+  background-color: #FFF;
+}
+.row.bottom-row .col{
+  height: 100%;
+}
+
+/*
+ * Sigma
+ */
+.sigma-panel{
+  height: 100%;
+  width: 100%;
+  background: rgb(248,248,248);
+  -webkit-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
+  -moz-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
+  box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
+  position: relative;
+}
+
+.sigma-expand {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.sigma-tools {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+
+  background-color: #FFF;
+
+  -webkit-box-shadow: 0px 1px 5px rgba(50, 20, 0, 0.20);
+  -moz-box-shadow: 0px 1px 5px rgba(50, 20, 0, 0.20);
+  box-shadow: 0px 1px 5px rgba(50, 20, 0, 0.20);
+}
+
+/*
+ * Sibling navigation (next / previous)
+ */
+.sibling-info{
+  padding-top: 12px;
+  cursor: pointer;
+  height: 100%;
+}
+.sibling-info .sibling-title{
+  color: #CCC;
+  font-weight: 300;
+  font-size: 11px;
+}
+.sibling-info:hover .sibling-title{
+  color: #555;
+}
+.sibling-info .sibling-icon{
+  font-size: 24px;
+}
+.sibling-info.sibling-left:hover .sibling-icon {
+  margin-left: -4px;
+}
+.sibling-info.sibling-right:hover .sibling-icon {
+  margin-right: -4px;
+}
+.sibling-info.sibling-left{
+  text-align: left;
+  margin-left: 12px;
+  padding-right: 6px;
+}
+.sibling-info.sibling-right{
+  text-align: right;
+  margin-right: 12px;
+  padding-left: 6px;
+}
+
+/*
+ * Content
+ */
+.view-content{
+  height: 100%;
+  overflow-y: auto;
+}
+.view-title{
+  padding: 12px 6px 0px 6px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+}
+.view-text{
+  padding: 12px 6px 0px 6px;
+  color: #777;
+}

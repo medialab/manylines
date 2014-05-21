@@ -14,7 +14,7 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
 
-    <link href="css/tubemynet.css" rel="stylesheet">
+    <link href="css/tubemynet_widget.css" rel="stylesheet">
 
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700|Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
@@ -34,57 +34,50 @@
 
   <body>
 
-    <div class="container-fluid">
+    <div class="widget-container container-fluid">
       <div class="row top-row">
-          <div class="col-xs-2 top-row-item">
-            <a href="#" class="top-row-brand"><img src="res/tmn_header.png" class="tmn-brand"></a>
+        <div class="col col-xs-12 sigma-panel">
+          <div class="sigma-expand"></div>
+          <div class="sigma-overlay">
           </div>
-          <div class="col-xs-3"></div>
-          <div class="col-xs-2 top-row-item save save-alert">
-            <a href="#">Not saved yet</a>
-          </div>
-          <div class="col-xs-3"></div>
-          <div class="col-xs-2 top-row-item">
-            <a href="#" class="top-row-brand pull-right"><img src="res/medialab.png" class="medialab-brand"></a>
+          <div class="sigma-tools">
+            <div class="btn-group-vertical">
+              <button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-record"></span></button>
+              <button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
+              <button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="container-fluid" role="navigation">
-      <div class="row">
-        <ul class="nav nav-tmn-menu">
-          <li class="">
-            <a href="#">
-              <p class="nav-tmn-title">New network</p>
-              <p class="nav-tmn-subtitle">01.</p>
-            </a>
-          </li>
-          <li class="">
-            <a href="#">
-              <p class="nav-tmn-title">Basemap</p>
-              <p class="nav-tmn-subtitle">02.</p>
-            </a>
-          </li>
-          <li class="active">
-            <a href="#">
-              <p class="nav-tmn-title">Dashboard</p>
-              <p class="nav-tmn-subtitle">03.</p>
-            </a>
-          </li>
-          <li class="">
-            <a href="#">
-              <p class="nav-tmn-title">Take views</p>
-              <p class="nav-tmn-subtitle">04.</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="container-fluid container-fullheight">
-      <div class="row row-fullheight">
-        
+      <div class="row bottom-row">
+        <div class="col col-xs-2">
+          <div class="sibling-info sibling-left" role="button">
+            <div class="sibling-icon">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+            </div>
+            <div class="sibling-title">
+              Global overview
+            </div>
+          </div>
+        </div>
+        <div class="col col-xs-8 view-content">
+          <div class="view-title">
+            Social movements are bridging national institutions and maxist / eco-socialists
+          </div>
+          <div class="view-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at magna non nisl semper elementum at porttitor urna. Curabitur tincidunt dolor vel quam mattis volutpat non non magna. Cras in justo eget nulla ullamcorper tempus. Nullam bibendum semper dolor id euismod. Fusce vel varius tellus. Nullam justo nibh, adipiscing a malesuada sed, tempus in felis. Integer justo nisl, ultricies quis est sed, faucibus pharetra mauris. In malesuada lectus laoreet enim luctus consectetur. In nibh erat, commodo ut sapien quis, sodales pretium tortor. Proin adipiscing enim odio, faucibus suscipit lectus dictum sed. Etiam iaculis lacus sit amet lacus vestibulum iaculis. Praesent mollis neque at tincidunt varius. Sed id consequat sem, in blandit diam. Nunc porttitor mauris a enim placerat cursus. Aliquam porta purus quam, quis egestas ligula dictum quis. Donec dapibus enim sit amet augue malesuada, et tincidunt nibh ultrices.
+          </div>
+        </div>
+        <div class="col col-xs-2">
+          <div class="sibling-info sibling-right" role="button">
+            <div class="sibling-icon">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+            </div>
+            <div class="sibling-title">
+              Focus on the little cluster bridging green economy and deep ecology
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
