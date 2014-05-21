@@ -1,6 +1,7 @@
 // Storing couchbase connections
 var config = require('./config.js'),
     async = require('async'),
+    chalk = require('chalk'),
     logger = require('../lib/log').api.logger,
     couchbase = require('couchbase'),
     actualBuckets = {},
@@ -13,8 +14,8 @@ function connectFn(i) {
         params;
 
     // Announcing
-    logger.verbose(i.blue + ' connection through the ' +
-                   b.yellow + ' bucket.');
+    logger.verbose(chalk.blue(i) + ' connection through the ' +
+                   chalk.yellow(b) + ' bucket.');
 
     if (b in actualBuckets) {
       buckets[i] = actualBuckets[b];
@@ -25,9 +26,6 @@ function connectFn(i) {
         bucket: b,
         host: config.couchbase.host + ':' + config.couchbase.port
       };
-
-      if (config.couchbase.password)
-        params.password = config.couchbase.password;
 
       actualBuckets[b] = buckets[i] = new couchbase.Connection(
         params,

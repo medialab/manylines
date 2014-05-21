@@ -14,6 +14,7 @@ var defaults = {
   couchbase: {
     host: 'localhost',
     port: 8091,
+    admin: 'admin',
     password: null,
     buckets: {
       snapshot: 'tubemynet',

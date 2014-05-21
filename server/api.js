@@ -3,7 +3,7 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     app = express(),
-    colors = require('colors'),
+    chalk = require('chalk'),
     log = require('../lib/log'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -72,7 +72,7 @@ app.get('/*', express.static(__dirname + '/../' + config.static.path));
 exports.app = app;
 exports.start = function(port) {
   server = http.createServer(app).listen(port, function(){
-    log.api.logger.info('server listening on port ' + ('' + port).yellow);
+    log.api.logger.info('server listening on port ' + chalk.yellow('' + port));
   });
 };
 exports.stop = function() {
