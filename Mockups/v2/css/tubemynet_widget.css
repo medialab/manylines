@@ -7,6 +7,7 @@ body {
 }
 .col{
   padding: 0px;
+  margin: 0px;
 }
 .row.top-row{
   height: 60%;
