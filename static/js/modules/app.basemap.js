@@ -4,48 +4,62 @@
   app.pkg('app.modules');
   app.modules.basemap = function(dom, d) {
     var self = this,
-        renderer = d.get('mainSigma').addRenderer({
+        s = d.get('mainSigma'),
+        renderer = s.addRenderer({
           container: $('.sigma-panel .sigma-expand', dom)[0],
           camera: 'mainCamera',
           id: 'tubemynet-basemap'
         });
 
     // Refresh rendering:
-    d.get('mainSigma').refresh();
+    s.refresh();
 
-    function refresh() {
-      // Refresh texts:
-      $('*[data-app-basemap]', dom).each(function() {
-        var val,
-            el = $(this),
-            attr = el.attr('data-app-basemap');
+    // Bind sigma buttons:
+    $('*[data-app-basemap-action="zoom"]', dom).click(function() {
+      var cam = s.cameras.mainCamera;
 
-        switch (attr) {
-          case 'node':
-          case 'edge':
-            el.text(i18n.t('graph.' + attr, {
-              count: ((d.get('graph') || {})[attr + 's'] || []).length
-            }));
-            break;
-          case 'layout':
-          case 'mode':
-            val = d.get('basemap-' + attr);
-            if (val)
-              el.text(i18n.t('basemap.' + val)).show();
-            else
-              el.text('').hide();
-            break;
-        }
-      });
-    }
+      sigma.misc.animation.camera(
+        cam,
+        { ratio: cam.ratio / 1.5 },
+        { duration: 150 }
+      );
+    });
+    $('*[data-app-basemap-action="unzoom"]', dom).click(function() {
+      var cam = s.cameras.mainCamera;
 
-    refresh();
+      sigma.misc.animation.camera(
+        cam,
+        { ratio: cam.ratio * 1.5 },
+        { duration: 150 }
+      );
+    });
+    $('*[data-app-basemap-action="recenter"]', dom).click(function() {
+      var cam = s.cameras.mainCamera;
+
+      sigma.misc.animation.camera(
+        cam,
+        { x: 0,
+          y: 0,
+          angle: 0,
+          ratio: 1 },
+        { duration: 150 }
+      );
+    });
+
+    // Bind layout:
+    $('*[data-app-basemap-action="startLayout"]', dom).click(function(e) {
+      s.startForceAtlas2();
+      $('div[data-app-basemap-switchlayout]', dom).attr('data-app-basemap-switchlayout', 'on');
+      e.preventDefault();
+    });
+    $('*[data-app-basemap-action="stopLayout"]', dom).click(function(e) {
+      s.stopForceAtlas2();
+      $('div[data-app-basemap-switchlayout]', dom).attr('data-app-basemap-switchlayout', 'off');
+      e.preventDefault();
+    });
 
     this.kill = function() {
-      d.get('mainSigma').killRenderer('tubemynet-basemap');
+      s.killForceAtlas2().killRenderer('tubemynet-basemap');
     };
-
-    // Reference triggers:
-    this.triggers.events.dataUpdated = refresh;
   };
 }).call(this);

@@ -61,13 +61,18 @@
           if (t.attr('data-app-updateView') === view) {
             test = true;
             t.addClass('active').addClass('disabled');
+
+            if (view !== 'upload')
+              t.addClass('active-sigma');
+            else
+              t.removeClass('active-sigma');
           } else if (test)
-            t.removeClass('active').addClass('disabled');
+            t.removeClass('active').addClass('disabled').removeClass('active-sigma');
           else
-            t.removeClass('active').removeClass('disabled');
+            t.removeClass('active').removeClass('disabled').removeClass('active-sigma');
         });
       else
-        navButtons.removeClass('active').addClass('disabled');
+        navButtons.removeClass('active').addClass('disabled').removeClass('active-sigma');
 
       // Lock UI until the template is loaded:
       self.dispatchEvent('lock');

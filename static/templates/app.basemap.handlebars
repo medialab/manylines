@@ -11,11 +11,23 @@
       </div> -->
     </div>
     <div class="sigma-tools">
-      <ul>
-        <li><a class="btn btn-link btn-sm" role="button"><span class="glyphicon glyphicon-record"></span></a></li>
-        <li><a class="btn btn-link btn-sm" role="button"><span class="glyphicon glyphicon-plus"></span></a></li>
-        <li><a class="btn btn-link btn-sm" role="button"><span class="glyphicon glyphicon-minus"></span></a></li>
-      </ul>
+      <div class="btn-group-vertical">
+        <button type="button"
+                class="btn btn-link btn-sm"
+                data-app-basemap-action="recenter">
+          <span class="glyphicon glyphicon-record"></span>
+        </button>
+        <button type="button"
+                class="btn btn-link btn-sm"
+                data-app-basemap-action="zoom">
+          <span class="glyphicon glyphicon-plus"></span>
+        </button>
+        <button type="button"
+                class="btn btn-link btn-sm"
+                data-app-basemap-action="unzoom">
+          <span class="glyphicon glyphicon-minus"></span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -28,8 +40,18 @@
       </a>
     </div>
     <div data-app-basemap-switchlayout="off">
-      <a href="#" class="btn btn-primary on" role="button">{{t "basemap.apply_layout"}} &nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-play"></span></a>
-      <a href="#" class="btn btn-default off" role="button">{{t "basemap.stop_layout"}} &nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-stop"></span></a>
+      <a class="btn btn-primary on"
+         data-app-basemap-action="startLayout"
+         role="button">
+        {{t "basemap.apply_layout"}} &nbsp;&nbsp;&nbsp;
+        <span class="glyphicon glyphicon-play"></span>
+      </a>
+      <a class="btn btn-default off"
+         data-app-basemap-action="stopLayout"
+         role="button">
+        {{t "basemap.stop_layout"}} &nbsp;&nbsp;&nbsp;
+        <span class="glyphicon glyphicon-stop"></span>
+      </a>
     </div>
   </div>
 

@@ -8,6 +8,7 @@
       "/js/lib/domino-v1.3.7.min.js",
       "/js/lib/sigma-v1.0.1.min.js",
       "/js/lib/sigma.parsers.gexf.min.js",
+      "/js/lib/sigma.layout.forceAtlas2.min.js",
       "/js/app.utils.js",
       "/js/app.main.js",
       "/js/modules/app.misc.js",
