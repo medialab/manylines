@@ -70,8 +70,7 @@ body {
   
 }
 .nav-tmn-menu li.active.active-sigma a{
-  margin-bottom: -2px;
-  border-bottom: 2px solid rgb(240,240,240);
+  border-bottom: 1px solid rgb(240,240,240);
 
   background: rgb(248,248,248);
 
@@ -106,7 +105,7 @@ div.central-panel{
   min-height: 200px;
 
   background: rgb(248,248,248);
-  
+
   -webkit-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
   -moz-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
   box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
@@ -365,16 +364,16 @@ html,body,.container-fullheight
   height: 150px;
 }
 .views-band{
-  margin-left: 6px;
 }
 .views-band .view-item{
   vertical-align: top;
   height: 150px;
-  width: 110px;
+  width: 120px;
 }
 .views-band .view-item{
   cursor: pointer;
-  padding: 12px 6px 0px 6px;
+  padding: 12px 12px 0px 12px;
+  border-right: 1px solid #E2E2E2;
 }
 .views-band .view-item:hover{
   background-color: #eee;
