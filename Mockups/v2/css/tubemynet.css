@@ -256,19 +256,19 @@ html,body,.container-fullheight
   margin-left: -12px;
 }
 .network-abstract-title{
+  overflow: hidden;
   margin: 0px;
   text-transform:uppercase;
   padding: 0px;
-  height: 18px;
-  overflow: hidden;
+  /*height: 18px;*/
   white-space: nowrap;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
+  position: absolute;
+  width: 100%;
 }
 .network-abstract-subtitle{
   color:#29ABE2;
   margin: 0px;
-  padding: 0px;
+  padding: 20px 0px 0px 0px;
 }
 
 /*
@@ -361,7 +361,7 @@ html,body,.container-fullheight
   padding: 0px;
 }
 .makeview-button-container{
-  height: 126px;
+  height: 125px;
   margin-top: 12px;
   margin-bottom: 12px;
   border-left: 1px solid #E2E2E2;
@@ -369,31 +369,35 @@ html,body,.container-fullheight
   text-align: center;
 }
 
-.views-band{
-  border-bottom: 1px solid #E2E2E2;
-  padding-left: 0px;
-}
-.views-band li{
-  display: inline-block;
-  border-right: 1px solid #E2E2E2;
+.views-band-container{
+  overflow-x: auto;
+  overflow-y: hidden;
   height: 150px;
-  width: 120px;
 }
-.views-band li{
-  color: #9EA1A7;
-  font-size: 9px;
-  padding: 9px 12px 12px 12px;
+.views-band{
+  margin-left: 6px;
 }
-.views-band li .view-title{
+.views-band .view-item{
+  vertical-align: top;
+  height: 150px;
+  width: 110px;
+}
+.views-band .view-item{
+  cursor: pointer;
+  padding: 12px 6px 0px 6px;
+}
+.views-band .view-item:hover{
+  background-color: #eee;
+}
+.views-band .view-item .view-title{
   color: #555;
-  text-transform:uppercase;
-  height: 100px;
+  font-size: 11px;
+  padding: 6px 2px 0px 6px;
+  height: 55px;
+  overflow: hidden;
 }
-.views-band li .view-subtitle{
-  color: #29ABE2;
-  text-transform:uppercase;
-}
-.views-band li p{
-  padding: 0px;
-  margin: 0px;
+.views-band .view-item .view-thumbnail{
+  height: 60px;
+  background-color: #F5F5F5;
+  border: 1;
 }
