@@ -134,16 +134,12 @@ div.central-panel{
   bottom: 12px;
   right: 12px;
 
-  border: 1px solid #E2E2E2;
   background-color: #FFF;
-}
-.sigma-tools ul{
-  display-style: table;
-  list-style-type: none;
-  padding: 0px;
-  margin: 0px;
-}
 
+  -webkit-box-shadow: 0px 1px 5px rgba(50, 20, 0, 0.20);
+  -moz-box-shadow: 0px 1px 5px rgba(50, 20, 0, 0.20);
+  box-shadow: 0px 1px 5px rgba(50, 20, 0, 0.20);
+}
 
 /*
  * Full-height layout
@@ -170,7 +166,7 @@ html,body,.container-fullheight
 .container-fullheight .col-left, .container-fullheight .col-middle, .container-fullheight .col-right
 {
   display: table-cell;
-  float: none; /* thanks baxxabit */
+  float: none;
   vertical-align: top;
 }
 .col-left, .col-middle, .col-right{
@@ -181,9 +177,6 @@ html,body,.container-fullheight
 /*
  * Right panel
  */
-.righ-col-container{
-
-}
 .forcelayout-container{
   height: 60px;
   padding-top: 12px;
@@ -224,8 +217,14 @@ html,body,.container-fullheight
   height: 100%;
   padding-top: 60px;
 }
+.container-networklist.full-height{
+  padding-top: 0px;
+}
 .subcontainer-networklist{
   margin-top: -60px;
+}
+.container-networklist.full-height > .subcontainer-networklist{
+  margin-top: 0px;
 }
 .col-right{
   border-left: 1px solid #E2E2E2;
@@ -257,23 +256,23 @@ html,body,.container-fullheight
   margin-left: -12px;
 }
 .network-abstract-title{
+  overflow: hidden;
   margin: 0px;
   text-transform:uppercase;
   padding: 0px;
-  height: 18px;
-  overflow: hidden;
+  /*height: 18px;*/
   white-space: nowrap;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
+  position: absolute;
+  width: 100%;
 }
 .network-abstract-subtitle{
   color:#29ABE2;
   margin: 0px;
-  padding: 0px;
+  padding: 20px 0px 0px 0px;
 }
 
 /*
- * Layout settings
+ * Force vector settings
  */
 .settings-container{
   padding: 0px 24px 0px 24px;
@@ -335,4 +334,70 @@ html,body,.container-fullheight
   display: inline-block;
   vertical-align: middle;
   margin-top: -20px;
+}
+
+/*
+ * Split layout
+ */
+ .splitlayout-container{
+  height: 100%;
+ }
+ .splitlayout-top{
+  height: 100%;
+  padding-bottom: 150px;
+ }
+.splitlayout-bottom{
+  height: 150px;
+  border-top: 1px solid #E2E2E2;
+}
+
+/*
+ * Views
+ */
+.views-container{
+  height: 150px;
+}
+.views-container .col{
+  padding: 0px;
+}
+.makeview-button-container{
+  height: 125px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  border-left: 1px solid #E2E2E2;
+  padding-top: 45px;
+  text-align: center;
+}
+
+.views-band-container{
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 150px;
+}
+.views-band{
+  margin-left: 6px;
+}
+.views-band .view-item{
+  vertical-align: top;
+  height: 150px;
+  width: 110px;
+}
+.views-band .view-item{
+  cursor: pointer;
+  padding: 12px 6px 0px 6px;
+}
+.views-band .view-item:hover{
+  background-color: #eee;
+}
+.views-band .view-item .view-title{
+  color: #555;
+  font-size: 11px;
+  padding: 6px 2px 0px 6px;
+  height: 55px;
+  overflow: hidden;
+}
+.views-band .view-item .view-thumbnail{
+  height: 60px;
+  background-color: #F5F5F5;
+  border: 1;
 }
