@@ -41,3 +41,12 @@ div[data-app-module="basemap"] div[data-app-basemap-switchlayout="off"] > a.off 
 .nav-tmn-menu li:not(.disabled) a:hover{
   cursor: pointer;
 }
+
+
+/*
+ * Misc
+ */
+.tirette-container {
+  top: 12px;
+  position: absolute;
+}
