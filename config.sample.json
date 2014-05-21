@@ -10,6 +10,8 @@
   "couchbase": {
     "host": "localhost",
     "port": 8091,
+    "admin": "ADMIN-USER",
+    "password": "ADMIN-PASSWORD",
     "buckets": {
       "snapshot": "tubemynet",
       "graphMeta": "tubemynet",

@@ -26,9 +26,6 @@ function connectFn(i) {
         host: config.couchbase.host + ':' + config.couchbase.port
       };
 
-      if (config.couchbase.password)
-        params.password = config.couchbase.password;
-
       actualBuckets[b] = buckets[i] = new couchbase.Connection(
         params,
         function(err) {
