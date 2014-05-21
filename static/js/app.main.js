@@ -5,7 +5,18 @@
    * Initialize the main sigma instance:
    * ***********************************
    */
-  var s = new sigma();
+  var s = new sigma({
+    settings: {
+      font: 'Roboto Condensed',
+      fontStyle: '300',
+      defaultLabelSize: 13,
+      minEdgeSize: 0.1,
+      maxEdgeSize: 0.4,
+      defaultEdgeColor: '#ddd',
+      edgeColor: 'default',
+      labelThreshold: 8
+    }
+  });
   s.addCamera('mainCamera');
 
   /**

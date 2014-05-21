@@ -26,7 +26,19 @@
   },
   "basemap": {
     "apply_layout": "Apply layout",
-    "stop_layout": "Stop layout"
+    "stop_layout": "Stop layout",
+
+    "force": {
+      "linlog": "LinLog mode",
+      "linlog_description": "Different equations with slower convergence but more clustering",
+      "gravity": "gravity",
+      "gravity_description": "Attracts all nodes to the center, preventing disconnected components to drift away",
+      "gravity_placeholder": "Enter a number",
+      "stronger_gravity": "stronger gravity",
+      "stronger_gravity_description": "Another gravity equation that keeps nodes in a close circle",
+      "no_overlapping": "no overlapping",
+      "no_overlapping_description": "When the layout is converged, prevents node to overlap<br>Note: If you do this too early, the network might get entangled"
+    }
   },
 
   "warnings": {
