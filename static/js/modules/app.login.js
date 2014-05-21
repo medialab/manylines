@@ -7,7 +7,7 @@
 
     // Give focus to the "password" field:
     // TODO: FIX IT, IT DOES NOT WORK
-    // $('#login-password', dom).focus();
+    $('#login-password', dom).focus();
 
     $('#login-signin', dom).click(function(e) {
       self.dispatchEvent('login', {
@@ -23,6 +23,13 @@
 
       e.stopPropagation();
       return false;
+    });
+
+    $('input', dom).keypress(function(e) {
+      if (e.which === 13)
+        self.dispatchEvent('login', {
+          password: $('#login-password', dom).val()
+        });
     });
   };
 }).call(this);

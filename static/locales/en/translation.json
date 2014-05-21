@@ -11,6 +11,14 @@
     "narratives": "Narratives"
   },
 
+  "space": {
+    "save_graph": "Save the graph",
+    "save_graph_description": "You need to select a password to prevent your network to be edited by other people, and an email address in case you forget the password.",
+    "password": "Password",
+    "email": "Mail address",
+    "save": "Save"
+  },
+
   "login": {
     "login": "Login",
     "password": "Password",

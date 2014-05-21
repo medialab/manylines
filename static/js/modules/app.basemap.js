@@ -87,7 +87,8 @@
     });
 
     this.kill = function() {
-      s.killForceAtlas2().killRenderer('tubemynet-basemap');
+      s.killForceAtlas2();
+      s.killRenderer('tubemynet-basemap');
     };
   };
 

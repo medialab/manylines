@@ -13,9 +13,12 @@
       "/js/app.main.js",
       "/js/modules/app.misc.js",
       "/js/modules/app.login.js",
+      "/js/modules/app.views.js",
       "/js/modules/app.layout.js",
       "/js/modules/app.upload.js",
       "/js/modules/app.basemap.js",
+      "/js/modules/app.dashboard.js",
+      "/js/modules/app.narratives.js",
       "/js/app.init.js"
     ],
 

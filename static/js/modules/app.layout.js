@@ -54,24 +54,27 @@
       var test,
           navButtons = $('.container-fluid[role="navigation"] li[data-app-updateView]', app.dom);
 
-      if (navButtons.is('li[data-app-updateView="' + view + '"]'))
-        $('.container-fluid[role="navigation"] li[data-app-updateView]', app.dom).each(function() {
+      if (navButtons.is('li[data-app-updateView="' + view + '"]')) {
+        navButtons.removeClass('disabled').each(function() {
           var t = $(this);
 
           if (t.attr('data-app-updateView') === view) {
             test = true;
             t.addClass('active').addClass('disabled');
 
-            if (view !== 'upload')
+            // TODO
+            // This "active-sigma" flag is a bit complicated. It might be simplified.
+            if (app.modules[view].sigmaLayout)
               t.addClass('active-sigma');
             else
               t.removeClass('active-sigma');
-          } else if (test)
-            t.removeClass('active').addClass('disabled').removeClass('active-sigma');
-          else
-            t.removeClass('active').removeClass('disabled').removeClass('active-sigma');
+          } else
+            t.removeClass('active').removeClass('active-sigma');
         });
-      else
+
+        if (view === 'upload' && !d.get('graph'))
+          navButtons.addClass('disabled');
+      } else
         navButtons.removeClass('active').addClass('disabled').removeClass('active-sigma');
 
       // Lock UI until the template is loaded:
