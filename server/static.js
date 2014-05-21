@@ -1,5 +1,6 @@
 var express = require('express'),
     config = require('./config.js'),
+    chalk = require('chalk'),
     httpProxy = require('http-proxy'),
     http = require('http'),
     path = require('path'),
@@ -84,8 +85,8 @@ app.get('/*', express.static(__dirname + '/../' + config.static.path));
 exports.app = app;
 exports.start = function(port) {
   server = http.createServer(app).listen(port, function() {
-    log.static.logger.info('server listening on port ' + ('' + port).yellow +
-                           '\n');
+    log.static.logger.info('server listening on port ' +
+                           chalk.yellow('' + port) + '\n');
   });
 };
 exports.stop = function() {

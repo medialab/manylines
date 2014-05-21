@@ -28,8 +28,8 @@
     "errorhandler": "^1.0.1",
     "winston": "^0.7.3",
     "async": "^0.9.0",
-    "colors": "^0.6.2",
-    "request": "^2.36.0"
+    "request": "^2.36.0",
+    "chalk": "^0.4.0"
   },
   "devDependencies": {
     "findit": "^1.2.0",
