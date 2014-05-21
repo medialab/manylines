@@ -160,7 +160,7 @@
         id: 'view',
         triggers: 'updateView',
         dispatch: 'viewUpdated',
-        description: 'The current view. Available values: "explore", "settings", "upload", "login", "basemap"',
+        description: 'The current view. Available values: "login", "upload", "basemap", "dashboard", "views", "narratives"',
         type: 'string',
         value: ''
       },
@@ -286,10 +286,10 @@
 
             // Views with optional spaceId:
             case 'upload':
-            case 'scripts':
-            case 'settings':
-            case 'explore':
             case 'basemap':
+            case 'dashboard':
+            case 'views':
+            case 'narratives':
               if (!spaceId || typeof version !== 'number')
                 hash = '#/' + view;
               else
@@ -352,10 +352,10 @@
               break;
 
             // Views with optional spaceId / version:
-            case 'scripts':
-            case 'settings':
-            case 'explore':
             case 'basemap':
+            case 'dashboard':
+            case 'views':
+            case 'narratives':
 
               // Do we need to initialize data?
               if (!this.get('graph')) {

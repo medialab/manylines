@@ -90,4 +90,7 @@
       s.killForceAtlas2().killRenderer('tubemynet-basemap');
     };
   };
+
+  // Specify for layout:
+  app.modules.basemap.sigmaLayout = true;
 }).call(this);

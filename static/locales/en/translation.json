@@ -6,9 +6,9 @@
 
     "new_network": "New network",
     "basemap": "Basemap",
-    "explore": "Explore",
-    "make_views": "Make views",
-    "explore_make_views": "Explore + make views"
+    "dashboard": "Dashboard",
+    "take_views": "Take views",
+    "narratives": "Narratives"
   },
 
   "login": {
