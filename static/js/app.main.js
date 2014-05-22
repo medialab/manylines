@@ -445,25 +445,49 @@
           // TODO:
           // This is quite strict. It only works with GEXF, and I am not even
           // sure it works with all versions of them.
-          (meta.model || []).forEach(function(o) {
-            switch (o.type) {
+          (meta.model || []).forEach(function(cat) {
+            var k,
+                a,
+                o;
+
+            switch (cat.type) {
               case 'liststring':
-                o.values = graph.nodes.reduce(function(values, n) {
-                  (n.attributes[o.title] || '').split('|').forEach(function(val) {
+                o = graph.nodes.reduce(function(values, n) {
+                  (n.attributes[cat.title] || '').split('|').forEach(function(val) {
                     values[val] = (values[val] || 0) + 1;
                   }, {});
                   return values;
                 }, {});
                 break;
               case 'string':
-                o.values = graph.nodes.reduce(function(values, n) {
-                  var val = n.attributes[o.title]
+                o = graph.nodes.reduce(function(values, n) {
+                  var val = n.attributes[cat.title]
                   if (val)
                     values[val] = (values[val] || 0) + 1;
                   return values;
                 }, {});
                 break;
             }
+
+            cat.values = [];
+            for (k in o || {}) {
+              cat.minValue = Math.min(cat.maxValue || Infinity, o[k]);
+              cat.maxValue = Math.max(cat.maxValue || -Infinity, o[k]);
+              cat.values.push({
+                id: k,
+                value: o[k]
+              });
+            }
+
+            cat.values = cat.values.sort(function(a, b) {
+              return b.value - a.value;
+            });
+
+            if (cat.values.length > graph.nodes.length / 2)
+              cat.noDisplay = true;
+
+            if (cat.values.length < 2)
+              cat.noDisplay = true;
           });
 
           this.update({

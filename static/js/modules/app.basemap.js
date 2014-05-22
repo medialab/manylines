@@ -1,6 +1,12 @@
 ;(function() {
   'use strict';
 
+  Handlebars.registerHelper('basemap_categories', function(obj) {
+    return new Handlebars.SafeString(i18n.t('graph.category', {
+      count: Object.keys(obj || {}).length
+    }));
+  });
+
   app.pkg('app.modules');
   app.modules.basemap = function(dom, d) {
     var self = this,
@@ -15,7 +21,8 @@
     app.templates.require('app.basemap.category', function(template) {
       var container = $('.subcontainer-networklist', dom);
       (d.get('meta').model || []).forEach(function(o) {
-        container.append(template(o));
+        if (!o.noDisplay)
+          container.append(template(o));
       });
     });
 
@@ -56,9 +63,6 @@
 
     // Columns layout
     function openPanel(panelName, options) {
-      if (dom.filter('.col-middle').children().length)
-        return;
-
       options = options || {};
 
       app.templates.require('app.basemap.' + panelName, function(template) {
@@ -81,7 +85,7 @@
 
         // Deal with panel
         dom.filter('*[data-app-basemap-panel="sigma"]').removeClass('col-xs-9').addClass('col-xs-6');
-        dom.filter('.col-middle').show().append(panel);
+        dom.filter('.col-middle').show().empty().append(panel);
         $('.forcelayout-container .tirette', dom).hide();
         renderer.resize();
         renderer.render();
@@ -135,6 +139,21 @@
     $('.forcelayout-container .tirette', dom).click(function(e) {
       openPanel('forcePanel');
       e.preventDefault();
+    });
+    dom.on('click', '.network-item', function(e) {
+      var cat,
+          t = $(e.target);
+      t = t.hasClass('.network-item') ? t : t.parents('.network-item');
+      cat = t.attr('data-app-basemap-category');
+
+      (d.get('meta').model || []).some(function(o) {
+        return o.id === cat ? (cat = o) : false;
+      });
+
+      if (typeof cat === 'object')
+        openPanel('categoryPanel', {
+          category: cat
+        });
     });
 
     this.kill = function() {
