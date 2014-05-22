@@ -13,7 +13,7 @@
       minEdgeSize: 0.1,
       maxEdgeSize: 0.4,
       defaultEdgeColor: '#ddd',
-      defaultNodeColor: '#ddd',
+      defaultNodeColor: '#ccc',
       edgeColor: 'default',
       labelThreshold: 8
     }
@@ -498,6 +498,12 @@
             // Sort values:
             cat.values = cat.values.sort(function(a, b) {
               return b.value - a.value;
+            });
+
+            // Reset colors over the 5th one to #ccc:
+            cat.values.forEach(function(v, i, a) {
+              if (i >= 5)
+                v.color = '#ccc';
             });
 
             if (cat.values.length > graph.nodes.length / 2)
