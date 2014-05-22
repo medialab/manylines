@@ -44,6 +44,13 @@
     // Initialize the DOM elements:
     this.initDOM('canvas', 'nodes');
 
+    // Bind resize:
+    window.addEventListener(
+      'resize',
+      this.boundResize = this.resize.bind(this),
+      false
+    );
+
     this.resize();
   };
 
@@ -131,6 +138,8 @@
         }
       }
     }
+
+    this.doRender();
 
     return this;
   };
