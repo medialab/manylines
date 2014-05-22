@@ -18,10 +18,10 @@ var express = require('express'),
  * MIDDLEWARES:
  * ************
  */
-proxy = httpProxy.createServer({ target: 'http://localhost:8080' });
+proxy = httpProxy.createServer({ target: 'http://localhost:' + config.api.port });
 app.use(function(req, res, next) {
   if (req.url.match(/\/api\/.*/))
-    return proxy.proxyRequest(req, res, { host: 'http://localhost' }, { port: '8080' });
+    return proxy.proxyRequest(req, res, { host: 'http://localhost' }, { port: '' + config.api.port });
   else
     return next();
 });

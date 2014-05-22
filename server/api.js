@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use(session({
   secret: config.api.secret,
   trustProxy: true,
-  domain: 'localhost:8000,localhost:8080'
+  domain: 'localhost:' + config.api.port + ',localhost:' + config.static.port
 }));
 
 // development only
