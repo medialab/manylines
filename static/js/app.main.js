@@ -442,6 +442,30 @@
             for (k in e.data.meta)
               meta[k] = e.data.meta[k];
 
+          // TODO:
+          // This is quite strict. It only works with GEXF, and I am not even
+          // sure it works with all versions of them.
+          (meta.model || []).forEach(function(o) {
+            switch (o.type) {
+              case 'liststring':
+                o.values = graph.nodes.reduce(function(values, n) {
+                  (n.attributes[o.title] || '').split('|').forEach(function(val) {
+                    values[val] = (values[val] || 0) + 1;
+                  }, {});
+                  return values;
+                }, {});
+                break;
+              case 'string':
+                o.values = graph.nodes.reduce(function(values, n) {
+                  var val = n.attributes[o.title]
+                  if (val)
+                    values[val] = (values[val] || 0) + 1;
+                  return values;
+                }, {});
+                break;
+            }
+          });
+
           this.update({
             dataLoaded: true,
             graph: graph,
