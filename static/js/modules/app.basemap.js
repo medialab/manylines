@@ -17,15 +17,6 @@
           id: 'tubemynet-basemap'
         });
 
-    // Display categories on sidebar:
-    app.templates.require('app.basemap.category', function(template) {
-      var container = $('.subcontainer-networklist', dom);
-      (d.get('meta').model || []).forEach(function(o) {
-        if (!o.noDisplay)
-          container.append(template(o));
-      });
-    });
-
     // Refresh rendering:
     s.refresh();
 
@@ -107,7 +98,7 @@
       t = t.hasClass('.network-item') ? t : t.parents('.network-item');
       cat = t.attr('data-app-basemap-category');
 
-      (d.get('meta').model || []).some(function(o) {
+      ((d.get('meta').model || {}).node || []).some(function(o) {
         return o.id === cat ? (cat = o) : false;
       });
 
@@ -167,7 +158,7 @@
       }, {}) : null;
       s.graph.nodes().forEach(function(n) {
         n.trueColor = n.trueColor || n.color;
-        n.color = cat ? colors[n.attributes[cat.title]] : n.trueColor;
+        n.color = cat ? colors[n.attributes[cat.id]] : n.trueColor;
       });
 
       s.refresh();
@@ -178,6 +169,18 @@
       s.killForceAtlas2();
       s.killRenderer('tubemynet-basemap');
     };
+
+    this.triggers.events.metaUpdated = function(d) {
+      // Display categories on sidebar:
+      app.templates.require('app.basemap.category', function(template) {
+        var container = $('.subcontainer-networklist', dom).empty();
+        (((d.get('meta') || {}).model || {}).node || []).forEach(function(o) {
+          if (!o.noDisplay)
+            container.append(template(o));
+        });
+      });
+    };
+    this.triggers.events.metaUpdated(d);
   };
 
   // Specify for layout:

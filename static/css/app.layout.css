@@ -41,7 +41,15 @@ div[data-app-module="basemap"] div[data-app-basemap-switchlayout="off"] > a.off 
 .nav-tmn-menu li:not(.disabled) a:hover{
   cursor: pointer;
 }
-
+input.label-like {
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  width: 120px;
+}
+input.label-like:focus {
+  background: default;
+  border: default;
+}
 
 /*
  * Misc

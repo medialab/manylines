@@ -13,6 +13,7 @@
       minEdgeSize: 0.1,
       maxEdgeSize: 0.4,
       defaultEdgeColor: '#ddd',
+      defaultNodeColor: '#ddd',
       edgeColor: 'default',
       labelThreshold: 8
     }
@@ -445,7 +446,7 @@
           // TODO:
           // This is quite strict. It only works with GEXF, and I am not even
           // sure it works with all versions of them.
-          (meta.model || []).forEach(function(cat) {
+          ((meta.model || {}).node || []).forEach(function(cat) {
             var k,
                 a,
                 o,
@@ -454,7 +455,7 @@
             switch (cat.type) {
               case 'liststring':
                 o = graph.nodes.reduce(function(values, n) {
-                  (n.attributes[cat.title] || '').split('|').forEach(function(val) {
+                  (n.attributes[cat.id] || '').split('|').forEach(function(val) {
                     values[val] = (values[val] || 0) + 1;
                   }, {});
                   return values;
@@ -462,12 +463,14 @@
                 break;
               case 'string':
                 o = graph.nodes.reduce(function(values, n) {
-                  var val = n.attributes[cat.title]
+                  var val = n.attributes[cat.id]
                   if (val)
                     values[val] = (values[val] || 0) + 1;
                   return values;
                 }, {});
                 break;
+              default:
+                cat.noDisplay = true;
             }
 
             if (!o)
