@@ -19,6 +19,7 @@
     }
   });
   s.addCamera('mainCamera');
+  s.addCamera('staticCamera');
 
   // TODO: Clear that HACK
   // Fixes problem with sigma and window resizing

@@ -10,6 +10,7 @@
   app.pkg('app.modules');
   app.modules.basemap = function(dom, d) {
     var self = this,
+        thumbnails,
         s = d.get('mainSigma'),
         renderer = s.addRenderer({
           container: $('.sigma-panel .sigma-expand', dom)[0],
@@ -24,16 +25,6 @@
           scalingRatio: 10
         },
         FA2config = {};
-
-
-    // Display categories on sidebar:
-    app.templates.require('app.basemap.category', function(template) {
-      var container = $('.subcontainer-networklist', dom);
-      ((d.get('meta').model || {}).node || []).forEach(function(o) {
-        if (!o.noDisplay)
-          container.append(template(o));
-      });
-    });
 
     // Refresh rendering:
     s.refresh();
@@ -84,6 +75,7 @@
       $('div[data-app-basemap-switchlayout]', dom).attr('data-app-basemap-switchlayout', 'off');
       s.stopForceAtlas2();
       e.preventDefault();
+      refreshThumbnails();
 
       // Dispatching layout
       self.dispatchEvent('graphLayout', s.getGraph());
@@ -191,14 +183,74 @@
       s.killRenderer('tubemynet-basemap');
     };
 
+    function initThumbnails() {
+      killThumbnails();
+      thumbnails = {};
+
+      ((((d.get('meta') || {}) || {}).model || {}).node || []).forEach(function(o) {
+        if (o.noDisplay)
+          return;
+
+        thumbnails[o.id] = s.addRenderer({
+          prefix: s.cameras.staticCamera.readPrefix,
+          type: 'thumbnail',
+          camera: 'staticCamera',
+          container: $('*[data-app-basemap-category="' + o.id + '"] .network-thumbnail', dom)[0],
+          category: o.id,
+          values: o.values.reduce(function(res, obj) {
+            res[obj.id] = obj.color;
+            return res;
+          }, {})
+        });
+
+        thumbnails[o.id].resize();
+      });
+
+      refreshThumbnails();
+    }
+
+    function refreshThumbnails() {
+      var k,
+          container = $('.network-thumbnail', dom).first(),
+          w = container.width(),
+          h = container.height();
+
+      sigma.middlewares.rescale.call(
+        s,
+        '',
+        s.cameras.staticCamera.readPrefix,
+        {
+          width: w,
+          height: h
+        }
+      );
+
+      for (k in thumbnails || {})
+        thumbnails[k].doRender();
+    }
+
+    function killThumbnails() {
+      var k;
+      for (k in thumbnails)
+        s.killRenderer(thumbnails[k]);
+      thumbnails = null;
+    }
+
     this.triggers.events.metaUpdated = function(d) {
+      var w,
+          h;
+
       // Display categories on sidebar:
       app.templates.require('app.basemap.category', function(template) {
         var container = $('.subcontainer-networklist', dom).empty();
-        (((d.get('meta') || {}).model || {}).node || []).forEach(function(o) {
-          if (!o.noDisplay)
-            container.append(template(o));
+        ((((d.get('meta') || {}) || {}).model || {}).node || []).forEach(function(o) {
+          if (o.noDisplay)
+            return;
+
+          $(template(o)).appendTo(container);
         });
+
+        initThumbnails();
       });
     };
     this.triggers.events.metaUpdated(d);
