@@ -328,10 +328,10 @@ html,body,.container-fullheight
 /*
  * Split layout
  */
- .splitlayout-container{
+.splitlayout-container{
   height: 100%;
  }
- .splitlayout-top{
+.splitlayout-top{
   height: 100%;
   padding-bottom: 150px;
  }
@@ -373,6 +373,7 @@ html,body,.container-fullheight
 .views-band .view-item{
   cursor: pointer;
   padding: 12px 12px 0px 12px;
+  background-color: #FFF;
   border-right: 1px solid #E2E2E2;
 }
 .views-band .view-item:hover{
@@ -389,4 +390,48 @@ html,body,.container-fullheight
   height: 60px;
   background-color: #F5F5F5;
   border: 1;
+}
+
+/*
+ * Narrative specificities
+ */
+.splitlayout-container.narrative .splitlayout-top{
+  padding-bottom: 324px;
+}
+.splitlayout-container.narrative .splitlayout-bottom{
+  height: 324px;
+}
+.narrative .views-container{
+  height: 162px;
+}
+.narrative .views-band-container{
+  height: 162px;
+}
+.narrative .views-band .view-item{
+  margin: 6px 0px 6px 6px;
+  width: 120px;
+
+  border: 1px solid #E2E2E2;
+}
+.narrative .views-band .view-item:hover{
+  /*border: none;*/
+  background-color: #FFF;
+  margin-top: 2px;
+  -webkit-box-shadow: 0px 4px 6px rgba(50, 20, 0, 0.06);
+  -moz-box-shadow: 0px 4px 6px rgba(50, 20, 0, 0.06);
+  box-shadow: 0px 4px 6px rgba(50, 20, 0, 0.06);
+}
+.narrative .title-container p.title{
+  text-transform: uppercase;
+  font-weight: 700;
+  border-left: 1px solid #E2E2E2;
+  padding-top: 74px;
+  text-align: center;
+}
+.narrative .row.narrative-row{
+  background-color: #F4F4F9;
+  border-bottom: 1px solid #E2E2E2;
+}
+.widget-container{
+  background-color: rgb(248, 248, 248);
 }
