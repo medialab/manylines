@@ -18,6 +18,14 @@
     "email": "Mail address",
     "save": "Save"
   },
+  "graph": {
+    "node": "__count__ node",
+    "node_plural": "__count__ nodes",
+    "edge": "__count__ edge",
+    "edge_plural": "__count__ edges",
+    "category": "__count__ category",
+    "category_plural": "__count__ categories"
+  },
 
   "login": {
     "login": "Login",

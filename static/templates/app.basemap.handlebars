@@ -32,66 +32,8 @@
   </div>
 </div>
 
-<div class="col-middle col-xs-3" data-app-module="basemap" data-app-basemap-panel="force" style="display: none;">
-  <div class="tirette-container">
-    <div class="tirette">
-      <a href="#" class="btn btn-link" role="button">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-      </a>
-    </div>
-  </div>
-  <div class="settings-container">
-    <div class="setting-item">
-      <p class="title">{{t "basemap.force.linlog" }}</p>
-      <p>
-        <form role="form">
-          <label class="checkbox-inline">
-            <input type="checkbox" value="linlog"> {{t "basemap.force.linlog" }}
-          </label>
-        </form>
-      </p>
-      <p class="text-info">
-        {{t "basemap.force.linlog_description" }}
-      </p>
-    </div>
-    <div class="setting-item">
-      <p class="title">{{t "basemap.force.gravity" }}</p>
-      <p>
-        <form role="form">
-          <input type="number" class="form-control" placeholder="{{t "basemap.force.gravity_placeholder" }}" value="1.0">
-        </form>
-      </p>
-      <p class="text-info">
-        {{t "basemap.force.gravity_description" }}
-      </p>
-    </div>
-    <div class="setting-item">
-      <p class="title">{{t "basemap.force.stronger_gravity" }}</p>
-      <p>
-        <form role="form">
-          <label class="checkbox-inline">
-            <input type="checkbox" value="stronger_gravity"> {{t "basemap.force.stronger_gravity" }}
-          </label>
-        </form>
-      </p>
-      <p class="text-info">
-        {{t "basemap.force.stronger_gravity_description" }}
-      </p>
-    </div>
-    <div class="setting-item">
-      <p class="title">{{t "basemap.force.no_overlapping" }}</p>
-      <p>
-        <form role="form">
-          <label class="checkbox-inline">
-            <input type="checkbox" value="no_overlapping"> {{t "basemap.force.no_overlapping" }}
-          </label>
-        </form>
-      </p>
-      <p class="text-info">
-        {{t "basemap.force.no_overlapping_description" }}
-      </p>
-    </div>
-  </div>
+<div class="col-middle col-xs-3" data-app-module="basemap" style="display: none;">
+  {{!-- Middle panel --}}
 </div>
 
 <div class="col-right col-xs-3" data-app-module="basemap" data-app-basemap-panel="sidebar">
@@ -119,21 +61,7 @@
 
   <div class="container-networklist">
     <div class="subcontainer-networklist">
-      <!-- Here is an example of how to format the network list items:
-      <div class="network-item" role="button">
-        <div class="row">
-          <div class="col col-xs-5">
-            <div class="network-thumbnail"></div>
-          </div>
-          <div class="col col-xs-7">
-            <div class="network-abstract">
-              <p class="network-abstract-title">Nombre de langages y compris les multiples</p>
-              <p class="network-abstract-subtitle">5 categories</p>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
+      {{!-- Here comes the list of categories --}}
     </div>
 
   </div>
