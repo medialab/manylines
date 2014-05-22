@@ -12,7 +12,7 @@
     <p>
       <form role="form">
         <label class="checkbox-inline">
-          <input type="checkbox" value="linlog"> {{t "basemap.force.linlog" }}
+          <input data-app-basemap-layout-option="linLogMode" type="checkbox" value="linlog" {{#if linLogMode }} checked="checked" {{/if}}> {{t "basemap.force.linlog" }}
         </label>
       </form>
     </p>
@@ -24,7 +24,7 @@
     <p class="title">{{t "basemap.force.gravity" }}</p>
     <p>
       <form role="form">
-        <input type="number" class="form-control" placeholder="{{t "basemap.force.gravity_placeholder" }}" value="1.0">
+        <input data-app-basemap-layout-option="gravity" type="number" class="form-control" placeholder="{{t "basemap.force.gravity_placeholder" }}" {{#if gravity }} value="{{gravity}}" {{else}} value="1.0" {{/if}}>
       </form>
     </p>
     <p class="text-info">
@@ -36,7 +36,7 @@
     <p>
       <form role="form">
         <label class="checkbox-inline">
-          <input type="checkbox" value="stronger_gravity"> {{t "basemap.force.stronger_gravity" }}
+          <input data-app-basemap-layout-option="strongGravityMode" type="checkbox" value="stronger_gravity" {{#if strongGravityMode }} checked="checked" {{/if}}> {{t "basemap.force.stronger_gravity" }}
         </label>
       </form>
     </p>
@@ -49,7 +49,7 @@
     <p>
       <form role="form">
         <label class="checkbox-inline">
-          <input type="checkbox" value="no_overlapping"> {{t "basemap.force.no_overlapping" }}
+          <input data-app-basemap-layout-option="adjustSizes" type="checkbox" value="no_overlapping" {{#if adjustSizes }} checked="checked" {{/if}}> {{t "basemap.force.no_overlapping" }}
         </label>
       </form>
     </p>

@@ -80,6 +80,22 @@
       self.dispatchEvent('graphLayout', s.getGraph());
     });
 
+    // Bind layout options:
+    var FA2config = {};
+    dom.on('change', '*[data-app-basemap-layout-option]', function(e) {
+      var option = $(this).attr('data-app-basemap-layout-option'),
+          value = $(this).is('[type=checkbox]') ?
+            $(this).prop('checked') :
+            +$(this).val();
+
+      // Update forceAtlas
+      FA2config[option] = value;
+      s.configForceAtlas2(FA2config);
+
+      // Dispatch event to update metas
+      self.dispatchEvent('updateLayoutOptions', FA2config);
+    });
+
     // Other buttons:
     $('.forcelayout-container .tirette', dom).click(function(e) {
       openPanel('forcePanel');
@@ -110,7 +126,7 @@
 
         switch (panelName) {
           case 'forcePanel':
-            panel = $(template());
+            panel = $(template(d.get('meta').layout));
             mapColors();
             break;
           case 'categoryPanel':
