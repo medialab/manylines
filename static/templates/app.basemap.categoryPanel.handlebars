@@ -17,10 +17,10 @@
           <div class="cat-item-label">{{ id }}</div>
         </div>
         <div class="col col-xs-1">
-          <div class="cat-item-color" style="background-color:#E6AEA4;"></div>
+          <div class="cat-item-color" style="background-color:{{ color }};"></div>
         </div>
         <div class="col col-xs-6">
-          <div class="cat-item-chart"><div class="bar" style="width: 50%;"></div><div class="cat-item-chart-count">50</div></div>
+          <div class="cat-item-chart"><div class="bar" style="width: calc({{ percentValue }}% / 2);"></div><div class="cat-item-chart-count">{{ value }}</div></div>
         </div>
       </div>
     </div>

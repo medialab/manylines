@@ -448,7 +448,8 @@
           (meta.model || []).forEach(function(cat) {
             var k,
                 a,
-                o;
+                o,
+                scale;
 
             switch (cat.type) {
               case 'liststring':
@@ -469,6 +470,9 @@
                 break;
             }
 
+            if (!o)
+              return;
+
             cat.values = [];
             for (k in o || {}) {
               cat.minValue = Math.min(cat.maxValue || Infinity, o[k]);
@@ -479,6 +483,15 @@
               });
             }
 
+            // TODO:
+            // Colors are a bit arbitrary...
+            scale = chroma.scale(chroma.brewer.Dark2);
+            cat.values.forEach(function(v, i, a) {
+              v.color = scale(i / (a.length - 1)).hex();
+              v.percentValue = v.value * 100 / cat.maxValue;
+            });
+
+            // Sort values:
             cat.values = cat.values.sort(function(a, b) {
               return b.value - a.value;
             });

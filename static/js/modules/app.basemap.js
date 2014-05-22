@@ -61,45 +61,6 @@
       );
     });
 
-    // Columns layout
-    function openPanel(panelName, options) {
-      options = options || {};
-
-      app.templates.require('app.basemap.' + panelName, function(template) {
-        var panel;
-
-        switch (panelName) {
-          case 'forcePanel':
-            panel = $(template(d.get('meta').layout));
-            break;
-          case 'categoryPanel':
-            panel = $(template(options.category));
-            break;
-        }
-
-        // Events:
-        $('.tirette', panel).click(function(e) {
-          closePanel();
-          e.preventDefault();
-        });
-
-        // Deal with panel
-        dom.filter('*[data-app-basemap-panel="sigma"]').removeClass('col-xs-9').addClass('col-xs-6');
-        dom.filter('.col-middle').show().empty().append(panel);
-        $('.forcelayout-container .tirette', dom).hide();
-        renderer.resize();
-        renderer.render();
-      });
-    }
-
-    function closePanel() {
-      dom.filter('*[data-app-basemap-panel="sigma"]').removeClass('col-xs-6').addClass('col-xs-9');
-      dom.filter('.col-middle').empty().hide();
-      $('.forcelayout-container .tirette', dom).show();
-      renderer.resize();
-      renderer.render();
-    }
-
     // Bind layout:
     $('*[data-app-basemap-action="startLayout"]', dom).click(function(e) {
       $('div[data-app-basemap-switchlayout]', dom).attr('data-app-basemap-switchlayout', 'on');
@@ -156,7 +117,64 @@
         });
     });
 
+    // Columns layout
+    function openPanel(panelName, options) {
+      options = options || {};
+
+      app.templates.require('app.basemap.' + panelName, function(template) {
+        var panel;
+
+        switch (panelName) {
+          case 'forcePanel':
+            panel = $(template(d.get('meta').layout));
+            mapColors();
+            break;
+          case 'categoryPanel':
+            panel = $(template(options.category));
+            mapColors(options.category);
+            break;
+        }
+
+        // Events:
+        $('.tirette', panel).click(function(e) {
+          closePanel();
+          e.preventDefault();
+        });
+
+        // Deal with panel
+        dom.filter('*[data-app-basemap-panel="sigma"]').removeClass('col-xs-9').addClass('col-xs-6');
+        dom.filter('.col-middle').show().empty().append(panel);
+        $('.forcelayout-container .tirette', dom).hide();
+        renderer.resize();
+        renderer.render();
+      });
+    }
+
+    function closePanel() {
+      dom.filter('*[data-app-basemap-panel="sigma"]').removeClass('col-xs-6').addClass('col-xs-9');
+      dom.filter('.col-middle').empty().hide();
+      $('.forcelayout-container .tirette', dom).show();
+
+      mapColors();
+      renderer.resize();
+      renderer.render();
+    }
+
+    function mapColors(cat) {
+      var colors = cat ? cat.values.reduce(function(res, o) {
+        res[o.id] = o.color;
+        return res;
+      }, {}) : null;
+      s.graph.nodes().forEach(function(n) {
+        n.trueColor = n.trueColor || n.color;
+        n.color = cat ? colors[n.attributes[cat.title]] : n.trueColor;
+      });
+
+      s.refresh();
+    }
+
     this.kill = function() {
+      mapColors();
       s.killForceAtlas2();
       s.killRenderer('tubemynet-basemap');
     };
