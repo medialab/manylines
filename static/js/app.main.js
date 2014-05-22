@@ -574,6 +574,15 @@
           this.update('isModified', modified);
         }
       },
+      {
+        triggers: 'updateLayoutOptions',
+        method: function(e) {
+          var meta = this.get('meta');
+
+          // Updating property without triggering updated events
+          meta.layout = e.data;
+        }
+      },
 
       /**
        * Data update:
