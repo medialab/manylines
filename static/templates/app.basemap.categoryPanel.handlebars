@@ -1,1 +1,28 @@
 {{!-- Basemap: Category panel --}}
+<div class="tirette-container">
+  <div class="tirette">
+    <a href="#" class="btn btn-link" role="button">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+  </div>
+</div>
+
+<div class="categories-container">
+  <p class="title">{{ this.title }}</p>
+
+  {{#each this.values }}
+    <div class="category-item">
+      <div class="row">
+        <div class="col col-xs-5">
+          <div class="cat-item-label">{{ id }}</div>
+        </div>
+        <div class="col col-xs-1">
+          <div class="cat-item-color" style="background-color:#E6AEA4;"></div>
+        </div>
+        <div class="col col-xs-6">
+          <div class="cat-item-chart"><div class="bar" style="width: 50%;"></div><div class="cat-item-chart-count">50</div></div>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>
