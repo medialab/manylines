@@ -114,14 +114,17 @@
 
       app.templates.require('app.basemap.' + panelName, function(template) {
         var panel;
+        dom.filter('*[data-app-basemap-panel="sidebar"]').find('.active').removeClass('active');
 
         switch (panelName) {
           case 'forcePanel':
             panel = $(template(d.get('meta').layout));
+            $('.forcelayout-container', dom).addClass('active');
             mapColors();
             break;
           case 'categoryPanel':
             panel = $(template(options.category));
+            $('.network-item[data-app-basemap-category="' + options.category.id + '"]', dom).addClass('active');
             mapColors(options.category);
             break;
         }
@@ -142,6 +145,7 @@
     }
 
     function closePanel() {
+      dom.filter('*[data-app-basemap-panel="sidebar"]').find('.active').removeClass('active');
       dom.filter('*[data-app-basemap-panel="sigma"]').removeClass('col-xs-6').addClass('col-xs-9');
       dom.filter('.col-middle').empty().hide();
       $('.forcelayout-container .tirette', dom).show();
