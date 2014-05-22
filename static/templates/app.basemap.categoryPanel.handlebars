@@ -14,7 +14,9 @@
     <div class="category-item">
       <div class="row">
         <div class="col col-xs-5">
-          <input type="text" class="cat-item-label label-like" value="{{ id }}" />
+          <div class="cat-item-label">{{ id }}</div>
+          {{!-- TODO: Change these DIVs as INPUTs to make them updatable: --}}
+          {{!-- <input type="text" class="cat-item-label label-like" value="{{ id }}" /> --}}
         </div>
         <div class="col col-xs-1">
           <div class="cat-item-color" style="background-color:{{ color }};"></div>
