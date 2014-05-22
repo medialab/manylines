@@ -17,6 +17,15 @@
           id: 'tubemynet-basemap'
         });
 
+    // ForceAtlas2 configuration
+    var defaultFA2config = {
+          strongGravityMode: true,
+          gravity: 0.01,
+          scalingRatio: 10
+        },
+        FA2config = {};
+
+
     // Display categories on sidebar:
     app.templates.require('app.basemap.category', function(template) {
       var container = $('.subcontainer-networklist', dom);
@@ -64,7 +73,7 @@
     // Bind layout:
     $('*[data-app-basemap-action="startLayout"]', dom).click(function(e) {
       $('div[data-app-basemap-switchlayout]', dom).attr('data-app-basemap-switchlayout', 'on');
-      s.startForceAtlas2();
+      s.startForceAtlas2(FA2config);
       openPanel('forcePanel');
       e.preventDefault();
 
@@ -81,7 +90,6 @@
     });
 
     // Bind layout options:
-    var FA2config = {};
     dom.on('change', '*[data-app-basemap-layout-option]', function(e) {
       var option = $(this).attr('data-app-basemap-layout-option'),
           value = $(this).is('[type=checkbox]') ?
@@ -126,7 +134,8 @@
 
         switch (panelName) {
           case 'forcePanel':
-            panel = $(template(d.get('meta').layout));
+            FA2config = (d.get('meta') || {}).layout || defaultFA2config;
+            panel = $(template(FA2config));
             mapColors();
             break;
           case 'categoryPanel':

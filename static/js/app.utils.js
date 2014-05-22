@@ -11,6 +11,34 @@
   };
 
   /**
+   * Generic utils:
+   * ***************
+   */
+  function isPlainObject(v) {
+    return typeof v === 'object' && !(v instanceof Array);
+  }
+
+  function extend() {
+    var i,
+        k,
+        res = {},
+        l = arguments.length;
+
+    for (i = l - 1; i >= 0; i--)
+      for (k in arguments[i])
+        if (res[k] && isPlainObject(arguments[i][k]))
+          res[k] = extend(arguments[i][k], res[k]);
+        else
+          res[k] = arguments[i][k];
+
+    return res;
+  }
+
+  app.utils = {
+    extend: extend
+  };
+
+  /**
    * Sigma utils:
    * ************
    */
