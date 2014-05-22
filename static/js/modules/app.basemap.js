@@ -29,7 +29,7 @@
     // Display categories on sidebar:
     app.templates.require('app.basemap.category', function(template) {
       var container = $('.subcontainer-networklist', dom);
-      (d.get('meta').model || []).forEach(function(o) {
+      ((d.get('meta').model || {}).node || []).forEach(function(o) {
         if (!o.noDisplay)
           container.append(template(o));
       });
