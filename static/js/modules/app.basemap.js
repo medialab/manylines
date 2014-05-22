@@ -69,11 +69,17 @@
       s.startForceAtlas2();
       openForcePanel();
       e.preventDefault();
+
+      // Dispatching layout
+      self.dispatchEvent('graphLayout', s.getGraph());
     });
     $('*[data-app-basemap-action="stopLayout"]', dom).click(function(e) {
       $('div[data-app-basemap-switchlayout]', dom).attr('data-app-basemap-switchlayout', 'off');
       s.stopForceAtlas2();
       e.preventDefault();
+
+      // Dispatching layout
+      self.dispatchEvent('graphLayout', s.getGraph());
     });
 
     // Other buttons:

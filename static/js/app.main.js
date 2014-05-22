@@ -534,6 +534,22 @@
           s.refresh();
         }
       },
+      {
+        triggers: 'graphLayout',
+        method: function(e) {
+          var graph = this.get('graph'),
+              modified = this.get('isModified') || {};
+
+          // Updating the graph without triggering updated events not to
+          // trigger a sigma update
+          graph.nodes = e.data.nodes;
+          graph.edges = e.data.edges;
+
+          // Updating isModified
+          modified.graph = true;
+          this.update('isModified', modified);
+        }
+      },
 
       /**
        * Data update:

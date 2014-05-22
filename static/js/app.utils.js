@@ -10,6 +10,17 @@
     }, root);
   };
 
+  /**
+   * Sigma utils:
+   * ************
+   */
+  sigma.prototype.getGraph = function() {
+    return {
+      nodes: this.graph.nodes(),
+      edges: this.graph.edges()
+    };
+  };
+
 
   /**
    * Handlebars helpers:
