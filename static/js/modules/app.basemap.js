@@ -206,7 +206,11 @@
         thumbnails[o.id].resize();
       });
 
-      refreshThumbnails();
+      // WARNING:
+      // If it does not work, use an iframe.
+      // If it still does not work, use setTimeout.
+      // If it still does not work, you're screwed.
+      setTimeout(refreshThumbnails, 0);
     }
 
     function refreshThumbnails() {
