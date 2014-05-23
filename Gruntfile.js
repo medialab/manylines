@@ -1,4 +1,3 @@
-var findit = require('findit');
 module.exports = function(grunt) {
   var imports = require('./imports.json');
 

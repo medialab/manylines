@@ -32,7 +32,6 @@
     "chalk": "^0.4.0"
   },
   "devDependencies": {
-    "findit": "^1.2.0",
     "grunt": "^0.4.5",
     "grunt-contrib-cssmin": "^0.9.0",
     "grunt-contrib-handlebars": "^0.8.0",
