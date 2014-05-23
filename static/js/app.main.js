@@ -6,17 +6,7 @@
    * ***********************************
    */
   var s = new sigma({
-    settings: {
-      font: 'Roboto Condensed',
-      fontStyle: '300',
-      defaultLabelSize: 13,
-      minEdgeSize: 0.1,
-      maxEdgeSize: 0.4,
-      defaultEdgeColor: '#ddd',
-      defaultNodeColor: '#ccc',
-      edgeColor: 'default',
-      labelThreshold: 8
-    }
+    settings: app.defaults.sigma
   });
   s.addCamera('mainCamera');
   s.addCamera('staticCamera');

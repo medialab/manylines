@@ -11,20 +11,13 @@
   app.modules.basemap = function(dom, d) {
     var self = this,
         thumbnails,
+        FA2config = {},
         s = d.get('mainSigma'),
         renderer = s.addRenderer({
           container: $('.sigma-panel .sigma-expand', dom)[0],
           camera: 'mainCamera',
           id: 'tubemynet-basemap'
         });
-
-    // ForceAtlas2 configuration
-    var defaultFA2config = {
-          strongGravityMode: true,
-          gravity: 0.01,
-          scalingRatio: 10
-        },
-        FA2config = {};
 
     // Refresh rendering:
     s.refresh();
@@ -64,7 +57,7 @@
     // Bind layout:
     $('*[data-app-basemap-action="startLayout"]', dom).click(function(e) {
       $('div[data-app-basemap-switchlayout]', dom).attr('data-app-basemap-switchlayout', 'on');
-      s.startForceAtlas2(FA2config);
+      s.startForceAtlas2(app.utils.extend(FA2config, app.defaults.forceAtlas2));
       openPanel('forcePanel');
       e.preventDefault();
 
@@ -90,7 +83,7 @@
 
       // Update forceAtlas
       FA2config[option] = value;
-      s.configForceAtlas2(FA2config);
+      s.configForceAtlas2(app.utils.extend(FA2config, app.defaults.forceAtlas2));
 
       // Dispatch event to update metas
       self.dispatchEvent('updateLayoutOptions', FA2config);
@@ -127,8 +120,7 @@
 
         switch (panelName) {
           case 'forcePanel':
-            FA2config = (d.get('meta') || {}).layout || defaultFA2config;
-            panel = $(template(FA2config));
+            panel = $(template(app.utils.extend((d.get('meta') || {}).layout, app.defaults.forceAtlas2)));
             mapColors();
             break;
           case 'categoryPanel':
