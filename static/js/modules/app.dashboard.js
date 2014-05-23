@@ -2,9 +2,7 @@
   'use strict';
 
   app.pkg('app.modules');
-  app.modules.scripts = function(dom) {
-    var self = this;
-
+  app.modules.dashboard = function(dom, d) {
     // TODO
   };
 }).call(this);

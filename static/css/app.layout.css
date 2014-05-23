@@ -1,53 +1,11 @@
 /*
- * Global color
+ * Alerts container
  */
-body {
-  color: #555;
-}
-
-/*
- * Move down content because we have a fixed navbar that is 50px tall
- */
-body {
-  padding-top: 50px;
-}
-
-/*
- * Sidebar
- */
-.sidebar {
-  position: fixed;
-  top: 51px;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  display: block;
-  padding: 5px;
-  overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-  background-color: #f5f5f5;
-  border-right: 1px solid #eee;
-}
-/* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  .sidebar {
-    padding: 10px;
-  }
-}
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-  .sidebar {
-    padding: 20px;
-  }
-}
-
-
-/* Alerts container: */
 #app-alerts-container {
   position: absolute;
-  left: 20%;
-  right: 20%;
-  top: 20px;
+  left: 30%;
+  right: 30%;
+  top: 15px;
   z-index: 2000;
 }
 
@@ -55,276 +13,48 @@ body {
   margin-bottom: 5px;
 }
 
+/*
+ * Modules
+ */
+div[data-app-module="upload"] .fileinput-container {
+  overflow: hidden;
+  height: 0;
+}
 
+div[data-app-module="login"] fieldset {
+  text-align: right;
+  margin-top: 30px;
+}
 
-/* Sidebar navigation */
-.nav-sidebar > .active > a {
-  color: #fff;
-  background-color: #428bca;
+div[data-app-module="basemap"] div[data-app-basemap-switchlayout="on"] > a.on,
+div[data-app-module="basemap"] div[data-app-basemap-switchlayout="off"] > a.off {
+  display: none;
 }
-.nav-sidebar > .active > a:hover {
-  color: #fff;
-  background-color: #999;
-}
-.nav-sidebar {
-  margin-right: -6px; /* 5px padding + 1px border */
-  margin-bottom: 5px;
-  margin-left: -5px;
-}
-.nav-sidebar > li > a {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-right: 5px;
-  padding-left: 5px;
-}
-.nav-sidebar > li > a.todo {
-  color: #ccc;
+
+/*
+ * Override
+ */
+.nav-tmn-menu li.disabled:not(.active) a:hover{
   cursor: default;
+  border-top: none;
 }
-.nav-sidebar > li > a.todo:hover {
-  background: none;
-}
-/* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  .nav-sidebar {
-    margin-right: -11px; /* 20px padding + 1px border */
-    margin-bottom: 10px;
-    margin-left: -10px;
-  }
-  .nav-sidebar > li > a {
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-right: 10px;
-    padding-left: 10px;
-  }
-}
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-  .nav-sidebar {
-    margin-right: -21px; /* 20px padding + 1px border */
-    margin-bottom: 20px;
-    margin-left: -20px;
-  }
-  .nav-sidebar > li > a {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-right: 20px;
-    padding-left: 20px;
-  }
-}
-
-
-/*
- * Main content
- */
-
-.main {
-  padding: 20px;
-  padding-right: 40px;
-  padding-left: 40px;
-}
-
-.main .page-header {
-  margin-top: 0;
-}
-
-/*
- * Navbar alert
- */
-.nav > li.navbar-alert > a{
-  background-color: #300;
-  color: #f99;
-}
-
-/*
- * Sigma
- */
-.sigma-panel{
-  position: relative;
-
-  /* from http://www.colorzilla.com/gradient-editor/ */
-  background: rgb(248,248,248); /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(248,248,248,1) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(248,248,248,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 100%); /* IE10+ */
-  background: linear-gradient(to bottom, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-
-  border: 1px solid #eaeaea;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0px 3px 15px rgba(50, 20, 0, 0.10);
-  -moz-box-shadow: inset 0px 3px 15px rgba(50, 20, 0, 0.10);
-  box-shadow: inset 0px 3px 15px rgba(50, 20, 0, 0.10);
-
-  margin-bottom: 30px;
-  height: 300px;
-}
-
-/* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  .sigma-panel{
-    height: 350px;
-  }
-}
-
-/* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-  .sigma-panel{
-    height: 400px;
-  }
-}
-
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-  .sigma-panel{
-    height: 500px;
-  }
-}
-
-.sigma-expand {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
-
-.sigma-overlay {
-  position: absolute;
-  width: 100%;
-}
-
-.sigma-messages {
-  padding-left: 5px;
-  padding-top: 3px;
-}
-
-/*
- * Filter panel
- */
-.filter-panel{
-  background-color: #999;
-  color: #FFF;
-  padding: 5px;
-}
-
-/*
- * Pretty Well
- */
-.prettywell{
-  border: 1px solid #e3e3e3;
-
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0px 3px 15px rgba(50, 20, 0, 0.10);
-  -moz-box-shadow: inset 0px 3px 15px rgba(50, 20, 0, 0.10);
-  box-shadow: inset 0px 3px 15px rgba(50, 20, 0, 0.10);
-
-  padding-left: 8px;
-  padding-right: 8px;
-  margin-bottom: 30px;
-}
-.prettywell div.content{
-  vertical-align: text-top;
-  min-height: 80px;
-}
-
-/*
- * Push Panel
- */
-.pushpanel{
-  border: 1px solid #e3e3e3;
-  color: #888;
-
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-
-  padding-left: 8px;
-  padding-right: 8px;
-  margin-bottom: 30px;
-
+.nav-tmn-menu li:not(.disabled) a:hover{
   cursor: pointer;
 }
-
-.pushpanel:hover{
-
-  -webkit-box-shadow: inset 0px 1px 2px rgba(50, 20, 0, 0.15);
-  -moz-box-shadow: inset 0px 1px 2px rgba(50, 20, 0, 0.15);
-  box-shadow: inset 0px 1px 2px rgba(50, 20, 0, 0.15);
-
-  background: rgb(250,250,250); /* Old browsers */
-  background: -moz-linear-gradient(top,  rgba(250,250,250,1) 0%, rgba(253,253,253,1) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(250,250,250,1)), color-stop(100%,rgba(253,253,253,1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  rgba(250,250,250,1) 0%,rgba(253,253,253,1) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  rgba(250,250,250,1) 0%,rgba(253,253,253,1) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  rgba(250,250,250,1) 0%,rgba(253,253,253,1) 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  rgba(250,250,250,1) 0%,rgba(253,253,253,1) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#fdfdfd',GradientType=0 ); /* IE6-9 */
+input.label-like {
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  width: 120px;
 }
-
-.pushpanel.pushpanel-active{
-
-  -webkit-box-shadow: inset 0px 2px 5px rgba(50, 20, 0, 0.15);
-  -moz-box-shadow: inset 0px 2px 5px rgba(50, 20, 0, 0.15);
-  box-shadow: inset 0px 2px 5px rgba(50, 20, 0, 0.15);
-
-  /* from http://www.colorzilla.com/gradient-editor/ */
-  background: rgb(246,246,246); /* Old browsers */
-  background: -moz-linear-gradient(top,  rgba(246,246,246,1) 0%, rgba(250,250,250,1) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(246,246,246,1)), color-stop(100%,rgba(250,250,250,1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  rgba(246,246,246,1) 0%,rgba(250,250,250,1) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  rgba(246,246,246,1) 0%,rgba(250,250,250,1) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  rgba(246,246,246,1) 0%,rgba(250,250,250,1) 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  rgba(246,246,246,1) 0%,rgba(250,250,250,1) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', endColorstr='#fafafa',GradientType=0 ); /* IE6-9 */
-
-  cursor: auto;
+input.label-like:focus {
+  background: default;
+  border: default;
 }
-
-.pushpanel.pushpanel-active input, .pushpanel.pushpanel-active label{
-  cursor: default;
-}
-
-.pushpanel div.content{
-  vertical-align: text-top;
-}
-
-.pushpanel div.content.pushpanel-content-small{
-  min-height: 100px;
-}
-
-.pushpanel img{
-  margin-top: 8px;
-  max-width:100%;
-  max-height:100%;
-}
-
 
 /*
- * Report & CSV preview
+ * Misc
  */
-#report, #csv_preview {
-  padding: 3px;
-  background: #eee;
-  border-radius: 3px;
-}
-#report div.inner, #csv_preview div.inner {
-  border: 1px solid #ccc;
-  background: #FDFDFD;
-  padding-left: 16px;
-  height: 200px;
-  overflow: auto;
-}
-.reportText {
-  font-family: monospace;
-  white-space: pre;
-  margin: 1em 0px;
-  font-family: Consolas, "Liberation Mono", Courier, monospace;
-  font-size: 12px;
+.tirette-container {
+  top: 12px;
+  position: absolute;
 }

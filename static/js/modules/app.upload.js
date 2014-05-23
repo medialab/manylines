@@ -5,6 +5,10 @@
   app.modules.upload = function(dom) {
     var self = this;
 
+    $('a[role="button"]', dom).click(function() {
+      $('input:file', dom).click();
+    });
+
     $('input:file', dom).change(function() {
       var reader,
           file = $(this)[0].files[0];

@@ -10,6 +10,45 @@
     }, root);
   };
 
+  /**
+   * Generic utils:
+   * ***************
+   */
+  function isPlainObject(v) {
+    return typeof v === 'object' && !(v instanceof Array);
+  }
+
+  function extend() {
+    var i,
+        k,
+        res = {},
+        l = arguments.length;
+
+    for (i = l - 1; i >= 0; i--)
+      for (k in arguments[i])
+        if (res[k] && isPlainObject(arguments[i][k]))
+          res[k] = extend(arguments[i][k], res[k]);
+        else
+          res[k] = arguments[i][k];
+
+    return res;
+  }
+
+  app.utils = {
+    extend: extend
+  };
+
+  /**
+   * Sigma utils:
+   * ************
+   */
+  sigma.prototype.getGraph = function() {
+    return {
+      nodes: this.graph.nodes(),
+      edges: this.graph.edges()
+    };
+  };
+
 
   /**
    * Handlebars helpers:
@@ -18,6 +57,9 @@
   Handlebars.registerHelper('t', function(i18n_key) {
     var result = i18n.t(i18n_key);
     return new Handlebars.SafeString(result);
+  });
+  Handlebars.registerHelper('keysLength', function(obj) {
+    return new Handlebars.SafeString(Object.keys(obj || {}).length + '');
   });
 
 

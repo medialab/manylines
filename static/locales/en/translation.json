@@ -1,69 +1,16 @@
 {
-  "menu": {
-    "explore": "Explore",
-    "statistics": "Statistics",
-    "run_scripts": "Run Scripts",
-    "edit_nodes_and_edges": "Edit Nodes and Edges",
-    "edit_layout": "Edit Layout",
-    "edit_categories": "Edit Categories",
-    "manage_net_views": "Manage Net-views",
-    "publish_network": "Publish Network",
-    "publish_widgets": "Publish Widgets",
-    "publish_stories": "Publish Stories",
-    "export": "Export",
-    "settings": "Settings",
-    "save": "Save",
-    "unsaved": " Not saved",
-    "toggle_navigation": "Toggle navigation",
-    "help": "Help"
-  },
-  "login": {
-    "login": "Login",
-    "password": "Password",
-    "forgotpassword": "Forgot password?",
-    "signin": "Sign in"
-  },
-  "upload": {
-    "upload_network": "Upload your network",
-    "upload_gexf_json": "Upload a GEXF or JSON graph file",
-    "error_uploading_file": "An error occured while uploading the file",
-    "invalid_JSON_file": "The JSON file is not valid.",
-    "invalid_GEXF_file": "The GEXF file is not valid.",
-    "invalid_file_format": "The file format is not recognized yet."
-  },
-  "explore": {
-    "overview": "Overview",
-    "overview_description": "Browse the whole network, search nodes",
+  "main": {
+    "tubemynet": "tubemynet",
 
-    "local": "Local exploration",
-    "local_description": "Explore the neighborhood of a node, live layout",
+    "not_saved_yet": "Not saved yet",
 
-    "select_mode": "Select a way to explore the network",
-    "filter_panel": "Filter panel"
+    "new_network": "New network",
+    "basemap": "Basemap",
+    "dashboard": "Dashboard",
+    "take_views": "Take views",
+    "narratives": "Narratives"
   },
-  "settings": {
-    "settings": "Settings",
-    "network": "Network",
-    "description": "Description",
-    "authors": "Authors",
-    "about_authors": "About authors",
-    "account": "Account",
-    "change_email": "Change email",
-    "edit_password": "Edit password",
-    "dangerous_stuff": "Dangerous stuff",
-    "restart": "Restart",
-    "upload": "Upload new network",
-    "upload_description": "Erase everything and upload a new network instead of the current one",
-    "delete": "Delete this network",
-    "delete_description": "Remove this network from TubeMyNet",
-    "remove": "Remove",
 
-    "password_placeholder": "Type your new password",
-    "title_placeholder": "Enter a title",
-    "description_placeholder": "Enter a short description",
-    "authors_placeholder": "Enter name(s)",
-    "authors_description_placeholder": "Enter a short text"
-  },
   "space": {
     "save_graph": "Save the graph",
     "save_graph_description": "You need to select a password to prevent your network to be edited by other people, and an email address in case you forget the password.",
@@ -71,12 +18,43 @@
     "email": "Mail address",
     "save": "Save"
   },
-
   "graph": {
     "node": "__count__ node",
     "node_plural": "__count__ nodes",
     "edge": "__count__ edge",
-    "edge_plural": "__count__ edges"
+    "edge_plural": "__count__ edges",
+    "category": "__count__ category",
+    "category_plural": "__count__ categories"
+  },
+
+  "login": {
+    "login": "Login",
+    "password": "Password",
+    "forgotpassword": "Forgot password?",
+    "signin": "Sign in"
+  },
+  "upload": {
+    "upload_network": "Upload a network",
+    "error_uploading_file": "An error occured while uploading the file",
+    "invalid_JSON_file": "The JSON file is not valid.",
+    "invalid_GEXF_file": "The GEXF file is not valid.",
+    "invalid_file_format": "The file format is not recognized yet."
+  },
+  "basemap": {
+    "apply_layout": "Apply layout",
+    "stop_layout": "Stop layout",
+
+    "force": {
+      "linlog": "LinLog mode",
+      "linlog_description": "Different equations with slower convergence but more clustering",
+      "gravity": "gravity",
+      "gravity_description": "Attracts all nodes to the center, preventing disconnected components to drift away",
+      "gravity_placeholder": "Enter a number",
+      "stronger_gravity": "stronger gravity",
+      "stronger_gravity_description": "Another gravity equation that keeps nodes in a close circle",
+      "no_overlapping": "no overlapping",
+      "no_overlapping_description": "When the layout is converged, prevents node to overlap<br>Note: If you do this too early, the network might get entangled"
+    }
   },
 
   "warnings": {

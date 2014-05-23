@@ -106,10 +106,13 @@
    */
   app.modules.viewsPanel = function(d) {
     var self = this;
-    app.dom.on('click', 'a[data-app-updateView]', function(e) {
+    app.dom.on('click', '*[data-app-updateView]', function(e) {
       var target = $(e.target);
+      target = target.attr('data-app-updateView') ?
+        target :
+        target.parents('[data-app-updateView]');
 
-      if (!target.hasClass('todo'))
+      if (!target.hasClass('todo') && !target.hasClass('disabled'))
         self.dispatchEvent('updateView', {
           view: target.attr('data-app-updateView')
         });
@@ -139,16 +142,9 @@
         self.dispatchEvent('unlock');
 
         if (modal)
-          modal.add($('body > .modal-backdrop')).remove();
+          modal.add('body > .modal-backdrop').remove();
 
-        // Initialize new modal:
-        modal = $(template()).i18n().modal();
-
-        // Bind event listeners:
-        $('button.close', modal).click(function() {
-          modal.add($('body > .modal-backdrop')).remove();
-        });
-        $('#space-save', modal).click(function() {
+        function save() {
           var email = $('#space-email', modal).val(),
               password = $('#space-password', modal).val();
 
@@ -161,6 +157,19 @@
             app.info(i18n.t('warnings.missing_email'));
           else if (!password)
             app.info(i18n.t('warnings.missing_password'));
+        }
+
+        // Initialize new modal:
+        modal = $(template()).i18n().modal();
+
+        // Bind event listeners:
+        $('button.close', modal).click(function() {
+          modal.add($('body > .modal-backdrop')).remove();
+        });
+        $('#space-save', modal).click(save);
+        $('input', modal).keypress(function(e) {
+          if (e.which === 13)
+            save();
         });
       });
     };

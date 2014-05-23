@@ -5,8 +5,27 @@
    * Initialize the main sigma instance:
    * ***********************************
    */
-  var s = new sigma();
+  var s = new sigma({
+    settings: {
+      font: 'Roboto Condensed',
+      fontStyle: '300',
+      defaultLabelSize: 13,
+      minEdgeSize: 0.1,
+      maxEdgeSize: 0.4,
+      defaultEdgeColor: '#ddd',
+      defaultNodeColor: '#ccc',
+      edgeColor: 'default',
+      labelThreshold: 8
+    }
+  });
   s.addCamera('mainCamera');
+  s.addCamera('staticCamera');
+
+  // TODO: Clear that HACK
+  // Fixes problem with sigma and window resizing
+  window.addEventListener('resize', function() {
+    window.setTimeout(s.refresh.bind(s), 0);
+  });
 
   /**
    * Custom settings:
@@ -149,7 +168,7 @@
         id: 'view',
         triggers: 'updateView',
         dispatch: 'viewUpdated',
-        description: 'The current view. Available values: "explore", "settings", "scripts", "upload", "login"',
+        description: 'The current view. Available values: "login", "upload", "basemap", "dashboard", "views", "narratives"',
         type: 'string',
         value: ''
       },
@@ -275,9 +294,10 @@
 
             // Views with optional spaceId:
             case 'upload':
-            case 'scripts':
-            case 'settings':
-            case 'explore':
+            case 'basemap':
+            case 'dashboard':
+            case 'views':
+            case 'narratives':
               if (!spaceId || typeof version !== 'number')
                 hash = '#/' + view;
               else
@@ -340,9 +360,10 @@
               break;
 
             // Views with optional spaceId / version:
-            case 'scripts':
-            case 'settings':
-            case 'explore':
+            case 'basemap':
+            case 'dashboard':
+            case 'views':
+            case 'narratives':
 
               // Do we need to initialize data?
               if (!this.get('graph')) {
@@ -423,11 +444,80 @@
             for (k in e.data.meta)
               meta[k] = e.data.meta[k];
 
+          // TODO:
+          // This is quite strict. It only works with GEXF, and I am not even
+          // sure it works with all versions of them.
+          ((meta.model || {}).node || []).forEach(function(cat) {
+            var k,
+                a,
+                o,
+                scale;
+
+            switch (cat.type) {
+              case 'liststring':
+                o = graph.nodes.reduce(function(values, n) {
+                  (n.attributes[cat.id] || '').split('|').forEach(function(val) {
+                    values[val] = (values[val] || 0) + 1;
+                  }, {});
+                  return values;
+                }, {});
+                break;
+              case 'string':
+                o = graph.nodes.reduce(function(values, n) {
+                  var val = n.attributes[cat.id]
+                  if (val)
+                    values[val] = (values[val] || 0) + 1;
+                  return values;
+                }, {});
+                break;
+              default:
+                cat.noDisplay = true;
+            }
+
+            if (!o)
+              return;
+
+            cat.values = [];
+            for (k in o || {}) {
+              cat.minValue = Math.min(cat.maxValue || Infinity, o[k]);
+              cat.maxValue = Math.max(cat.maxValue || -Infinity, o[k]);
+              cat.values.push({
+                id: k,
+                value: o[k]
+              });
+            }
+
+            // TODO:
+            // Colors are a bit arbitrary...
+            scale = chroma.scale(chroma.brewer.Dark2);
+            cat.values.forEach(function(v, i, a) {
+              v.color = scale(i / (a.length - 1)).hex();
+              v.percentValue = v.value * 100 / cat.maxValue;
+            });
+
+            // Sort values:
+            cat.values = cat.values.sort(function(a, b) {
+              return b.value - a.value;
+            });
+
+            // Reset colors over the 5th one to #ccc:
+            cat.values.forEach(function(v, i, a) {
+              if (i >= 5)
+                v.color = '#ccc';
+            });
+
+            if (cat.values.length > graph.nodes.length / 2)
+              cat.noDisplay = true;
+
+            if (cat.values.length < 2)
+              cat.noDisplay = true;
+          });
+
           this.update({
             dataLoaded: true,
             graph: graph,
             meta: meta,
-            view: 'explore',
+            view: 'basemap',
             isModified: {
               graph: true,
               meta: true
@@ -515,6 +605,31 @@
           s.refresh();
         }
       },
+      {
+        triggers: 'graphLayout',
+        method: function(e) {
+          var graph = this.get('graph'),
+              modified = this.get('isModified') || {};
+
+          // Updating the graph without triggering updated events not to
+          // trigger a sigma update
+          graph.nodes = e.data.nodes;
+          graph.edges = e.data.edges;
+
+          // Updating isModified
+          modified.graph = true;
+          this.update('isModified', modified);
+        }
+      },
+      {
+        triggers: 'updateLayoutOptions',
+        method: function(e) {
+          var meta = this.get('meta');
+
+          // Updating property without triggering updated events
+          meta.layout = e.data;
+        }
+      },
 
       /**
        * Data update:
@@ -593,7 +708,7 @@
           var lastView = this.get('lastView');
           this.update('space', data);
           this.update('lastView', null);
-          this.update('view', lastView || 'explore');
+          this.update('view', lastView || 'basemap');
         },
         error: function(m, x, p) {
           if (x.status)

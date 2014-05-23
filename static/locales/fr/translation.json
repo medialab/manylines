@@ -1,17 +1,1 @@
-{
-  "menu": {
-    "explore": "Explorer",
-    "statistics": "Statistiques",
-    "run_scripts": "Exécuter des scripts",
-    "edit_nodes_and_edges": "Modifier les noeuds et les arcs",
-    "edit_layout": "Modifier la spatialisation",
-    "edit_categories": "Modifier les catégories",
-    "manage_net_views": "Modifier les vues",
-    "publish_network": "Publier le réseau",
-    "publish_widgets": "Publier le widget",
-    "publish_stories": "Publier l'histoire",
-    "export": "Exporter",
-    "settings": "Paramètres",
-    "save": "Sauvegarder"
-  }
-}
+{}
