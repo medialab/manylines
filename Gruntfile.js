@@ -59,4 +59,3 @@ module.exports = function(grunt) {
   // By default, will check lint, test and minify:
   grunt.registerTask('default', ['handlebars', 'uglify', 'cssmin']);
 };
-;
