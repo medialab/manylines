@@ -333,10 +333,10 @@ html,body,.container-fullheight
  }
 .splitlayout-top{
   height: 100%;
-  padding-bottom: 150px;
+  padding-bottom: 117px;
  }
 .splitlayout-bottom{
-  height: 150px;
+  height: 117px;
   border-top: 1px solid #E2E2E2;
 }
 
@@ -344,50 +344,43 @@ html,body,.container-fullheight
  * Views
  */
 .views-container{
-  height: 150px;
+  height: 117px;
 }
 .views-container .col{
   padding: 0px;
 }
 .makeview-button-container{
-  height: 125px;
+  height: 65px;
   margin-top: 12px;
   margin-bottom: 12px;
   border-left: 1px solid #E2E2E2;
-  padding-top: 45px;
+  padding-top: 16px;
   text-align: center;
 }
 
 .views-band-container{
   overflow-x: auto;
   overflow-y: hidden;
-  height: 150px;
+  height: 117px;
 }
 .views-band{
 }
 .views-band .view-item{
   vertical-align: top;
-  height: 150px;
+  height: 117px;
   width: 120px;
 }
 .views-band .view-item{
   cursor: pointer;
-  padding: 12px 12px 0px 12px;
+  margin: 6px 0px 6px 6px;
+  padding: 6px;
+  width: 120px;
+  height: 90px;
+  border: 1px solid #E2E2E2;
   background-color: #FFF;
-  border-right: 1px solid #E2E2E2;
-}
-.views-band .view-item:hover{
-  background-color: #eee;
-}
-.views-band .view-item .view-title{
-  color: #555;
-  font-size: 11px;
-  padding: 6px 2px 0px 6px;
-  height: 55px;
-  overflow: hidden;
 }
 .views-band .view-item .view-thumbnail{
-  height: 60px;
+  height: 100%;
   background-color: #F5F5F5;
   border: 1;
 }
@@ -396,22 +389,16 @@ html,body,.container-fullheight
  * Narrative specifics
  */
 .splitlayout-container.narrative .splitlayout-top{
-  padding-bottom: 304px;
+  padding-bottom: 234px;
 }
 .splitlayout-container.narrative .splitlayout-bottom{
-  height: 304px;
+  height: 234px;
 }
 .narrative .views-container{
-  height: 152px;
+  height: 117px;
 }
 .narrative .views-band-container{
-  height: 152px;
-}
-.narrative .views-band .view-item{
-  margin: 6px 0px 6px 6px;
-  width: 120px;
-  height: 140px;
-  border: 1px solid #E2E2E2;
+  height: 117px;
 }
 .narrative .views-band .view-item:hover{
   background-color: #FFF;
@@ -424,7 +411,7 @@ html,body,.container-fullheight
   text-transform: uppercase;
   font-weight: 700;
   border-left: 1px solid #E2E2E2;
-  padding-top: 74px;
+  padding-top: 48px;
   text-align: center;
 }
 .narrative .row.narrative-row{
