@@ -14,8 +14,11 @@
    * Generic utils:
    * ***************
    */
+
   function isPlainObject(v) {
-    return typeof v === 'object' && !(v instanceof Array);
+    return v instanceof Object &&
+           !(v instanceof Array) &&
+           !(v instanceof Function);
   }
 
   function extend() {
