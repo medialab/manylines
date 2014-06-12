@@ -58,8 +58,15 @@
     var result = i18n.t(i18n_key);
     return new Handlebars.SafeString(result);
   });
+
   Handlebars.registerHelper('keysLength', function(obj) {
     return new Handlebars.SafeString(Object.keys(obj || {}).length + '');
+  });
+
+  Handlebars.registerHelper('basemap_categories', function(obj) {
+    return new Handlebars.SafeString(i18n.t('graph.category', {
+      count: Object.keys(obj || {}).length
+    }));
   });
 
 

@@ -8,8 +8,9 @@ var schemas = {
   },
   graphMeta: 'object',
   snapshot: {
-    graph: 'object',
-    view: 'object'
+    graph: 'object', // keep the whole graph for the time being?
+    camera: 'object',
+    filter: '?object' //opt? only hidden /only categ filter object kof query
   },
   space: {
     password: 'string',

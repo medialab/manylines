@@ -1,4 +1,54 @@
 {{! Views edition view: }}
-<div class="col-left col-xs-9" data-app-module="views">
-  TODO
+<div class="col-left col-xs-9" data-app-module="views" data-app-views-panel="sigma">
+  <div class="sigma-panel">
+    <div class="sigma-expand"></div>
+    <div class="sigma-overlay">
+      <!-- UNCOMMENT TO USE PROGRESS BARS -->
+      <!-- <div class="progress progress-striped active">
+        <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+          Network loading...
+        </div>
+      </div> -->
+    </div>
+
+    <div class="sigma-tools">
+      <div class="btn-group-vertical">
+        <button type="button"
+                class="btn btn-primary btn-sm"
+                data-app-view-action="view">
+          <span class="glyphicon glyphicon-camera"></span>
+        </button>
+        <button type="button"
+                class="btn btn-link btn-sm"
+                data-app-view-action="recenter">
+          <span class="glyphicon glyphicon-record"></span>
+        </button>
+        <button type="button"
+                class="btn btn-link btn-sm"
+                data-app-view-action="zoom">
+          <span class="glyphicon glyphicon-plus"></span>
+        </button>
+        <button type="button"
+                class="btn btn-link btn-sm"
+                data-app-view-action="unzoom">
+          <span class="glyphicon glyphicon-minus"></span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="col-middle col-xs-3" data-app-module="views" style="display: none;">
+  {{!-- Middle panel --}}
+</div>
+
+<div class="col-right col-xs-3" data-app-module="views" data-app-views-panel="sidebar">
+
+  <div class="container-networklist">
+    <div class="subcontainer-networklist">
+      {{!-- Here comes the list of categories --}}
+    </div>
+  </div>
+
 </div>

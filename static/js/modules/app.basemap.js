@@ -1,12 +1,6 @@
 ;(function() {
   'use strict';
 
-  Handlebars.registerHelper('basemap_categories', function(obj) {
-    return new Handlebars.SafeString(i18n.t('graph.category', {
-      count: Object.keys(obj || {}).length
-    }));
-  });
-
   app.pkg('app.modules');
   app.modules.basemap = function(dom, d) {
     var self = this,
