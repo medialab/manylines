@@ -7,46 +7,7 @@
         thumbnails,
         FA2config = {},
         s = d.get('mainSigma'),
-        renderer = s.addRenderer({
-          container: $('.sigma-panel .sigma-expand', dom)[0],
-          camera: 'mainCamera',
-          id: 'tubemynet-basemap'
-        });
-
-    // Refresh rendering:
-    s.refresh();
-
-    // Bind sigma buttons:
-    $('*[data-app-basemap-action="zoom"]', dom).click(function() {
-      var cam = s.cameras.mainCamera;
-
-      sigma.misc.animation.camera(
-        cam,
-        { ratio: cam.ratio / 1.5 },
-        { duration: 150 }
-      );
-    });
-    $('*[data-app-basemap-action="unzoom"]', dom).click(function() {
-      var cam = s.cameras.mainCamera;
-
-      sigma.misc.animation.camera(
-        cam,
-        { ratio: cam.ratio * 1.5 },
-        { duration: 150 }
-      );
-    });
-    $('*[data-app-basemap-action="recenter"]', dom).click(function() {
-      var cam = s.cameras.mainCamera;
-
-      sigma.misc.animation.camera(
-        cam,
-        { x: 0,
-          y: 0,
-          angle: 0,
-          ratio: 1 },
-        { duration: 150 }
-      );
-    });
+        sigmaController = new app.utils.sigmaController('basemap', dom, d);
 
     // Bind layout:
     $('*[data-app-basemap-action="startLayout"]', dom).click(function(e) {
@@ -134,8 +95,8 @@
         dom.find('*[data-app-basemap-panel="sigma"]').removeClass('col-xs-9').addClass('col-xs-6');
         dom.find('.col-middle').show().empty().append(panel);
         $('.forcelayout-container .tirette', dom).hide();
-        renderer.resize();
-        renderer.render();
+        sigmaController.renderer.resize();
+        sigmaController.renderer.render();
       });
     }
 
@@ -146,8 +107,8 @@
       $('.forcelayout-container .tirette', dom).show();
 
       mapColors();
-      renderer.resize();
-      renderer.render();
+      sigmaController.renderer.resize();
+      sigmaController.renderer.render();
     }
 
     function mapColors(cat) {
@@ -166,7 +127,7 @@
     this.kill = function() {
       mapColors();
       s.killForceAtlas2();
-      s.killRenderer('tubemynet-basemap');
+      sigmaController.killRenderer();
     };
 
     function initThumbnails() {
