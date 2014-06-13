@@ -65,6 +65,12 @@
       struct: 'object'
     });
 
+  if (!domino.struct.isValid('Snapshots'))
+    domino.struct.add({
+      id: 'Snapshots',
+      struct: 'array'
+    });
+
   if (!domino.struct.isValid('sigma'))
     domino.struct.add(
       'sigma',
@@ -117,6 +123,14 @@
         dispatch: ['dataUpdated', 'metaUpdated'],
         description: 'The current graph meta object.',
         type: '?Meta',
+        value: null
+      },
+      {
+        id: 'snapshots',
+        triggers: ['updateData', 'updateSnapshots'],
+        dispatch: ['dataUpdated', 'snapshotsUpdated'],
+        description: 'The current graph\'s snapshots.',
+        type: '?Snapshots',
         value: null
       },
       {
@@ -878,7 +892,7 @@
        * *****************************
        */
       {
-        id: 'exportGraph',
+        id: 'snapshotGraph',
         url: '/api/space/snapshot/:spaceId/:version',
         dataType: 'json',
         contentType: 'application/json',
@@ -896,7 +910,7 @@
         }
       },
       {
-        id: 'loadExports',
+        id: 'loadSnapshots',
         url: '/api/space/snapshot/:spaceId/:version',
         dataType: 'json',
         contentType: 'application/json',
@@ -917,7 +931,7 @@
         }
       },
       {
-        id: 'loadAllExports',
+        id: 'loadAllSnapshots',
         url: '/api/space/snapshot/:spaceId',
         dataType: 'json',
         contentType: 'application/json',
