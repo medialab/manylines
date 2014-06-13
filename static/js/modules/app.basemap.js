@@ -110,7 +110,7 @@
 
       app.templates.require('app.basemap.' + panelName, function(template) {
         var panel;
-        dom.filter('*[data-app-basemap-panel="sidebar"]').find('.active').removeClass('active');
+        dom.find('*[data-app-basemap-panel="sidebar"]').find('.active').removeClass('active');
 
         switch (panelName) {
           case 'forcePanel':
@@ -131,8 +131,8 @@
         });
 
         // Deal with panel
-        dom.filter('*[data-app-basemap-panel="sigma"]').removeClass('col-xs-9').addClass('col-xs-6');
-        dom.filter('.col-middle').show().empty().append(panel);
+        dom.find('*[data-app-basemap-panel="sigma"]').removeClass('col-xs-9').addClass('col-xs-6');
+        dom.find('.col-middle').show().empty().append(panel);
         $('.forcelayout-container .tirette', dom).hide();
         renderer.resize();
         renderer.render();
@@ -140,9 +140,9 @@
     }
 
     function closePanel() {
-      dom.filter('*[data-app-basemap-panel="sidebar"]').find('.active').removeClass('active');
-      dom.filter('*[data-app-basemap-panel="sigma"]').removeClass('col-xs-6').addClass('col-xs-9');
-      dom.filter('.col-middle').empty().hide();
+      dom.find('*[data-app-basemap-panel="sidebar"]').find('.active').removeClass('active');
+      dom.find('*[data-app-basemap-panel="sigma"]').removeClass('col-xs-6').addClass('col-xs-9');
+      dom.find('.col-middle').empty().hide();
       $('.forcelayout-container .tirette', dom).show();
 
       mapColors();

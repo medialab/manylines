@@ -1,68 +1,72 @@
 {{! Base map view: }}
-<div class="col-left col-xs-9" data-app-module="basemap" data-app-basemap-panel="sigma">
-  <div class="sigma-panel">
-    <div class="sigma-expand"></div>
-    <div class="sigma-overlay">
-      <!-- UNCOMMENT TO USE PROGRESS BARS -->
-      <!-- <div class="progress progress-striped active">
-        <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-          Network loading...
+<div class="container-fluid container-fullheight">
+  <div class="row row-fullheight main">
+    <div class="col-left col-xs-9" data-app-module="basemap" data-app-basemap-panel="sigma">
+      <div class="sigma-panel">
+        <div class="sigma-expand"></div>
+        <div class="sigma-overlay">
+          <!-- UNCOMMENT TO USE PROGRESS BARS -->
+          <!-- <div class="progress progress-striped active">
+            <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+              Network loading...
+            </div>
+          </div> -->
         </div>
-      </div> -->
-    </div>
-    <div class="sigma-tools">
-      <div class="btn-group-vertical">
-        <button type="button"
-                class="btn btn-link btn-sm"
-                data-app-basemap-action="recenter">
-          <span class="glyphicon glyphicon-record"></span>
-        </button>
-        <button type="button"
-                class="btn btn-link btn-sm"
-                data-app-basemap-action="zoom">
-          <span class="glyphicon glyphicon-plus"></span>
-        </button>
-        <button type="button"
-                class="btn btn-link btn-sm"
-                data-app-basemap-action="unzoom">
-          <span class="glyphicon glyphicon-minus"></span>
-        </button>
+        <div class="sigma-tools">
+          <div class="btn-group-vertical">
+            <button type="button"
+                    class="btn btn-link btn-sm"
+                    data-app-basemap-action="recenter">
+              <span class="glyphicon glyphicon-record"></span>
+            </button>
+            <button type="button"
+                    class="btn btn-link btn-sm"
+                    data-app-basemap-action="zoom">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+            <button type="button"
+                    class="btn btn-link btn-sm"
+                    data-app-basemap-action="unzoom">
+              <span class="glyphicon glyphicon-minus"></span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="col-middle col-xs-3" data-app-module="basemap" style="display: none;">
-  {{!-- Middle panel --}}
-</div>
-
-<div class="col-right col-xs-3" data-app-module="basemap" data-app-basemap-panel="sidebar">
-  <div class="forcelayout-container">
-    <div class="tirette">
-      <a href="#" class="btn btn-link" role="button">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-      </a>
-    </div>
-    <div data-app-basemap-switchlayout="off">
-      <a class="btn btn-primary on"
-         data-app-basemap-action="startLayout"
-         role="button">
-        {{t "basemap.apply_layout"}} &nbsp;&nbsp;&nbsp;
-        <span class="glyphicon glyphicon-play"></span>
-      </a>
-      <a class="btn btn-default off"
-         data-app-basemap-action="stopLayout"
-         role="button">
-        {{t "basemap.stop_layout"}} &nbsp;&nbsp;&nbsp;
-        <span class="glyphicon glyphicon-stop"></span>
-      </a>
-    </div>
-  </div>
-
-  <div class="container-networklist">
-    <div class="subcontainer-networklist">
-      {{!-- Here comes the list of categories --}}
+    <div class="col-middle col-xs-3" data-app-module="basemap" style="display: none;">
+      {{!-- Middle panel --}}
     </div>
 
+    <div class="col-right col-xs-3" data-app-module="basemap" data-app-basemap-panel="sidebar">
+      <div class="forcelayout-container">
+        <div class="tirette">
+          <a href="#" class="btn btn-link" role="button">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+        </div>
+        <div data-app-basemap-switchlayout="off">
+          <a class="btn btn-primary on"
+             data-app-basemap-action="startLayout"
+             role="button">
+            {{t "basemap.apply_layout"}} &nbsp;&nbsp;&nbsp;
+            <span class="glyphicon glyphicon-play"></span>
+          </a>
+          <a class="btn btn-default off"
+             data-app-basemap-action="stopLayout"
+             role="button">
+            {{t "basemap.stop_layout"}} &nbsp;&nbsp;&nbsp;
+            <span class="glyphicon glyphicon-stop"></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="container-networklist">
+        <div class="subcontainer-networklist">
+          {{!-- Here comes the list of categories --}}
+        </div>
+
+      </div>
+    </div>
   </div>
 </div>

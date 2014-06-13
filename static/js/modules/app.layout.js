@@ -83,7 +83,7 @@
       // Load and render template:
       app.templates.require('app.' + view, function(template) {
         var dom = $(template()).i18n();
-        $('.main', app.dom).empty().filter(':visible').append(dom);
+        $('.main', app.dom).parent().replaceWith(dom);
 
         // Reinitialize module:
         if (module)
