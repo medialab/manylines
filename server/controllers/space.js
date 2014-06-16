@@ -891,13 +891,13 @@ exports.addSnapshot = function(req, res) {
     if (err) {
       if (err.code === 13) {
         logger.error(
-          'controllers.space.exportGraph: space "' + params.id + '" not found.',
+          'controllers.space.addSnapshot: space "' + params.id + '" not found.',
           {errorMsg: err.message}
         );
         return res.send(401);
       } else {
         logger.error(
-          'controllers.space.exportGraph: unknown error.',
+          'controllers.space.addSnapshot: unknown error.',
           {errorMsg: err.message}
         );
       }
@@ -906,13 +906,13 @@ exports.addSnapshot = function(req, res) {
 
     if (!spaceResult.graphs.length) {
       logger.error(
-        'controllers.space.exportGraph: space "' + params.id + '" has no graph stored.')
+        'controllers.space.addSnapshot: space "' + params.id + '" has no graph stored.')
       return res.send(500);
     }
 
     if ((params.version > spaceResult.graphs.length - 1) || (params.version < 0)) {
       logger.error(
-        'controllers.space.exportGraph: wrong version number: ' + params.version + ' (last version: ' + (spaceResult.graphs.length + 1) + ').')
+        'controllers.space.addSnapshot: wrong version number: ' + params.version + ' (last version: ' + (spaceResult.graphs.length + 1) + ').')
       return res.send(400);
     }
 
@@ -922,14 +922,14 @@ exports.addSnapshot = function(req, res) {
         if (err) {
           if (err.code === 13) {
             logger.error(
-              'controllers.space.exportGraph: graph "' + last.id + '" not found.',
+              'controllers.space.addSnapshot: graph "' + last.id + '" not found.',
               {errorMsg: err.message}
             );
 
             return res.send(401);
           } else {
             logger.error(
-              'controllers.space.exportGraph: unknown error getting graph "' + last.id + '".',
+              'controllers.space.addSnapshot: unknown error getting graph "' + last.id + '".',
               {errorMsg: err.message}
             );
 
@@ -943,7 +943,7 @@ exports.addSnapshot = function(req, res) {
         models.snapshot.set(snapshot, function(err, snapshotResult) {
           if (err) {
             logger.error(
-              'controllers.space.exportGraph: unknown error setting the snapshot object.',
+              'controllers.space.addSnapshot: unknown error setting the snapshot object.',
               {errorMsg: err.message}
             );
 
@@ -951,8 +951,8 @@ exports.addSnapshot = function(req, res) {
           }
 
           var graphVersion = spaceResult.graphs[params.version];
-          graphVersion.exports = graphVersion.exports || [];
-          graphVersion.exports.push({
+          graphVersion.snapshots = graphVersion.snapshots || [];
+          graphVersion.snapshots.push({
             id: snapshotResult.id
           });
 
@@ -962,7 +962,7 @@ exports.addSnapshot = function(req, res) {
             function(err, spaceResult) {
               if (err) {
                 logger.error(
-                  'controllers.space.exportGraph: unknown error updating the space object.',
+                  'controllers.space.addSnapshot: unknown error updating the space object.',
                   {errorMsg: err.message}
                 );
 
@@ -1055,10 +1055,10 @@ exports.getSnapshot = function(req, res) {
         return res.send(400);
       }
 
-      exports = spaceResult.graphs[params.version].exports || [];
+      exports = spaceResult.graphs[params.version].snapshots || [];
     } else {
       exports = spaceResult.graphs.reduce(function(exports, graph) {
-        return exports.concat(graph.exports || []);
+        return exports.concat(graph.snapshots || []);
       }, []);
     }
 
