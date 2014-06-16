@@ -884,8 +884,11 @@ exports.addSnapshot = function(req, res) {
     return res.send(401);
 
   var snapshot = {};
+
+  // TODO: add filter too here and decide terminology
   if (params.view)
     snapshot.view = params.view;
+  snapshot.filters = [];
 
   models.space.get(params.id, function(err, spaceResult) {
     if (err) {
@@ -938,7 +941,8 @@ exports.addSnapshot = function(req, res) {
           return res.send(500);
         }
 
-        snapshot.graph = graphResult;
+        // TODO: decide whether to include full graph data or not
+        // snapshot.graph = graphResult;
 
         models.snapshot.set(snapshot, function(err, snapshotResult) {
           if (err) {

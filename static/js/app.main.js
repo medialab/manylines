@@ -133,14 +133,6 @@
         type: '?Snapshots',
         value: null
       },
-      {
-        id: 'exports',
-        triggers: 'updateExports',
-        dispatch: 'exportsUpdated',
-        description: 'The array of every exports of the graph.',
-        type: '?array',
-        value: null
-      },
 
       /**
        * SIGMA:
@@ -577,7 +569,7 @@
 
           // Load the space data if needed:
           if (this.get('spaceId'))
-            this.request('loadAllExports');
+            this.request('loadSnapshots');
         }
       },
       {
@@ -678,12 +670,14 @@
        * Temporary development stuffs:
        * *****************************
        */
+
+      // TODO: clean up
       {
-        triggers: 'exportGraph',
+        triggers: 'devSnapshot',
         method: function() {
           var cam = this.get('mainSigma').cameras['mainCamera'];
 
-          this.request('exportGraph', {
+          this.request('snapshotGraph', {
             data: {
               view: {
                 camera: {
@@ -903,7 +897,7 @@
           appBefore.apply(this, arguments);
         },
         success: function(data) {
-          this.request('loadAllExports');
+          this.request('loadSnapshots');
         },
         error: function(m, x, p) {
           app.danger(i18n.t('errors.default'));
@@ -921,7 +915,8 @@
           appBefore.apply(this, arguments);
         },
         success: function(data) {
-          this.update('isModified', null);
+          this.update('snapshots', data);
+          // this.update('isModified', null);
         },
         error: function(m, x, p) {
           if (+x.status === 401)
@@ -938,7 +933,7 @@
         type: 'GET',
         before: appBefore,
         success: function(data) {
-          this.update('exports', data);
+          this.update('snapshots', data);
         },
         error: function(m, x, p) {
           if (+x.status === 401)

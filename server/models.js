@@ -8,9 +8,9 @@ var schemas = {
   },
   graphMeta: 'object',
   snapshot: {
-    graph: '?object', // keep the whole graph for the time being?
-    camera: 'object',
-    filter: 'object'
+    graph: '?object', // The graph is not copied for the time being
+    view: 'object', // An object containing the camera and further data if needed
+    filters: 'array'
   },
   space: {
     password: 'string',
