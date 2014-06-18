@@ -78,12 +78,12 @@
         switch (panelName) {
           case 'forcePanel':
             panel = $(template(app.utils.extend((d.get('meta') || {}).layout, app.defaults.forceAtlas2)));
-            mapColors();
+            s.mapColors();
             break;
           case 'categoryPanel':
             panel = $(template(options.category));
             $('.network-item[data-app-basemap-category="' + options.category.id + '"]', dom).addClass('active');
-            mapColors(options.category);
+            s.mapColors(options.category);
             break;
         }
 
@@ -108,22 +108,9 @@
       dom.find('.col-middle').empty().hide();
       $('.forcelayout-container .tirette', dom).show();
 
-      mapColors();
+      s.mapColors();
       sigmaController.renderer.resize();
       sigmaController.renderer.render();
-    }
-
-    function mapColors(cat) {
-      var colors = cat ? cat.values.reduce(function(res, o) {
-        res[o.id] = o.color;
-        return res;
-      }, {}) : null;
-      s.graph.nodes().forEach(function(n) {
-        n.trueColor = n.trueColor || n.color;
-        n.color = cat ? colors[n.attributes[cat.id]] : n.trueColor;
-      });
-
-      s.refresh();
     }
 
     this.kill = function() {

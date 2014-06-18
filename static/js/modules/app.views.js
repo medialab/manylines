@@ -35,7 +35,7 @@
 
         panel = $(template(options.category));
         $('.network-item[data-app-views-category="' + options.category.id + '"]', dom).addClass('active');
-        mapColors(options.category);
+        s.mapColors(options.category);
 
         // Events:
         $('.tirette', panel).click(function(e) {
@@ -57,24 +57,11 @@
       dom.find('*[data-app-views-panel="sigma"]').removeClass('col-xs-6').addClass('col-xs-9');
       dom.find('.col-middle').empty().hide();
 
-      mapColors();
+      s.mapColors();
       sigmaController.renderer.resize();
       sigmaController.renderer.render();
     }
 
-    // TODO: DRY DRY DRY, ach!
-    function mapColors(cat) {
-      var colors = cat ? cat.values.reduce(function(res, o) {
-        res[o.id] = o.color;
-        return res;
-      }, {}) : null;
-      s.graph.nodes().forEach(function(n) {
-        n.trueColor = n.trueColor || n.color;
-        n.color = cat ? colors[n.attributes[cat.id]] : n.trueColor;
-      });
-
-      s.refresh();
-    }
 
     /**
      * Initialization
