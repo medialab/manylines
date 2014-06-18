@@ -5,7 +5,8 @@
   app.modules.views = function(dom, d) {
     var self = this,
         sigmaController = new app.utils.sigmaController('views', dom, d),
-        thumbnails = new app.utils.sigmaThumbnails(dom, d);
+        thumbnails = new app.utils.sigmaThumbnails(dom, d),
+        s = d.get('mainSigma');
 
     /**
      * Methods
@@ -22,6 +23,58 @@
     this.kill = function() {
       sigmaController.killRenderer();
     };
+
+    // TODO: create custom abstraction for this?
+    // Columns layout
+    function openPanel(panelName, options) {
+      options = options || {};
+
+      app.templates.require('app.views.' + panelName, function(template) {
+        var panel;
+        dom.find('*[data-app-views-panel="sidebar"]').find('.active').removeClass('active');
+
+        panel = $(template(options.category));
+        $('.network-item[data-app-views-category="' + options.category.id + '"]', dom).addClass('active');
+        mapColors(options.category);
+
+        // Events:
+        $('.tirette', panel).click(function(e) {
+          closePanel();
+          e.preventDefault();
+        });
+
+        // Deal with panel
+        dom.find('*[data-app-views-panel="sigma"]').removeClass('col-xs-9').addClass('col-xs-6');
+        dom.find('.col-middle').show().empty().append(panel);
+        $('.forcelayout-container .tirette', dom).hide();
+        sigmaController.renderer.resize();
+        sigmaController.renderer.render();
+      });
+    }
+
+    function closePanel() {
+      dom.find('*[data-app-views-panel="sidebar"]').find('.active').removeClass('active');
+      dom.find('*[data-app-views-panel="sigma"]').removeClass('col-xs-6').addClass('col-xs-9');
+      dom.find('.col-middle').empty().hide();
+
+      mapColors();
+      sigmaController.renderer.resize();
+      sigmaController.renderer.render();
+    }
+
+    // TODO: DRY DRY DRY, ach!
+    function mapColors(cat) {
+      var colors = cat ? cat.values.reduce(function(res, o) {
+        res[o.id] = o.color;
+        return res;
+      }, {}) : null;
+      s.graph.nodes().forEach(function(n) {
+        n.trueColor = n.trueColor || n.color;
+        n.color = cat ? colors[n.attributes[cat.id]] : n.trueColor;
+      });
+
+      s.refresh();
+    }
 
     /**
      * Initialization
@@ -55,6 +108,23 @@
       }
 
       e.preventDefault();
+    });
+
+    // TODO: DRY this up!
+    dom.on('click', '.network-item', function(e) {
+      var cat,
+          t = $(e.target);
+      t = t.hasClass('.network-item') ? t : t.parents('.network-item');
+      cat = t.attr('data-app-thumbnail-category');
+
+      ((d.get('meta').model || {}).node || []).some(function(o) {
+        return o.id === cat ? (cat = o) : false;
+      });
+
+      if (typeof cat === 'object')
+        openPanel('categoryPanel', {
+          category: cat
+        });
     });
 
     /**

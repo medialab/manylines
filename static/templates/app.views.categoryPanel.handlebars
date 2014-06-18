@@ -1,0 +1,30 @@
+{{!-- Views: Category panel --}}
+<div class="tirette-container">
+  <div class="tirette">
+    <a href="#" class="btn btn-link" role="button">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+  </div>
+</div>
+
+<div class="categories-container">
+  <p class="title">{{ title }}</p>
+
+  {{#each values }}
+    <div class="category-item">
+      <div class="row">
+        <div class="col col-xs-5">
+          <div class="cat-item-label">{{ id }}</div>
+          {{!-- TODO: Change these DIVs as INPUTs to make them updatable: --}}
+          {{!-- <input type="text" class="cat-item-label label-like" value="{{ id }}" /> --}}
+        </div>
+        <div class="col col-xs-1">
+          <div class="cat-item-color" style="background-color:{{ color }};"></div>
+        </div>
+        <div class="col col-xs-6">
+          <div class="cat-item-chart"><div class="bar" style="width: calc({{ percentValue }}% / 2);"></div><div class="cat-item-chart-count">{{ value }}</div></div>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>
