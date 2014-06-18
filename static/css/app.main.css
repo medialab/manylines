@@ -295,8 +295,16 @@ html,body,.container-fullheight
 .category-item{
   min-height: 30px;
   margin-bottom: 6px;
+  cursor: pointer;
 }
-.category-item .cat-item-label{
+.category-item:hover{
+  background-color: #E2E2E2;
+  color: #000;
+}
+.category-item.cat-item-muted{
+  color: #999;
+}
+.category-item .cat-item-label, .category-item.cat-item-muted:hover .cat-item-label{
   text-align: right;
   min-height: 30px;
   border-right: 1px solid #999;
@@ -304,19 +312,35 @@ html,body,.container-fullheight
   margin-right: 6px;
   padding-right: 6px;
 }
-.category-item .cat-item-color{
+.category-item.cat-item-muted .cat-item-label{
+  border-right: 1px solid #CCC;
+}
+.category-item .cat-item-color, .category-item.cat-item-muted:hover .cat-item-color{
   margin-right: 6px;
   height: 30px;
+  opacity: 1;
+}
+.category-item.cat-item-muted .cat-item-color{
+  opacity: 0.1;
 }
 .category-item .cat-item-chart{
   margin-right: 6px;
   height: 30px;
 }
-.category-item .cat-item-chart .bar{
+.category-item .cat-item-chart .bar, .category-item.cat-item-muted:hover .cat-item-chart .bar{
   border-left: 1px solid #999;
   background-color: #E2E2E2;
   height: 30px;
   display: inline-block;
+}
+.category-item.cat-item-muted .cat-item-chart .bar{
+  background-color: #F0F0F0;
+}
+.category-item.cat-item-muted .cat-item-chart .bar{
+  border-left: 1px solid #CCC;
+}
+.category-item:hover .cat-item-chart .bar{
+  background-color: #D0D0D0;
 }
 .category-item .cat-item-chart-count{
   margin-left: 4px;
