@@ -34,8 +34,7 @@
      * Bindings
      */
     $('[data-app-view-action]', dom).click(function(e) {
-      var action = $(this).attr('data-app-view-action'),
-          version = d.get('version');
+      var action = $(this).attr('data-app-view-action');
 
       if (action === 'snapshot') {
 
@@ -43,7 +42,7 @@
 
         // Feedback
         // TODO: trigger a modal cf. issue #38
-        if (version === null || version === undefined) {
+        if (!d.get('spaceId')) {
           app.danger('dev - graph not saved, you cannot take snapshots.');
           e.preventDefault();
           return;

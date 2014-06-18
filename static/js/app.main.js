@@ -920,6 +920,7 @@
         },
         success: function(data) {
           this.request('loadSnapshots');
+          app.success(i18n.t('snapshots.saved'));
         },
         error: function(m, x, p) {
           app.danger(i18n.t('errors.default'));

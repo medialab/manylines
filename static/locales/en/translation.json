@@ -26,6 +26,9 @@
     "category": "__count__ category",
     "category_plural": "__count__ categories"
   },
+  "snapshots": {
+    "saved": "View taken"
+  },
 
   "login": {
     "login": "Login",
