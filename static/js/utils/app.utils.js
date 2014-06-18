@@ -10,6 +10,7 @@
     }, root);
   };
 
+
   /**
    * Generic utils:
    * ***************
@@ -41,6 +42,7 @@
     extend: extend
   };
 
+
   /**
    * Sigma utils:
    * ************
@@ -62,6 +64,21 @@
     this.graph.nodes().forEach(function(n) {
       n.trueColor = n.trueColor || n.color;
       n.color = cat ? colors[n.attributes[cat.id]] : n.trueColor;
+      delete n.hidden;
+    });
+
+    this.refresh();
+  };
+
+  sigma.prototype.highlight = function(category, value) {
+    this.graph.nodes().forEach(function(n) {
+      n.trueColor = n.trueColor || n.color;
+
+      // Filtering
+      if(n.attributes[category] !== value)
+        n.hidden = true;
+      else
+        delete n.hidden;
     });
 
     this.refresh();

@@ -114,6 +114,23 @@
         });
     });
 
+    // TODO: DRY this up!
+    dom.on('click', '.category-item', function(e) {
+      var t = $(e.target),
+          value,
+          cat;
+      t = t.hasClass('.category-item') ? t : t.parents('.category-item');
+
+      value = t.find('.cat-item-label').text(),
+      cat = $('.network-item.active', dom).attr('data-app-thumbnail-category');
+
+      $('.category-item', dom).addClass('cat-item-muted');
+      t.removeClass('cat-item-muted');
+
+      // Highlighting category
+      s.highlight(cat, value);
+    });
+
     /**
      * Receptors
      */
