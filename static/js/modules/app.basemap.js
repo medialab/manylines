@@ -79,10 +79,11 @@
           case 'forcePanel':
             panel = $(template(app.utils.extend((d.get('meta') || {}).layout, app.defaults.forceAtlas2)));
             s.mapColors();
+            $('.forcelayout-container', dom).addClass('active');
             break;
           case 'categoryPanel':
             panel = $(template(options.category));
-            $('.network-item[data-app-basemap-category="' + options.category.id + '"]', dom).addClass('active');
+            $('.network-item[data-app-thumbnail-category="' + options.category.id + '"]', dom).addClass('active');
             s.mapColors(options.category);
             break;
         }
@@ -114,7 +115,7 @@
     }
 
     this.kill = function() {
-      mapColors();
+      s.mapColors();
       s.killForceAtlas2();
       sigmaController.killRenderer();
     };

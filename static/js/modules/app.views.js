@@ -34,7 +34,7 @@
         dom.find('*[data-app-views-panel="sidebar"]').find('.active').removeClass('active');
 
         panel = $(template(options.category));
-        $('.network-item[data-app-views-category="' + options.category.id + '"]', dom).addClass('active');
+        $('.network-item[data-app-thumbnail-category="' + options.category.id + '"]', dom).addClass('active');
         s.mapColors(options.category);
 
         // Events:
