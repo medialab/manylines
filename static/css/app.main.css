@@ -311,6 +311,7 @@ html,body,.container-fullheight
   padding-top: 6px;
   margin-right: 6px;
   padding-right: 6px;
+  padding-left: 16px;
 }
 .category-item.cat-item-muted .cat-item-label{
   border-right: 1px solid #CCC;
