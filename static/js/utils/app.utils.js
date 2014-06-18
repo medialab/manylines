@@ -52,7 +52,6 @@
     };
   };
 
-  // TODO: handler thumbnails here by Jove!
   // TODO: find better naming. This sucks hard.
   app.utils.sigmaController = function(name, dom, d) {
     var self = this,
@@ -111,6 +110,70 @@
     // Specify for layout:
     app.modules[name].sigmaLayout = true;
   }
+
+  app.utils.sigmaThumbnails = function(dom, d) {
+    var self = this,
+        s = d.get('mainSigma');
+
+    // Properties
+    this.thumbnails = {};
+
+    // Methods
+    this.init = function() {
+      this.kill();
+
+      ((((d.get('meta') || {}) || {}).model || {}).node || []).forEach(function(o) {
+        if (o.noDisplay)
+          return;
+
+        this.thumbnails[o.id] = s.addRenderer({
+          prefix: s.cameras.staticCamera.readPrefix,
+          type: 'thumbnail',
+          camera: 'staticCamera',
+          container: $('*[data-app-thumbnail-category="' + o.id + '"] .network-thumbnail', dom)[0],
+          category: o.id,
+          values: o.values.reduce(function(res, obj) {
+            res[obj.id] = obj.color;
+            return res;
+          }, {})
+        });
+
+        this.thumbnails[o.id].resize();
+      }, this);
+
+      // WARNING:
+      // If it does not work, use an iframe.
+      // If it still does not work, use setTimeout.
+      // If it still does not work, you're screwed.
+      setTimeout(self.refresh.bind(self), 0);
+    };
+
+    this.refresh = function() {
+      var k,
+          container = $('.network-thumbnail', dom).first(),
+          w = container.width(),
+          h = container.height();
+
+      sigma.middlewares.rescale.call(
+        s,
+        '',
+        s.cameras.staticCamera.readPrefix,
+        {
+          width: w,
+          height: h
+        }
+      );
+
+      for (k in this.thumbnails || {})
+        this.thumbnails[k].doRender();
+    };
+
+    this.kill = function() {
+      for (var k in this.thumbnails)
+        s.killRenderer(this.thumbnails[k]);
+      this.thumbnails = {};
+    };
+  };
 
 
   /**

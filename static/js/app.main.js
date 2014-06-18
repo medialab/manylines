@@ -937,7 +937,6 @@
           appBefore.apply(this, arguments);
         },
         success: function(data) {
-          console.log(data);
           this.update('snapshots', data);
           // this.update('isModified', null);
         },

@@ -4,7 +4,8 @@
   app.pkg('app.modules');
   app.modules.views = function(dom, d) {
     var self = this,
-        sigmaController = new app.utils.sigmaController('views', dom, d);
+        sigmaController = new app.utils.sigmaController('views', dom, d),
+        thumbnails = new app.utils.sigmaThumbnails(dom, d);
 
     /**
      * Methods
@@ -61,5 +62,25 @@
      * Receptors
      */
     this.triggers.events.snapshotsUpdated = this.renderSnapshots;
+
+    // TODO: DRY this up!
+    this.triggers.events.metaUpdated = function(d) {
+      var w,
+          h;
+
+      // Display categories on sidebar:
+      app.templates.require('app.misc.category', function(template) {
+        var container = $('.subcontainer-networklist', dom).empty();
+        ((((d.get('meta') || {}) || {}).model || {}).node || []).forEach(function(o) {
+          if (o.noDisplay)
+            return;
+
+          $(template(o)).appendTo(container);
+        });
+
+        thumbnails.init();
+      });
+    };
+    this.triggers.events.metaUpdated(d);
   };
 }).call(this);

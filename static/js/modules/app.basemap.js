@@ -4,10 +4,10 @@
   app.pkg('app.modules');
   app.modules.basemap = function(dom, d) {
     var self = this,
-        thumbnails,
         FA2config = {},
         s = d.get('mainSigma'),
-        sigmaController = new app.utils.sigmaController('basemap', dom, d);
+        sigmaController = new app.utils.sigmaController('basemap', dom, d),
+        thumbnails = new app.utils.sigmaThumbnails(dom, d);
 
     // Bind layout:
     $('*[data-app-basemap-action="startLayout"]', dom).click(function(e) {
@@ -19,11 +19,12 @@
       // Dispatching layout
       self.dispatchEvent('graphLayout', s.getGraph());
     });
+
     $('*[data-app-basemap-action="stopLayout"]', dom).click(function(e) {
       $('div[data-app-basemap-switchlayout]', dom).attr('data-app-basemap-switchlayout', 'off');
       s.stopForceAtlas2();
       e.preventDefault();
-      refreshThumbnails();
+      thumbnails.refresh();
 
       // Dispatching layout
       self.dispatchEvent('graphLayout', s.getGraph());
@@ -49,11 +50,12 @@
       openPanel('forcePanel');
       e.preventDefault();
     });
+
     dom.on('click', '.network-item', function(e) {
       var cat,
           t = $(e.target);
       t = t.hasClass('.network-item') ? t : t.parents('.network-item');
-      cat = t.attr('data-app-basemap-category');
+      cat = t.attr('data-app-thumbnail-category');
 
       ((d.get('meta').model || {}).node || []).some(function(o) {
         return o.id === cat ? (cat = o) : false;
@@ -130,69 +132,12 @@
       sigmaController.killRenderer();
     };
 
-    function initThumbnails() {
-      killThumbnails();
-      thumbnails = {};
-
-      ((((d.get('meta') || {}) || {}).model || {}).node || []).forEach(function(o) {
-        if (o.noDisplay)
-          return;
-
-        thumbnails[o.id] = s.addRenderer({
-          prefix: s.cameras.staticCamera.readPrefix,
-          type: 'thumbnail',
-          camera: 'staticCamera',
-          container: $('*[data-app-basemap-category="' + o.id + '"] .network-thumbnail', dom)[0],
-          category: o.id,
-          values: o.values.reduce(function(res, obj) {
-            res[obj.id] = obj.color;
-            return res;
-          }, {})
-        });
-
-        thumbnails[o.id].resize();
-      });
-
-      // WARNING:
-      // If it does not work, use an iframe.
-      // If it still does not work, use setTimeout.
-      // If it still does not work, you're screwed.
-      setTimeout(refreshThumbnails, 0);
-    }
-
-    function refreshThumbnails() {
-      var k,
-          container = $('.network-thumbnail', dom).first(),
-          w = container.width(),
-          h = container.height();
-
-      sigma.middlewares.rescale.call(
-        s,
-        '',
-        s.cameras.staticCamera.readPrefix,
-        {
-          width: w,
-          height: h
-        }
-      );
-
-      for (k in thumbnails || {})
-        thumbnails[k].doRender();
-    }
-
-    function killThumbnails() {
-      var k;
-      for (k in thumbnails)
-        s.killRenderer(thumbnails[k]);
-      thumbnails = null;
-    }
-
     this.triggers.events.metaUpdated = function(d) {
       var w,
           h;
 
       // Display categories on sidebar:
-      app.templates.require('app.basemap.category', function(template) {
+      app.templates.require('app.misc.category', function(template) {
         var container = $('.subcontainer-networklist', dom).empty();
         ((((d.get('meta') || {}) || {}).model || {}).node || []).forEach(function(o) {
           if (o.noDisplay)
@@ -201,7 +146,7 @@
           $(template(o)).appendTo(container);
         });
 
-        initThumbnails();
+        thumbnails.init();
       });
     };
     this.triggers.events.metaUpdated(d);
