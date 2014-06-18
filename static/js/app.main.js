@@ -557,6 +557,26 @@
         }
       },
       {
+        triggers: 'takeSnapshot',
+        method: function(e) {
+          var cam = this.get('mainSigma').cameras['mainCamera'],
+              filter = e.filter;
+
+          this.request('snapshotGraph', {
+            data: {
+              view: {
+                camera: {
+                  x: cam.x,
+                  y: cam.y,
+                  ratio: cam.ratio,
+                  angle: cam.angle
+                }
+              }
+            }
+          });
+        }
+      },
+      {
         triggers: 'spaceIdUpdated',
         method: function(e) {
           // Load the space data if needed:
@@ -885,6 +905,8 @@
        * Temporary development stuffs:
        * *****************************
        */
+
+      // TODO: move this in more appropriate code area
       {
         id: 'snapshotGraph',
         url: '/api/space/snapshot/:spaceId/:version',
@@ -915,6 +937,7 @@
           appBefore.apply(this, arguments);
         },
         success: function(data) {
+          console.log(data);
           this.update('snapshots', data);
           // this.update('isModified', null);
         },

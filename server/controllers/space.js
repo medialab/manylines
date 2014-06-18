@@ -991,6 +991,7 @@ exports.addSnapshot = function(req, res) {
  * getSnapshot:
  * ************
  * This route will return the IDs of every snapshots of a space, or only the exports related to one of its versions.
+ * TODO: this route will now return the snapshots full data - clean this up
  *
  * Params:
  *   - id: string
@@ -1028,13 +1029,13 @@ exports.getSnapshot = function(req, res) {
     if (err) {
       if (err.code === 13) {
         logger.error(
-          'controllers.space.getExports: space "' + params.id + '" not found.',
+          'controllers.space.getSnapshot: space "' + params.id + '" not found.',
           {errorMsg: err.message}
         );
         return res.send(401);
       } else {
         logger.error(
-          'controllers.space.getExports: unknown error.',
+          'controllers.space.getSnapshot: unknown error.',
           {errorMsg: err.message}
         );
       }
@@ -1043,29 +1044,60 @@ exports.getSnapshot = function(req, res) {
 
     if (!spaceResult.graphs.length) {
       logger.error(
-        'controllers.space.getExports: space "' + params.id + '" has no graph stored.')
+        'controllers.space.getSnapshot: space "' + params.id + '" has no graph stored.')
       return res.send(500);
     }
 
-    var exports;
+    var snapshots;
 
     // If the version number is specified, send only the related exports:
     if (typeof params.version === 'number') {
       if ((params.version > spaceResult.graphs.length - 1) || (params.version < 0)) {
         logger.error(
-          'controllers.space.getExports: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').',
+          'controllers.space.getSnapshot: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').',
           {errorMsg: err.message}
         );
         return res.send(400);
       }
 
-      exports = spaceResult.graphs[params.version].snapshots || [];
+      snapshots = spaceResult.graphs[params.version].snapshots || [];
     } else {
-      exports = spaceResult.graphs.reduce(function(exports, graph) {
-        return exports.concat(graph.snapshots || []);
+      snapshots = spaceResult.graphs.reduce(function(exports, graph) {
+        return snapshots.concat(graph.snapshots || []);
       }, []);
     }
 
-    return res.json(exports);
+    // TODO: clean this up
+    snapshots = snapshots.map(function(s) {
+      return s.id;
+    });
+
+    // TODO: clean this up
+    if (!snapshots.length) {
+      return res.json(snapshots);
+    }
+    else {
+
+      // We retrieve snapshot data
+      models.snapshot.get(snapshots, function(err, snapshotsResults) {
+        if (err) {
+          if (err.code === 13) {
+            logger.error(
+              'controllers.space.getSnapshot: space "' + params.id + '" not found.',
+              {errorMsg: err.message}
+            );
+            return res.send(401);
+          } else {
+            logger.error(
+              'controllers.space.getSnapshot: unknown error.',
+              {errorMsg: err.message}
+            );
+          }
+          return res.send(500);
+        }
+
+        return res.json(snapshotsResults);
+      });
+    }
   });
 };

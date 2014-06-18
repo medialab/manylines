@@ -33,8 +33,26 @@
      * Bindings
      */
     $('[data-app-view-action]', dom).click(function(e) {
-      var action = $(this).attr('data-app-view-action');
-      console.log(action);
+      var action = $(this).attr('data-app-view-action'),
+          version = d.get('version');
+
+      if (action === 'snapshot') {
+
+        // We take a snapshot of the graph
+
+        // Feedback
+        // TODO: trigger a modal cf. issue #38
+        if (version === null || version === undefined) {
+          app.danger('dev - graph not saved, you cannot take snapshots.');
+          e.preventDefault();
+          return;
+        }
+
+        // TODO: retrieve filter
+
+        // Dispatch event
+        self.dispatchEvent('takeSnapshot');
+      }
 
       e.preventDefault();
     });
