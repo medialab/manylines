@@ -39,6 +39,20 @@
 
       // Update forceAtlas
       FA2config[option] = value;
+
+      // Other tweaks
+      if(option == "linLogMode"){
+        if(value){
+          FA2config['strongGravityMode'] = false
+          FA2config['scalingRatio'] = 0.2
+          FA2config['slowDown'] = 1
+        } else {
+          FA2config['strongGravityMode'] = true
+          FA2config['scalingRatio'] = 10
+          FA2config['slowDown'] = 2
+        }
+      }
+
       s.configForceAtlas2(app.utils.extend(FA2config, app.defaults.forceAtlas2));
 
       // Dispatch event to update metas

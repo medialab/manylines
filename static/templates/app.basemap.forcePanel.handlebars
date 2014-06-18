@@ -24,14 +24,14 @@
     <p class="title">{{t "basemap.force.gravity" }}</p>
     <p>
       <form role="form">
-        <input data-app-basemap-layout-option="gravity" type="number" class="form-control" placeholder="{{t "basemap.force.gravity_placeholder" }}" {{#if gravity }} value="{{gravity}}" {{else}} value="1.0" {{/if}}>
+        <input data-app-basemap-layout-option="gravity" class="form-control" placeholder="{{t "basemap.force.gravity_placeholder" }}" {{#if gravity }} value="{{gravity}}" {{else}} value="" {{/if}}>
       </form>
     </p>
     <p class="text-info">
       {{t "basemap.force.gravity_description" }}
     </p>
   </div>
-  <div class="setting-item">
+  {{!--<div class="setting-item">
     <p class="title">{{t "basemap.force.stronger_gravity" }}</p>
     <p>
       <form role="form">
@@ -43,7 +43,7 @@
     <p class="text-info">
       {{t "basemap.force.stronger_gravity_description" }}
     </p>
-  </div>
+  </div>--}}
   <div class="setting-item">
     <p class="title">{{t "basemap.force.no_overlapping" }}</p>
     <p>

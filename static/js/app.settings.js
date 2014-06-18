@@ -22,8 +22,9 @@
     },
     forceAtlas2: {
       strongGravityMode: true,
-      gravity: 0.01,
-      scalingRatio: 10
+      gravity: 0.05,
+      scalingRatio: 10,
+      slowDown: 2
     }
   };
 }).call(this);
