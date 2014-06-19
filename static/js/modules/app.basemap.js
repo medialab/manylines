@@ -38,10 +38,8 @@
             $(this).prop('checked') :
             +$(this).val();
 
-      // Update forceAtlas
-      FA2config[option] = value;
 
-      // Other tweaks
+      // Tweak behavior of settings
       if(option == "linLogMode"){
         if(value){
           FA2config['strongGravityMode'] = false
@@ -53,6 +51,9 @@
           FA2config['slowDown'] = 2
         }
       }
+
+      // Update forceAtlas
+      FA2config[option] = value;
 
       s.configForceAtlas2(app.utils.extend(FA2config, app.defaults.forceAtlas2));
 
