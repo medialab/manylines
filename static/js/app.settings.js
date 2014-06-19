@@ -18,7 +18,9 @@
       defaultEdgeColor: '#ddd',
       defaultNodeColor: '#ccc',
       edgeColor: 'default',
-      labelThreshold: 8
+      labelThreshold: 8,
+      zoomMin: 0.002,
+      zoomMax: 2
     },
     forceAtlas2: {
       strongGravityMode: true,
