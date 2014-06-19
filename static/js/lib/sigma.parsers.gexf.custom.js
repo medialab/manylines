@@ -33,7 +33,11 @@
     var i,
         l,
         arr,
-        obj;
+        obj,
+        nSizeMiss = false,
+        nPosMiss = false,
+        nIndex,
+        ang;
 
     function parse(graph) {
       // Adapt the graph:
@@ -46,9 +50,18 @@
           if (obj.viz.position && typeof obj.viz.position === 'object') {
             obj.x = obj.viz.position.x;
             obj.y = obj.viz.position.y;
+          } else {
+            nSizeMiss = true;
           }
-          obj.size = obj.viz.size;
+          if(obj.viz.size){
+            obj.size = obj.viz.size;
+          } else {
+            nPosMiss = true;
+          }
           obj.color = obj.viz.color;
+        } else {
+          nSizeMiss = true;
+          nPosMiss = true;
         }
       }
 
@@ -67,6 +80,34 @@
 
         // Weight over viz.thickness?
         obj.size = obj.weight;
+      }
+
+      // If node sizes are missing, use the degree to make the size
+      if(nSizeMiss){
+        console.log('node sizes missing')
+        nIndex = {};
+        for (i = 0, l = arr.length; i < l; i++) {
+          obj = arr[i];
+          nIndex[obj.source] = (nIndex[obj.source] || 0) + 1;
+          nIndex[obj.target] = (nIndex[obj.target] || 0) + 1;
+        }
+        arr = graph.nodes;
+        for (i = 0, l = arr.length; i < l; i++) {
+          obj = arr[i];
+          obj.size = 1 + 2 * Math.sqrt((nIndex[obj.id] || 0));
+        }
+      }
+
+      // If node positions are missing, draw them in circle
+      if(nPosMiss){
+        console.log('node positions missing')
+        arr = graph.nodes;
+        for (i = 0, l = arr.length; i < l; i++) {
+          obj = arr[i];
+          ang = Math.PI * 2 * i / arr.length
+          obj.x = 100 * Math.cos(ang);  
+          obj.y = 100 * Math.sin(ang);
+        }
       }
 
       // Update the instance's graph:
