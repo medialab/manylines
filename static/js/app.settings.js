@@ -25,6 +25,7 @@
       gravity: 0.05,
       scalingRatio: 10,
       slowDown: 2
-    }
+    },
+    storageKey: 'app-current'
   };
 }).call(this);

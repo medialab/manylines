@@ -63,23 +63,22 @@
       if (!d.get('dataLoaded'))
         return false;
 
-      var key = d.get('spaceId') || 'app-current',
-          data = {};
+      var data = {};
 
       data.meta = d.get('meta');
       data.graph = d.get('graph');
       data.isModified = d.get('isModified');
 
       localStorage.setItem(
-        key,
+        app.defaults.storageKey,
         JSON.stringify(data)
       );
     }
 
     function load() {
       var k,
-          key = d.get('spaceId') || 'app-current',
-          data = localStorage.getItem(key);
+          data = localStorage.getItem(app.defaults.storageKey);
+
       try {
         data = JSON.parse(data);
       } catch(e) {
@@ -91,7 +90,7 @@
 
     // Removing the 'app-current' key from localStorage.
     function clean() {
-      localStorage.removeItem('app-current');
+      localStorage.removeItem(app.defaults.storageKey);
     }
 
     if (app.support.webStorage) {

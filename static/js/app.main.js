@@ -873,7 +873,7 @@
           this.update('meta', data.meta);
           this.update('graph', data.graph);
           this.update('isModified', null);
-          this.dispatchEvent('loadLocalStorage');
+          // this.dispatchEvent('loadLocalStorage');
         },
         error: function(m, x, p) {
           if (+x.status === 401)
