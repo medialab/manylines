@@ -10,11 +10,11 @@
   <div class="setting-item">
     <p class="title">{{t "basemap.force.linlog" }}</p>
     <p>
-      <form role="form">
+      <div role="form">
         <label class="checkbox-inline">
           <input data-app-basemap-layout-option="linLogMode" type="checkbox" value="linlog" {{#if linLogMode }} checked="checked" {{/if}}> {{t "basemap.force.linlog" }}
         </label>
-      </form>
+      </div>
     </p>
     <p class="text-info">
       {{t "basemap.force.linlog_description" }}
@@ -23,9 +23,9 @@
   <div class="setting-item">
     <p class="title">{{t "basemap.force.gravity" }}</p>
     <p>
-      <form role="form">
+      <div role="form">
         <input data-app-basemap-layout-option="gravity" class="form-control" placeholder="{{t "basemap.force.gravity_placeholder" }}" {{#if gravity }} value="{{multiply gravity 1000}}" {{else}} value="" {{/if}}>
-      </form>
+      </div>
     </p>
     <p class="text-info">
       {{t "basemap.force.gravity_description" }}
@@ -34,11 +34,11 @@
   {{!--<div class="setting-item">
     <p class="title">{{t "basemap.force.stronger_gravity" }}</p>
     <p>
-      <form role="form">
+      <div role="form">
         <label class="checkbox-inline">
           <input data-app-basemap-layout-option="strongGravityMode" type="checkbox" value="stronger_gravity" {{#if strongGravityMode }} checked="checked" {{/if}}> {{t "basemap.force.stronger_gravity" }}
         </label>
-      </form>
+      </div>
     </p>
     <p class="text-info">
       {{t "basemap.force.stronger_gravity_description" }}
@@ -47,11 +47,11 @@
   {{!--<div class="setting-item">
     <p class="title">{{t "basemap.force.no_overlapping" }}</p>
     <p>
-      <form role="form">
+      <div role="form">
         <label class="checkbox-inline">
           <input data-app-basemap-layout-option="adjustSizes" type="checkbox" value="no_overlapping" {{#if adjustSizes }} checked="checked" {{/if}}> {{t "basemap.force.no_overlapping" }}
         </label>
-      </form>
+      </div>
     </p>
     <p class="text-info">
       {{t "basemap.force.no_overlapping_description" }}
