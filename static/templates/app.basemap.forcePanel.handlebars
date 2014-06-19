@@ -24,7 +24,7 @@
     <p class="title">{{t "basemap.force.gravity" }}</p>
     <p>
       <div role="form">
-        <input data-app-basemap-layout-option="gravity" class="form-control" placeholder="{{t "basemap.force.gravity_placeholder" }}" {{#if gravity }} value="{{multiply gravity 1000}}" {{else}} value="" {{/if}}>
+        <input data-app-basemap-layout-option="gravity" class="form-control" type="number" placeholder="{{t "basemap.force.gravity_placeholder" }}" {{#if gravity }} value="{{multiply gravity 1000}}" {{else}} value="" {{/if}}>
       </div>
     </p>
     <p class="text-info">

@@ -64,7 +64,14 @@
       self.dispatchEvent('updateLayoutOptions', FA2config);
     });
 
-    // Other buttons:
+    // Blur inputs on press enter
+    dom.on('keypress', '*[data-app-basemap-layout-option]', function(e) {
+      if(e.which == 13){
+        $(this).blur();
+      }
+    })
+
+    // Other buttons
     $('.forcelayout-container .tirette', dom).click(function(e) {
       openPanel('forcePanel');
       e.preventDefault();
