@@ -40,7 +40,7 @@
 
 
       // Tweak behavior of settings
-      if(option == "linLogMode"){
+      if(option === 'linLogMode'){
         if(value){
           FA2config['strongGravityMode'] = false
           FA2config['scalingRatio'] = 0.2
