@@ -52,6 +52,9 @@
         }
       }
 
+      if (option === 'gravity')
+        value /= 1000;
+
       // Update forceAtlas
       FA2config[option] = value;
 

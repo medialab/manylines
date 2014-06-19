@@ -227,6 +227,10 @@
     }));
   });
 
+  Handlebars.registerHelper('multiply', function(a, b) {
+    return new Handlebars.SafeString(a * b);
+  });
+
 
   /**
    * Templates management:
