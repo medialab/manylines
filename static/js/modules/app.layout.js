@@ -36,6 +36,7 @@
     // Various modules:
     control.addModule(app.modules.location);
     control.addModule(app.modules.spaceForm);
+    control.addModule(app.modules.saveButton);
     control.addModule(app.modules.viewsPanel);
     control.addModule(app.modules.localStorage);
 

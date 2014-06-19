@@ -895,6 +895,7 @@
         },
         success: function(data) {
           this.update('isModified', null);
+          this.dispatchEvent('saved');
         },
         error: function(m, x, p) {
           app.danger(i18n.t('errors.default'));

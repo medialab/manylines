@@ -174,6 +174,23 @@
     };
   };
 
+  /**
+   * The save button and its states
+   */
+  app.modules.saveButton = function(d) {
+
+    // Selectors
+    var button = $('.save.save-alert > a');
+
+    // Receptors
+    this.triggers.events.save = function(d, e) {
+      button.text(i18n.t('main.saving'));
+    };
+
+    this.triggers.events.saved = function(d, e) {
+      button.text(i18n.t('main.not_saved_yet'));
+    };
+  };
 
 
   /**
