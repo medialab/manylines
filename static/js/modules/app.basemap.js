@@ -12,7 +12,8 @@
     // Bind layout:
     $('*[data-app-basemap-action="startLayout"]', dom).click(function(e) {
       $('div[data-app-basemap-switchlayout]', dom).attr('data-app-basemap-switchlayout', 'on');
-      s.startForceAtlas2(app.utils.extend(FA2config, app.defaults.forceAtlas2));
+      s.configForceAtlas2(app.utils.extend(FA2config, app.defaults.forceAtlas2));
+      s.startForceAtlas2();
       openPanel('forcePanel');
       e.preventDefault();
 
