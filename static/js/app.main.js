@@ -452,7 +452,7 @@
             switch (cat.type) {
               case 'liststring':
                 o = graph.nodes.reduce(function(values, n) {
-                  (n.attributes[cat.id] || '').split('|').forEach(function(val) {
+                  n.attributes[cat.id].forEach(function(val) {
                     values[val] = (values[val] || 0) + 1;
                   }, {});
                   return values;
