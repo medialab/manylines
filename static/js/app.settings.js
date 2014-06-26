@@ -24,7 +24,10 @@
       zoomMax: 2
     },
     renderer: 'webgl',
-    mutedBasis: 250,
+    colors: {
+      mutedBasis: 230,
+      weakCategory: '#aaa'
+    },
     forceAtlas2: {
       strongGravityMode: true,
       gravity: 0.05,

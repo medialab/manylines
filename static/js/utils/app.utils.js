@@ -48,6 +48,24 @@
    * ************
    */
 
+  // Helpers
+  function muteColor(color) {
+    var rgb = chroma(color).rgb(),
+        m = app.defaults.colors.mutedBasis;
+
+    // Chroma deals with the potentially negative numbers, no need to worry
+    for (var i = 0; i < 3; i++)
+      rgb[i] = m - 0.1 * (m - rgb[i]);
+
+    return chroma.rgb(rgb).hex();
+  }
+
+  function clean(entity) {
+    delete entity.hidden;
+    delete entity.muted;
+  }
+
+  // Extending prototype
   sigma.prototype.getGraph = function() {
     return {
       nodes: this.graph.nodes(),
@@ -61,26 +79,29 @@
       return res;
     }, {}) : null;
 
+    var hasMuted = false;
+
     this.graph.nodes().forEach(function(n) {
       n.trueColor = n.trueColor || n.color;
       n.color = cat ? colors[n.attributes[cat.id]] : n.trueColor;
+
+      if (n.muted !== undefined)
+        hasMuted = true;
+
+      clean(n);
     });
+
+    if (hasMuted)
+      this.graph.edges().forEach(clean);
 
     this.refresh();
   };
 
-  function muteColor(color) {
-    var rgb = chroma(color).rgb(),
-        m = app.defaults.mutedBasis;
+  sigma.prototype.highlight = function(filter) {
+    var cat = filter.category,
+        values = filter.values,
+        self = this;
 
-    // Chroma deals with the potentially negative numbers, no need to worry
-    for (var i = 0; i < 3; i++)
-      rgb[i] = m - 0.1 * (m - rgb[i]);
-
-    return chroma.rgb(rgb).hex();
-  }
-
-  sigma.prototype.highlight = function(cat, values) {
     if (cat === undefined || !values.length)
       return this.mapColors(cat);
 
@@ -89,6 +110,7 @@
       return res;
     }, {}) : null;
 
+    // Iterating through nodes
     this.graph.nodes().forEach(function(n) {
       var muted = true;
       n.trueColor = n.trueColor || n.color;
@@ -98,11 +120,24 @@
           muted = false;
       });
 
+      // Updating color
       n.color = muted ?
         muteColor(colors[n.attributes[cat.id]]) :
         colors[n.attributes[cat.id]];
+
+      // Flagging the node as muted or not
+      n.muted = muted;
     });
 
+    // Iterating through edges
+    this.graph.edges().forEach(function(e) {
+      if (self.graph.nodes(e.source).muted || self.graph.nodes(e.target).muted)
+        e.hidden = true;
+      else
+        delete e.hidden;
+    });
+
+    // Refreshing sigma
     this.refresh();
   };
 
@@ -234,7 +269,7 @@
    * Useful classes:
    * ***************
    */
-  function Filter() {
+  function Filter(d) {
 
     // Properties
     this.values = [];
@@ -242,6 +277,12 @@
 
     // Methods
     this.set = function(category) {
+
+      // Retrieving category from model
+      ((d.get('meta').model || {}).node || []).some(function(o) {
+        return o.id === category ? (category = o) : false;
+      });
+
       this.category = category;
       return this;
     };

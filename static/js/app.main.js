@@ -499,7 +499,7 @@
             // Reset colors over the 5th one to #ccc:
             cat.values.forEach(function(v, i, a) {
               if (i >= 5)
-                v.color = '#ccc';
+                v.color = app.defaults.colors.weakCategory;
             });
 
             if (cat.values.length > graph.nodes.length / 2)

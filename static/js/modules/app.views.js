@@ -11,7 +11,7 @@
     /**
      * Properties
      */
-    this.filter = new app.classes.filter();
+    this.filter = new app.classes.filter(d);
 
     /**
      * Methods
@@ -109,13 +109,11 @@
       t = t.hasClass('.network-item') ? t : t.parents('.network-item');
       cat = t.attr('data-app-thumbnail-category');
 
-      ((d.get('meta').model || {}).node || []).some(function(o) {
-        return o.id === cat ? (cat = o) : false;
-      });
-
-      if (typeof cat === 'object')
+      // Updating filter's category
+      self.filter.set(cat);
+      if (typeof self.filter.category === 'object')
         openPanel('categoryPanel', {
-          category: cat
+          category: self.filter.category
         });
     });
 
@@ -133,9 +131,6 @@
       ((d.get('meta').model || {}).node || []).some(function(o) {
         return o.id === cat ? (cat = o) : false;
       });
-
-      // Updating filter's category
-      self.filter.set(cat);
 
       // Updating classes
       t.toggleClass('active');
@@ -160,7 +155,7 @@
       }
 
       // Updating sigma
-      s.highlight(self.filter.category, self.filter.values);
+      s.highlight(self.filter);
     });
 
     // If we click elsewhere, we reinitialize the filter
@@ -177,7 +172,7 @@
       ((d.get('meta').model || {}).node || []).some(function(o) {
         return o.id === cat ? (cat = o) : false;
       });
-      s.highlight(cat, []);
+      s.highlight(self.filter);
     });
 
     /**
