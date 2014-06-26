@@ -9,6 +9,11 @@
         s = d.get('mainSigma');
 
     /**
+     * Properties
+     */
+    this.filter = new app.classes.filter();
+
+    /**
      * Methods
      */
     this.renderSnapshots = function() {

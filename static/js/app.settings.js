@@ -10,6 +10,7 @@
    */
   app.defaults = {
     sigma: {
+      hideEdgesOnMove: true,
       font: 'Roboto Condensed',
       fontStyle: '300',
       defaultLabelSize: 13,
@@ -22,6 +23,7 @@
       zoomMin: 0.002,
       zoomMax: 2
     },
+    renderer: 'webgl',
     forceAtlas2: {
       strongGravityMode: true,
       gravity: 0.05,

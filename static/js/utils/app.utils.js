@@ -96,6 +96,7 @@
     this.renderer = s.addRenderer({
       container: $('.sigma-panel .sigma-expand', dom)[0],
       camera: 'mainCamera',
+      type: app.defaults.renderer,
       id: this.rendererName
     });
 
@@ -205,6 +206,54 @@
         s.killRenderer(this.thumbnails[k]);
       this.thumbnails = {};
     };
+  };
+
+  /**
+   * Useful classes:
+   * ***************
+   */
+  function Filter() {
+
+    // Properties
+    this.values = [];
+    this.category;
+
+    // Methods
+    this.set = function(category) {
+      this.category = category;
+      return this;
+    };
+
+    this.get = function() {
+      return {
+        category: this.category,
+        values: this.values
+      };
+    };
+
+    this.add = function(value) {
+      if (!~this.values.indexOf(value))
+        this.values.push(value);
+      return this;
+    };
+
+    this.remove = function(value) {
+      this.values = this.values.filter(function(v) {
+        return v !== value;
+      });
+      return this;
+    };
+
+    this.clear = function() {
+      this.values = [];
+      this.category = undefined;
+      return this;
+    };
+  }
+
+  // Exporting
+  app.classes = {
+    filter: Filter
   };
 
 
