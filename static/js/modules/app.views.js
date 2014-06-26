@@ -128,10 +128,6 @@
       value = t.find('.cat-item-label').text(),
       cat = $('.network-item.active', dom).attr('data-app-thumbnail-category');
 
-      ((d.get('meta').model || {}).node || []).some(function(o) {
-        return o.id === cat ? (cat = o) : false;
-      });
-
       // Updating classes
       t.toggleClass('active');
 
@@ -164,14 +160,9 @@
         return;
 
       self.filter.removeAll();
-      $('.category-item', dom).removeClass('cat-item-muted');
+      $('.category-item', dom).removeClass('cat-item-muted active');
 
       // Updating sigma
-      var cat = $('.network-item.active', dom).attr('data-app-thumbnail-category');
-
-      ((d.get('meta').model || {}).node || []).some(function(o) {
-        return o.id === cat ? (cat = o) : false;
-      });
       s.highlight(self.filter);
     });
 

@@ -9,6 +9,11 @@
         sigmaController = new app.utils.sigmaController('basemap', dom, d),
         thumbnails = new app.utils.sigmaThumbnails(dom, d);
 
+    /**
+     * Properties
+     */
+    this.filter = new app.classes.filter(d);
+
     // Bind layout:
     $('*[data-app-basemap-action="startLayout"]', dom).click(function(e) {
       $('div[data-app-basemap-switchlayout]', dom).attr('data-app-basemap-switchlayout', 'on');
@@ -77,20 +82,68 @@
       e.preventDefault();
     });
 
+    // TODO: DRY this up!
     dom.on('click', '.network-item', function(e) {
       var cat,
           t = $(e.target);
       t = t.hasClass('.network-item') ? t : t.parents('.network-item');
       cat = t.attr('data-app-thumbnail-category');
 
-      ((d.get('meta').model || {}).node || []).some(function(o) {
-        return o.id === cat ? (cat = o) : false;
-      });
-
-      if (typeof cat === 'object')
+      // Updating filter's category
+      self.filter.set(cat);
+      if (typeof self.filter.category === 'object')
         openPanel('categoryPanel', {
-          category: cat
+          category: self.filter.category
         });
+    });
+
+    // TODO: DRY this up!
+    dom.on('click', '.category-item', function(e) {
+      var t = $(e.target),
+          value,
+          cat;
+      t = t.hasClass('.category-item') ? t : t.parents('.category-item');
+
+      // Retrieving needed data
+      value = t.find('.cat-item-label').text(),
+      cat = $('.network-item.active', dom).attr('data-app-thumbnail-category');
+
+      // Updating classes
+      t.toggleClass('active');
+
+      // Adding or removing the value from the filter
+      if (t.hasClass('active')) {
+        self.filter.add(value);
+        t.removeClass('cat-item-muted');
+      }
+      else {
+        self.filter.remove(value);
+        t.addClass('cat-item-muted');
+      }
+
+      // If no one has the active class anymore
+      var nb_active = $('.category-item.active', dom).length;
+      if (!nb_active) {
+        $('.category-item', dom).removeClass('cat-item-muted');
+      }
+      else if (nb_active === 1){
+        $('.category-item:not(.active)', dom).addClass('cat-item-muted');
+      }
+
+      // Updating sigma
+      s.highlight(self.filter);
+    });
+
+    // If we click elsewhere, we reinitialize the filter
+    dom.on('click', '.categories-container', function(e) {
+      if (e.target !== this && !$(e.target).is('.title'))
+        return;
+
+      self.filter.removeAll();
+      $('.category-item', dom).removeClass('cat-item-muted active');
+
+      // Updating sigma
+      s.highlight(self.filter);
     });
 
     // Columns layout
