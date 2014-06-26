@@ -64,21 +64,43 @@
     this.graph.nodes().forEach(function(n) {
       n.trueColor = n.trueColor || n.color;
       n.color = cat ? colors[n.attributes[cat.id]] : n.trueColor;
-      delete n.hidden;
     });
 
     this.refresh();
   };
 
-  sigma.prototype.highlight = function(category, value) {
+  function muteColor(color) {
+    var rgb = chroma(color).rgb(),
+        m = app.defaults.mutedBasis;
+
+    // Chroma deals with the potentially negative numbers, no need to worry
+    for (var i = 0; i < 3; i++)
+      rgb[i] = m - 0.1 * (m - rgb[i]);
+
+    return chroma.rgb(rgb).hex();
+  }
+
+  sigma.prototype.highlight = function(cat, values) {
+    if (cat === undefined || !values.length)
+      return this.mapColors(cat);
+
+    var colors = cat ? cat.values.reduce(function(res, o) {
+      res[o.id] = o.color;
+      return res;
+    }, {}) : null;
+
     this.graph.nodes().forEach(function(n) {
+      var muted = true;
       n.trueColor = n.trueColor || n.color;
 
-      // Filtering
-      if(n.attributes[category] !== value)
-        n.hidden = true;
-      else
-        delete n.hidden;
+      values.forEach(function(v) {
+        if (n.attributes[cat.id] === v)
+          muted = false;
+      });
+
+      n.color = muted ?
+        muteColor(colors[n.attributes[cat.id]]) :
+        colors[n.attributes[cat.id]];
     });
 
     this.refresh();
@@ -224,13 +246,6 @@
       return this;
     };
 
-    this.get = function() {
-      return {
-        category: this.category,
-        values: this.values
-      };
-    };
-
     this.add = function(value) {
       if (!~this.values.indexOf(value))
         this.values.push(value);
@@ -244,8 +259,13 @@
       return this;
     };
 
-    this.clear = function() {
+    this.removeAll = function() {
       this.values = [];
+      return this;
+    };
+
+    this.clear = function() {
+      this.removeAll();
       this.category = undefined;
       return this;
     };

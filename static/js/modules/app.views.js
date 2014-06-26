@@ -126,14 +126,58 @@
           cat;
       t = t.hasClass('.category-item') ? t : t.parents('.category-item');
 
+      // Retrieving needed data
       value = t.find('.cat-item-label').text(),
       cat = $('.network-item.active', dom).attr('data-app-thumbnail-category');
 
-      $('.category-item', dom).addClass('cat-item-muted');
-      t.removeClass('cat-item-muted');
+      ((d.get('meta').model || {}).node || []).some(function(o) {
+        return o.id === cat ? (cat = o) : false;
+      });
 
-      // Highlighting category
-      s.highlight(cat, value);
+      // Updating filter's category
+      self.filter.set(cat);
+
+      // Updating classes
+      t.toggleClass('active');
+
+      // Adding or removing the value from the filter
+      if (t.hasClass('active')) {
+        self.filter.add(value);
+        t.removeClass('cat-item-muted');
+      }
+      else {
+        self.filter.remove(value);
+        t.addClass('cat-item-muted');
+      }
+
+      // If no one has the active class anymore
+      var nb_active = $('.category-item.active', dom).length;
+      if (!nb_active) {
+        $('.category-item', dom).removeClass('cat-item-muted');
+      }
+      else if (nb_active === 1){
+        $('.category-item:not(.active)', dom).addClass('cat-item-muted');
+      }
+
+      // Updating sigma
+      s.highlight(self.filter.category, self.filter.values);
+    });
+
+    // If we click elsewhere, we reinitialize the filter
+    dom.on('click', '.categories-container', function(e) {
+      if (e.target !== this && !$(e.target).is('.title'))
+        return;
+
+      self.filter.removeAll();
+      $('.category-item', dom).removeClass('cat-item-muted');
+
+      // Updating sigma
+      var cat = $('.network-item.active', dom).attr('data-app-thumbnail-category');
+
+      ((d.get('meta').model || {}).node || []).some(function(o) {
+        return o.id === cat ? (cat = o) : false;
+      });
+      s.highlight(cat, []);
     });
 
     /**
