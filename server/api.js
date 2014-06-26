@@ -23,7 +23,8 @@ var express = require('express'),
  * ************
  */
 app.use(log.api.middleware);
-app.use(bodyParser({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(cookieParser());
 app.use(session({
   secret: config.api.secret,

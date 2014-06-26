@@ -26,7 +26,8 @@ app.use(function(req, res, next) {
     return next();
 });
 app.use(log.static.middleware);
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(serveStatic(path.join(__dirname, 'app')));
 
 // development only
