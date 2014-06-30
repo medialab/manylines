@@ -586,10 +586,6 @@
             this.get('view') !== 'login'
           )
             this.request('loadSpace');
-
-          // Load the space data if needed:
-          if (this.get('spaceId'))
-            this.request('loadSnapshots');
         }
       },
       {
@@ -853,6 +849,9 @@
           this.update('graph', data.graph);
           this.update('isModified', null);
           // this.dispatchEvent('loadLocalStorage');
+
+          // Now requesting snapshots
+          this.request('loadSnapshots');
         },
         error: function(m, x, p) {
           if (+x.status === 401)

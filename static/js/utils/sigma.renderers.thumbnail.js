@@ -33,6 +33,7 @@
     this.options = options;
     this.values = this.options.values;
     this.category = this.options.category;
+    this.filter = this.options.filter;
     this.container = this.options.container;
     this.settings = (
         typeof options.settings === 'object' &&
@@ -76,22 +77,29 @@
 
     // Draw nodes:
     for (a = nodes(), i = 0, l = a.length; i < l; i++) {
-      this.contexts.nodes.fillStyle = this.values[a[i].attributes[this.category.id]] ||
-        this.settings('defaultNodeColor');
-      this.contexts.nodes.beginPath();
-      this.contexts.nodes.arc(
-        // WARNING:
-        // The translation has to be here.
-        a[i][prefix + 'x'] + this.width / 2,
-        a[i][prefix + 'y'] + this.height / 2,
-        a[i][prefix + 'size'] / 2,
-        0,
-        Math.PI * 2,
-        true
-      );
 
-      this.contexts.nodes.closePath();
-      this.contexts.nodes.fill();
+      // We draw the node if its filter is correct
+      if (!this.filter ||
+          (this.filter && ~this.filter.indexOf(a[i].attributes[this.category.id]) ||
+           this.filter.length === 0)) {
+
+        this.contexts.nodes.fillStyle = this.values[a[i].attributes[this.category.id]] ||
+          this.settings('defaultNodeColor');
+        this.contexts.nodes.beginPath();
+        this.contexts.nodes.arc(
+          // WARNING:
+          // The translation has to be here.
+          a[i][prefix + 'x'] + this.width / 2,
+          a[i][prefix + 'y'] + this.height / 2,
+          a[i][prefix + 'size'] / 2,
+          0,
+          Math.PI * 2,
+          true
+        );
+
+        this.contexts.nodes.closePath();
+        this.contexts.nodes.fill();
+      }
     }
 
     this.dispatchEvent('render');

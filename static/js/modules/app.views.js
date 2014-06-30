@@ -12,22 +12,55 @@
      */
     this.filter = new app.classes.filter(d);
     this.thumbnails = [];
+    this.snapshotThumbnails = [];
 
     /**
      * Methods
      */
     this.renderSnapshots = function() {
+      var snapshots = d.get('snapshots'),
+          meta = d.get('meta');
+
+      if (!snapshots)
+        return;
+
       app.templates.require('app.views.snapshot', function(snapshotTemplate) {
 
         $('.views-band', dom).empty().append(
-          snapshotTemplate({snapshots: d.get('snapshots')})
+          snapshotTemplate({snapshots: snapshots})
         );
+
+        // Killing thumbnails
+        self.snapshotThumbnails.forEach(function(t) {
+          t.kill();
+        });
+
+        // Creating thumbnails
+        snapshots.forEach(function(snapshot, i) {
+          var c = app.utils.first(meta.model.node, function(c) {
+            return c.id === snapshot.filters[0].category;
+          });
+
+          self.snapshotThumbnails.push(
+            $('[data-app-thumbnail-snapshot="' + i + '"].view-thumbnail').thumbnail(s, {
+              category: c,
+              filter: snapshot.filters[0].values
+            })
+          );
+
+          self.snapshotThumbnails.forEach(function(t) {
+            t.init();
+          });
+        });
       });
     };
 
     this.kill = function() {
       sigmaController.killRenderer();
       this.thumbnails.forEach(function(t) {
+        t.kill();
+      });
+      this.snapshotThumbnails.forEach(function(t) {
         t.kill();
       });
     };
@@ -70,13 +103,6 @@
       sigmaController.renderer.render();
     }
 
-
-    /**
-     * Initialization
-     */
-
-    // Rendering snapshots for the first time
-    this.renderSnapshots();
 
     /**
      * Bindings

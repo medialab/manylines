@@ -38,8 +38,20 @@
     return res;
   }
 
+  function first(a, fn) {
+    var l,
+        i;
+
+    for (i = 0, l = a.length; i < l; i++) {
+      if (fn(a[i]))
+        return a[i];
+    }
+    return;
+  }
+
   app.utils = {
-    extend: extend
+    extend: extend,
+    first: first
   };
 
 
@@ -251,6 +263,12 @@
       });
 
       this.category = category;
+      return this;
+    };
+
+    this.import = function(o) {
+      this.set(o.category);
+      this.values = o.values;
       return this;
     };
 

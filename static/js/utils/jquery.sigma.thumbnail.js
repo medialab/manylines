@@ -17,25 +17,24 @@
       this.kill();
 
       // Do we want to map colors or just display a filter
-      if (params.category) {
-        var c = params.category;
-        if (c.noDisplay)
-          return;
+      var c = params.category;
+      if (c.noDisplay)
+        return;
 
-        this.renderer = s.addRenderer({
-          prefix: s.cameras.staticCamera.readPrefix,
-          type: 'thumbnail',
-          camera: 'staticCamera',
-          container: el,
-          category: c,
-          values: c.values.reduce(function(res, obj) {
-            res[obj.id] = obj.color;
-            return res;
-          }, {})
-        });
+      this.renderer = s.addRenderer({
+        prefix: s.cameras.staticCamera.readPrefix,
+        type: 'thumbnail',
+        camera: 'staticCamera',
+        container: el,
+        category: c,
+        values: c.values.reduce(function(res, obj) {
+          res[obj.id] = obj.color;
+          return res;
+        }, {}),
+        filter: params.filter
+      });
 
-        this.renderer.resize();
-      }
+      this.renderer.resize();
 
       // WARNING:
       // If it does not work, use an iframe.
