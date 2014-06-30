@@ -93,10 +93,10 @@
           return;
         }
 
-        // TODO: retrieve filter
-
         // Dispatch event
-        self.dispatchEvent('takeSnapshot');
+        self.dispatchEvent('takeSnapshot', {
+          filter: self.filter.export()
+        });
       }
 
       e.preventDefault();

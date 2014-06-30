@@ -559,8 +559,7 @@
       {
         triggers: 'takeSnapshot',
         method: function(e) {
-          var cam = this.get('mainSigma').cameras['mainCamera'],
-              filter = e.filter;
+          var cam = this.get('mainSigma').cameras['mainCamera'];
 
           this.request('snapshotGraph', {
             data: {
@@ -571,7 +570,8 @@
                   ratio: cam.ratio,
                   angle: cam.angle
                 }
-              }
+              },
+              filters: [e.data.filter]
             }
           });
         }
@@ -684,33 +684,12 @@
         method: function(e) {
           this.update('view', 'upload');
         }
-      },
+      }
 
       /**
        * Temporary development stuffs:
        * *****************************
        */
-
-      // TODO: clean up
-      {
-        triggers: 'devSnapshot',
-        method: function() {
-          var cam = this.get('mainSigma').cameras['mainCamera'];
-
-          this.request('snapshotGraph', {
-            data: {
-              view: {
-                camera: {
-                  x: cam.x,
-                  y: cam.y,
-                  ratio: cam.ratio,
-                  angle: cam.angle
-                }
-              }
-            }
-          });
-        }
-      }
     ],
     services: [
       /**

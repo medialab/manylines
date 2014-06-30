@@ -864,6 +864,7 @@ exports.addGraph = function(req, res) {
 exports.addSnapshot = function(req, res) {
   var params = {
     id: req.params.id,
+    filters: req.body.filters,
     version: +req.params.version,
     view: req.body.view
   };
@@ -873,7 +874,8 @@ exports.addSnapshot = function(req, res) {
     {
       id: 'string',
       version: 'integer',
-      view: '?object'
+      view: 'object',
+      filters: 'array'
     },
     params
   ))
@@ -888,7 +890,7 @@ exports.addSnapshot = function(req, res) {
   // TODO: add filter too here and decide terminology
   if (params.view)
     snapshot.view = params.view;
-  snapshot.filters = [];
+  snapshot.filters = params.filters;
 
   models.space.get(params.id, function(err, spaceResult) {
     if (err) {

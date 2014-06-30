@@ -300,6 +300,13 @@
       return this;
     };
 
+    this.export = function() {
+      return {
+        category: this.category.id,
+        values: this.values
+      };
+    }
+
     this.removeAll = function() {
       this.values = [];
       return this;
