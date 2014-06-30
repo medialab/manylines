@@ -70,7 +70,7 @@
     function openPanel(panelName, options) {
       options = options || {};
 
-      app.templates.require('app.views.' + panelName, function(template) {
+      app.templates.require(panelName, function(template) {
         var panel;
         dom.find('*[data-app-views-panel="sidebar"]').find('.active').removeClass('active');
 
@@ -102,6 +102,12 @@
       sigmaController.renderer.resize();
       sigmaController.renderer.render();
     }
+
+    /**
+     * Initialization
+     */
+    if ((d.get('snapshots') || []).length)
+      this.renderSnapshots();
 
 
     /**
@@ -141,7 +147,7 @@
       // Updating filter's category
       self.filter.set(cat);
       if (typeof self.filter.category === 'object')
-        openPanel('categoryPanel', {
+        openPanel('app.misc.categoryPanel', {
           category: self.filter.category
         });
     });

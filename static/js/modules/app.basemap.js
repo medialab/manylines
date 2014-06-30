@@ -19,7 +19,7 @@
       $('div[data-app-basemap-switchlayout]', dom).attr('data-app-basemap-switchlayout', 'on');
       s.configForceAtlas2(app.utils.extend(FA2config, app.defaults.forceAtlas2));
       s.startForceAtlas2();
-      openPanel('forcePanel');
+      openPanel('app.basemap.forcePanel');
       e.preventDefault();
 
       // Dispatching layout
@@ -92,7 +92,7 @@
 
     // Other buttons
     $('.forcelayout-container .tirette', dom).click(function(e) {
-      openPanel('forcePanel');
+      openPanel('app.basemap.forcePanel');
       e.preventDefault();
     });
 
@@ -106,7 +106,7 @@
       // Updating filter's category
       self.filter.set(cat);
       if (typeof self.filter.category === 'object')
-        openPanel('categoryPanel', {
+        openPanel('app.misc.categoryPanel', {
           category: self.filter.category
         });
     });
@@ -164,17 +164,17 @@
     function openPanel(panelName, options) {
       options = options || {};
 
-      app.templates.require('app.basemap.' + panelName, function(template) {
+      app.templates.require(panelName, function(template) {
         var panel;
         dom.find('*[data-app-basemap-panel="sidebar"]').find('.active').removeClass('active');
 
         switch (panelName) {
-          case 'forcePanel':
+          case 'app.basemap.forcePanel':
             panel = $(template(app.utils.extend((d.get('meta') || {}).layout, app.defaults.forceAtlas2)));
             s.mapColors();
             $('.forcelayout-container', dom).addClass('active');
             break;
-          case 'categoryPanel':
+          case 'app.misc.categoryPanel':
             panel = $(template(options.category));
             $('.network-item[data-app-thumbnail-category="' + options.category.id + '"]', dom).addClass('active');
             s.mapColors(options.category);
