@@ -58,6 +58,15 @@
       "stronger_gravity_description": "Another gravity equation that keeps nodes in a close circle",
       "no_overlapping": "no overlapping",
       "no_overlapping_description": "When the layout is converged, prevents node to overlap<br>Note: If you do this too early, the network might get entangled"
+    },
+
+    "nodesize": {
+      "title": "Node size",
+      "select_original": "original",
+      "select_degree": "degree",
+      "select_indegree": "indegree",
+      "select_outdegree": "outdegree",
+      "description": "The layout is usually cleaner when most connected nodes are bigger. The degree is the number of links, the indegree (outdegree) is the number of inbound links (outbound). "
     }
   },
 

@@ -63,6 +63,7 @@
           nSizeMiss = true;
           nPosMiss = true;
         }
+        obj.trueSize = obj.size || 1;
       }
 
       arr = graph.edges;
@@ -82,9 +83,9 @@
         obj.size = obj.weight;
       }
 
-      // If node sizes are missing, use the degree to make the size
-      if(nSizeMiss){
-        console.log('node sizes missing')
+      // Default behavior: we use the degree to make the size
+      // if(nSizeMiss){
+        console.log('node sizes missing');
         nIndex = {};
         for (i = 0, l = arr.length; i < l; i++) {
           obj = arr[i];
@@ -96,16 +97,16 @@
           obj = arr[i];
           obj.size = 1 + 2 * Math.sqrt((nIndex[obj.id] || 0));
         }
-      }
+      // }
 
       // If node positions are missing, draw them in circle
       if(nPosMiss){
-        console.log('node positions missing')
+        console.log('node positions missing');
         arr = graph.nodes;
         for (i = 0, l = arr.length; i < l; i++) {
           obj = arr[i];
-          ang = Math.PI * 2 * i / arr.length
-          obj.x = 100 * Math.cos(ang);  
+          ang = Math.PI * 2 * i / arr.length;
+          obj.x = 100 * Math.cos(ang);
           obj.y = 100 * Math.sin(ang);
         }
       }

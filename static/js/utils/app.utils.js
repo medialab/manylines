@@ -97,6 +97,35 @@
     this.refresh();
   };
 
+  sigma.prototype.mapSizes = function(option){
+    switch(option){
+      case "original":
+        this.graph.nodes().forEach(function(n){
+          n.size = n.trueSize;
+        });
+        break;
+
+      case "degree":
+        this.graph.nodes().forEach(function(n){
+          n.size = 1 + 2 * Math.sqrt(this.graph.degree(n.id));
+        }, this);
+        break;
+
+      case "indegree":
+        this.graph.nodes().forEach(function(n){
+          n.size = 1 + 2 * Math.sqrt(this.graph.degree(n.id, "in"));
+        }, this);
+        break;
+
+      case "outdegree":
+        this.graph.nodes().forEach(function(n){
+          n.size = 1 + 2 * Math.sqrt(this.graph.degree(n.id, "out"));
+        }, this);
+        break;
+
+    }
+  }
+
   sigma.prototype.highlight = function(filter) {
     var cat = filter.category,
         values = filter.values,
@@ -346,6 +375,10 @@
 
   Handlebars.registerHelper('multiply', function(a, b) {
     return new Handlebars.SafeString(a * b);
+  });
+
+  Handlebars.registerHelper('ifEquals', function(a, b, o) {
+    return (a === b) ? o.fn(this) : o.inverse(this);
   });
 
 

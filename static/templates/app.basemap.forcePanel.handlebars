@@ -57,4 +57,26 @@
       {{t "basemap.force.no_overlapping_description" }}
     </p>
   </div>--}}
+  <div class="setting-item">
+    <p class="title">{{t "basemap.nodesize.title" }}</p>
+    <p>
+      <div role="form">
+        <label class="radio-inline">
+          <input type="radio" name="nodesizeOptions" id="nodesize_original" data-app-basemap-layout-nodesize="original" value="original" {{#ifEquals nodesize "original" }} checked="checked" {{/ifEquals}}>{{t "basemap.nodesize.select_original" }}
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="nodesizeOptions" id="nodesize_degree" data-app-basemap-layout-nodesize="degree" value="degree" {{#ifEquals nodesize "degree" }} checked="checked" {{/ifEquals}}>{{t "basemap.nodesize.select_degree" }}
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="nodesizeOptions" id="nodesize_indegree" data-app-basemap-layout-nodesize="indegree" value="indegree" {{#ifEquals nodesize "indegree" }} checked="checked" {{/ifEquals}}>{{t "basemap.nodesize.select_indegree" }}
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="nodesizeOptions" id="nodesize_outdegree" data-app-basemap-layout-nodesize="outdegree" value="outdegree" {{#ifEquals nodesize "outdegree" }} checked="checked" {{/ifEquals}}>{{t "basemap.nodesize.select_outdegree" }}
+        </label>
+      </div>
+    </p>
+    <p class="text-info">
+      {{t "basemap.nodesize.description" }}
+    </p>
+  </div>
 </div>

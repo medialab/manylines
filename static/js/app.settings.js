@@ -32,7 +32,8 @@
       strongGravityMode: true,
       gravity: 0.05,
       scalingRatio: 10,
-      slowDown: 2
+      slowDown: 2,
+      nodesize: "degree"
     },
     storageKey: 'app-current'
   };

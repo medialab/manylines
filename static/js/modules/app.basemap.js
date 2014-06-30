@@ -36,7 +36,7 @@
       self.dispatchEvent('graphLayout', s.getGraph());
     });
 
-    // Bind layout options:
+    // Bind layout options
     dom.on('change', '*[data-app-basemap-layout-option]', function(e) {
       var option = $(this).attr('data-app-basemap-layout-option'),
           value = $(this).is('[type=checkbox]') ?
@@ -64,6 +64,17 @@
       FA2config[option] = value;
 
       s.configForceAtlas2(app.utils.extend(FA2config, app.defaults.forceAtlas2));
+
+      // Dispatch event to update metas
+      self.dispatchEvent('updateLayoutOptions', FA2config);
+    });
+
+    // Bind node sizes
+    dom.on('change', '*[data-app-basemap-layout-nodesize]', function(e){
+      var value = $(this).attr('data-app-basemap-layout-nodesize');
+      s.mapSizes(value);
+
+      FA2config['nodesize'] = value;
 
       // Dispatch event to update metas
       self.dispatchEvent('updateLayoutOptions', FA2config);
