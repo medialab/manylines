@@ -6,13 +6,13 @@
     var self = this,
         FA2config = {},
         s = d.get('mainSigma'),
-        sigmaController = new app.utils.sigmaController('basemap', dom, d),
-        thumbnails = new app.utils.sigmaThumbnails(dom, d);
+        sigmaController = new app.utils.sigmaController('basemap', dom, d);
 
     /**
      * Properties
      */
     this.filter = new app.classes.filter(d);
+    this.thumbnails = [];
 
     // Bind layout:
     $('*[data-app-basemap-action="startLayout"]', dom).click(function(e) {
@@ -30,7 +30,10 @@
       $('div[data-app-basemap-switchlayout]', dom).attr('data-app-basemap-switchlayout', 'off');
       s.stopForceAtlas2();
       e.preventDefault();
-      thumbnails.refresh();
+
+      self.thumbnails.forEach(function(t) {
+        t.refresh();
+      });
 
       // Dispatching layout
       self.dispatchEvent('graphLayout', s.getGraph());
@@ -208,6 +211,9 @@
       s.mapColors();
       s.killForceAtlas2();
       sigmaController.killRenderer();
+      this.thumbnails.forEach(function(t) {
+        t.kill();
+      });
     };
 
     this.triggers.events.metaUpdated = function(d) {
@@ -222,9 +228,16 @@
             return;
 
           $(template(o)).appendTo(container);
+
+          // Creating thumbnails
+          self.thumbnails.push(
+            $('[data-app-thumbnail-category="' + o.id + '"] .network-thumbnail').thumbnail(s, {category: o})
+          );
         });
 
-        thumbnails.init();
+        self.thumbnails.forEach(function(t) {
+          t.init();
+        });
       });
     };
     this.triggers.events.metaUpdated(d);

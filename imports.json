@@ -11,6 +11,7 @@
       "/js/lib/gexf.min.js",
       "/js/lib/sigma.parsers.gexf.custom.js",
       "/js/lib/sigma.layout.forceAtlas2.min.js",
+      "/js/utils/jquery.sigma.thumbnail.js",
       "/js/utils/sigma.renderers.thumbnail.js",
       "/js/app.settings.js",
       "/js/utils/app.utils.js",

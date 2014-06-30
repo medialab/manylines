@@ -76,7 +76,8 @@
 
     // Draw nodes:
     for (a = nodes(), i = 0, l = a.length; i < l; i++) {
-      this.contexts.nodes.fillStyle = this.values[a[i].attributes[this.category]] || this.settings('defaultNodeColor');
+      this.contexts.nodes.fillStyle = this.values[a[i].attributes[this.category.id]] ||
+        this.settings('defaultNodeColor');
       this.contexts.nodes.beginPath();
       this.contexts.nodes.arc(
         // WARNING:

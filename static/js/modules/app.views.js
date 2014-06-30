@@ -5,13 +5,13 @@
   app.modules.views = function(dom, d) {
     var self = this,
         sigmaController = new app.utils.sigmaController('views', dom, d),
-        thumbnails = new app.utils.sigmaThumbnails(dom, d),
         s = d.get('mainSigma');
 
     /**
      * Properties
      */
     this.filter = new app.classes.filter(d);
+    this.thumbnails = [];
 
     /**
      * Methods
@@ -27,6 +27,9 @@
 
     this.kill = function() {
       sigmaController.killRenderer();
+      this.thumbnails.forEach(function(t) {
+        t.kill();
+      });
     };
 
     // TODO: create custom abstraction for this?
@@ -184,9 +187,16 @@
             return;
 
           $(template(o)).appendTo(container);
+
+          // Creating thumbnails
+          self.thumbnails.push(
+            $('[data-app-thumbnail-category="' + o.id + '"] .network-thumbnail').thumbnail(s, {category: o})
+          );
         });
 
-        thumbnails.init();
+        self.thumbnails.forEach(function(t) {
+          t.init();
+        });
       });
     };
     this.triggers.events.metaUpdated(d);
