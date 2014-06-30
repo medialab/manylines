@@ -50,7 +50,7 @@
 
     "force": {
       "linlog": "LinLog mode",
-      "linlog_description": "Different equations with slower convergence but more clustering",
+      "linlog_description": "Different equations with slower convergence but more clustering. Avoid if disconnected components or nodes.",
       "gravity": "gravity",
       "gravity_description": "Attracts all nodes to the center, preventing disconnected components to drift away",
       "gravity_placeholder": "Enter a number",

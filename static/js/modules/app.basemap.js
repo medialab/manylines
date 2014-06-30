@@ -50,18 +50,18 @@
       // Tweak behavior of settings
       if(option === 'linLogMode'){
         if(value){
-          FA2config['strongGravityMode'] = false
-          FA2config['scalingRatio'] = 0.2
-          FA2config['slowDown'] = 1
+          FA2config['strongGravityMode'] = false;
+          FA2config['scalingRatio'] = 0.2;
+          FA2config['slowDown'] = 1;
         } else {
-          FA2config['strongGravityMode'] = true
-          FA2config['scalingRatio'] = 10
-          FA2config['slowDown'] = 2
+          FA2config['strongGravityMode'] = true;
+          FA2config['scalingRatio'] = 10;
+          FA2config['slowDown'] = 2;
         }
       }
 
       if (option === 'gravity')
-        value /= 1000;
+        value = (+value) / 1000;
 
       // Update forceAtlas
       FA2config[option] = value;
