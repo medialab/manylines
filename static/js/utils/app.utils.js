@@ -124,6 +124,7 @@
         break;
 
     }
+    this.refresh();
   }
 
   sigma.prototype.highlight = function(filter) {
