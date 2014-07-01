@@ -447,7 +447,9 @@
             var k,
                 a,
                 o,
-                scale;
+                scale,
+                colors,
+                colorsThreshold = 5;
 
             switch (cat.type) {
               case 'liststring':
@@ -483,22 +485,113 @@
               });
             }
 
-            // TODO:
-            // Colors are a bit arbitrary...
-            scale = chroma.scale(chroma.brewer.Dark2);
-            cat.values.forEach(function(v, i, a) {
-              v.color = scale(i / (a.length - 1)).hex();
-              v.percentValue = v.value * 100 / cat.maxValue;
-            });
-
-            // Sort values:
+            // Sort values
             cat.values = cat.values.sort(function(a, b) {
               return b.value - a.value;
             });
 
+            // Colors
+            colors = buildColors(Math.min(cat.values.length, colorsThreshold));
+            cat.values.forEach(function(v, i, a) {
+              v.color = colors[i];
+              v.percentValue = v.value * 100 / cat.maxValue;
+            });
+
+            function buildColors(count){
+              // Colors from iWantHue
+              // H: 0 to 360
+              // C: 1.11 to 2.31
+              // L: 0.66 to 1.39
+              switch(count){
+                case 1:
+                  return ['#6889AB'];
+                  break;
+                case 2:
+                  return ["#3CC426",
+                    "#D058AF"];
+                  break;
+                case 3:
+                  return ["#3CC426",
+                    "#BE60D4",
+                    "#EC4042"];
+                  break;
+                case 4:
+                  return ["#CB9A29",
+                    "#A682D0",
+                    "#E35466",
+                    "#70C950"];
+                  break;
+                case 5:
+                  return ["#E05F3D",
+                    "#67C845",
+                    "#8286DA",
+                    "#DD5FAE",
+                    "#C4B322"];
+                  break;
+                case 6:
+                  return ["#DF6240",
+                    "#79D83F",
+                    "#828BD7",
+                    "#DB62AB",
+                    "#C4B32D",
+                    "#54B962"];
+                  break;
+                case 7:
+                  return ["#50BC65",
+                    "#DA65B4",
+                    "#D37F29",
+                    "#818CD6",
+                    "#B4B62F",
+                    "#E45356",
+                    "#7AD940"];
+                  break;
+                case 8:
+                  return ["#65DD5D",
+                    "#D769BB",
+                    "#D28129",
+                    "#5B97CF",
+                    "#E3535F",
+                    "#BEC932",
+                    "#9263DE",
+                    "#5C9F45"];
+                  break;
+                case 9:
+                  return ["#888AD6",
+                    "#69DC47",
+                    "#D7802C",
+                    "#11B0A7",
+                    "#D964B5",
+                    "#E45556",
+                    "#ACA02B",
+                    "#60B65A",
+                    "#C7DE3F"];
+                  break;
+                case 10:
+                  return ["#50A3CB",
+                    "#C8DA3C",
+                    "#E05F3D",
+                    "#D26EC9",
+                    "#44CB91",
+                    "#CA962B",
+                    "#DF5683",
+                    "#6ADC4F",
+                    "#8967DA",
+                    "#6BA13C"];
+                  break;
+                default:
+                  var colors = [];
+                  for(var i=0; i<count; i++){
+                    colors.push(chroma.rgb(Math.random()*255,Math.random()*255,Math.random()*255).hex());
+                  }
+                  return colors;
+                  break;
+              }
+              
+            }
+
             // Reset colors over the 5th one to #ccc:
             cat.values.forEach(function(v, i, a) {
-              if (i >= 5)
+              if (i >= colorsThreshold)
                 v.color = app.defaults.colors.weakCategory;
             });
 
