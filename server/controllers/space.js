@@ -1,4 +1,5 @@
-var struct = require('../../lib/struct.js'),
+var async = require('async'),
+    struct = require('../../lib/struct.js'),
     utils = require('../../lib/utils.js'),
     errors = require('../../errors.json'),
     validator = require('validator'),
@@ -192,7 +193,7 @@ exports.create = function(req, res) {
   models.graph.set({}, function(err, graphResult) {
     if (err) {
       logger.error(
-        'controllers.space.create: unknown error creating the graph object.')
+        'controllers.space.create: unknown error creating the graph object.');
       return res.send(500);
     }
 
@@ -293,7 +294,7 @@ exports.update = function(req, res) {
   models.space.get(params.id, function(err, result) {
     if (err) {
       logger.error(
-        'controllers.space.update: unknown error retrieving the graph object.')
+        'controllers.space.update: unknown error retrieving the graph object.');
       return res.send(500);
     }
 
@@ -362,7 +363,7 @@ exports.get = function(req, res) {
   models.space.get(params.id, function(err, result) {
     if (err) {
       logger.error(
-        'controllers.space.get: unknown error retrieving the space object.')
+        'controllers.space.get: unknown error retrieving the space object.');
       return res.send(500);
     }
 
@@ -542,13 +543,13 @@ exports.readGraph = function(req, res) {
 
     if (!data.graphs.length) {
       logger.error(
-        'controllers.space.readGraph: space "' + params.id + '" has no graph.')
+        'controllers.space.readGraph: space "' + params.id + '" has no graph.');
       return res.send(500);
     }
 
     if ((params.version > data.graphs.length - 1) || (params.version < 0)) {
       logger.error(
-        'controllers.space.readGraph: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').')
+        'controllers.space.readGraph: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').');
       return res.send(400);
     }
 
@@ -672,70 +673,61 @@ exports.updateGraph = function(req, res) {
 
     if (!data.graphs.length) {
       logger.error(
-        'controllers.space.updateGraph: space "' + params.id + '" has no graph stored.')
+        'controllers.space.updateGraph: space "' + params.id + '" has no graph stored.');
       return res.send(500);
     }
 
     if ((params.version > data.graphs.length - 1) || (params.version < 0)) {
       logger.error(
-        'controllers.space.updateGraph: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').')
+        'controllers.space.updateGraph: wrong version number: ' + params.version + ' (last version: ' + (data.graphs.length + 1) + ').');
       return res.send(400);
     }
 
-    var calls = 0,
-        toSend = {},
-        graph = data.graphs[params.version];
+    var graph = data.graphs[params.version],
+        tasks = {};
 
-    if (params.graph) {
-      calls++;
-
-      models.graph.set(
-        params.graph,
-        graph.id,
-        function(err, data) {
-          if (err) {
-            logger.error(
-              'controllers.space.updateGraph: unknown error creating the graph object.',
-              {errorMsg: err.message}
-            );
-
-            return res.send(500);
-          }
-
-          toSend.graph = data.value;
-
-          if (--calls === 0)
-            return res.json(toSend);
-        }
-      );
-    }
-
-    if (params.meta) {
-      calls++;
-
-      models.graphMeta.set(
-        params.meta,
-        graph.metaId,
-        function(err, data) {
-          if (err) {
-            logger.error(
-              'controllers.space.updateGraph: unknown error creating the graph meta object.',
-              {errorMsg: err.message}
-            );
-
-            return res.send(500);
-          }
-
-          toSend.meta = data.value;
-
-          if (--calls === 0)
-            return res.json(toSend);
-        }
-      );
-    }
-
-    if (!calls)
+    if (!params.graph && !params.meta)
       return res.send(400);
+
+    if (params.graph)
+      tasks.graph = function(cb) {
+        models.graph.set(
+          params.graph,
+          graph.id,
+          function(err, data) {
+            if (err)
+              cb(err);
+            else
+              cb(null, data.value);
+          }
+        );
+      };
+    if (params.meta)
+      tasks.meta = function(cb) {
+        models.graphMeta.set(
+          params.meta,
+          graph.metaId,
+          function(err, data) {
+            if (err)
+              cb(err);
+            else
+              cb(null, data.value);
+          }
+        );
+      };
+
+    // Running the updates in parallel
+    async.parallel(tasks, function(err, toSend) {
+      if (err) {
+        logger.error('controllers.space.updateGraph: unknown error creating the graph or meta object.',
+          {errorMsg: err.message}
+        );
+
+        return res.send(500);
+      }
+
+      return res.json(toSend);
+    });
   });
 };
 
@@ -780,7 +772,7 @@ exports.addGraph = function(req, res) {
   models.space.get(params.id, function(err, spaceResult) {
     if (err) {
       logger.error(
-        'controllers.space.addGraph: unknown error retrieving the graph object.')
+        'controllers.space.addGraph: unknown error retrieving the graph object.');
       return res.send(500);
     }
 
@@ -911,13 +903,13 @@ exports.addSnapshot = function(req, res) {
 
     if (!spaceResult.graphs.length) {
       logger.error(
-        'controllers.space.addSnapshot: space "' + params.id + '" has no graph stored.')
+        'controllers.space.addSnapshot: space "' + params.id + '" has no graph stored.');
       return res.send(500);
     }
 
     if ((params.version > spaceResult.graphs.length - 1) || (params.version < 0)) {
       logger.error(
-        'controllers.space.addSnapshot: wrong version number: ' + params.version + ' (last version: ' + (spaceResult.graphs.length + 1) + ').')
+        'controllers.space.addSnapshot: wrong version number: ' + params.version + ' (last version: ' + (spaceResult.graphs.length + 1) + ').');
       return res.send(400);
     }
 
@@ -1046,7 +1038,7 @@ exports.getSnapshot = function(req, res) {
 
     if (!spaceResult.graphs.length) {
       logger.error(
-        'controllers.space.getSnapshot: space "' + params.id + '" has no graph stored.')
+        'controllers.space.getSnapshot: space "' + params.id + '" has no graph stored.');
       return res.send(500);
     }
 

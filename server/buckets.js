@@ -58,12 +58,15 @@ function connect(next) {
 }
 
 function connectForTests(next) {
-  var mock = require('couchbase').Mock,
+  var mock = couchbase.Mock,
       i;
+
+  logger.verbose('Pouf.js mode activated.');
+  logger.verbose('Connection through a ' + chalk.yellow('mock') + ' bucket.');
 
   actualBuckets['test'] = new mock.Connection();
 
-  for (i in config.buckets)
+  for (i in config.couchbase.buckets)
     buckets[i] = actualBuckets['test'];
 
   next();
@@ -71,7 +74,7 @@ function connectForTests(next) {
 
 // Exporting connections
 module.exports = {
-  connect: connect,
+  connect: config.couchbase.mock ? connectForTests : connect,
   connectForTests: connectForTests,
   buckets: buckets
 };

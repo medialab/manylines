@@ -12,6 +12,7 @@ var defaults = {
     secret: 's3cr3t'
   },
   couchbase: {
+    mock: false,
     host: 'localhost',
     port: 8091,
     admin: 'admin',

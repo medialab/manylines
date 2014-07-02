@@ -586,7 +586,7 @@
                   return colors;
                   break;
               }
-              
+
             }
 
             // Reset colors over the 5th one to #ccc:
@@ -829,6 +829,7 @@
         type: 'POST',
         before: appBefore,
         success: function(data) {
+          this.update('space', data);
           this.update('spaceId', data.id);
           this.dispatchEvent('save');
         },
