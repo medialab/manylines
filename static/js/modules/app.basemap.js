@@ -104,6 +104,7 @@
       cat = t.attr('data-app-thumbnail-category');
 
       // Updating filter's category
+      self.filter.clear();
       self.filter.set(cat);
       if (typeof self.filter.category === 'object')
         openPanel('app.misc.categoryPanel', {
