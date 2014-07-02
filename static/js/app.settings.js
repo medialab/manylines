@@ -25,7 +25,7 @@
     },
     renderer: 'webgl',
     colors: {
-      mutedBasis: 230,
+      mutedBasis: 248,
       weakCategory: '#aaa'
     },
     forceAtlas2: {

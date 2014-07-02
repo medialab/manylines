@@ -75,7 +75,7 @@ body {
 .nav-tmn-menu li.active.active-sigma a{
   border-bottom: 1px solid rgb(240,240,240);
 
-  background: rgb(248,248,248);
+  background: rgb(252,252,252);
 
 }
 .nav-tmn-menu li.active .nav-tmn-title{
@@ -107,7 +107,7 @@ div.central-panel{
   height: 100%;
   min-height: 200px;
 
-  background: rgb(248,248,248);
+  background: rgb(252,252,252);
 
   -webkit-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
   -moz-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
