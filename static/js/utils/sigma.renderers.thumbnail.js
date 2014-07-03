@@ -51,9 +51,9 @@
         settings;
 
     // Thumbnail specific attributes
-    this.filter = options.filter;
-    this.category = options.category;
-    this.values = options.values;
+    this.filter = options.data.filter;
+    this.category = options.data.category;
+    this.values = options.data.values;
 
     // Find the prefix:
     this.options.prefix = 'renderer' + staticId + ':';
@@ -65,7 +65,10 @@
     // Bind resize:
     window.addEventListener(
       'resize',
-      this.boundResize = this.resize.bind(this),
+      this.boundResize = function() {
+        this.resize();
+        this.render({process: true});
+      }.bind(this),
       false
     );
 
@@ -83,6 +86,10 @@
    */
   sigma.renderers.thumbnail.prototype.render = function(options) {
     options = options || {};
+
+    // We render only if really needed
+    if (!options.process)
+      return this;
 
     var a,
         i,

@@ -77,10 +77,24 @@
     delete entity.muted;
   }
 
+  function dropOverload(n) {
+    var o = {},
+        k;
+
+    for (k in n) {
+      if (!~k.indexOf(':') && !~k.indexOf('true'))
+        o[k] = n[k];
+    }
+
+    return o;
+  }
+
   // Extending prototype
   sigma.prototype.getGraph = function() {
+
+    // Retrieve sigma's graph to be saved but filter the overloaded data
     return {
-      nodes: this.graph.nodes(),
+      nodes: this.graph.nodes().filter(dropOverload),
       edges: this.graph.edges()
     };
   };

@@ -964,6 +964,7 @@
           if (typeof this.get('version') !== 'number')
             return this.warn('A version number is needed for this request.');
           appBefore.apply(this, arguments);
+          this.dispatchEvent('saving');
         },
         success: function(data) {
           this.update('isModified', null);

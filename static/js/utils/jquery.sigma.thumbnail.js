@@ -24,16 +24,20 @@
         type: 'thumbnail',
         camera: 'staticCamera',
         container: el,
-        category: c,
-        values: c.values.reduce(function(res, obj) {
-          res[obj.id] = obj.color;
-          return res;
-        }, {}),
-        filter: params.filter
+        data: {
+          category: c,
+          values: c.values.reduce(function(res, obj) {
+            res[obj.id] = obj.color;
+            return res;
+          }, {}),
+          filter: params.filter
+        }
       });
+    };
 
-      // Refreshing sigma instance to take renderer into account
-      s.refresh();
+    this.refresh = function() {
+      this.renderer.render({process: true});
+      return this;
     };
 
     this.kill = function() {
@@ -41,6 +45,9 @@
         s.killRenderer(this.renderer);
       this.renderer = null;
     };
+
+    // Running initialization routine
+    this.init();
   }
 
   $.fn.thumbnail = function(s, params) {

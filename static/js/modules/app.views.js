@@ -227,8 +227,12 @@
           );
         });
 
+        // Refreshing sigma
+        s.refresh();
+
+        // Rendering thumbnails
         self.thumbnails.forEach(function(t) {
-          t.init();
+          t.refresh();
         });
       });
     };

@@ -183,7 +183,7 @@
     var button = $('.save.save-alert > a');
 
     // Receptors
-    this.triggers.events.save = function(d, e) {
+    this.triggers.events.saving = function(d, e) {
       button.text(i18n.t('main.saving'));
     };
 
