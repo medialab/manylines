@@ -7,7 +7,7 @@
       "/js/lib/i18next-v1.7.2.min.js",
       "/js/lib/domino-v1.3.7.min.js",
       "/js/lib/chroma-v0.5.7.min.js",
-      "/js/lib/sigma-v1.0.1.min.js",
+      "/js/lib/sigma-v1.0.2.js",
       "/js/lib/gexf.min.js",
       "/js/lib/sigma.parsers.gexf.custom.js",
       "/js/lib/sigma.layout.forceAtlas2.min.js",

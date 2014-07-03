@@ -3,8 +3,6 @@
   /**
    * A simple jQuery plugin to display custom sigma thumbnails.
    */
-  var idx = -1;
-
   function Thumbnail(s, el, params) {
     var self = this,
         $el = $(el);
@@ -13,6 +11,7 @@
     this.renderer = null;
 
     // Methods
+    // TODO: autoInit?
     this.init = function() {
       this.kill();
 
@@ -22,7 +21,6 @@
         return;
 
       this.renderer = s.addRenderer({
-        prefix: s.cameras.staticCamera.readPrefix,
         type: 'thumbnail',
         camera: 'staticCamera',
         container: el,
@@ -34,31 +32,8 @@
         filter: params.filter
       });
 
-      this.renderer.resize();
-
-      // WARNING:
-      // If it does not work, use an iframe.
-      // If it still does not work, use setTimeout.
-      // If it still does not work, you're screwed.
-      setTimeout(self.refresh.bind(self), 0);
-      // self.refresh();
-    };
-
-    this.refresh = function() {
-      var w = $el.width(),
-          h = $el.height();
-
-      sigma.middlewares.rescale.call(
-        s,
-        '',
-        s.cameras.staticCamera.readPrefix,
-        {
-          width: w,
-          height: h
-        }
-      );
-
-      this.renderer.doRender();
+      // Refreshing sigma instance to take renderer into account
+      s.refresh();
     };
 
     this.kill = function() {
