@@ -56,7 +56,7 @@
     };
 
     this.kill = function() {
-      sigmaController.killRenderer();
+      sigmaController.unmount();
       this.thumbnails.forEach(function(t) {
         t.kill();
       });

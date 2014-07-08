@@ -94,7 +94,7 @@
 
     // Retrieve sigma's graph to be saved but filter the overloaded data
     return {
-      nodes: this.graph.nodes().filter(dropOverload),
+      nodes: this.graph.nodes().map(dropOverload),
       edges: this.graph.edges()
     };
   };
@@ -204,22 +204,20 @@
 
     // Properties
     this.name = name;
-    this.rendererName = 'tubemynet-' + this.name;
-    this.instance = s;
-    this.renderer = s.addRenderer({
-      container: $('.sigma-panel .sigma-expand', dom)[0],
-      camera: 'mainCamera',
-      type: app.defaults.renderer,
-      id: this.rendererName
-    });
+    this.renderer = d.get('mainSigma').renderers.mainRenderer;
 
-    // Refreshing sigma
-    s.refresh();
+    // Replacing dom graph container by domino's one
+    this.container = d.get('mainRendererContainer');
+    $('.sigma-expand', dom).replaceWith(this.container);
 
     // Methods
-    this.killRenderer = function() {
-      s.killRenderer(this.rendererName);
+    this.unmount = function() {
+      $('.sigma-panel', dom)[0].removeChild(this.container);
     };
+
+    // Refreshing sigma
+    this.renderer.resize();
+    s.refresh();
 
     // Bind sigma buttons:
     $('*[data-app-sigma-action="zoom"]', dom).click(function() {

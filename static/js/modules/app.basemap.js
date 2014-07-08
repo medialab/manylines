@@ -211,7 +211,7 @@
     this.kill = function() {
       s.mapColors();
       s.killForceAtlas2();
-      sigmaController.killRenderer();
+      sigmaController.unmount();
       this.thumbnails.forEach(function(t) {
         t.kill();
       });

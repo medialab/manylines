@@ -5,11 +5,26 @@
    * Initialize the main sigma instance:
    * ***********************************
    */
+
+  // Instanciating sigma
   var s = new sigma({
     settings: app.defaults.sigma
   });
+
+  // Creating a main camera
   s.addCamera('mainCamera');
-  // s.addCamera('staticCamera');
+
+  // Creating a main renderer
+  var sigmaContainer = document.createElement('div');
+  sigmaContainer.setAttribute('class', 'sigma-expand');
+
+  s.addRenderer({
+    container: sigmaContainer,
+    camera: 'mainCamera',
+    type: app.defaults.renderer,
+    id: 'mainRenderer'
+  });
+
 
   // TODO: Clear that HACK
   // Fixes problem with sigma and window resizing
@@ -143,6 +158,12 @@
         description: 'The main sigma instance.',
         type: 'sigma',
         value: s
+      },
+      {
+        id: 'mainRendererContainer',
+        description: 'The main sigma renderer\'s container.',
+        type: 'object',
+        value: sigmaContainer
       },
 
       /**
