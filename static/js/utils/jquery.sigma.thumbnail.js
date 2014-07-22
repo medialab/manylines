@@ -26,9 +26,9 @@
       if (params.camera) {
         this.camera = s.addCamera('thumbnailCamera' + (cameraCounter++));
         this.camera.goTo({
-          ratio: params.camera.ratio,
-          x: (params.camera.x * ($el.width() / 2)) / 100,
-          y: (params.camera.y * ($el.height() / 2)) / 100
+          ratio: Math.max(params.camera.ratio, 0.1),
+          x: (params.camera.x * $el.width()) / 100,
+          y: (params.camera.y * $el.height()) / 100
         });
       }
 

@@ -683,8 +683,8 @@
             data: {
               view: {
                 camera: {
-                  x: (cam.x * 100) / (renderer.width / 2),
-                  y: (cam.y * 100) / (renderer.height / 2),
+                  x: (cam.x * 100) / renderer.width,
+                  y: (cam.y * 100) / renderer.height,
                   ratio: cam.ratio,
                   angle: cam.angle
                 }

@@ -99,6 +99,7 @@
         sigmaController.renderer.render();
 
         // Dirty trick to activate filter
+        // TODO: clean this up react-like
         if (self.filter.values.length) {
           dom.find('.category-item').addClass('cat-item-muted');
 
@@ -232,8 +233,8 @@
       // Updating camera
       s.cameras.mainCamera.goTo({
         ratio: snapshot.view.camera.ratio,
-        x: (snapshot.view.camera.x * (s.renderers.mainRenderer.width / 2)) / 100,
-        y: (snapshot.view.camera.y * (s.renderers.mainRenderer.height / 2)) / 100
+        x: (snapshot.view.camera.x * s.renderers.mainRenderer.width) / 100,
+        y: (snapshot.view.camera.y * s.renderers.mainRenderer.height) / 100
       });
 
       // Closing panel
