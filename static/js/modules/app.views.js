@@ -97,6 +97,21 @@
         $('.forcelayout-container .tirette', dom).hide();
         sigmaController.renderer.resize();
         sigmaController.renderer.render();
+
+        // Dirty trick to activate filter
+        if (self.filter.values.length) {
+          dom.find('.category-item').addClass('cat-item-muted');
+
+          // Activating selected values
+          self.filter.values.forEach(function(v) {
+            dom.find('.category-item[data-app-category-value="' + v + '"]')
+               .addClass('active')
+               .removeClass('cat-item-muted');
+          });
+
+          // Highlighting
+          s.highlight(self.filter);
+        }
       });
     }
 
@@ -212,17 +227,25 @@
     // Clicking on a snapshot will apply it to the graph
     dom.on('click', '.views-band-container .view-item', function(e) {
       var $target = $(this).children('.view-thumbnail'),
-          filter = d.get('snapshots')[+$target.attr('data-app-thumbnail-snapshot')];
+          snapshot = d.get('snapshots')[+$target.attr('data-app-thumbnail-snapshot')];
 
       // Updating camera
       s.cameras.mainCamera.goTo({
-        ratio: filter.view.camera.ratio,
-        x: (filter.view.camera.x * (s.renderers.mainRenderer.width / 2)) / 100,
-        y: (filter.view.camera.y * (s.renderers.mainRenderer.height / 2)) / 100
+        ratio: snapshot.view.camera.ratio,
+        x: (snapshot.view.camera.x * (s.renderers.mainRenderer.width / 2)) / 100,
+        y: (snapshot.view.camera.y * (s.renderers.mainRenderer.height / 2)) / 100
       });
 
       // Closing panel
       closePanel();
+
+      // Importing filter
+      self.filter.import(snapshot.filters[0]);
+
+      // Opening relevant panel
+      openPanel('app.misc.categoryPanel', {
+        category: self.filter.category
+      });
     });
 
     /**
