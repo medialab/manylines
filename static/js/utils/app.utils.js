@@ -279,6 +279,7 @@
     };
 
     this.import = function(o) {
+      this.clear();
       this.set(o.category);
       this.values = o.values;
       return this;

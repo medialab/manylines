@@ -1,5 +1,7 @@
 ;(function($, undefined) {
 
+  var cameraCounter = 0;
+
   /**
    * A simple jQuery plugin to display custom sigma thumbnails.
    */
@@ -9,9 +11,9 @@
 
     // Properties
     this.renderer = null;
+    this.camera = null;
 
     // Methods
-    // TODO: autoInit?
     this.init = function() {
       this.kill();
 
@@ -20,9 +22,19 @@
       if (c.noDisplay)
         return;
 
+      // Do we need to add a camera?
+      if (params.camera) {
+        this.camera = s.addCamera('thumbnailCamera' + (cameraCounter++));
+        this.camera.goTo({
+          ratio: params.camera.ratio,
+          x: (params.camera.x * ($el.width() / 2)) / 100,
+          y: (params.camera.y * ($el.height() / 2)) / 100
+        });
+      }
+
       this.renderer = s.addRenderer({
         type: 'thumbnail',
-        camera: 'staticCamera',
+        camera: this.camera ? this.camera.id : 'staticCamera',
         container: el,
         data: {
           category: c,
@@ -30,7 +42,8 @@
             res[obj.id] = obj.color;
             return res;
           }, {}),
-          filter: params.filter
+          filter: params.filter,
+          camera: params.camera
         }
       });
     };
@@ -41,9 +54,16 @@
     };
 
     this.kill = function() {
+
+      // Killing the thumbnail's renderer
       if (this.renderer)
         s.killRenderer(this.renderer);
       this.renderer = null;
+
+      // Killing the thumbnail's camera
+      if (this.camera)
+        s.killCamera(this.camera.id);
+      this.camera = null;
     };
 
     // Running initialization routine

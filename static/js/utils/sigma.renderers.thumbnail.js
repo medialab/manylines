@@ -8,7 +8,8 @@
   sigma.utils.pkg('sigma.renderers');
 
   // Persistent state
-  var staticId = 'Thumbnail';
+  var staticId = 'Thumbnail',
+      counter = 0;
 
   /**
    * This function is the constructor of the canvas sigma's renderer.
@@ -56,13 +57,17 @@
     this.values = options.data.values;
 
     // Find the prefix:
-    this.options.prefix = 'renderer' + staticId + ':';
+    if(options.data.camera)
+      this.options.prefix = 'renderer' + staticId + (counter++) + ':';
+    else
+      this.options.prefix = 'renderer' + staticId + ':';
 
     // Initialize the DOM elements:
     this.initDOM('canvas', 'scene');
     this.contexts.nodes = this.contexts.scene;
 
     // Bind resize:
+    // TODO: somewhat the container width and height is 0 forcing a central n
     window.addEventListener(
       'resize',
       this.boundResize = function() {
@@ -88,8 +93,8 @@
     options = options || {};
 
     // We render only if really needed
-    if (!options.process)
-      return this;
+    // if (!options.process)
+    //   return this;
 
     var a,
         i,
@@ -127,7 +132,7 @@
           // The translation has to be here.
           a[i][prefix + 'x'],
           a[i][prefix + 'y'],
-          a[i][prefix + 'size'] / 2,
+          Math.max(a[i][prefix + 'size'] / 6, 1),
           0,
           Math.PI * 2,
           true

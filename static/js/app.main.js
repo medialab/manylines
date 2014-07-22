@@ -13,6 +13,7 @@
 
   // Creating a main camera
   s.addCamera('mainCamera');
+  s.addCamera('staticCamera');
 
   // Creating a main renderer
   var sigmaContainer = document.createElement('div');
@@ -27,6 +28,7 @@
 
 
   // TODO: Clear that HACK
+  // TODO: Mega clear that HACK
   // Fixes problem with sigma and window resizing
   window.addEventListener('resize', function() {
     window.setTimeout(s.refresh.bind(s), 0);
@@ -673,14 +675,16 @@
       {
         triggers: 'takeSnapshot',
         method: function(e) {
-          var cam = this.get('mainSigma').cameras['mainCamera'];
+          var s = this.get('mainSigma'),
+              cam = s.cameras['mainCamera'],
+              renderer = s.renderers.mainRenderer;
 
           this.request('snapshotGraph', {
             data: {
               view: {
                 camera: {
-                  x: cam.x,
-                  y: cam.y,
+                  x: (cam.x * 100) / (renderer.width / 2),
+                  y: (cam.y * 100) / (renderer.height / 2),
                   ratio: cam.ratio,
                   angle: cam.angle
                 }

@@ -35,6 +35,8 @@
           t.kill();
         });
 
+        self.snapshotThumbnails = [];
+
         // Creating thumbnails
         snapshots.forEach(function(snapshot, i) {
           var c = app.utils.first(meta.model.node, function(c) {
@@ -44,13 +46,18 @@
           self.snapshotThumbnails.push(
             $('[data-app-thumbnail-snapshot="' + i + '"].view-thumbnail').thumbnail(s, {
               category: c,
-              filter: snapshot.filters[0].values
+              filter: snapshot.filters[0].values,
+              camera: snapshot.view.camera
             })
           );
+        });
 
-          self.snapshotThumbnails.forEach(function(t) {
-            t.init();
-          });
+        // Refreshing sigma
+        s.refresh();
+
+        // Refreshing thumbnails
+        self.snapshotThumbnails.forEach(function(t) {
+          t.refresh();
         });
       });
     };
@@ -200,6 +207,22 @@
 
       // Updating sigma
       s.highlight(self.filter);
+    });
+
+    // Clicking on a snapshot will apply it to the graph
+    dom.on('click', '.views-band-container .view-item', function(e) {
+      var $target = $(this).children('.view-thumbnail'),
+          filter = d.get('snapshots')[+$target.attr('data-app-thumbnail-snapshot')];
+
+      // Updating camera
+      s.cameras.mainCamera.goTo({
+        ratio: filter.view.camera.ratio,
+        x: (filter.view.camera.x * (s.renderers.mainRenderer.width / 2)) / 100,
+        y: (filter.view.camera.y * (s.renderers.mainRenderer.height / 2)) / 100
+      });
+
+      // Closing panel
+      closePanel();
     });
 
     /**

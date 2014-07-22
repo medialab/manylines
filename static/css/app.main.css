@@ -432,6 +432,9 @@ html,body,.container-fullheight
   -webkit-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.05);
   -moz-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.05);
   box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.05);
+
+  /* TODO: must-have? */
+  position: relative;
 }
 
 /*
