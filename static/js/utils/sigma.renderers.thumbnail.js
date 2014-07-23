@@ -93,8 +93,8 @@
     options = options || {};
 
     // We render only if really needed
-    // if (!options.process)
-    //   return this;
+    if (!options.process)
+      return this;
 
     var a,
         i,
