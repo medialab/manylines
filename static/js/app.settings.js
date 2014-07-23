@@ -19,6 +19,7 @@
       defaultEdgeColor: '#ddd',
       defaultNodeColor: '#ccc',
       edgeColor: 'default',
+      rescaleIgnoreSize: true
       labelThreshold: 8,
       zoomMin: 0.002,
       zoomMax: 2
