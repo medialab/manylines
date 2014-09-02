@@ -24,9 +24,9 @@
       if (!snapshots)
         return;
 
-      app.templates.require('app.views.snapshots', function(snapshotTemplate) {
+      app.templates.require('app.misc.snapshots', function(snapshotTemplate) {
 
-        $('.views-band', dom).empty().append(
+        $('.views-band tr', dom).empty().append(
           snapshotTemplate({snapshots: snapshots})
         );
 

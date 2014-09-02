@@ -11,7 +11,7 @@
     settings: app.defaults.sigma
   });
 
-  // Creating a main camera
+  // Creating the main cameras
   s.addCamera('mainCamera');
   s.addCamera('staticCamera');
 
@@ -28,7 +28,6 @@
 
 
   // TODO: Clear that HACK
-  // TODO: Mega clear that HACK
   // Fixes problem with sigma and window resizing
   window.addEventListener('resize', function() {
     window.setTimeout(s.refresh.bind(s), 0);

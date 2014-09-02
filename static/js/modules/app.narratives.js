@@ -3,23 +3,23 @@
 
   app.pkg('app.modules');
   app.modules.narratives = function(dom, d) {
-    var self = this;
+    var self = this,
+        s = d.get('mainSigma');
+
+    /**
+     * Properties
+     */
+    this.snapshotThumbnails = [];
 
     /**
      * Layout
      */
     function menu() {
+      self.kill();
 
       // Here we should fetch the narratives somehow
       // TODO: domino data binding
-      var fakeList = [
-        {
-          title: 'Narrative #1'
-        },
-        {
-          title: 'Narrative #2'
-        }
-      ];
+      var fakeList = [];
 
       contra.concurrent({
         menu: function(next) {
@@ -47,13 +47,37 @@
       });
     }
 
-    function edition() {
+    function edition(data) {
+
+      // Dummy object if we want to create a narrative
+      if (data === true)
+        data = {title: 'New Narrative', slides: []};
 
       // Fetching the template
       app.templates.require('app.narratives.edit', function(template) {
 
         // Templating the edition view
-        $('.main').parent().replaceWith(template());
+        $('.main').parent().replaceWith(template(data));
+
+        // Rendering the snapshots
+        self.renderSnapshots();
+
+        // Sortable
+        var unchosen = new Sortable(
+          $('.unchosen-views-band tr')[0],
+          {
+            group: 'snapshots',
+            draggable: 'td'
+          }
+        );
+
+        var chosen = new Sortable(
+          $('.chosen-views-band tr')[0],
+          {
+            group: 'snapshots',
+            draggable: 'td'
+          }
+        );
       });
     }
 
@@ -67,7 +91,7 @@
 
       var responses = {
         add: function() {
-          console.log('add');
+          edition(true);
         },
         edit: function() {
           edition();
@@ -83,8 +107,58 @@
     /**
      * Methods
      */
-    this.kill = function() {
+    this.renderSnapshots = function() {
+      var snapshots = d.get('snapshots'),
+          meta = d.get('meta');
 
+      if (!snapshots)
+        return;
+
+      app.templates.require('app.misc.snapshots', function(snapshotTemplate) {
+
+        $('.unchosen-views-band tr').empty().append(
+          snapshotTemplate({snapshots: snapshots})
+        );
+        $('.chosen-views-band tr').empty().append(
+          snapshotTemplate({snapshots: snapshots})
+        );
+
+        // Killing thumbnails
+        self.snapshotThumbnails.forEach(function(t) {
+          t.kill();
+        });
+
+        self.snapshotThumbnails = [];
+
+        // Creating thumbnails
+        snapshots.forEach(function(snapshot, i) {
+          var c = app.utils.first(meta.model.node, function(c) {
+            return c.id === snapshot.filters[0].category;
+          });
+
+          self.snapshotThumbnails.push(
+            $('[data-app-thumbnail-snapshot="' + i + '"].view-thumbnail').thumbnail(s, {
+              category: c,
+              filter: snapshot.filters[0].values,
+              camera: snapshot.view.camera
+            })
+          );
+        });
+
+        // Refreshing sigma
+        s.refresh();
+
+        // Refreshing thumbnails
+        self.snapshotThumbnails.forEach(function(t) {
+          t.refresh();
+        });
+      });
+    };
+
+    this.kill = function() {
+      this.snapshotThumbnails.forEach(function(t) {
+        t.kill();
+      });
     };
 
     /**
