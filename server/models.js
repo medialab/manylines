@@ -2,16 +2,31 @@ var Model = require('../lib/model.js'),
     buckets = require('./buckets.js').buckets;
 
 var schemas = {
+
+  // Graph data itself
   graph: {
     nodes: '?array',
     edges: '?array'
   },
+
+  // Metadata concerning the given graph
   graphMeta: 'object',
+
+  // A succession of snapshots organized as slides
+  narrative: {
+    title: '?string',
+    slides: 'array',
+    date: 'date'
+  },
+
+  // A filtered view of the given graph
   snapshot: {
-    graph: '?object', // The graph is not copied for the time being
-    view: 'object', // An object containing the camera and further data if needed
+    graph: '?object',
+    view: 'object',
     filters: 'array'
   },
+
+  // A given user's workspace
   space: {
     password: 'string',
     email: 'string',
@@ -19,6 +34,5 @@ var schemas = {
   }
 };
 
-for (var i in buckets) {
+for (var i in buckets)
   exports[i] = new Model(i, buckets[i], schemas[i]);
-}

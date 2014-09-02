@@ -21,11 +21,12 @@ var defaults = {
       snapshot: 'tubemynet',
       graphMeta: 'tubemynet',
       graph: 'tubemynet',
+      narrative: 'tubemynet',
       space: 'tubemynet'
     }
   },
   log: {
-    console: true,
+    shell: true,
     file: false
   }
 };
