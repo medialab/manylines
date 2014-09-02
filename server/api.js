@@ -14,7 +14,8 @@ var express = require('express'),
       snapshot: require('./controllers/snapshot.js'),
       graphMeta: require('./controllers/graphMeta.js'),
       graph: require('./controllers/graph.js'),
-      space: require('./controllers/space.js')
+      space: require('./controllers/space.js'),
+      narrative: require('./controllers/narrative.js')
     },
     server;
 
@@ -40,25 +41,34 @@ if (env === 'development')
  * API ROUTES:
  * ***********
  */
+
+// Login routes
 app.get('/api/login/:id/:password', controllers.space.login);
 app.get('/api/logout/:id', controllers.space.logout);
 
+// Space routes
 app.post('/api/space', controllers.space.create);
 app.post('/api/space/:id', controllers.space.update);
 app.get('/api/space/:id', controllers.space.get);
 app.delete('/api/space/:id', controllers.space.delete);
 
+// Space relvant graph routes
 app.post('/api/space/graph/:id', controllers.space.addGraph);
 app.get('/api/space/graph/:id/:version', controllers.space.readGraph);
 app.post('/api/space/graph/:id/:version', controllers.space.updateGraph);
 
+// Snapshots routes
 app.post('/api/space/snapshot/:id/:version', controllers.space.addSnapshot);
 app.get('/api/space/snapshot/:id/:version', controllers.space.getSnapshot);
 app.get('/api/space/snapshot/:id', controllers.space.getSnapshot);
 
+// Misc get routes
 app.get('/api/graph/:id', controllers.graph.get);
 app.get('/api/graphmeta/:id', controllers.graphMeta.get);
 app.get('/api/snapshot/:id', controllers.snapshot.get);
+
+// Narrative routes
+app.post('/api/narrative/:id/:version', controllers.narrative.add);
 
 /**
  * STATIC FILES:

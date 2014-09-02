@@ -13,10 +13,10 @@ var schemas = {
   graphMeta: 'object',
 
   // A succession of snapshots organized as slides
+  // TODO: should we add a date
   narrative: {
-    title: '?string',
-    slides: 'array',
-    date: 'date'
+    title: 'string',
+    slides: 'array'
   },
 
   // A filtered view of the given graph
