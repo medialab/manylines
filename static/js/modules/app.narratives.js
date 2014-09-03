@@ -43,7 +43,7 @@
      * Layout
      */
     function menu() {
-      self.kill();
+      self.reinitialize();
 
       // Here we should fetch the narratives somehow
       // TODO: domino data binding
