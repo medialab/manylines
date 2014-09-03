@@ -148,7 +148,6 @@
           n.size = 1 + 2 * Math.sqrt(this.graph.degree(n.id, "out"));
         }, this);
         break;
-
     }
     this.refresh();
   }
@@ -215,8 +214,9 @@
       $('.sigma-panel', dom)[0].removeChild(this.container);
     };
 
-    // Refreshing sigma
+    // Resetting the camera and refreshing sigma
     this.renderer.resize();
+    s.cameras.mainCamera.goTo({x: 0, y: 0, ratio: 1});
     s.refresh();
 
     // Bind sigma buttons:

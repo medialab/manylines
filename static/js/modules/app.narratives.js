@@ -4,31 +4,40 @@
   /**
    * Classes
    */
-  function Narrative() {
+  function Narrative(data) {
 
     // Properties
-    this.title = '';
+    this.title = data ? data.title : i18n.t('narratives.default_narrative_title');
     this.slides = [];
+
+    // Methods
+    this.addSlide = function(snapshot, data) {
+      var slide = new Slide(snapshot, data);
+      this.slides.push(slide);
+      return slide;
+    };
   }
 
-  function Slide() {
+  function Slide(snapshot, data) {
 
     // Properties
-    this.title = '';
-    this.text = '';
-    this.snapshot = '';
+    this.title = data ? data.title : i18n.t('narratives.default_slide_title');
+    this.text = data ? data.text : i18n.t('narratives.default_slide_text');
+    this.snapshot = snapshot;
   }
 
   app.pkg('app.modules');
   app.modules.narratives = function(dom, d) {
     var self = this,
-        s = d.get('mainSigma');
+        s = d.get('mainSigma'),
+        sigmaController;
 
     /**
      * Properties
      */
     this.snapshotThumbnails = [];
     this.currentNarrative = null;
+    this.currentSlide = null;
 
     /**
      * Layout
@@ -68,15 +77,14 @@
 
     function edition(data) {
 
-      // Dummy object if we want to create a narrative
-      if (data === true)
-        data = {title: 'New Narrative', slides: []};
+      // Setting the current narrative
+      self.currentNarrative = new Narrative(data);
 
       // Fetching the template
       app.templates.require('app.narratives.edit', function(template) {
 
         // Templating the edition view
-        $('.main').parent().replaceWith(template(data));
+        $('.main').parent().replaceWith(template(self.currentNarrative));
 
         // Rendering the snapshots
         self.renderSnapshots();
@@ -97,8 +105,14 @@
             group: 'snapshots',
             draggable: 'td',
             filter: '.no-drag',
-            onAdd: function() {
-              slide();
+            onAdd: function(e) {
+              var snapshot = $(e.item).find('.view-thumbnail').attr('data-app-thumbnail-snapshot');
+
+              // Adding a slide
+              self.currentSlide = self.currentNarrative.addSlide(snapshot);
+
+              // Rendering
+              slide(self.currentSlide);
             }
           }
         );
@@ -108,6 +122,7 @@
     function slide(data) {
       app.templates.require('app.narratives.slide', function(template) {
         $('.slide-container').empty().append(template(data));
+        var sigmaController = new app.utils.sigmaController('narratives.slide', $('.slide-container'), d);
       });
     }
 
@@ -121,7 +136,7 @@
 
       var responses = {
         add: function() {
-          edition(true);
+          edition();
         },
         edit: function() {
           edition();
@@ -132,6 +147,22 @@
       };
 
       responses[action] && responses[action]();
+    });
+
+    // Inline editors
+    $('body').on('change', '[data-app-narratives-editable]', function() {
+      if (!self.currentNarrative)
+        return;
+
+      var prop = $(this).attr('data-app-narratives-editable');
+
+      var responses = {
+        title: function() {
+          self.currentNarrative.title = $(this).val().trim();
+        }
+      };
+
+      responses[prop] && responses[prop].call(this);
     });
 
     /**
@@ -169,7 +200,7 @@
           });
 
           self.snapshotThumbnails.push(
-            $('[data-app-thumbnail-snapshot="' + i + '"].view-thumbnail').thumbnail(s, {
+            $('[data-app-thumbnail-snapshot="' + snapshot.id + '"].view-thumbnail').thumbnail(s, {
               category: c,
               filter: snapshot.filters[0].values,
               camera: snapshot.view.camera
@@ -187,11 +218,19 @@
       });
     };
 
-    this.kill = function() {
+    this.reinitialize = function() {
+
+      // Resetting model
+      this.currentNarrative = null;
+      this.currentSlide = null;
+
+      // Killing thumbnails
       this.snapshotThumbnails.forEach(function(t) {
         t.kill();
       });
     };
+
+    this.kill = this.reinitialize;
 
     /**
      * Module Initialization

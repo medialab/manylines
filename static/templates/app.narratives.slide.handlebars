@@ -10,10 +10,22 @@
           </div>
           <div class="sigma-tools">
             <div class="btn-group-vertical">
-              <button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-record"></span></button>
-              <button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
-              <button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
-            </div>
+            <button type="button"
+                    class="btn btn-link btn-xs"
+                    data-app-sigma-action="recenter">
+              <span class="glyphicon glyphicon-record"></span>
+            </button>
+            <button type="button"
+                    class="btn btn-link btn-xs"
+                    data-app-sigma-action="zoom">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+            <button type="button"
+                    class="btn btn-link btn-xs"
+                    data-app-sigma-action="unzoom">
+              <span class="glyphicon glyphicon-minus"></span>
+            </button>
+          </div>
           </div>
         </div>
       </div>
@@ -27,18 +39,10 @@
         </div>
         <div class="col col-xs-10 view-content">
           <div class="view-title">
-            {{#if title}}
-              {{ title }}
-            {{else}}
-              {{t "narratives.default_slide_title" }}
-            {{/if}}
+            {{ title }}
           </div>
           <div class="view-text">
-            {{#if text}}
-              {{ text }}
-            {{else}}
-              {{t "narratives.default_slide_text" }}
-            {{/if}}
+            {{ text }}
           </div>
         </div>
         <div class="col col-xs-1">

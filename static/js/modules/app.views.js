@@ -44,7 +44,7 @@
           });
 
           self.snapshotThumbnails.push(
-            $('[data-app-thumbnail-snapshot="' + i + '"].view-thumbnail').thumbnail(s, {
+            $('[data-app-thumbnail-snapshot="' + snapshot.id + '"].view-thumbnail').thumbnail(s, {
               category: c,
               filter: snapshot.filters[0].values,
               camera: snapshot.view.camera

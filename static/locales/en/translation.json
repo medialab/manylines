@@ -71,6 +71,7 @@
   },
   "narratives": {
     "back_button": "Back to narratives",
+    "default_narrative_title": "New Narrative",
     "default_slide_title": "Slide Title",
     "default_slide_text": "Write the content of your slide here...",
     "views": "Views"

@@ -440,6 +440,9 @@ html,body,.container-fullheight
 /*
  * Narrative specifics
  */
+.inline-editable:hover {
+  color: #000;
+}
 .splitlayout-container.narrative .splitlayout-top{
   padding-bottom: 234px;
 }
@@ -459,12 +462,18 @@ html,body,.container-fullheight
   -moz-box-shadow: 0px 4px 6px rgba(50, 20, 0, 0.06);
   box-shadow: 0px 4px 6px rgba(50, 20, 0, 0.06);
 }
-.narrative .title-container p.title{
+.narrative .title-container p.title, .narrative .title-container input.title{
+  background: none;
+  width: 100%;
+  border: none;
   text-transform: uppercase;
   font-weight: 700;
   border-left: 1px solid #E2E2E2;
   padding-top: 48px;
   text-align: center;
+}
+.narrative .title-container input.title:focus {
+  outline: 0;
 }
 .narrative .row.narrative-row{
   background-color: #F4F4F9;
