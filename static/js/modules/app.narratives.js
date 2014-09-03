@@ -1,6 +1,24 @@
 ;(function() {
   'use strict';
 
+  /**
+   * Classes
+   */
+  function Narrative() {
+
+    // Properties
+    this.title = '';
+    this.slides = [];
+  }
+
+  function Slide() {
+
+    // Properties
+    this.title = '';
+    this.text = '';
+    this.snapshot = '';
+  }
+
   app.pkg('app.modules');
   app.modules.narratives = function(dom, d) {
     var self = this,
@@ -10,6 +28,7 @@
      * Properties
      */
     this.snapshotThumbnails = [];
+    this.currentNarrative = null;
 
     /**
      * Layout
@@ -77,9 +96,18 @@
           {
             group: 'snapshots',
             draggable: 'td',
-            filter: '.no-drag'
+            filter: '.no-drag',
+            onAdd: function() {
+              slide();
+            }
           }
         );
+      });
+    }
+
+    function slide(data) {
+      app.templates.require('app.narratives.slide', function(template) {
+        $('.slide-container').empty().append(template(data));
       });
     }
 

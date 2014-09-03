@@ -1073,7 +1073,7 @@ exports.getSnapshot = function(req, res) {
     else {
 
       // We retrieve snapshot data
-      models.snapshot.get(snapshots, function(err, snapshotsResults) {
+      models.snapshot.get(snapshots, {id: true}, function(err, snapshotsResults) {
         if (err) {
           if (err.code === 13) {
             logger.error(

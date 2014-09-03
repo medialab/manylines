@@ -490,6 +490,7 @@ html,body,.container-fullheight
 }
 .narrative .widget-container .widget-panel{
   height: 90%;
+  width: 100%;
   background-color: #FFF;
   position: absolute;
   -webkit-box-shadow: 0px 1px 5px rgba(50, 20, 0, 0.20);

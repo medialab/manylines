@@ -27,10 +27,18 @@
         </div>
         <div class="col col-xs-10 view-content">
           <div class="view-title">
-            {{ title }}
+            {{#if title}}
+              {{ title }}
+            {{else}}
+              {{t "narratives.default_slide_title" }}
+            {{/if}}
           </div>
           <div class="view-text">
-            {{ text }}
+            {{#if text}}
+              {{ text }}
+            {{else}}
+              {{t "narratives.default_slide_text" }}
+            {{/if}}
           </div>
         </div>
         <div class="col col-xs-1">

@@ -6,7 +6,7 @@
         <div class="col col-lg-4 col-xs-3">
           <button data-app-narratives-action="back" class="btn btn-default btn-sm btn-link back-button"><span class="glyphicon glyphicon-arrow-left"></span> {{t "narratives.back_button" }}</button>
         </div>
-        <div class="col col-lg-4 col-xs-6">
+        <div class="col col-lg-4 col-xs-6 slide-container">
           {{!-- Here comes the slide --}}
         </div>
         <div class="col col-lg-4 col-xs-3">
@@ -19,7 +19,7 @@
         <div class="row views-container narrative-row">
           <div class="col col-xs-2">
             <div class="title-container">
-              <p class="title">{{ title }}</p>
+              <p data-app-narratives="title" class="title">{{ title }}</p>
             </div>
           </div>
           <div class="col col-xs-10">
