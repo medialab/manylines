@@ -67,7 +67,8 @@
           $('.unchosen-views-band tr')[0],
           {
             group: 'snapshots',
-            draggable: 'td'
+            draggable: 'td',
+            filter: '.no-drag'
           }
         );
 
@@ -75,7 +76,8 @@
           $('.chosen-views-band tr')[0],
           {
             group: 'snapshots',
-            draggable: 'td'
+            draggable: 'td',
+            filter: '.no-drag'
           }
         );
       });
@@ -119,9 +121,11 @@
         $('.unchosen-views-band tr').empty().append(
           snapshotTemplate({snapshots: snapshots})
         );
-        $('.chosen-views-band tr').empty().append(
-          snapshotTemplate({snapshots: snapshots})
-        );
+
+        // Creating ghost td to fix Sortable behaviour
+        // TODO: fix this hack
+        var fix = '<td class="no-drag" style="width:1px;height:90px;"></td>';
+        $('.chosen-views-band tr, .unchosen-views-band tr').prepend(fix);
 
         // Killing thumbnails
         self.snapshotThumbnails.forEach(function(t) {
