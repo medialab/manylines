@@ -69,6 +69,10 @@
       "description": "The layout is usually cleaner when most connected nodes are bigger. The degree is the number of links, the indegree (outdegree) is the number of inbound links (outbound). "
     }
   },
+  "narratives": {
+    "back_button": "Back to narratives",
+    "views": "Views"
+  },
 
   "warnings": {
     "invalid_password": "Invalid password",
