@@ -16,6 +16,12 @@
       this.slides.push(slide);
       return slide;
     };
+
+    this.removeSlide = function(snapshot) {
+      this.slides = this.slides.filter(function(s) {
+        return s.snapshot !== snapshot;
+      });
+    };
   }
 
   function Slide(snapshot, data) {

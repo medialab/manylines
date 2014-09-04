@@ -228,7 +228,10 @@
     // Clicking on a snapshot will apply it to the graph
     dom.on('click', '.views-band-container .view-item', function(e) {
       var $target = $(this).children('.view-thumbnail'),
-          snapshot = d.get('snapshots')[+$target.attr('data-app-thumbnail-snapshot')];
+          snapshotId = $target.attr('data-app-thumbnail-snapshot'),
+          snapshot = app.utils.first(d.get('snapshots'), function(s) {
+            return s.id === snapshotId;
+          });
 
       // Updating camera
       s.cameras.mainCamera.goTo({
