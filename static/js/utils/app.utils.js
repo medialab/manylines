@@ -219,6 +219,9 @@
     s.cameras.mainCamera.goTo({x: 0, y: 0, ratio: 1});
     s.refresh();
 
+    // Reinitializing colors
+    s.mapColors();
+
     // Bind sigma buttons:
     $('*[data-app-sigma-action="zoom"]', dom).click(function() {
       var cam = s.cameras.mainCamera;
@@ -252,7 +255,8 @@
     });
 
     // Specify for layout:
-    app.modules[name].sigmaLayout = true;
+    if (app.modules[name])
+      app.modules[name].sigmaLayout = true;
   }
 
 

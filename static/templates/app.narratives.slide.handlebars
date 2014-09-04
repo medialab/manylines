@@ -39,10 +39,10 @@
         </div>
         <div class="col col-xs-10 view-content">
           <div class="view-title">
-            {{ title }}
+            <input type="text" data-app-narratives-editable="slide_title" value="{{ slide.title }}" />
           </div>
           <div class="view-text">
-            {{ text }}
+            <textarea data-app-narratives-editable="slide_text" placeholder="{{ placeholder }}">{{ slide.text }}</textarea>
           </div>
         </div>
         <div class="col col-xs-1">

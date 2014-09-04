@@ -22,7 +22,7 @@
 
     // Properties
     this.title = data ? data.title : i18n.t('narratives.default_slide_title');
-    this.text = data ? data.text : i18n.t('narratives.default_slide_text');
+    this.text = data ? data.text : '';
     this.snapshot = snapshot;
   }
 
@@ -121,7 +121,10 @@
 
     function slide(data) {
       app.templates.require('app.narratives.slide', function(template) {
-        $('.slide-container').empty().append(template(data));
+        $('.slide-container').empty().append(template({
+          slide: data,
+          placeholder: i18n.t('narratives.default_slide_text')
+        }));
         var sigmaController = new app.utils.sigmaController('narratives.slide', $('.slide-container'), d);
       });
     }
@@ -159,10 +162,17 @@
       var responses = {
         title: function() {
           self.currentNarrative.title = $(this).val().trim();
+        },
+        slide_title: function() {
+          self.currentSlide.title = $(this).val().trim();
+        },
+        slide_text: function() {
+          self.currentSlide.text = $(this).val().trim();
         }
       };
 
       responses[prop] && responses[prop].call(this);
+      console.log(self.currentSlide);
     });
 
     /**
