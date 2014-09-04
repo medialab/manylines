@@ -41,6 +41,7 @@
     /**
      * Properties
      */
+    this.sigmaController = null;
     this.snapshotThumbnails = [];
     this.currentNarrative = null;
     this.currentSlide = null;
@@ -101,7 +102,8 @@
           {
             group: 'snapshots',
             draggable: 'td',
-            filter: '.no-drag'
+            filter: '.no-drag',
+            ghostClass: '.drag-ghost'
           }
         );
 
@@ -111,6 +113,7 @@
             group: 'snapshots',
             draggable: 'td',
             filter: '.no-drag',
+            ghostClass: '.drag-ghost',
             onAdd: function(e) {
               var snapshot = $(e.item).find('.view-thumbnail').attr('data-app-thumbnail-snapshot');
 
@@ -119,6 +122,18 @@
 
               // Rendering
               slide(self.currentSlide);
+            },
+            onRemove: function(e) {
+              var snapshot = $(e.item).find('.view-thumbnail').attr('data-app-thumbnail-snapshot');
+
+              // Removing a slide
+              self.currentNarrative.removeSlide(snapshot);
+
+              // Do we need to clean the rendered slide?
+              if (self.currentSlide.snapshot === snapshot) {
+                $('.slide-container').empty();
+                self.currentSlide = null;
+              }
             }
           }
         );
@@ -126,12 +141,37 @@
     }
 
     function slide(data) {
+
+      // Reinitialize sigma
+      self.reinitializeSigma();
+
       app.templates.require('app.narratives.slide', function(template) {
         $('.slide-container').empty().append(template({
           slide: data,
           placeholder: i18n.t('narratives.default_slide_text')
         }));
-        var sigmaController = new app.utils.sigmaController('narratives.slide', $('.slide-container'), d);
+        self.sigmaController = new app.utils.sigmaController('narratives.slide', $('.slide-container'), d);
+
+        // Retrieving snapshot info
+        var snapshot = app.utils.first(d.get('snapshots'), function(s) {
+          return s.id === data.snapshot;
+        });
+
+        // Camera
+        s.cameras.mainCamera.goTo({
+          ratio: snapshot.view.camera.ratio,
+          x: (snapshot.view.camera.x * s.renderers.mainRenderer.width) / 100,
+          y: (snapshot.view.camera.y * s.renderers.mainRenderer.height) / 100
+        });
+
+        // Color filter
+        var category = app.utils.first((d.get('meta') || {}).model.node, function(c) {
+          return c.id === snapshot.filters[0].category;
+        });
+
+        s.mapColors(category);
+
+        s.refresh();
       });
     }
 
@@ -178,7 +218,6 @@
       };
 
       responses[prop] && responses[prop].call(this);
-      console.log(self.currentSlide);
     });
 
     /**
@@ -232,6 +271,13 @@
           t.refresh();
         });
       });
+    };
+
+    this.reinitializeSigma = function() {
+      if (!this.sigmaController)
+        return;
+
+      this.sigmaController = null;
     };
 
     this.reinitialize = function() {
