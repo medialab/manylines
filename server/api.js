@@ -30,7 +30,9 @@ app.use(cookieParser());
 app.use(session({
   secret: config.api.secret,
   trustProxy: true,
-  domain: 'localhost:' + config.api.port + ',localhost:' + config.static.port
+  domain: 'localhost:' + config.api.port + ',localhost:' + config.static.port,
+  resave: true,
+  saveUninitialized: true
 }));
 
 // development only

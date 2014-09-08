@@ -31,5 +31,5 @@ var defaults = {
   }
 };
 
-// Returning config merged with defaultS
+// Returning config merged with defaults
 module.exports = utils.extend(config, defaults);

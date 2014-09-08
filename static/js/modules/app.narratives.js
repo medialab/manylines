@@ -17,10 +17,35 @@
       return slide;
     };
 
+    this.getSlide = function(snapshot) {
+      return app.utils.first(this.slides, function(s) {
+        return s.snapshot === snapshot;
+      });
+    };
+
     this.removeSlide = function(snapshot) {
       this.slides = this.slides.filter(function(s) {
         return s.snapshot !== snapshot;
       });
+    };
+
+    this.orderSlides = function(order) {
+      var na = [];
+
+      order.forEach(function(snapshot) {
+        na.push(this.getSlide(snapshot));
+      }, this);
+
+      this.slides = na;
+
+      return this;
+    };
+
+    this.export = function() {
+      return {
+        title: this.title,
+        slides: this.slides.map(function(s) { return s.export(); })
+      };
     };
   }
 
@@ -30,6 +55,15 @@
     this.title = data ? data.title : i18n.t('narratives.default_slide_title');
     this.text = data ? data.text : '';
     this.snapshot = snapshot;
+
+    // Methods
+    this.export = function() {
+      return {
+        title: this.title,
+        text: this.text,
+        snapshot: this.snapshot
+      };
+    };
   }
 
   app.pkg('app.modules');
@@ -103,7 +137,7 @@
             group: 'snapshots',
             draggable: 'td',
             filter: '.no-drag',
-            ghostClass: '.drag-ghost'
+            ghostClass: 'drag-ghost'
           }
         );
 
@@ -113,7 +147,7 @@
             group: 'snapshots',
             draggable: 'td',
             filter: '.no-drag',
-            ghostClass: '.drag-ghost',
+            ghostClass: 'drag-ghost',
             onAdd: function(e) {
               var snapshot = $(e.item).find('.view-thumbnail').attr('data-app-thumbnail-snapshot');
 
@@ -126,6 +160,9 @@
             onRemove: function(e) {
               var snapshot = $(e.item).find('.view-thumbnail').attr('data-app-thumbnail-snapshot');
 
+              // Deactivating
+              $(e.item).children().removeClass('active');
+
               // Removing a slide
               self.currentNarrative.removeSlide(snapshot);
 
@@ -134,6 +171,16 @@
                 $('.slide-container').empty();
                 self.currentSlide = null;
               }
+            },
+            onUpdate: function(e) {
+
+              // Retrieving slide order
+              var order = $('.chosen-views-band [data-app-thumbnail-snapshot]').get().map(function(e) {
+                return $(e).attr('data-app-thumbnail-snapshot');
+              });
+
+              // Impacting model
+              self.currentNarrative.orderSlides(order);
             }
           }
         );
@@ -146,10 +193,19 @@
       self.reinitializeSigma();
 
       app.templates.require('app.narratives.slide', function(template) {
+
+        // Templating
         $('.slide-container').empty().append(template({
           slide: data,
           placeholder: i18n.t('narratives.default_slide_text')
         }));
+
+        // Activating
+        // TODO: dirty, find a more elegant way
+        $('.view-thumbnail').parent().removeClass('active');
+        $('[data-app-thumbnail-snapshot="' + data.snapshot + '"]').parent().addClass('active');
+
+        // Controlling sigma
         self.sigmaController = new app.utils.sigmaController('narratives.slide', $('.slide-container'), d);
 
         // Retrieving snapshot info
@@ -218,6 +274,17 @@
       };
 
       responses[prop] && responses[prop].call(this);
+    });
+
+    // Switching slides
+    $('body').on('click', '.chosen-views-band [data-app-thumbnail-snapshot]', function() {
+      if ($(this).parent().hasClass('active'))
+        return;
+
+      self.currentSlide = self.currentNarrative.getSlide($(this).attr('data-app-thumbnail-snapshot'));
+
+      // Rendering
+      slide(self.currentSlide);
     });
 
     /**

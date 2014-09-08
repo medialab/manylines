@@ -32,9 +32,11 @@
       <div class="row bottom-row">
         <div class="col col-xs-1">
           <div class="sibling-info sibling-left" role="button">
-            <div data-app-narratives-action="previous_slide" class="sibling-icon">
-              <span class="glyphicon glyphicon-chevron-left"></span>
-            </div>
+            {{#if left}}
+              <div data-app-narratives-action="previous_slide" class="sibling-icon">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </div>
+            {{/if}}
           </div>
         </div>
         <div class="col col-xs-10 view-content">
@@ -47,9 +49,11 @@
         </div>
         <div class="col col-xs-1">
           <div class="sibling-info sibling-right" role="button">
-            <div data-app-narratives-action="next_slide" class="sibling-icon">
-              <span class="glyphicon glyphicon-chevron-right"></span>
-            </div>
+            {{#if right}}
+              <div data-app-narratives-action="next_slide" class="sibling-icon">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </div>
+            {{/if}}
           </div>
         </div>
       </div>
