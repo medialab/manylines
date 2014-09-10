@@ -4,8 +4,7 @@
  *
  */
 var assert = require('assert'),
-    request = require('supertest'),
-    api = require('../server/api').app;
+    request = require('supertest');
 
 describe('Space', function() {
   it('is a dummy test', function() {

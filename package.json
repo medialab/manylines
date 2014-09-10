@@ -12,7 +12,7 @@
     "start": "node bin/start.js",
     "flush": "node bin/flush.js",
     "make": "node bin/make.js",
-    "test": "mocha -c -R spec"
+    "test": "mocha -R spec"
   },
   "dependencies": {
     "couchbase": "~1.2.4",

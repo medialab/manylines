@@ -10,3 +10,7 @@ The YouTube of networks
 3. Create a `config.json` file at the root, or just duplicate the sample `config.sample.json`.
 4. Run `npm start` to start the API server.
 5. Now you can access the application at `http://localhost:8000/app`.
+
+## Folders
+
+## Testing
