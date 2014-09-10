@@ -1,3 +1,14 @@
+/**
+ * TubeMyNet Api Server
+ * =====================
+ *
+ * This server is meant to be called through a reverse proxy by the
+ * static server.
+ *
+ * Its goal is to provide a RESTful interface to the couchbase database
+ * storing the application saved graphs.
+ *
+ */
 var express = require('express'),
     config = require('./config.js'),
     http = require('http'),

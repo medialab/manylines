@@ -1,4 +1,10 @@
-// Storing couchbase connections
+/**
+ * TubeMyNet Bucket Connection
+ * ============================
+ *
+ * This routine aims at connecting every needed bucket through couchbase
+ * node's api so the model can use them afterwards.
+ */
 var config = require('./config.js'),
     async = require('async'),
     chalk = require('chalk'),

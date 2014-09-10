@@ -1,47 +1,34 @@
-var struct = require('../../lib/struct.js'),
-    utils = require('../../lib/utils.js'),
-    logger = require('../../lib/log.js').api.logger,
+var Controller = require('../../lib/controller.js'),
     models = require('../models.js');
 
+// Action definitions
+var actions = {
 
-
-
-/**
- * get:
- * ****
- * This route will return a graph.
- *
- * Params:
- *   - id: string
- *       The graph ID.
- */
-exports.get = function(req, res) {
-  var params = {
-    id: req.params.id
-  };
-
-  // Check params:
-  if (!struct.check(
-    {
+  /**
+   * get:
+   * ****
+   * This action will return the graph corresponding to a precise id.
+   *
+   * Params:
+   *   - id: <string> The graph ID.
+   */
+  get: {
+    data: {
       id: 'string'
     },
-    params
-  ))
-    return res.send(400);
+    policies: 'authorized',
+    method: function(data, res) {
 
-  // Check authorizations:
-  if (!(req.session.graphs || {})[params.id])
-    return res.send(401);
+      // Retrieving the graph
+      models.graph.get(data.id, function(err, result) {
+        if (err)
+          return res.error('unknown error retrieving the graph object.', err);
 
-  models.graph.get(params.id, function(err, result) {
-    if (err) {
-      logger.error(
-        'controllers.graph.get: unknown error retrieving the graph object.',
-        {errorMsg: err.message}
-      );
-      return res.send(500);
+        return res.json(result);
+      });
     }
-
-    return res.json(result);
-  });
+  }
 };
+
+// Exporting
+module.exports = new Controller('graph', actions);

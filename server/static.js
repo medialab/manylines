@@ -1,3 +1,14 @@
+/**
+ * TubeMyNet Model Abstraction
+ * ============================
+ *
+ * This static server is meant to serve the front-end of the application and to
+ * provide a reverse-proxy hitting TubeMyNet's API.
+ *
+ * Even if the development version uses Express to achieve this goal one could
+ * obviously use any kind of server to do this: Apache, nginx etc.
+ *
+ */
 var express = require('express'),
     config = require('./config.js'),
     chalk = require('chalk'),

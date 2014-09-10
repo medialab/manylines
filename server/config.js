@@ -1,11 +1,18 @@
+/**
+ * TubeMyNet Default Configuration
+ * ================================
+ *
+ * Ensuring the configuration passed to the application respond to some
+ * basic structure.
+ *
+ */
 var config = require('../config.json'),
     utils = require('../lib/utils');
 
 var defaults = {
   static: {
     path: 'static',
-    port: 8000,
-    hello: 'world'
+    port: 8000
   },
   api: {
     port: 8080,

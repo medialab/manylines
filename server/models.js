@@ -1,3 +1,9 @@
+/**
+ * TubeMyNet Model Registration
+ * =============================
+ *
+ * Instantiating any model needed by the API server to run.
+ */
 var Model = require('../lib/model.js'),
     buckets = require('./buckets.js').buckets;
 
@@ -13,7 +19,6 @@ var schemas = {
   graphMeta: 'object',
 
   // A succession of snapshots organized as slides
-  // TODO: should we add a date
   narrative: {
     title: 'string',
     slides: 'array'
