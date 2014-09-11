@@ -24,6 +24,7 @@ var express = require('express'),
     Router = require('../lib/router.js'),
     policies = require('./policies.js'),
     controllers = {
+      graph: require('./controllers/graph.js'),
       space: require('./controllers/space.js')
     },
     server;
@@ -71,8 +72,9 @@ router.get('/logout/:id', controllers.space.logout);
 router.post('/space', controllers.space.create);
 router.post('/space/:id', controllers.space.update);
 
-// app.get('/api/space/:id', controllers.space.get);
-// app.delete('/api/space/:id', controllers.space.delete);
+// Graph routes
+router.get('/space/:id/graph/:version', controllers.graph.get);
+
 
 // // Space relvant graph routes
 // app.post('/api/space/graph/:id', controllers.space.addGraph);

@@ -118,6 +118,38 @@ describe('When hitting the space controller', function() {
         done();
       });
   });
-});
 
-// logout
+  it('should be possible to retrieve some graph data.', function(done) {
+    agent
+      .get('/api/space/' + cache.spaceId + '/graph/' + 0)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        if (err)
+          throw err;
+
+        assert.deepEqual(res.body, test.samples.graph);
+        done();
+      });
+  });
+
+  it('should return a 404 when trying to retrieve an inexistant graph\'s data.', function(done) {
+    agent
+      .get('/api/space/' + cache.spaceId + '/graph')
+      .expect(404, done);
+  });
+
+  it('should be possible to logout.', function(done) {
+    agent
+      .get('/api/logout/' + cache.spaceId)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        if (err)
+          throw err;
+
+        assert(res.body.ok);
+        done();
+      });
+  });
+});

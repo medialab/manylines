@@ -39,3 +39,19 @@ exports.update = function(id, email, password, callback) {
 
   models.space.update(id, updateData, callback);
 };
+
+exports.getGraphData = function(id, version, callback) {
+
+  // Retrieving space and then the desired graph data
+  async.waterfall([
+    function space(next) {
+      models.space.get(id, next);
+    },
+    function graphData(space, next) {
+      if (space.graphs.length - 1 < version)
+        return next(new Error('inexistant-version'));
+
+      models.graph.get(space.graphs[version].id, callback);
+    }
+  ], callback);
+};

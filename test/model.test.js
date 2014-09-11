@@ -57,7 +57,8 @@ describe('When using models', function() {
     var userData = {hello: 'world'};
 
     test.models.user.create(userData, function(err, result) {
-      assert.equal(err.reason, 'wrong-data');
+      assert(err instanceof Error);
+      assert(err.message === 'model.create:wrong-data');
       done();
     });
   });
