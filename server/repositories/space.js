@@ -30,3 +30,12 @@ exports.initialize = function(email, password, graphData, graphMetas, callback) 
     }
   ], callback);
 };
+
+exports.update = function(id, email, password, callback) {
+  var updateData = {};
+
+  email && (updateData.email = email);
+  password && (updateData.password = password);
+
+  models.space.update(id, updateData, callback);
+};

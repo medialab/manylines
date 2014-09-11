@@ -6,7 +6,8 @@
 var assert = require('assert'),
     request = require('supertest'),
     test = require('./setup.js'),
-    app = require('../server/api.js').app;
+    app = require('../server/api.js').app,
+    agent = request.agent(app);
 
 function shouldItStop(err) {
   if (err instanceof Error)
@@ -14,21 +15,22 @@ function shouldItStop(err) {
 }
 
 describe('When hitting the space controller', function() {
+  var cache = {};
 
   it('should return a 401 when attempting to log with wrong credentials.', function(done) {
-    request(app)
+    agent
       .get('/api/login/unkwnown/wrong')
       .expect(401, done);
   });
 
   it('should shun people without correct authentification.', function(done) {
-    request(app)
+    agent
       .get('/api/logout/unkwnown')
       .expect(401, done);
   });
 
   it('should fail when sending wrong data to create a space.', function(done) {
-    request(app)
+    agent
       .post('/api/space')
       .send({hello: 'world'})
       .expect(400, done);
@@ -42,9 +44,10 @@ describe('When hitting the space controller', function() {
       metas: test.samples.metas
     };
 
-    request(app)
+    agent
       .post('/api/space')
       .send(data)
+      .expect(200)
       .expect('Content-Type', /json/)
       .end(function(err, res) {
 
@@ -52,6 +55,9 @@ describe('When hitting the space controller', function() {
         assert(!!res.body.id);
         assert(res.body.email === data.email);
         assert(res.body.version === 1);
+
+        // Caching
+        cache.spaceId = res.body.id;
         done();
       });
   });
@@ -64,7 +70,7 @@ describe('When hitting the space controller', function() {
       metas: test.samples.metas
     };
 
-    request(app)
+    agent
       .post('/api/space')
       .send(data)
       .expect(400)
@@ -82,7 +88,7 @@ describe('When hitting the space controller', function() {
       metas: test.samples.metas
     };
 
-    request(app)
+    agent
       .post('/api/space')
       .send(data)
       .expect(400)
@@ -91,4 +97,27 @@ describe('When hitting the space controller', function() {
         done();
       });
   });
+
+  it('should be possible to update a space.', function(done) {
+    var data = {
+      email: 'new@mail.com',
+      password: 'newpassword'
+    };
+
+    agent
+      .post('/api/space/' + cache.spaceId)
+      .send(data)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+
+        // Checking results
+        assert(res.body.id === cache.spaceId);
+        assert(res.body.email === data.email);
+        assert(res.body.version === 1);
+        done();
+      });
+  });
 });
+
+// logout

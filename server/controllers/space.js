@@ -50,7 +50,7 @@ module.exports = {
 
   /**
    * logout:
-   * *******
+   * -------
    * This route is able to log a user off a precise space or every spaces if
    * no space id is specified.
    *
@@ -81,7 +81,7 @@ module.exports = {
 
   /**
    * create:
-   * *******
+   * -------
    * This route will create a new space, with an empty graph object attached
    * to it.
    *
@@ -127,6 +127,51 @@ module.exports = {
           });
         }
       );
+    }
+  },
+
+  /**
+   * update:
+   * -------
+   * This route will update the meta of a space.
+   *
+   * Params:
+   *   - id: string
+   *       The space ID.
+   *   - email: ?string
+   *       The space email.
+   *   - password: ?string
+   *       The space password.
+   */
+  update: {
+    validate: {
+      id: 'string',
+      email: '?string',
+      password: '?string'
+    },
+    policies: 'authenticated',
+    method: function(req, res) {
+      var id = req.param('id'),
+          email = req.param('email'),
+          password = req.param('password');
+
+      // Custom errors on invalid email or password
+      if (email && !validator.isEmail(email))
+        return res.error('INVALID_EMAIL', 400);
+      if (password && !validator.isLength(password, 5))
+        return res.error('INVALID_PASSWORD', 400);
+
+      // Updating space
+      repositories.space.update(id, email, password, function(err, result) {
+        if (err)
+          return res.error('Error on space update.');
+
+        return res.json({
+          id: id,
+          email: result.email,
+          version: result.graphs.length
+        });
+      });
     }
   }
 };

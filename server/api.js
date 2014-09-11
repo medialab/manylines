@@ -69,14 +69,8 @@ router.get('/logout/:id', controllers.space.logout);
 
 // Space routes
 router.post('/space', controllers.space.create);
+router.post('/space/:id', controllers.space.update);
 
-// // Login routes
-// app.get('/api/login/:id/:password', controllers.space.login);
-// app.get('/api/logout/:id', controllers.space.logout);
-
-// // Space routes
-// app.post('/api/space', controllers.space.create);
-// app.post('/api/space/:id', controllers.space.update);
 // app.get('/api/space/:id', controllers.space.get);
 // app.delete('/api/space/:id', controllers.space.delete);
 
