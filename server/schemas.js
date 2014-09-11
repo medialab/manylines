@@ -1,0 +1,61 @@
+/**
+ * TubeMyNet Model Schemas
+ * ========================
+ *
+ * Structural data schemas for every TubeMyNet's models.
+ */
+var struct = require('../lib/struct.js');
+
+// Definitions
+var schemas = {
+
+  // A graph filter
+  filter: {
+    category: 'string',
+    values: 'array'
+  },
+
+  // A narrative slide
+  slide: {
+    title: 'string',
+    text: 'string',
+    snapshot: 'string'
+  },
+
+  // Graph data itself
+  graph: {
+    nodes: 'array',
+    edges: 'array'
+  },
+
+  // A succession of snapshots organized as slides
+  narrative: {
+    title: 'string',
+    slides: ['?slide']
+  },
+
+  // A precise view of a graph
+  snapshot: {
+    view: {
+      camera: {
+        x: 'number',
+        y: 'number',
+        ratio: 'number'
+      },
+      filters: ['?filter']
+    }
+  },
+
+  // A given user's workspace
+  space: {
+    password: 'string',
+    email: 'string',
+    graphs: '?array'
+  }
+};
+
+// Adding to structures
+for (var k in schemas)
+  struct.register(k, schemas[k]);
+
+module.exports = schemas;

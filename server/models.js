@@ -5,29 +5,8 @@
  * Instantiating any model needed by the API server to run.
  */
 var Model = require('../lib/model.js'),
-    buckets = require('./buckets.js').buckets;
-
-var schemas = {
-
-  // Graph data itself
-  graph: {
-    nodes: 'array',
-    edges: 'array'
-  },
-
-  // A succession of snapshots organized as slides
-  narrative: {
-    title: 'string',
-    slides: 'array'
-  },
-
-  // A given user's workspace
-  space: {
-    password: 'string',
-    email: 'string',
-    graphs: '?array'
-  }
-};
+    buckets = require('./buckets.js').buckets,
+    schemas = require('./schemas.js');
 
 // TODO: find more elegant way to do this
 function init() {
