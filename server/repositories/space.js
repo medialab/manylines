@@ -51,7 +51,23 @@ exports.getGraphData = function(id, version, callback) {
       if (space.graphs.length - 1 < version)
         return next(new Error('inexistant-version'));
 
-      models.graph.get(space.graphs[version].id, callback);
+      models.graph.get(space.graphs[version].id, next);
+    }
+  ], callback);
+};
+
+exports.updateGraphData = function(id, version, data, callback) {
+
+  // Retrieving space and update said version
+  async.waterfall([
+    function space(next) {
+      models.space.get(id, next);
+    },
+    function updateGraph(space, next) {
+      if (space.graphs.length - 1 < version)
+        return next(new Error('inexistant-version'));
+
+      models.graph.set(space.graphs[version].id, data, next);
     }
   ], callback);
 };

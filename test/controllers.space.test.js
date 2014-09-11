@@ -7,7 +7,9 @@ var assert = require('assert'),
     request = require('supertest'),
     test = require('./setup.js'),
     app = require('../server/api.js').app,
-    agent = request.agent(app);
+    agent = request.agent(app),
+    utils = require('../lib/utils.js'),
+    models = require('../server/models.js');
 
 function shouldItStop(err) {
   if (err instanceof Error)
@@ -137,6 +139,31 @@ describe('When hitting the space controller', function() {
     agent
       .get('/api/space/' + cache.spaceId + '/graph')
       .expect(404, done);
+  });
+
+  it('should be possible to update graph data.', function(done) {
+    var newGraph = utils.extend(test.samples.graph);
+    newGraph.nodes.push({id: 'n03'});
+
+    agent
+      .post('/api/space/' + cache.spaceId + '/graph/' + 0)
+      .send({graph: newGraph})
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        if (err)
+          throw err;
+
+        assert(res.body.ok);
+
+        // Checking data in model
+        models.space.get(cache.spaceId, function(err, space) {
+          models.graph.get(space.graphs[0].id, function(err, data) {
+            assert.deepEqual(newGraph, data);
+            done();
+          })
+        });
+      });
   });
 
   it('should be possible to logout.', function(done) {

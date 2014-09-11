@@ -74,7 +74,7 @@ router.post('/space/:id', controllers.space.update);
 
 // Graph routes
 router.get('/space/:id/graph/:version', controllers.graph.get);
-
+router.post('/space/:id/graph/:version', controllers.graph.update);
 
 // // Space relvant graph routes
 // app.post('/api/space/graph/:id', controllers.space.addGraph);

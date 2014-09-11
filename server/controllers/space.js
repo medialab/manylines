@@ -82,8 +82,7 @@ module.exports = {
   /**
    * create:
    * -------
-   * This route will create a new space, with an empty graph object attached
-   * to it.
+   * This route will create a new space, with the given graph.
    *
    */
   create: {
@@ -166,12 +165,21 @@ module.exports = {
         if (err)
           return res.error('Error on space update.');
 
+        // Updating session
+        req.session.spaces[id] = result;
+
         return res.json({
           id: id,
           email: result.email,
           version: result.graphs.length
         });
       });
+    }
+  },
+
+  bump: {
+    method: function(req, res) {
+
     }
   }
 };
