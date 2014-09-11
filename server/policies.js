@@ -7,8 +7,8 @@
 
 // Authentication policy
 exports.authenticated = function(req, res, next) {
-  if (!req.session.authenticated)
-    return res.send(401);
+  if (!(req.session.spaces || []).length)
+    return res.status(401).send('Unauthorized').end();
   else
     next();
 };

@@ -6,7 +6,7 @@
  * static server.
  *
  * Its goal is to provide a RESTful interface to the couchbase database
- * storing the application saved graphs.
+ * storing the application graphs.
  *
  */
 var express = require('express'),
@@ -15,26 +15,29 @@ var express = require('express'),
     path = require('path'),
     app = express(),
     chalk = require('chalk'),
-    log = require('../lib/log'),
+    log = require('../lib/log.js').api,
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
     errorHandler = require('errorhandler'),
     env = process.env.NODE_ENV || 'development',
+    Router = require('../lib/router.js'),
+    policies = require('./policies.js'),
     controllers = {
-      snapshot: require('./controllers/snapshot.js'),
-      graphMeta: require('./controllers/graphMeta.js'),
-      graph: require('./controllers/graph.js'),
-      space: require('./controllers/space.js'),
-      narrative: require('./controllers/narrative.js')
+      space: require('./controllers/space.js')
     },
     server;
+
+/**
+ * LOG:
+ * ****
+ */
 
 /**
  * MIDDLEWARES:
  * ************
  */
-app.use(log.api.middleware);
+app.use(log.middleware);
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(cookieParser());
@@ -54,34 +57,46 @@ if (env === 'development')
  * API ROUTES:
  * ***********
  */
+var router = new Router(app, {
+  policies: policies,
+  prefix: '/api',
+  logger: log.logger
+});
 
 // Login routes
-app.get('/api/login/:id/:password', controllers.space.login);
-app.get('/api/logout/:id', controllers.space.logout);
+router.get('/login/:id/:password', controllers.space.login);
+router.get('/logout/:id', controllers.space.logout);
 
 // Space routes
-app.post('/api/space', controllers.space.create);
-app.post('/api/space/:id', controllers.space.update);
-app.get('/api/space/:id', controllers.space.get);
-app.delete('/api/space/:id', controllers.space.delete);
+router.post('/space', controllers.space.create);
 
-// Space relvant graph routes
-app.post('/api/space/graph/:id', controllers.space.addGraph);
-app.get('/api/space/graph/:id/:version', controllers.space.readGraph);
-app.post('/api/space/graph/:id/:version', controllers.space.updateGraph);
+// // Login routes
+// app.get('/api/login/:id/:password', controllers.space.login);
+// app.get('/api/logout/:id', controllers.space.logout);
 
-// Snapshots routes
-app.post('/api/space/snapshot/:id/:version', controllers.space.addSnapshot);
-app.get('/api/space/snapshot/:id/:version', controllers.space.getSnapshot);
-app.get('/api/space/snapshot/:id', controllers.space.getSnapshot);
+// // Space routes
+// app.post('/api/space', controllers.space.create);
+// app.post('/api/space/:id', controllers.space.update);
+// app.get('/api/space/:id', controllers.space.get);
+// app.delete('/api/space/:id', controllers.space.delete);
 
-// Misc get routes
-app.get('/api/graph/:id', controllers.graph.get);
-app.get('/api/graphmeta/:id', controllers.graphMeta.get);
-app.get('/api/snapshot/:id', controllers.snapshot.get);
+// // Space relvant graph routes
+// app.post('/api/space/graph/:id', controllers.space.addGraph);
+// app.get('/api/space/graph/:id/:version', controllers.space.readGraph);
+// app.post('/api/space/graph/:id/:version', controllers.space.updateGraph);
 
-// Narrative routes
-app.post('/api/narrative/:id/:version', controllers.narrative.add);
+// // Snapshots routes
+// app.post('/api/space/snapshot/:id/:version', controllers.space.addSnapshot);
+// app.get('/api/space/snapshot/:id/:version', controllers.space.getSnapshot);
+// app.get('/api/space/snapshot/:id', controllers.space.getSnapshot);
+
+// // Misc get routes
+// app.get('/api/graph/:id', controllers.graph.get);
+// app.get('/api/graphmeta/:id', controllers.graphMeta.get);
+// app.get('/api/snapshot/:id', controllers.snapshot.get);
+
+// // Narrative routes
+// app.post('/api/narrative/:id/:version', controllers.narrative.add);
 
 /**
  * STATIC FILES:
@@ -96,7 +111,7 @@ app.get('/*', express.static(__dirname + '/../' + config.static.path));
 exports.app = app;
 exports.start = function(port) {
   server = http.createServer(app).listen(port, function(){
-    log.api.logger.info('server listening on port ' + chalk.yellow('' + port));
+    log.logger.info('server listening on port ' + chalk.yellow('' + port));
   });
 };
 exports.stop = function() {

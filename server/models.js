@@ -11,12 +11,9 @@ var schemas = {
 
   // Graph data itself
   graph: {
-    nodes: '?array',
-    edges: '?array'
+    nodes: 'array',
+    edges: 'array'
   },
-
-  // Metadata concerning the given graph
-  graphMeta: 'object',
 
   // A succession of snapshots organized as slides
   narrative: {
@@ -39,5 +36,10 @@ var schemas = {
   }
 };
 
-for (var i in buckets)
-  exports[i] = new Model(i, buckets[i], schemas[i]);
+// TODO: find more elegant way to do this
+function init() {
+  for (var i in buckets)
+    exports[i] = new Model(i, buckets[i], schemas[i]);
+}
+
+exports.init = init;

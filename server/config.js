@@ -26,7 +26,6 @@ var defaults = {
     password: null,
     buckets: {
       snapshot: 'tubemynet',
-      graphMeta: 'tubemynet',
       graph: 'tubemynet',
       narrative: 'tubemynet',
       space: 'tubemynet'
