@@ -99,7 +99,14 @@ module.exports = {
         if (err)
           return res.error(err, 404);
 
-        res.json(result);
+        res.json({
+          space: {
+            id: id,
+            email: result.space.email,
+            version: version
+          },
+          graph: result.graph
+        });
       });
     }
   },

@@ -271,7 +271,7 @@
 
           // Requesting server data only if spaceId is present, else localStorage
           if (this.get('spaceId'))
-            this.request('loadGraphData');
+            this.request('loadSpace');
           else
             this.dispatchEvent('loadLocalStorage');
         }
@@ -696,17 +696,6 @@
         }
       },
       {
-        triggers: 'spaceIdUpdated',
-        method: function(e) {
-          // Load the space data if needed:
-          if (
-            !this.get('space') &&
-            this.get('view') !== 'login'
-          )
-            this.request('loadSpace');
-        }
-      },
-      {
         triggers: ['updateGraph', 'updateMeta', 'updateData'],
         method: function(e) {
           var modified = this.get('isModified') || {},
@@ -856,7 +845,6 @@
         success: function(data) {
           this.update('space', data);
           this.update('spaceId', data.id);
-          this.dispatchEvent('save');
         },
         error: function(m, x, p) {
           if (m === 'INVALID_EMAIL')
@@ -869,12 +857,14 @@
       },
       {
         id: 'loadSpace',
-        url: '/api/space/:spaceId',
+        url: '/api/space/:spaceId/:version',
         dataType: 'json',
         type: 'GET',
         before: appBefore,
         success: function(data) {
-          this.update('space', data);
+          console.log(data);
+          this.update('space', data.space);
+          this.update('graph', data.graph);
 
           if (typeof this.get('version') !== 'number')
             this.update('version', 0);
@@ -935,50 +925,6 @@
        * Graph and meta management:
        * **************************
        */
-      {
-        id: 'createGraphData',
-        url: '/api/space/graph/:spaceId',
-        dataType: 'json',
-        type: 'POST',
-        before: appBefore,
-        success: function(data) {
-          this.update('meta', data.meta);
-          this.update('graph', data.graph);
-          this.update('isModified', null);
-        },
-        error: function(m, x, p) {
-          if (+x.status === 401)
-            this.dispatchEvent('requireLogin');
-          else
-            app.danger(i18n.t('errors.default'));
-        }
-      },
-      {
-        id: 'loadGraphData',
-        url: '/api/space/graph/:spaceId/:version',
-        dataType: 'json',
-        type: 'GET',
-        before: function() {
-          if (typeof this.get('version') !== 'number')
-            return this.warn('A version number is needed for this request.');
-          appBefore.apply(this, arguments);
-        },
-        success: function(data) {
-          this.update('meta', data.meta);
-          this.update('graph', data.graph);
-          this.update('isModified', null);
-          // this.dispatchEvent('loadLocalStorage');
-
-          // Now requesting snapshots
-          this.request('loadSnapshots');
-        },
-        error: function(m, x, p) {
-          if (+x.status === 401)
-            this.dispatchEvent('requireLogin');
-          else
-            app.danger(i18n.t('errors.default'));
-        }
-      },
       {
         id: 'saveGraphData',
         url: '/api/space/graph/:spaceId/:version',

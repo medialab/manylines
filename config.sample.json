@@ -14,7 +14,6 @@
     "admin": "ADMIN-USER",
     "password": "ADMIN-PASSWORD",
     "buckets": {
-      "snapshot": "tubemynet",
       "graph": "tubemynet",
       "narrative": "tubemynet",
       "space": "tubemynet"

@@ -21,13 +21,6 @@ var schemas = {
     slides: 'array'
   },
 
-  // A filtered view of the given graph
-  snapshot: {
-    graph: '?object',
-    view: 'object',
-    filters: 'array'
-  },
-
   // A given user's workspace
   space: {
     password: 'string',

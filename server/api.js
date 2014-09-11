@@ -25,6 +25,7 @@ var express = require('express'),
     policies = require('./policies.js'),
     controllers = {
       graph: require('./controllers/graph.js'),
+      snapshot: require('./controllers/snapshot.js'),
       space: require('./controllers/space.js')
     },
     server;
@@ -72,28 +73,16 @@ router.get('/logout/:id', controllers.space.logout);
 router.post('/space', controllers.space.create);
 router.post('/space/:id', controllers.space.update);
 router.get('/space/:id/:version', controllers.space.get);
+router.post('/space/:id/bump', controllers.space.bump);
 
-// Graph routes
+// Graph sub space routes
 router.get('/space/:id/graph/:version', controllers.graph.get);
 router.post('/space/:id/graph/:version', controllers.graph.update);
 
-// // Space relvant graph routes
-// app.post('/api/space/graph/:id', controllers.space.addGraph);
-// app.get('/api/space/graph/:id/:version', controllers.space.readGraph);
-// app.post('/api/space/graph/:id/:version', controllers.space.updateGraph);
+// Snapshot sub space routes
+router.get('/space/:id/snapshots/:version', controllers.snapshot.get);
+router.post('/space/:id/snapshot/:version', controllers.snapshot.add);
 
-// // Snapshots routes
-// app.post('/api/space/snapshot/:id/:version', controllers.space.addSnapshot);
-// app.get('/api/space/snapshot/:id/:version', controllers.space.getSnapshot);
-// app.get('/api/space/snapshot/:id', controllers.space.getSnapshot);
-
-// // Misc get routes
-// app.get('/api/graph/:id', controllers.graph.get);
-// app.get('/api/graphmeta/:id', controllers.graphMeta.get);
-// app.get('/api/snapshot/:id', controllers.snapshot.get);
-
-// // Narrative routes
-// app.post('/api/narrative/:id/:version', controllers.narrative.add);
 
 /**
  * STATIC FILES:
