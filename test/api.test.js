@@ -1,6 +1,6 @@
 /**
- * TubeMyNet Space Controller Unit Tests
- * ======================================
+ * TubeMyNet Space API Tests
+ * ==========================
  *
  */
 var assert = require('assert'),
@@ -11,7 +11,7 @@ var assert = require('assert'),
     utils = require('../lib/utils.js'),
     models = require('../server/models.js');
 
-describe('When hitting the space controller', function() {
+describe('When using the API', function() {
   var cache = {};
 
   it('should return a 401 when attempting to log with wrong credentials.', function(done) {
