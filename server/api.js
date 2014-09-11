@@ -71,6 +71,7 @@ router.get('/logout/:id', controllers.space.logout);
 // Space routes
 router.post('/space', controllers.space.create);
 router.post('/space/:id', controllers.space.update);
+router.get('/space/:id/:version', controllers.space.get);
 
 // Graph routes
 router.get('/space/:id/graph/:version', controllers.graph.get);

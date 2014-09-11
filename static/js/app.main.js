@@ -666,7 +666,9 @@
           this.request('createSpace', {
             data: {
               email: e.data.email,
-              password: e.data.password
+              password: e.data.password,
+              graph: this.get('mainSigma').getGraph(),
+              meta: this.get('meta')
             }
           });
         }
@@ -698,8 +700,7 @@
         method: function(e) {
           // Load the space data if needed:
           if (
-            this.get('spaceId') !== (this.get('space') || {}).id &&
-            this.get('spaceId') &&
+            !this.get('space') &&
             this.get('view') !== 'login'
           )
             this.request('loadSpace');
@@ -858,9 +859,9 @@
           this.dispatchEvent('save');
         },
         error: function(m, x, p) {
-          if (m === 'Invalid email')
+          if (m === 'INVALID_EMAIL')
             app.info(i18n.t('warnings.invalid_email'));
-          else if (m === 'Invalid password')
+          else if (m === 'INVALID_PASSWORD')
             app.info(i18n.t('warnings.invalid_password'));
           else
             app.danger(i18n.t('errors.default'));

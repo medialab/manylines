@@ -23,7 +23,7 @@ var test = {
         {id: 'e01', source: 'n01', target: 'n02'}
       ]
     },
-    metas: {
+    meta: {
       author: 'Joachim Murat'
     }
   }

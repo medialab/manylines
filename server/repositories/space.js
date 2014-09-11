@@ -7,7 +7,7 @@ var async = require('async'),
     models = require('../models'),
     utils = require('../../lib/utils.js');
 
-exports.initialize = function(email, password, graphData, graphMetas, callback) {
+exports.initialize = function(email, password, graphData, graphMeta, callback) {
 
   // Creating the needed items
   async.waterfall([
@@ -21,7 +21,7 @@ exports.initialize = function(email, password, graphData, graphMetas, callback) 
         graphs: [
           {
             id: graph.id,
-            metas: graphMetas
+            metas: graphMeta
           }
         ]
       };
@@ -38,6 +38,24 @@ exports.update = function(id, email, password, callback) {
   password && (updateData.password = password);
 
   models.space.update(id, updateData, callback);
+};
+
+exports.getVersion = function(id, version, callback) {
+
+  // Retrieving space and the desired graph version
+  async.waterfall([
+    function space(next) {
+      models.space.get(id, next);
+    },
+    function graph(space, next) {
+      if (space.graphs.length - 1 < version)
+        return next(new Error('inexistant-version'));
+
+      models.graph.get(space.graphs[version].id, function(err, graph) {
+        next(err, {space: space, graph: graph});
+      });
+    }
+  ], callback);
 };
 
 exports.getGraphData = function(id, version, callback) {
