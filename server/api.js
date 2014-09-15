@@ -25,6 +25,7 @@ var express = require('express'),
     policies = require('./policies.js'),
     controllers = {
       graph: require('./controllers/graph.js'),
+      narrative: require('./controllers/narrative.js'),
       snapshot: require('./controllers/snapshot.js'),
       space: require('./controllers/space.js')
     },
@@ -83,6 +84,11 @@ router.post('/space/:id/graph/:version', controllers.graph.update);
 router.get('/space/:id/snapshots/:version', controllers.snapshot.get);
 router.post('/space/:id/snapshot/:version', controllers.snapshot.add);
 
+// Narrative routes
+router.get('/narrative/:id', controllers.narrative.get);
+router.post('/narrative/:id', controllers.narrative.update);
+router.get('/space/:id/narratives/:version', controllers.narrative.getAll);
+router.post('/space/:id/narrative/:version', controllers.narrative.create);
 
 /**
  * STATIC FILES:
