@@ -95,9 +95,14 @@ exports.updateGraphData = function(id, version, data, callback) {
   ], callback);
 };
 
-exports.addSnasphot = function(id, version, data, callback) {
+exports.addSnapshot = function(id, version, data, callback) {
+
+  // Checking the snapshot is valid
   if (!struct.check('snapshot', data))
     return callback(new Error('wrong-data'));
+
+  // Adding a unique identifier to the snapshot
+  data.id = utils.uuid();
 
   // Retrieving the space and add the snapshot
   async.waterfall([
@@ -112,7 +117,9 @@ exports.addSnasphot = function(id, version, data, callback) {
       snapshots.push(data);
       space.graphs[version].snapshots = snapshots;
 
-      models.space.set(id, space, next);
+      models.space.set(id, space, function(err, result) {
+        next(err, data.id);
+      });
     }
   ], callback);
 };

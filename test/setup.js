@@ -25,6 +25,18 @@ var test = {
     },
     meta: {
       author: 'Joachim Murat'
+    },
+    snapshot: {
+      view: {
+        camera: {
+          x: 30.2,
+          y: 14.5,
+          ratio: 0.3
+        }
+      },
+      filters: [
+        {category: 'whatever', values: ['a', 'b']}
+      ]
     }
   }
 };

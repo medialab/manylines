@@ -9,7 +9,9 @@ var assert = require('assert'),
     app = require('../server/api.js').app,
     agent = request.agent(app),
     utils = require('../lib/utils.js'),
-    models = require('../server/models.js');
+    struct = require('../lib/struct.js'),
+    models = require('../server/models.js'),
+    schemas = require('../server/schemas.js');
 
 describe('When using the API', function() {
   var cache = {};
@@ -184,6 +186,36 @@ describe('When using the API', function() {
             done();
           })
         });
+      });
+  });
+
+  it('should be possible to add a snapshot.', function(done) {
+    agent
+      .post('/api/space/' + cache.spaceId + '/snapshot/0')
+      .send({snapshot: test.samples.snapshot})
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        if (err)
+          throw err;
+
+        assert(!!res.body.id);
+        done();
+      });
+  });
+
+  it('should be possible to retrieve snapshots.', function(done) {
+    agent
+      .get('/api/space/' + cache.spaceId + '/snapshots/0')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        if (err)
+          throw err;
+
+        assert(!!res.body.length);
+        assert(struct.check(schemas.snapshot, res.body[0]));
+        done();
       });
   });
 

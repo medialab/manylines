@@ -36,14 +36,15 @@ var schemas = {
 
   // A precise view of a graph
   snapshot: {
+    id: '?string',
     view: {
       camera: {
         x: 'number',
         y: 'number',
         ratio: 'number'
-      },
-      filters: ['?filter']
-    }
+      }
+    },
+    filters: ['?filter']
   },
 
   // A given user's workspace
