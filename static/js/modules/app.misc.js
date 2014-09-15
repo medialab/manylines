@@ -70,14 +70,14 @@
       data.isModified = d.get('isModified');
 
       localStorage.setItem(
-        app.defaults.storageKey,
+        app.settings.storageKey,
         JSON.stringify(data)
       );
     }
 
     function load() {
       var k,
-          data = localStorage.getItem(app.defaults.storageKey);
+          data = localStorage.getItem(app.settings.storageKey);
 
       try {
         data = JSON.parse(data);
@@ -90,7 +90,7 @@
 
     // Removing the 'app-current' key from localStorage.
     function clean() {
-      localStorage.removeItem(app.defaults.storageKey);
+      localStorage.removeItem(app.settings.storageKey);
     }
 
     if (app.support.webStorage) {

@@ -5,8 +5,20 @@
   root.app = root.app || {};
 
   /**
-   * TubeMyNet Generic Settings:
-   * ****************************
+   * TubeMyNet Settings:
+   * *******************
+   */
+  app.settings = {
+    storageKey: 'app-current',
+    i18n: {
+      lang: 'en',
+      url: '/locales/__lng__/__ns__.json'
+    }
+  };
+
+  /**
+   * TubeMyNet Defaults Parameters:
+   * ******************************
    */
   app.defaults = {
     sigma: {
@@ -35,7 +47,6 @@
       scalingRatio: 10,
       slowDown: 2,
       nodesize: "degree"
-    },
-    storageKey: 'app-current'
+    }
   };
 }).call(this);
