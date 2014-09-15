@@ -41,7 +41,8 @@ var schemas = {
       camera: {
         x: 'number',
         y: 'number',
-        ratio: 'number'
+        ratio: 'number',
+        angle: 'number'
       }
     },
     filters: ['?filter']

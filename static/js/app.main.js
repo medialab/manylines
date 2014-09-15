@@ -671,15 +671,17 @@
 
           this.request('snapshotGraph', {
             data: {
-              view: {
-                camera: {
-                  x: (cam.x * 100) / renderer.width,
-                  y: (cam.y * 100) / renderer.height,
-                  ratio: cam.ratio,
-                  angle: cam.angle
-                }
-              },
-              filters: [e.data.filter]
+              snapshot: {
+                view: {
+                  camera: {
+                    x: (cam.x * 100) / renderer.width,
+                    y: (cam.y * 100) / renderer.height,
+                    ratio: cam.ratio,
+                    angle: cam.angle
+                  }
+                },
+                filters: [e.data.filter]
+              }
             }
           });
         }
@@ -867,55 +869,13 @@
             app.danger(i18n.t('errors.default'));
         }
       },
-      {
-        id: 'saveSpace',
-        url: '/api/space/:spaceId',
-        dataType: 'json',
-        contentType: 'application/json',
-        type: 'POST',
-        before: appBefore,
-        success: function(data, input) {
-          var space = this.get('space');
-          space.email = data.email;
-          this.update('space', space);
-
-          if (typeof this.get('version') !== 'number')
-            this.update('version', 0);
-        },
-        error: function(m, x, p) {
-          if (m === 'Invalid email')
-            app.info(i18n.t('warnings.invalid_email'));
-          else if (m === 'Invalid password')
-            app.info(i18n.t('warnings.invalid_password'));
-          else if (+x.status === 401)
-            this.dispatchEvent('requireLogin');
-          else
-            app.danger(i18n.t('errors.default'));
-        }
-      },
-      {
-        id: 'deleteSpace',
-        url: '/api/space/:spaceId',
-        dataType: 'json',
-        type: 'DELETE',
-        before: appBefore,
-        success: function(data) {
-          this.update('space', null);
-          this.update('spaceId', null);
-          this.update('view', 'upload');
-        },
-        error: function(m, x, p) {
-          if (+x.status === 401)
-            this.dispatchEvent('requireLogin');
-          else
-            app.danger(i18n.t('errors.default'));
-        }
-      },
 
       /**
        * Graph and meta management:
        * **************************
        */
+
+      // TODO: save also meta as an option
       {
         id: 'saveGraphData',
         url: '/api/space/:spaceId/graph/:version',
@@ -938,14 +898,12 @@
       },
 
       /**
-       * Temporary development stuffs:
-       * *****************************
+       * Snashots:
+       * *********
        */
-
-      // TODO: move this in more appropriate code area
       {
         id: 'snapshotGraph',
-        url: '/api/space/snapshot/:spaceId/:version',
+        url: '/api/space/:spaceId/snapshot/:version',
         dataType: 'json',
         contentType: 'application/json',
         type: 'POST',
@@ -964,7 +922,7 @@
       },
       {
         id: 'loadSnapshots',
-        url: '/api/space/snapshot/:spaceId/:version',
+        url: '/api/space/:spaceId/snapshots/:version',
         dataType: 'json',
         contentType: 'application/json',
         type: 'GET',
