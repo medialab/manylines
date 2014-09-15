@@ -6,7 +6,7 @@
 var async = require('async'),
     models = require('../models'),
     utils = require('../../lib/utils.js'),
-    struct = require('../../lib/struct.js');
+    types = require('typology');
 
 exports.initialize = function(email, password, graphData, graphMeta, callback) {
 
@@ -98,7 +98,7 @@ exports.updateGraphData = function(id, version, data, callback) {
 exports.addSnapshot = function(id, version, data, callback) {
 
   // Checking the snapshot is valid
-  if (!struct.check('snapshot', data))
+  if (!types.check(data, 'snapshot'))
     return callback(new Error('wrong-data'));
 
   // Adding a unique identifier to the snapshot

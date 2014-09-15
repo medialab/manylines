@@ -4,7 +4,7 @@
  *
  * Structural data schemas for every TubeMyNet's models.
  */
-var struct = require('../lib/struct.js');
+var types = require('typology');
 
 // Definitions
 var schemas = {
@@ -57,6 +57,6 @@ var schemas = {
 
 // Adding to structures
 for (var k in schemas)
-  struct.register(k, schemas[k]);
+  types.add(k, schemas[k]);
 
 module.exports = schemas;

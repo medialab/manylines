@@ -9,7 +9,7 @@ var assert = require('assert'),
     app = require('../server/api.js').app,
     agent = request.agent(app),
     utils = require('../lib/utils.js'),
-    struct = require('../lib/struct.js'),
+    types = require('typology'),
     models = require('../server/models.js'),
     schemas = require('../server/schemas.js');
 
@@ -214,7 +214,7 @@ describe('When using the API', function() {
           throw err;
 
         assert(!!res.body.length);
-        assert(struct.check(schemas.snapshot, res.body[0]));
+        assert(types.check(res.body[0], schemas.snapshot));
         done();
       });
   });
