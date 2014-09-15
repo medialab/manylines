@@ -56,7 +56,8 @@ exports.getVersion = function(id, version, callback) {
         next(err, {
           space: space,
           graph: graph,
-          meta: space.graphs[version].meta
+          meta: space.graphs[version].meta,
+          snapshots: space.graphs[version].snapshots || []
         });
       });
     }

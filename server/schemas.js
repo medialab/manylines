@@ -31,7 +31,9 @@ var schemas = {
   // A succession of snapshots organized as slides
   narrative: {
     title: 'string',
-    slides: ['?slide']
+    slides: ['?slide'],
+    space: 'string',
+    version: 'number'
   },
 
   // A precise view of a graph
@@ -42,7 +44,7 @@ var schemas = {
         x: 'number',
         y: 'number',
         ratio: 'number',
-        angle: 'number'
+        angle: '?number'
       }
     },
     filters: ['?filter']

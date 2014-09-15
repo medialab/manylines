@@ -82,7 +82,8 @@ module.exports = {
   /**
    * get:
    * ----
-   * Retrieve a space and its graph for the desired version.
+   * Retrieve a space and the graph/meta/snapshot result for a given version of
+   * this space.
    *
    */
   get: {
@@ -106,7 +107,8 @@ module.exports = {
             version: +version
           },
           graph: result.graph,
-          meta: result.meta
+          meta: result.meta,
+          snapshots: result.snapshots
         });
       });
     }

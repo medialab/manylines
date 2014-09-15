@@ -259,8 +259,9 @@
           // else we kick the user
 
           // Requesting server data only if spaceId is present, else localStorage
-          if (this.get('spaceId'))
+          if (this.get('spaceId')) {
             this.request('loadSpace');
+          }
           else
             this.dispatchEvent('loadLocalStorage');
         }
@@ -858,6 +859,7 @@
           this.update('space', data.space);
           this.update('graph', data.graph);
           this.update('meta', data.meta);
+          this.update('snapshots', data.snapshots);
 
           if (typeof this.get('version') !== 'number')
             this.update('version', 0);
