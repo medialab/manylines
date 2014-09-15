@@ -428,7 +428,7 @@
     setTimeout(function() {
       if (app.alertsDom.has(d))
         d.fadeOut(300, function() { $(this).remove(); });
-    }, app.config.alertsDelay || 2000);
+    }, app.settings.alertsDelay || 2000);
   };
 
   app.info = function(msg) {
@@ -436,7 +436,7 @@
     setTimeout(function() {
       if (app.alertsDom.has(d))
         d.fadeOut(300, function() { $(this).remove(); });
-    }, app.config.alertsDelay || 2000);
+    }, app.settings.alertsDelay || 2000);
   };
 
   app.warning = function(msg) {
@@ -444,7 +444,7 @@
     setTimeout(function() {
       if (app.alertsDom.has(d))
         d.fadeOut(300, function() { $(this).remove(); });
-    }, app.config.alertsDelay || 2000);
+    }, app.settings.alertsDelay || 2000);
   };
 
   app.danger = function(msg) {
@@ -452,6 +452,6 @@
     setTimeout(function() {
       if (app.alertsDom.has(d))
         d.fadeOut(300, function() { $(this).remove(); });
-    }, app.config.alertsDelay || 2000);
+    }, app.settings.alertsDelay || 2000);
   };
 }).call(this);

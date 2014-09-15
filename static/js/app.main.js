@@ -87,6 +87,16 @@
       struct: 'array'
     });
 
+  if (!domino.struct.isValid('Narrative'))
+    domino.struct.add({
+      id: 'Narratives',
+      struct: [{
+        title: 'string',
+        text: '?string',
+        snapshot: 'string'
+      }]
+    });
+
   if (!domino.struct.isValid('sigma'))
     domino.struct.add(
       'sigma',
@@ -204,27 +214,6 @@
         dispatch: 'isModifiedUpdated',
         description: 'An object specifying what has been updated since the last update.',
         type: '?object',
-        value: null
-      },
-
-      /**
-       * EXPLORE:
-       * ********
-       */
-      {
-        id: 'explore-mode',
-        triggers: 'explore-updateMode',
-        dispatch: 'explore-modeUpdated',
-        description: '[explore view] The mode of exploration.',
-        type: 'string',
-        value: 'overview'
-      },
-      {
-        id: 'explore-layout',
-        triggers: 'explore-updateLayout',
-        dispatch: 'explore-layoutUpdated',
-        description: '[explore view] The currently used layout.',
-        type: '?string',
         value: null
       }
     ],
@@ -845,6 +834,8 @@
         success: function(data) {
           this.update('space', data);
           this.update('spaceId', data.id);
+          this.update('version', 0);
+          this.update('isModified', null);
         },
         error: function(m, x, p) {
           if (m === 'INVALID_EMAIL')
@@ -862,7 +853,6 @@
         type: 'GET',
         before: appBefore,
         success: function(data) {
-          console.log(data);
           this.update('space', data.space);
           this.update('graph', data.graph);
 
@@ -927,7 +917,7 @@
        */
       {
         id: 'saveGraphData',
-        url: '/api/space/graph/:spaceId/:version',
+        url: '/api/space/:spaceId/graph/:version',
         dataType: 'json',
         contentType: 'application/json',
         type: 'POST',

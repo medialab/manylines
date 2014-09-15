@@ -9,11 +9,12 @@
    * *******************
    */
   app.settings = {
-    storageKey: 'app-current',
+    alertsDelay: 2000,
     i18n: {
       lang: 'en',
       url: '/locales/__lng__/__ns__.json'
-    }
+    },
+    storageKey: 'app-current'
   };
 
   /**

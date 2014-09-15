@@ -103,7 +103,7 @@ module.exports = {
           space: {
             id: id,
             email: result.space.email,
-            version: version
+            version: +version
           },
           graph: result.graph
         });
