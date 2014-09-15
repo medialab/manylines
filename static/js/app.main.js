@@ -855,6 +855,7 @@
         success: function(data) {
           this.update('space', data.space);
           this.update('graph', data.graph);
+          this.update('meta', data.meta);
 
           if (typeof this.get('version') !== 'number')
             this.update('version', 0);

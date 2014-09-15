@@ -105,7 +105,8 @@ module.exports = {
             email: result.space.email,
             version: +version
           },
-          graph: result.graph
+          graph: result.graph,
+          meta: result.meta
         });
       });
     }

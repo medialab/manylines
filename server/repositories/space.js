@@ -22,7 +22,7 @@ exports.initialize = function(email, password, graphData, graphMeta, callback) {
         graphs: [
           {
             id: graph.id,
-            metas: graphMeta
+            meta: graphMeta
           }
         ]
       };
@@ -53,7 +53,11 @@ exports.getVersion = function(id, version, callback) {
         return next(new Error('inexistant-version'));
 
       models.graph.get(space.graphs[version].id, function(err, graph) {
-        next(err, {space: space, graph: graph});
+        next(err, {
+          space: space,
+          graph: graph,
+          meta: space.graphs[version].meta
+        });
       });
     }
   ], callback);

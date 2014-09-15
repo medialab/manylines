@@ -72,6 +72,7 @@ describe('When using the API', function() {
 
         assert(res.body.space.email === 'test@test.com');
         assert(res.body.graph.nodes.length === 2);
+        assert.deepEqual(res.body.meta, test.samples.meta);
         done();
       });
   });
