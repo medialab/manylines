@@ -983,23 +983,6 @@
           else
             app.danger(i18n.t('errors.default'));
         }
-      },
-      {
-        id: 'loadAllSnapshots',
-        url: '/api/space/snapshot/:spaceId',
-        dataType: 'json',
-        contentType: 'application/json',
-        type: 'GET',
-        before: appBefore,
-        success: function(data) {
-          this.update('snapshots', data);
-        },
-        error: function(m, x, p) {
-          if (+x.status === 401)
-            this.dispatchEvent('requireLogin');
-          else
-            app.danger(i18n.t('errors.default'));
-        }
       }
     ]
   });
