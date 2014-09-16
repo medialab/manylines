@@ -31,7 +31,7 @@ var schemas = {
   // A succession of snapshots organized as slides
   narrative: {
     title: 'string',
-    slides: ['?slide'],
+    slides: ['slide'],
     space: 'string',
     version: 'number'
   },

@@ -37,6 +37,16 @@ var test = {
       filters: [
         {category: 'whatever', values: ['a', 'b']}
       ]
+    },
+    narrative: {
+      title: 'My fancy narrative.',
+      slides: [
+        {
+          snapshot: null,
+          title: 'My first slide.',
+          text: 'I have so many interesting things to say.'
+        }
+      ]
     }
   }
 };

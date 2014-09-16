@@ -18,8 +18,26 @@ module.exports = {
    *
    */
   create: {
+    validate: {
+      id: 'string',
+      version: 'string',
+      narrative: {
+        title: 'string',
+        slides: ['slide']
+      }
+    },
+    policies: 'authenticated',
     method: function(req, res) {
+      var id = req.param('id'),
+          version = +req.param('version'),
+          narrative = req.param('narrative');
 
+      repositories.narrative.create(id, version, narrative, function(err, narrativeId) {
+        if (err)
+          return res.error(err, 400);
+
+        res.json({id: narrativeId});
+      });
     }
   },
 
@@ -42,8 +60,20 @@ module.exports = {
    *
    */
   getAll: {
+    validate: {
+      id: 'string',
+      version: 'string'
+    },
     method: function(req, res) {
+      var id = req.param('id'),
+          version = req.param('version');
 
+      repositories.narrative.retrieve(id, version, function(err, narratives) {
+        if (err)
+          return res.error(err, 400);
+
+        res.json(narratives);
+      });
     }
   },
 
@@ -54,8 +84,23 @@ module.exports = {
    *
    */
   update: {
+    validate: {
+      id: 'string',
+      narrative: {
+        title: 'string',
+        slides: ['slide']
+      }
+    },
     method: function(req, res) {
+      var id = req.param('id'),
+          narrative = req.param('narrative');
 
+      repositories.narrative.update(id, narrative, function(err, result) {
+        if (err)
+          return res.error(err, 400);
+
+        res.json({ok: true});
+      });
     }
   }
 };

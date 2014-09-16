@@ -58,7 +58,6 @@ describe('When using models', function() {
 
     test.models.user.create(userData, function(err, result) {
       assert(err instanceof Error);
-      assert(err.message === 'model.create:wrong-data');
       done();
     });
   });
