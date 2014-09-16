@@ -6,7 +6,7 @@
 var assert = require('assert'),
     test = require('./setup.js');
 
-describe('When using models', function() {
+describe('Concerning models', function() {
   var cache = {};
 
   it('should be possible to instantiate one.', function() {

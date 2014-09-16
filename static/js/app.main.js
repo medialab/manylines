@@ -87,7 +87,7 @@
       struct: 'array'
     });
 
-  if (!domino.struct.isValid('Narrative'))
+  if (!domino.struct.isValid('Narratives'))
     domino.struct.add({
       id: 'Narratives',
       struct: [{
@@ -157,6 +157,14 @@
         dispatch: ['dataUpdated', 'snapshotsUpdated'],
         description: 'The current graph\'s snapshots.',
         type: '?Snapshots',
+        value: null
+      },
+      {
+        id: 'narratives',
+        triggers: ['updateData', 'updateNarratives'],
+        dispatch: ['dataUpdated', 'narrativesUpdated'],
+        description: 'The current graph\'s narratives.',
+        type: '?Narratives',
         value: null
       },
 

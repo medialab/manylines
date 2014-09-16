@@ -36,6 +36,9 @@ var schemas = {
     version: 'number'
   },
 
+  // A graph's metadata definition
+  meta: '?object',
+
   // A precise view of a graph
   snapshot: {
     id: '?string',
