@@ -788,11 +788,6 @@
           this.update('view', 'upload');
         }
       }
-
-      /**
-       * Temporary development stuffs:
-       * *****************************
-       */
     ],
     services: [
       /**
@@ -944,6 +939,53 @@
         success: function(data) {
           this.update('snapshots', data);
           // this.update('isModified', null);
+        },
+        error: function(m, x, p) {
+          if (+x.status === 401)
+            this.dispatchEvent('requireLogin');
+          else
+            app.danger(i18n.t('errors.default'));
+        }
+      },
+
+      /**
+       * Narratives:
+       * ***********
+       */
+      {
+        id: 'createNarrative',
+        url: '/api/space/:spaceId/narrative/:version',
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'POST',
+        before: function() {
+          if (typeof this.get('version') !== 'number')
+            return this.warn('A version number is needed for this request.');
+          appBefore.apply(this, arguments);
+        },
+        success: function(data) {
+          app.success(i18n.t('narratives.created'));
+        },
+        error: function(m, x, p) {
+          if (+x.status === 401)
+            this.dispatchEvent('requireLogin');
+          else
+            app.danger(i18n.t('errors.default'));
+        }
+      },
+      {
+        id: 'loadNarratives',
+        url: '/api/space/:spaceId/narratives/:version',
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'GET',
+        before: function() {
+          if (typeof this.get('version') !== 'number')
+            return this.warn('A version number is needed for this request.');
+          appBefore.apply(this, arguments);
+        },
+        success: function(data) {
+          this.update('narratives', data);
         },
         error: function(m, x, p) {
           if (+x.status === 401)

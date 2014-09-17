@@ -11,7 +11,6 @@
     "take_views": "Take views",
     "narratives": "Narratives"
   },
-
   "space": {
     "save_graph": "Save the graph",
     "save_graph_description": "You need to select a password to prevent your network to be edited by other people, and an email address in case you forget the password.",
@@ -70,6 +69,7 @@
     }
   },
   "narratives": {
+    "created": "Narrative created",
     "back_button": "Back to narratives",
     "default_narrative_title": "New Narrative",
     "default_slide_title": "Slide Title",
