@@ -284,8 +284,11 @@
 
     this.import = function(o) {
       this.clear();
-      this.set(o.category);
-      this.values = o.values;
+
+      if (o) {
+        this.set(o.category);
+        this.values = o.values;
+      }
       return this;
     };
 
@@ -303,10 +306,10 @@
     };
 
     this.export = function() {
-      return {
+      return (!this.category ? null : {
         category: this.category.id,
         values: this.values
-      };
+      });
     }
 
     this.removeAll = function() {

@@ -689,7 +689,7 @@
                     angle: cam.angle
                   }
                 },
-                filters: [e.data.filter]
+                filters: e.data.filter ? [e.data.filter] : []
               }
             }
           });

@@ -40,13 +40,13 @@
         // Creating thumbnails
         snapshots.forEach(function(snapshot, i) {
           var c = app.utils.first(meta.model.node, function(c) {
-            return c.id === snapshot.filters[0].category;
+            return c.id === (snapshot.filters[0] || {}).category;
           });
 
           self.snapshotThumbnails.push(
             $('[data-app-thumbnail-snapshot="' + snapshot.id + '"].view-thumbnail').thumbnail(s, {
               category: c,
-              filter: snapshot.filters[0].values,
+              filter: (snapshot.filters[0] || {}).values || [],
               camera: snapshot.view.camera
             })
           );
@@ -76,6 +76,9 @@
     // Columns layout
     function openPanel(panelName, options) {
       options = options || {};
+
+      if (!options.category)
+        return;
 
       app.templates.require(panelName, function(template) {
         var panel;

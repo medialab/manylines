@@ -18,7 +18,7 @@
       this.kill();
 
       // Do we want to map colors or just display a filter
-      var c = params.category;
+      var c = params.category || {};
       if (c.noDisplay)
         return;
 
@@ -38,7 +38,7 @@
         container: el,
         data: {
           category: c,
-          values: c.values.reduce(function(res, obj) {
+          values: (c.values || []).reduce(function(res, obj) {
             res[obj.id] = obj.color;
             return res;
           }, {}),
