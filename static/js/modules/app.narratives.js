@@ -9,6 +9,7 @@
     // Properties
     this.title = data ? data.title : i18n.t('narratives.default_narrative_title');
     this.slides = [];
+    this.isNew = false;
 
     // Methods
     this.addSlide = function(snapshot, data) {
@@ -66,6 +67,10 @@
     };
   }
 
+  // Persistent data
+  // TODO: clear this dirty trick for god's sake.
+  var currentNarrative = null;
+
   app.pkg('app.modules');
   app.modules.narratives = function(dom, d) {
     var self = this,
@@ -77,7 +82,6 @@
      */
     this.sigmaController = null;
     this.snapshotThumbnails = [];
-    this.currentNarrative = null;
     this.currentSlide = null;
 
     /**
@@ -119,13 +123,14 @@
     function edition(data) {
 
       // Setting the current narrative
-      self.currentNarrative = new Narrative(data);
+      if (!(data instanceof Narrative))
+        currentNarrative = new Narrative(data);
 
       // Fetching the template
       app.templates.require('app.narratives.edit', function(template) {
 
         // Templating the edition view
-        $('.main').parent().replaceWith(template(self.currentNarrative));
+        $('.main').parent().replaceWith(template(currentNarrative));
 
         // Rendering the snapshots
         self.renderSnapshots();
@@ -152,7 +157,7 @@
               var snapshot = $(e.item).find('.view-thumbnail').attr('data-app-thumbnail-snapshot');
 
               // Adding a slide
-              self.currentSlide = self.currentNarrative.addSlide(snapshot);
+              self.currentSlide = currentNarrative.addSlide(snapshot);
 
               // Rendering
               slide(self.currentSlide);
@@ -164,7 +169,7 @@
               $(e.item).children().removeClass('active');
 
               // Removing a slide
-              self.currentNarrative.removeSlide(snapshot);
+              currentNarrative.removeSlide(snapshot);
 
               // Do we need to clean the rendered slide?
               if (self.currentSlide.snapshot === snapshot) {
@@ -180,7 +185,7 @@
               });
 
               // Impacting model
-              self.currentNarrative.orderSlides(order);
+              currentNarrative.orderSlides(order);
             }
           }
         );
@@ -256,14 +261,14 @@
 
     // Inline editors
     $('body').on('change', '[data-app-narratives-editable]', function() {
-      if (!self.currentNarrative)
+      if (!currentNarrative)
         return;
 
       var prop = $(this).attr('data-app-narratives-editable');
 
       var responses = {
         title: function() {
-          self.currentNarrative.title = $(this).val().trim();
+          currentNarrative.title = $(this).val().trim();
         },
         slide_title: function() {
           self.currentSlide.title = $(this).val().trim();
@@ -281,7 +286,7 @@
       if ($(this).parent().hasClass('active'))
         return;
 
-      self.currentSlide = self.currentNarrative.getSlide($(this).attr('data-app-thumbnail-snapshot'));
+      self.currentSlide = currentNarrative.getSlide($(this).attr('data-app-thumbnail-snapshot'));
 
       // Rendering
       slide(self.currentSlide);
@@ -350,7 +355,6 @@
     this.reinitialize = function() {
 
       // Resetting model
-      this.currentNarrative = null;
       this.currentSlide = null;
 
       // Killing thumbnails
@@ -364,6 +368,9 @@
     /**
      * Module Initialization
      */
-    menu();
+    if (currentNarrative)
+      edition(currentNarrative);
+    else
+      menu();
   };
 }).call(this);
