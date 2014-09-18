@@ -76,19 +76,3 @@
     sigma.tasks[name].call(this, new Piper(this));
   };
 }).call(this);
-
-/*
-sigma.task('highlight', function(graph) {
-  return graph.src('nodes')
-    .pipe(function(node) {
-      node.color = '#FD6C9E';
-    })
-    .pipe(function(node) {
-      node.size = 20;
-    })
-    .pipe(function(node) {
-      node.label = 'Muhahaha';
-    })
-    .refresh();
-});
-*/
