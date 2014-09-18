@@ -1,27 +1,50 @@
-;(function() {
-  'use strict';
-
-  var root = this;
-  root.app = root.app || {};
+;(function(undefined) {
 
   /**
-   * TubeMyNet Settings:
-   * *******************
+   * TubeMyNet Application Settings
+   * ===============================
+   *
+   * Generic options concerning graph rendering, graph layout and so on...
    */
   app.settings = {
-    alertsDelay: 2000,
+
+    // Options concerning the alerting system
+    alerts: {
+      delay: 2000
+    },
+
+    // Misc defaults concerning colors
+    colors: {
+      mutedBasis: 248,
+      weakCategory: '#aaa'
+    },
+
+    // Domino global settings
+    domino: {
+      displayTime: true,
+      verbose: true,
+      strict: true
+    },
+
+    // Internationalization options
     i18n: {
       lang: 'en',
       url: '/locales/__lng__/__ns__.json'
     },
-    storageKey: 'app-current'
-  };
 
-  /**
-   * TubeMyNet Defaults Parameters:
-   * ******************************
-   */
-  app.defaults = {
+    // Layout defaults
+    forceAtlas2: {
+      strongGravityMode: true,
+      gravity: 0.05,
+      scalingRatio: 10,
+      slowDown: 2,
+      nodesize: "degree"
+    },
+
+    // Renderer to use by default for the main graph
+    renderer: 'webgl',
+
+    // Default graph rendering options
     sigma: {
       hideEdgesOnMove: true,
       font: 'Roboto Condensed',
@@ -37,17 +60,10 @@
       zoomMin: 0.002,
       zoomMax: 2
     },
-    renderer: 'webgl',
-    colors: {
-      mutedBasis: 248,
-      weakCategory: '#aaa'
-    },
-    forceAtlas2: {
-      strongGravityMode: true,
-      gravity: 0.05,
-      scalingRatio: 10,
-      slowDown: 2,
-      nodesize: "degree"
+
+    // Storage utilities
+    store: {
+      key: 'app-current'
     }
   };
 }).call(this);

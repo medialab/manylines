@@ -1,50 +1,20 @@
-;(function() {
-  'use strict';
+;(function(undefined) {
 
-  // DOM root:
-  app.dom = app.dom || $('body');
-  app.alertsDom = app.alertsDom || $('#app-alerts-container');
+  /**
+   * TubeMyNet Application Initialization
+   * =====================================
+   *
+   * Instantiating the controller and launching the application.
+   */
 
-  // Load dictionary:
-  function loadDictionary(next) {
-    i18n.init({
-      lng: app.settings.i18n.lang,
-      fallbackLng: app.settings.i18n.lang,
-      resGetPath: app.settings.i18n.url,
-      ns: {
-        namespaces: ['translation'],
-        defaultNs: 'translation'
-      }
-    }, function(t) {
+  // Setup domino
+  domino.settings(app.settings.domino);
 
-      // Translate DOM:
-      app.dom.i18n();
-      next();
-    });
-  }
+  // Setup controller
+  app.control = new domino({
+    properties: app.properties,
+    services: app.services
+  });
 
-  // Layout
-  function layout(next) {
-
-    // Instanciate layout:
-    app.control.addModule(app.modules.layout, [app.control]);
-    next();
-  }
-
-  app.init = function() {
-
-    // Triggering series of asynchronous initialization prerequisistes
-    contra.series([
-      loadDictionary,
-      layout
-    ], function(err) {
-
-      // Trigger init hack:
-      app.control.log('App initialization.');
-      app.control.dispatchEvent('init');
-    });
-  };
-
-  // Launching application
-  app.init();
+  // Setup facets
 }).call(this);
