@@ -95,10 +95,7 @@
         t = t.hasClass('.network-item') ? t : t.parents('.network-item');
         cat = t.attr('data-app-thumbnail-category');
 
-        if (typeof self.filter.category === 'object')
-          openPanel('category', {
-            category: self.filter.category
-          });
+        self.openPanel('category', {category: app.control.query('nodeCategory', cat)});
       });
     };
 

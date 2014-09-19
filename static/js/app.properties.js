@@ -147,7 +147,7 @@
   app.queries = [
     {
       id: 'nodeCategory',
-      description: 'Retrieve a precise node category else null.',
+      description: 'Retrieve a precise node category else undefined.',
       method: function(name) {
         var model = this.expand('nodeModel');
 
