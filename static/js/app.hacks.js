@@ -50,6 +50,15 @@
         if (!spaceId || !version)
           return this.update('pane', 'upload');
 
+        // Do we need to retrieve space data?
+        if (spaceId && !this.expand('version'))
+          this.request('space.load', {
+            shortcuts: {
+              spaceId: spaceId,
+              version: version
+            }
+          });
+
         this.update('pane', wantedPane);
       }
     },
@@ -60,8 +69,12 @@
     {
       triggers: 'menu.request',
       method: function(e) {
-        // TODO: enforce correct use...
-        console.log(e.data);
+        var desiredPane = e.data;
+
+        if (!this.get('graph') && desiredPane !== 'upload')
+          return;
+
+        this.update('pane', desiredPane);
       }
     }
   ];
@@ -95,7 +108,8 @@
           meta[k] = e.data.meta[k];
 
         // Reading graph
-        this.get('mainSigma').graph.read(graph);
+        var s = this.get('mainSigma');
+        s.graph.clear().read(graph);
 
         // Updating properties
         this.update({
@@ -127,7 +141,9 @@
         else {
 
           if (newSpace) {
-            this.request('createSpace', {
+
+            // Creating a new space
+            this.request('space.create', {
               data: {
                 email: e.data.email,
                 password: e.data.password,
@@ -135,6 +151,14 @@
                 meta: this.get('meta')
               }
             });
+          }
+          else {
+
+            // Saving the current space
+            var modified = this.get('modified');
+
+            // TODO: route to update metas
+            // TODO: possibility to update narratives
           }
         }
 

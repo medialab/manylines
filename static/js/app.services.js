@@ -76,7 +76,7 @@
      * -----------------
      */
     {
-      id: 'createSpace',
+      id: 'space.create',
       url: '/api/space',
       type: 'POST',
       before: function() {
@@ -93,7 +93,7 @@
       error: onInvalidData
     },
     {
-      id: 'loadSpace',
+      id: 'space.load',
       url: '/api/space/:spaceId/:version',
       success: function(data) {
 
@@ -103,9 +103,13 @@
         this.update('meta', data.meta);
         this.update('snapshots', data.snapshots);
 
-        if (typeof this.get('version') !== 'number')
-          this.update('version', 0);
-      }
+        // Updating graph
+        // TODO: put this elsewhere
+        var s = this.get('mainSigma');
+        s.graph.clear().read(data.graph);
+        s.refresh();
+      },
+      error: onLoginNeeded
     }
   ];
 

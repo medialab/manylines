@@ -31,7 +31,9 @@
       "/js/modules/module.modals.js",
       "/js/modules/pane.upload.js",
       "/js/modules/pane.basemap.js",
+      "/js/modules/pane.dashboard.js",
       "/js/modules/pane.snapshots.js",
+      "/js/modules/pane.narratives.js",
       "/js/app.init.js"
     ],
 
