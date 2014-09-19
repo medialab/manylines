@@ -157,8 +157,16 @@
             // Saving the current space
             var modified = this.get('modified');
 
-            // TODO: route to update metas
             // TODO: possibility to update narratives
+            // TODO: domino has a bug where it will force the execution
+            // of twice the first service here...
+            for (var k in modified) {
+              var data = {};
+              data[k] = this.get(k);
+              this.request(k + '.update', {
+                data: data
+              });
+            }
           }
         }
 

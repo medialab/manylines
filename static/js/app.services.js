@@ -110,6 +110,31 @@
         s.refresh();
       },
       error: onLoginNeeded
+    },
+
+    /**
+     * Data Update
+     * ------------
+     */
+    {
+      id: 'graph.update',
+      url: '/api/space/:spaceId/graph/:version',
+      type: 'POST',
+      success: function(data) {
+        var modified = this.get('modified');
+        delete modified.graph;
+        this.update('modified', modified);
+      }
+    },
+    {
+      id: 'meta.update',
+      url: '/api/space/:spaceId/meta/:version',
+      type: 'POST',
+      success: function(data) {
+        var modified = this.get('modified');
+        delete modified.meta;
+        this.update('modified', modified);
+      }
     }
   ];
 
