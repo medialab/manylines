@@ -20,7 +20,6 @@
 
     // Properties
     this.thumbnails = [];
-    this.openedPanel = null;
 
     // Emitters
     this.emitters = function(dom) {
@@ -119,11 +118,6 @@
     this.openPanel = function(kind, options) {
       var path = kind === 'force' ? 'basemap.forcePanel' : 'misc.categoryPanel',
           dom = self.dom;
-
-      if (this.openedPanel === kind)
-        return;
-
-      this.openedPanel = kind;
 
       // Retrieving template
       app.templates.require(path, function(template) {
