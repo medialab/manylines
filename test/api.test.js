@@ -196,6 +196,28 @@ describe('Concerning the API', function() {
           });
         });
     });
+
+    it('should be possible to update some graph meta.', function(done) {
+      var newMeta = {author: 'Napoleon Bonaparte'};
+
+      agent
+        .post('/api/space/' + cache.spaceId + '/meta/0')
+        .send({meta: newMeta})
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end(function(err, res) {
+          if (err)
+            throw err;
+
+          assert(res.body.ok);
+
+          // Checking data in model
+          models.space.get(cache.spaceId, function(err, space) {
+            assert.deepEqual(space.graphs[0].meta, newMeta);
+            done();
+          });
+        });
+    });
   });
 
   // SNAPSHOTS

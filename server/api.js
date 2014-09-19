@@ -79,6 +79,7 @@ router.post('/space/:id/bump', controllers.space.bump);
 // Graph sub space routes
 router.get('/space/:id/graph/:version', controllers.graph.get);
 router.post('/space/:id/graph/:version', controllers.graph.update);
+router.post('/space/:id/meta/:version', controllers.graph.updateMeta);
 
 // Snapshot sub space routes
 router.get('/space/:id/snapshots/:version', controllers.snapshot.get);

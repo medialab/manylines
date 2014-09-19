@@ -96,6 +96,24 @@ exports.updateGraphData = function(id, version, data, callback) {
   ], callback);
 };
 
+exports.updateGraphMeta = function(id, version, data, callback) {
+
+  // Retrieving space and update said version
+  async.waterfall([
+    function space(next) {
+      models.space.get(id, next);
+    },
+    function updateMeta(space, next) {
+      if (!space || space.graphs.length - 1 < version)
+        return next(new Error('inexistant-version'));
+
+      space.graphs[version].meta = data;
+
+      models.space.set(id, space, next);
+    }
+  ], callback);
+};
+
 exports.addSnapshot = function(id, version, data, callback) {
 
   // Checking the snapshot is valid

@@ -35,6 +35,12 @@ module.exports = {
     }
   },
 
+  /**
+   * update:
+   * -------
+   * Update the data of a precise graph version.
+   *
+   */
   update: {
     validate: {
       id: 'string',
@@ -51,6 +57,33 @@ module.exports = {
           graph = req.param('graph');
 
       repositories.space.updateGraphData(id, version, graph, function(err) {
+        if (err)
+          return res.error(err, 404);
+
+        res.json({ok: true});
+      });
+    }
+  },
+
+  /**
+   * updateMeta:
+   * -----------
+   * Update the meta of a precise graph version.
+   *
+   */
+  updateMeta: {
+    validate: {
+      id: 'string',
+      version: 'string',
+      meta: 'object'
+    },
+    policies: 'authenticated',
+    method: function(req, res) {
+      var id = req.param('id'),
+          version = +req.param('version'),
+          meta = req.param('meta');
+
+      repositories.space.updateGraphMeta(id, version, meta, function(err) {
         if (err)
           return res.error(err, 404);
 
