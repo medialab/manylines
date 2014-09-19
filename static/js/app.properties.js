@@ -76,14 +76,44 @@
     }
   ];
 
-  // TODO: Probably move elsewhere
-  app.temporaryFacets = [
+  // Model shortcuts
+  app.shortcuts = [
     {
       id: 'spaceId',
-      description: 'Returns the current space id if present or null.',
+      description: 'Returns the current space id if present or undefined.',
       method: function() {
-        return (this.get('space') || {}).id || null;
+        return (this.get('space') || {}).id;
       }
-    }// version?, something modified?
+    },
+    {
+      id: 'version',
+      description: 'Returns the current version of the graph or undefined.',
+      method: function() {
+        return (this.get('space') || {}).version;
+      }
+    },
+    {
+      id: 'forceAtlasConfig',
+      description: 'Retrieves Force Atlas configuration through the meta property.',
+      method: function() {
+        return (this.get('meta') || {}).forceAtlasConfig;
+      }
+    },
+    {
+      id: 'isSomethingModified',
+      description: 'Returns whether anything has been modified yet and needs to be saved.',
+      method: function() {
+        return !!Object.keys(this.get('modified')).length;
+      }
+    },
+    {
+      id: 'isSpaceNew',
+      description: 'Returns whether the current space has already been saved at least once.',
+      method: function() {
+
+        // Alias of the spaceId shortcut for readability purposes
+        return this.expand('spaceId');
+      }
+    }
   ];
 }).call(this);

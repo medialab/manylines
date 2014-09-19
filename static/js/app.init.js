@@ -12,11 +12,11 @@
 
   // Setup controller
   app.control = new domino({
+    hacks: app.hacks,
     properties: app.properties,
-    services: app.services
+    services: app.services,
+    shortcuts: app.shortcuts
   });
-
-  // Setup facets
 
   // Initialization routine
   app.init = function() {

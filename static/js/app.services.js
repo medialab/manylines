@@ -79,7 +79,12 @@
       id: 'createSpace',
       url: '/api/space',
       type: 'POST',
-      succes: function(data) {
+      before: function() {
+
+        // Do not create a space if the space is already created
+        return this.expand('isSpaceNew');
+      },
+      success: function(data) {
 
         // Updating properties
         this.update('space', data);

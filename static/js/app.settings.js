@@ -64,6 +64,13 @@
     // Storage utilities
     store: {
       key: 'app-current'
+    },
+
+    // Handlebars templates
+    templates: {
+      path: '/templates/',
+      prefix: 'app',
+      suffix: 'handlebars'
     }
   };
 }).call(this);

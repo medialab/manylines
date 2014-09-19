@@ -18,7 +18,10 @@
       "/js/app.utils.js",
       "/js/app.schemas.js",
       "/js/app.properties.js",
+      "/js/app.hacks.js",
       "/js/app.services.js",
+      "/js/misc/handlebars.helpers.js",
+      "/js/misc/app.templates.js",
       "/js/app.init.js"
     ],
 
