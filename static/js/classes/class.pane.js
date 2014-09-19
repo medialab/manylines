@@ -81,6 +81,9 @@
 
         // Registering emitters
         self.emitters && (self.emitters(self.dom));
+
+        // Hook
+        self.didRender && (self.didRender())
       });
     };
 
@@ -97,6 +100,8 @@
         // Unmounting graph renderer
         $('.sigma-panel')[0].removeChild(app.control.get('mainRendererContainer'));
       }
+
+      this.willUnmount && (this.willUnmount())
     };
   };
 }).call(this);

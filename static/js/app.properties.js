@@ -115,7 +115,7 @@
       id: 'forceAtlasConfig',
       description: 'Retrieves Force Atlas configuration through the meta property.',
       method: function() {
-        return (this.get('meta') || {}).forceAtlasConfig;
+        return (this.get('meta') || {}).forceAtlasConfig || app.settings.forceAtlas2;
       }
     },
     {
@@ -132,6 +132,13 @@
 
         // Alias of the spaceId shortcut for readability purposes
         return !this.expand('spaceId');
+      }
+    },
+    {
+      id: 'nodeModel',
+      description: 'Little helper to return a node model if existant or an empty array otherwise.',
+      method: function() {
+        return ((this.get('meta') || {}).model || {}).node || [];
       }
     }
   ];
