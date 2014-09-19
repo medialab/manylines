@@ -142,4 +142,19 @@
       }
     }
   ];
+
+  // Model queries
+  app.queries = [
+    {
+      id: 'nodeCategory',
+      description: 'Retrieve a precise node category else null.',
+      method: function(name) {
+        var model = this.expand('nodeModel');
+
+        return app.utils.first(model, function(category) {
+          return name === category.id;
+        });
+      }
+    }
+  ];
 }).call(this);

@@ -85,6 +85,21 @@
 
         self.dispatchEvent('layout.update', app.utils.extend(opt, settings));
       });
+
+      /**
+       * Clicking on a category
+       */
+      dom.on('click', '.network-item', function(e) {
+        var cat,
+            t = $(e.target);
+        t = t.hasClass('.network-item') ? t : t.parents('.network-item');
+        cat = t.attr('data-app-thumbnail-category');
+
+        if (typeof self.filter.category === 'object')
+          openPanel('category', {
+            category: self.filter.category
+          });
+      });
     };
 
     // Methods
@@ -104,7 +119,7 @@
     };
 
     // TODO: this is messy, find a more suited way
-    this.openPanel = function(kind) {
+    this.openPanel = function(kind, options) {
       var path = kind === 'force' ? 'basemap.forcePanel' : 'misc.categoryPanel',
           dom = self.dom;
 
@@ -127,7 +142,10 @@
           $('.forcelayout-container', dom).addClass('active');
         }
         else {
+          panel = $(template(options.category));
+          $('.network-item[data-app-thumbnail-category="' + options.category.id + '"]', dom).addClass('active');
 
+          // s.mapColors(options.category);
         }
 
         // Events:

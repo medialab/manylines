@@ -89,6 +89,24 @@
         app.control.addModule(app.modules.modals);
 
         next();
+      },
+
+      // Configuring model queries
+      queries: function(next) {
+
+        var index = {};
+        app.queries.forEach(function(q) {
+          index[q.id] = q.method;
+        });
+
+        app.control.query = function(id) {
+          if (!(id in index))
+            throw Error('app.control.query: inexistant query.');
+
+          return index[id].apply(app.control, Array.prototype.slice.call(arguments, 1));
+        };
+
+        next();
       }
     }, function(err) {
 
