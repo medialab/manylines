@@ -14,10 +14,7 @@
     Pane.call(this, {name: 'upload'});
 
 
-    /**
-     * Emitters
-     * ---------
-     */
+    // Emitters
     this.emitters = function(dom) {
 
       /**

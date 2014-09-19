@@ -169,7 +169,49 @@
             }
           }
         }
+      }
+    },
 
+    /**
+     * Update the layout settings
+     */
+    {
+      triggers: 'layout.update',
+      method: function(e) {
+        var meta = this.get('meta'),
+            modified = this.get('modified');
+
+        var newLayout = app.graph.layoutConstraints(e.data);
+        meta.forceAtlasConfig = newLayout;
+
+        this.update('meta', meta);
+
+        modified.meta = true;
+        this.update('modified', modified);
+        this.dispatchEvent('layout.updated', newLayout);
+      }
+    },
+
+    /**
+     * Layout start
+     */
+    {
+      triggers: 'layout.start',
+      method: function(e) {
+        var modified = this.get('modified');
+
+        modified.graph = true;
+        this.update('modified', modified);
+      }
+    },
+
+    /**
+     * Layout stop
+     */
+    {
+      triggers: 'layout.stop',
+      method: function(e) {
+        // TODO: update graph data from sigma (design function to do so)
       }
     }
   ];

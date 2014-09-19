@@ -115,7 +115,7 @@
       id: 'forceAtlasConfig',
       description: 'Retrieves Force Atlas configuration through the meta property.',
       method: function() {
-        return (this.get('meta') || {}).forceAtlasConfig || app.settings.forceAtlas2;
+        return app.utils.extend((this.get('meta') || {}).forceAtlasConfig || {}, app.settings.forceAtlas2);
       }
     },
     {

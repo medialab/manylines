@@ -17,6 +17,7 @@
       "/js/classes/class.pane.js",
       "/js/classes/class.thumbnail.js",
       "/js/graph/category.colors.js",
+      "/js/graph/layout.constraints.js",
       "/js/graph/sigma.plugins.pipe.js",
       "/js/graph/sigma.renderers.thumbnail.js",
       "/js/app.settings.js",
