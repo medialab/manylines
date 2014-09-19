@@ -157,7 +157,7 @@ module.exports = {
           return res.json({
             id: space.id,
             email: space.email,
-            version: 1
+            version: 0
           });
         }
       );

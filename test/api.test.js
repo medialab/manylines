@@ -60,7 +60,7 @@ describe('Concerning the API', function() {
           // Checking results
           assert(!!res.body.id);
           assert(res.body.email === data.email);
-          assert(res.body.version === 1);
+          assert(res.body.version === 0);
 
           // Caching
           cache.spaceId = res.body.id;

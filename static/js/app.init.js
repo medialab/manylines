@@ -41,11 +41,60 @@
           $('body').i18n();
           next();
         });
+      },
+
+      // Sigma initialization
+      sigma: function(next) {
+
+        // Instantiating
+        var s = new sigma({settings: app.settings.sigma});
+
+        // Creating the main cameras
+        s.addCamera('main');
+        s.addCamera('static');
+
+        // Creating the main renderer
+        var container = document.createElement('div');
+        container.setAttribute('class', 'sigma-expand');
+
+        s.addRenderer({
+          container: container,
+          camera: 'main',
+          type: app.settings.renderer,
+          id: 'main'
+        });
+
+        // TODO: Clear that HACK
+        // Fixes problem with sigma and window resizing
+        window.addEventListener('resize', function() {
+          window.setTimeout(s.refresh.bind(s), 0);
+        });
+
+        // Updating properties
+        app.control.update({
+          mainSigma: s,
+          mainRendererContainer: container
+        });
+
+        next();
+      },
+
+      // Registering vital modules
+      modules: function(next) {
+
+        app.control.addModule(app.modules.location);
+        app.control.addModule(app.modules.layout);
+        app.control.addModule(app.modules.menu);
+        app.control.addModule(app.modules.status);
+        app.control.addModule(app.modules.modals);
+
+        next();
       }
     }, function(err) {
 
       // Initialization went well, dispatching
       app.control.dispatchEvent('app.initialized');
+      app.control.dispatchEvent('hash.load', {hash: window.location.hash});
     });
   };
 

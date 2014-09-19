@@ -130,7 +130,7 @@ exports.getSnapshots = function(id, version, callback) {
   // Retrieving the snapshots within the space
   models.space.get(id, function(err, space) {
     if (!space || space.graphs.length - 1 < version)
-      return next(new Error('inexistant-version'));
+      return callback(new Error('inexistant-version'));
 
     callback(null, space.graphs[version].snapshots || []);
   });

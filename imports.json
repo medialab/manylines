@@ -14,6 +14,8 @@
       "/js/lib/sigma.parsers.gexf.custom.js",
       "/js/lib/sigma.layout.forceAtlas2.min.js",
       "/js/app.js",
+      "/js/classes/class.pane.js",
+      "/js/graph/category.colors.js",
       "/js/app.settings.js",
       "/js/app.utils.js",
       "/js/app.schemas.js",
@@ -22,6 +24,14 @@
       "/js/app.services.js",
       "/js/misc/handlebars.helpers.js",
       "/js/misc/app.templates.js",
+      "/js/modules/module.location.js",
+      "/js/modules/module.layout.js",
+      "/js/modules/module.menu.js",
+      "/js/modules/module.status.js",
+      "/js/modules/module.modals.js",
+      "/js/modules/pane.upload.js",
+      "/js/modules/pane.basemap.js",
+      "/js/modules/pane.snapshots.js",
       "/js/app.init.js"
     ],
 

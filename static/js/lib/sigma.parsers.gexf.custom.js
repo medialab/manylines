@@ -85,7 +85,6 @@
 
       // Default behavior: we use the degree to make the size
       // if(nSizeMiss){
-        console.log('node sizes missing');
         nIndex = {};
         for (i = 0, l = arr.length; i < l; i++) {
           obj = arr[i];
@@ -101,7 +100,6 @@
 
       // If node positions are missing, draw them in circle
       if(nPosMiss){
-        console.log('node positions missing');
         arr = graph.nodes;
         for (i = 0, l = arr.length; i < l; i++) {
           obj = arr[i];

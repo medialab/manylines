@@ -73,6 +73,25 @@
       description: '[state] - Object keeping track of modified data so we can save the latest update when asked.',
       type: 'object',
       value: {}
+    },
+
+    /**
+     * Sigma
+     * ------
+     */
+    {
+      id: 'mainSigma',
+      description: 'Main sigma instance used by the application.',
+      type: '?sigma',
+      value: null
+    },
+
+    // TODO: enforce through a better type
+    {
+      id: 'mainRendererContainer',
+      description: 'Main sigma renderer container cached for optimization purposes.',
+      type: '?*',
+      value: null
     }
   ];
 
@@ -100,7 +119,7 @@
       }
     },
     {
-      id: 'isSomethingModified',
+      id: 'isModified',
       description: 'Returns whether anything has been modified yet and needs to be saved.',
       method: function() {
         return !!Object.keys(this.get('modified')).length;
@@ -112,7 +131,7 @@
       method: function() {
 
         // Alias of the spaceId shortcut for readability purposes
-        return this.expand('spaceId');
+        return !this.expand('spaceId');
       }
     }
   ];

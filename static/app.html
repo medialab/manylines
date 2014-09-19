@@ -32,7 +32,7 @@
           </div>
           <div class="col-xs-3"></div>
           <div class="col-xs-2 top-row-item save save-alert">
-            <a data-i18n="main.not_saved_yet" data-app-domShow="isModified" data-app-domClick="save"></a>
+            <a data-i18n="main.not_saved_yet" style="display: none;"></a>
           </div>
           <div class="col-xs-3"></div>
           <div class="col-xs-2 top-row-item">
@@ -42,34 +42,34 @@
       </div>
     </div>
 
-    <div class="container-fluid" role="navigation">
+    <div class="container-fluid before-main" role="navigation">
       <div class="row">
         <ul class="nav nav-tmn-menu">
-          <li data-app-updateView="upload" class="active">
+          <li data-app-pane="upload" class="active">
             <a>
               <p class="nav-tmn-title" data-i18n="main.new_network"></p>
               <p class="nav-tmn-subtitle">01.</p>
             </a>
           </li>
-          <li data-app-updateView="basemap" class="">
+          <li data-app-pane="basemap" class="">
             <a>
               <p class="nav-tmn-title" data-i18n="main.basemap"></p>
               <p class="nav-tmn-subtitle">02.</p>
             </a>
           </li>
-          <li data-app-updateView="dashboard" class="">
+          <li data-app-pane="dashboard" class="">
             <a>
               <p class="nav-tmn-title" data-i18n="main.dashboard"></p>
               <p class="nav-tmn-subtitle">03.</p>
             </a>
           </li>
-          <li data-app-updateView="views" class="">
+          <li data-app-pane="snapshots" class="">
             <a>
               <p class="nav-tmn-title" data-i18n="main.take_views"></p>
               <p class="nav-tmn-subtitle">04.</p>
             </a>
           </li>
-          <li data-app-updateView="narratives" class="">
+          <li data-app-pane="narratives" class="">
             <a>
               <p class="nav-tmn-title" data-i18n="main.narratives"></p>
               <p class="nav-tmn-subtitle">05.</p>
@@ -79,11 +79,7 @@
       </div>
     </div>
 
-    <div>
-      <div class="main">
-        <!-- Main app container goes here-->
-      </div>
-    </div>
+    <div></div>
 
     <!-- Application alerts container -->
     <div id="app-alerts-container">
