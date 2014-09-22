@@ -20,6 +20,7 @@
       "/js/graph/layout.constraints.js",
       "/js/graph/sigma.plugins.pipe.js",
       "/js/graph/sigma.renderers.thumbnail.js",
+      "/js/graph/graph.tasks.js",
       "/js/app.settings.js",
       "/js/app.utils.js",
       "/js/app.schemas.js",

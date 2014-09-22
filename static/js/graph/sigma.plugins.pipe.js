@@ -73,6 +73,6 @@
       throw Error('sigma.run: inexistent task: "' + name + '".');
 
     // Applying given function
-    sigma.tasks[name].call(this, new Piper(this));
+    sigma.tasks[name].apply(this, [new Piper(this)].concat(Array.prototype.slice.call(arguments, 1)));
   };
 }).call(this);

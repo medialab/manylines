@@ -136,7 +136,7 @@
           panel = $(template(options.category));
           $('.network-item[data-app-thumbnail-category="' + options.category.id + '"]', dom).addClass('active');
 
-          // s.mapColors(options.category);
+          s.run('mapColors', options.category);
         }
 
         // Events:
@@ -163,7 +163,9 @@
       dom.find('.col-middle').empty().hide();
       $('.forcelayout-container .tirette', dom).show();
 
+      // Resising graph and resetting it
       this.resizeGraph();
+      s.run('resetColors');
     };
 
     this.resizeGraph = function() {

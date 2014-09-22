@@ -63,7 +63,6 @@
           nSizeMiss = true;
           nPosMiss = true;
         }
-        obj.trueSize = obj.size || 1;
       }
 
       arr = graph.edges;
