@@ -5,8 +5,8 @@
    * =========================
    *
    * A useful sigma.js plugin designed to save relative information about
-   * a graph's camera in order to be able to re-apply it later or on another
-   * container.
+   * a graph's camera in order to be able to re-apply it later on a
+   * potentially different container.
    *
    * Author: Guillaume Plique (Yomguithereal)
    * Version: 0.0.1

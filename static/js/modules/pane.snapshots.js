@@ -40,6 +40,35 @@
 
         e.preventDefault();
       });
+
+      /**
+       * Clicking on a snapshot to re-apply it.
+       */
+
+      // TODO: do not execute if the view is already current?
+      dom.on('click', '.views-band-container .view-item', function(e) {
+        var $target = $(this).children('.view-thumbnail'),
+            snapshotId = $target.attr('data-app-thumbnail-snapshot'),
+            snapshot = app.control.query('snapshotById', snapshotId);
+
+        // Updating camera
+        s.loadCamera('main', snapshot.view.camera);
+
+        // Closing panel
+        self.closePanel();
+
+        // Importing filter
+        self.categories.filter.import({
+          category: app.control.query('nodeCategory', (snapshot.filters[0] || {}).category),
+          values: (snapshot.filters[0] || {}).values
+        });
+
+        // Opening relevant panel
+        if (self.categories.filter.category)
+          self.openPanel('misc.categoryPanel', {
+            category: self.categories.filter.category
+          });
+      });
     };
 
     // Methods
@@ -54,11 +83,8 @@
         dom.find('*[data-app-snapshots-panel="sidebar"] .active')
           .removeClass('active');
 
-
         panel = $(template(options.category));
         $('.network-item[data-app-thumbnail-category="' + options.category.id + '"]', dom).addClass('active');
-
-        s.run('mapColors', options.category);
 
         // Events:
         $('.tirette', panel).click(function(e) {
@@ -70,6 +96,22 @@
         dom.find('*[data-app-snapshots-panel="sigma"]').removeClass('col-xs-9').addClass('col-xs-6');
         dom.find('.col-middle').show().empty().append(panel);
         $('.forcelayout-container .tirette', dom).hide();
+
+        if (self.categories.filter.values.length) {
+          dom.find('.category-item').addClass('cat-item-muted');
+
+          // Activating selected values
+          self.categories.filter.values.forEach(function(v) {
+            dom.find('.category-item[data-app-category-value="' + v + '"]')
+               .addClass('active')
+               .removeClass('cat-item-muted');
+          });
+
+          s.run('highlightCategoryValues', options.category, self.categories.filter.values);
+        }
+        else {
+          s.run('mapColors', options.category);
+        }
 
         // Resizing graph
         self.resizeGraph();
@@ -86,6 +128,9 @@
       // Resising graph and resetting it
       this.resizeGraph();
       s.run('resetColors');
+
+      // TODO: do it elsewhere
+      self.categories.filter.clear();
     };
 
     this.resizeGraph = function() {
@@ -160,7 +205,5 @@
     this.willUnmount = function() {
       this.unmountSnapshotThumbnails();
     };
-
-
   };
 }).call(this);

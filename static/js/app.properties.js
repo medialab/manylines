@@ -155,6 +155,17 @@
           return name === category.id;
         });
       }
+    },
+    {
+      id: 'snapshotById',
+      description: 'Retrieves a snasphot by its id else undefined.',
+      method: function(id) {
+        var snapshots = this.get('snapshots');
+
+        return app.utils.first(snapshots, function(snapshot) {
+          return id === snapshot.id;
+        });
+      }
     }
   ];
 }).call(this);

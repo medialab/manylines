@@ -36,6 +36,15 @@
       return this;
     };
 
+    this.import = function(data) {
+      if (!data.category)
+        return this.clear();
+
+      this.set(data.category);
+      this.values = data.values;
+      return this;
+    };
+
     this.export = function() {
       return this.category ?
         {
