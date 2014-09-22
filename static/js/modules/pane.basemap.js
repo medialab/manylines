@@ -32,6 +32,29 @@
         self.openPanel('force');
         e.preventDefault();
       });
+
+      /**
+       * Blurring inputs on keypress
+       */
+      dom.on('keypress', '*[data-app-basemap-layout-option]', function(e) {
+
+        // TODO: switch to sub module
+        if (e.which === 13) {
+          $(this).blur();
+        }
+      });
+
+
+      /**
+       * Changing node sizes
+       */
+      dom.on('change', '*[data-app-basemap-layout-nodesize]', function(e){
+        var value = $(this).attr('data-app-basemap-layout-nodesize');
+
+        s.run('mapSizes', value);
+
+        // TODO: switch to sub module
+      });
     };
 
     // TODO: this is messy, find a more suited way
