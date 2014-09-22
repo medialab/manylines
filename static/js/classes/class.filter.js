@@ -36,6 +36,15 @@
       return this;
     };
 
+    this.export = function() {
+      return this.category ?
+        {
+          category: this.category.id,
+          values: this.values
+        } :
+        null;
+    };
+
     this.clear = function() {
       this.category = null;
       this.values = [];

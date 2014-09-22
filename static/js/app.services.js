@@ -135,6 +135,27 @@
         delete modified.meta;
         this.update('modified', modified);
       }
+    },
+
+    /**
+     * Snapshots management
+     * ---------------------
+     */
+    {
+      id: 'snasphot.save',
+      url: '/api/space/:spaceId/snapshot/:version',
+      type: 'POST',
+      success: function(data)  {
+        this.dispatchEvent('snapshot.taken');
+      }
+    },
+    {
+      id: 'snapshots.load',
+      url: '/api/space/:spaceId/snapshots/:version',
+      type: 'GET',
+      success: function(data) {
+        this.update('snapshots', data);
+      }
     }
   ];
 

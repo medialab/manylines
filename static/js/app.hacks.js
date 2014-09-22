@@ -213,6 +213,20 @@
       method: function(e) {
         // TODO: update graph data from sigma (design function to do so)
       }
+    },
+
+    /**
+     * Attempting to take a snapshot of the graph
+     */
+    {
+      triggers: 'snapshot.take',
+      method: function(e) {
+
+        // If the graph has not been saved yet, we shun the user
+        if (this.expand('isSpaceNew')) {
+          this.dispatchEvent('error', {reason: 'dev - graph must be saved.'});
+        }
+      }
     }
   ];
 

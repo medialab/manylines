@@ -20,12 +20,26 @@
 
     // Properties
     this.categories = null;
+    this.snapshotThumbnails = [];
 
     // Emitters
     this.emitters = function(dom) {
 
       // Registering children
       this.categories = this.addChildModule(app.modules.categoriesFilter, [dom]);
+
+      /**
+       * Taking a snapshot of the graph.
+       */
+      $('[data-app-snapshots-action="snapshot"]', dom).click(function(e) {
+
+        // Dispatch event
+        self.dispatchEvent('snapshot.take', {
+          filter: self.categories.filter.export()
+        });
+
+        e.preventDefault();
+      });
     };
 
     // Methods

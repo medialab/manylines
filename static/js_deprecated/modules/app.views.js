@@ -155,7 +155,7 @@
         }
 
         // Dispatch event
-        self.dispatchEvent('takeSnapshot', {
+        self.dispatchEvent('snapshot.take', {
           filter: self.filter.export()
         });
       }
