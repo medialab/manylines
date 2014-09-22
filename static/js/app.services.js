@@ -103,11 +103,7 @@
         this.update('meta', data.meta);
         this.update('snapshots', data.snapshots);
 
-        // Updating graph
-        // TODO: put this elsewhere
-        var s = this.get('mainSigma');
-        s.graph.clear().read(data.graph);
-        s.refresh();
+        this.dispatchEvent('graph.render');
       },
       error: onLoginNeeded
     },

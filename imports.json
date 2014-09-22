@@ -36,6 +36,7 @@
       "/js/modules/module.layout.js",
       "/js/modules/module.menu.js",
       "/js/modules/module.status.js",
+      "/js/modules/module.storage.js",
       "/js/modules/module.modals.js",
       "/js/modules/module.forceAtlas.js",
       "/js/modules/module.categoriesFilter.js",

@@ -25,6 +25,18 @@
   hacks.state = [
 
     /**
+     * Called when the application is deemed initialized by the init script.
+     */
+    {
+      triggers: 'app.initialized',
+      method: function(e) {
+
+        // We now load the hash
+        app.control.dispatchEvent('hash.load', {hash: window.location.hash});
+      }
+    },
+
+    /**
      * Loads the application hash for the first time then set the pane
      * accordingly.
      */
@@ -46,9 +58,10 @@
             spaceId = hashSplit[2],
             version = hashSplit[3];
 
-        // We want to start a space obviously
-        if (!spaceId || !version)
-          return this.update('pane', 'upload');
+        // If the graph has not been saved yet, we check the storage
+        if (!spaceId || !version) {
+          this.dispatchEvent('storage.load');
+        }
 
         // Do we need to retrieve space data?
         if (spaceId && !this.expand('version'))
@@ -60,6 +73,29 @@
           });
 
         this.update('pane', wantedPane);
+      }
+    },
+
+    /**
+     * When the local storage has been hit.
+     */
+    {
+      triggers: 'storage.loaded',
+      method: function(e) {
+
+        // If not data were to be found, we go to upload
+        if (!e.data)
+          return this.update('pane', 'upload');
+
+        // Else we update the data accordingly
+        this.update('graph', e.data.graph);
+        this.update('meta', e.data.meta);
+        this.update('modified', e.data.modified);
+
+        this.dispatchEvent('graph.render');
+
+        // TODO: if we do have a spaceId, we check our space id hash and we
+        // look for our id. if not, we clean the store and load the server data
       }
     },
 
@@ -107,9 +143,7 @@
         for (var k in e.data.meta)
           meta[k] = e.data.meta[k];
 
-        // Reading graph
-        var s = this.get('mainSigma');
-        s.graph.clear().read(graph);
+        this.dispatchEvent('graph.render');
 
         // Updating properties
         this.update({
@@ -121,6 +155,23 @@
           },
           pane: 'basemap'
         });
+      }
+    },
+
+    /**
+     * The graph has been updated and needs to be rendered
+     */
+    {
+      triggers: 'graph.render',
+      method: function(e) {
+
+        if (e.data.noRender)
+          return;
+
+        var s = this.get('mainSigma');
+        s.graph.clear().read(this.get('graph'));
+
+        s.refresh();
       }
     },
 
@@ -211,7 +262,8 @@
     {
       triggers: 'layout.stop',
       method: function(e) {
-        // TODO: update graph data from sigma (design function to do so)
+        var newGraph = this.get('mainSigma').retrieveGraphData();
+        this.update('graph', newGraph);
       }
     },
 

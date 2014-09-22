@@ -30,7 +30,7 @@
   function reset(property) {
     return function(element) {
       element[property] = (element.original || {})[property] || element[property];
-      if (element.original[property])
+      if (element.original && element.original[property])
         delete element.original[property];
     };
   }
@@ -171,4 +171,32 @@
       .pipe(muteEdge)
       .refresh();
   });
+
+  /**
+   * Graph Data retrieval
+   * ---------------------
+   */
+
+  function dropOverload(n) {
+    var o = {},
+        k;
+
+    for (k in n) {
+      if (!~k.indexOf(':') &&
+          !~k.indexOf('true') &&
+          k !== 'muted' &&
+          k !== 'hidden') {
+        o[k] = (n.original && n.original[k]) || n[k];
+      }
+    }
+
+    return o;
+  }
+
+  sigma.prototype.retrieveGraphData = function() {
+    return {
+      nodes: this.graph.nodes().map(dropOverload),
+      edges: this.graph.edges().map(dropOverload)
+    };
+  };
 }).call(this);

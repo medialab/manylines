@@ -88,6 +88,7 @@
         app.control.addModule(app.modules.menu);
         app.control.addModule(app.modules.status);
         app.control.addModule(app.modules.modals);
+        app.control.addModule(app.modules.storage);
 
         next();
       },
@@ -113,7 +114,6 @@
 
       // Initialization went well, dispatching
       app.control.dispatchEvent('app.initialized');
-      app.control.dispatchEvent('hash.load', {hash: window.location.hash});
     });
   };
 

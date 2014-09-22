@@ -62,7 +62,7 @@
     },
 
     // Storage utilities
-    store: {
+    storage: {
       key: 'app-current'
     },
 
