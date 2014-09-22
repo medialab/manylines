@@ -19,64 +19,64 @@
     });
 
     // Properties
-    this.thumbnails = [];
+    this.categories = null;
+
+    // Emitters
+    this.emitters = function(dom) {
+
+      // Registering children
+      this.categories = this.addChildModule(app.modules.categoriesFilter, [dom]);
+    };
 
     // Methods
-    this.unmountThumbnails = function() {
-      this.thumbnails.forEach(function(t) {
-        t.unmount();
-      });
-
-      this.thumbnails = [];
-    };
-
-    this.refreshThumbnails = function() {
-      s.refresh();
-      this.thumbnails.forEach(function(t) {
-        t.render();
-      });
-    };
-
-    this.renderCategories = function() {
-      var nodeModel = app.control.expand('nodeModel'),
-          $container = $('.subcontainer-networklist');
-
-      // Cleaning
-      $container.empty();
-      this.unmountThumbnails();
+    this.openPanel = function(path, options) {
+      var dom = self.dom;
 
       // Retrieving template
-      app.templates.require('misc.category', function(template) {
+      app.templates.require('misc.categoryPanel', function(template) {
+        var panel;
 
-        nodeModel.forEach(function(cat) {
-          if (cat.noDisplay)
-            return;
+        // Deactivation
+        dom.find('*[data-app-snapshots-panel="sidebar"] .active')
+          .removeClass('active');
 
-          // Rendering
-          var $el = $(template(cat));
-          $container.append($el);
 
-          // Instantiating thumbnails
-          self.thumbnails.push(
-            new Thumbnail($el.find('.network-thumbnail')[0], {category: cat})
-          );
+        panel = $(template(options.category));
+        $('.network-item[data-app-thumbnail-category="' + options.category.id + '"]', dom).addClass('active');
+
+        s.run('mapColors', options.category);
+
+        // Events:
+        $('.tirette', panel).click(function(e) {
+          self.closePanel();
+          e.preventDefault();
         });
 
-        self.refreshThumbnails();
+        // Dealing with panel display
+        dom.find('*[data-app-snapshots-panel="sigma"]').removeClass('col-xs-9').addClass('col-xs-6');
+        dom.find('.col-middle').show().empty().append(panel);
+        $('.forcelayout-container .tirette', dom).hide();
+
+        // Resizing graph
+        self.resizeGraph();
       });
     };
 
-    // Receptors
-    this.triggers.events.metaUpdated = this.renderCategories;
+    this.closePanel = function() {
+      var dom = this.dom;
 
-    // Initialization
-    this.didRender = function() {
-      this.renderCategories();
-    }
+      dom.find('*[data-app-snapshots-panel="sidebar"]').find('.active').removeClass('active');
+      dom.find('*[data-app-snapshots-panel="sigma"]').removeClass('col-xs-6').addClass('col-xs-9');
+      dom.find('.col-middle').empty().hide();
 
-    // On unmounting the pane
-    this.willUnmount = function() {
-      this.unmountThumbnails();
+      // Resising graph and resetting it
+      this.resizeGraph();
+      s.run('resetColors');
     };
-  }
+
+    this.resizeGraph = function() {
+      s.renderers.main.resize();
+      s.renderers.main.render();
+    };
+  };
 }).call(this);

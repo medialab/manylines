@@ -18,7 +18,9 @@
   function cache(property) {
     return function(element) {
       element.original = element.original || {};
-      element.original[property] = element[property];
+
+      if (!element.original[property])
+        element.original[property] = element[property];
     };
   }
 
@@ -79,7 +81,7 @@
 
       var color = colors[node.attributes[category.id]];
 
-      node.color = muted ? muteColor(color) : color;
+      node.color = muted ? app.utils.muteColor(color) : color;
 
       node.muted = muted;
     };
@@ -123,6 +125,10 @@
       }) :
       null;
 
+    graph.src('edges')
+      .pipe(clean)
+      .exec();
+
     return graph.src('nodes')
       .pipe(cache('color'))
       .pipe(clean)
@@ -134,6 +140,10 @@
    * Reset the nodes' colors.
    */
   sigma.task('resetColors', function(graph) {
+    graph.src('edges')
+      .pipe(clean)
+      .exec();
+
     return graph.src('nodes')
       .pipe(reset('color'))
       .refresh();
@@ -143,6 +153,9 @@
    * Highlight a precise set of values for a given category.
    */
   sigma.task('highlightCategoryValues', function(graph, category, values) {
+    if (!values.length)
+      return this.run('mapColors', category);
+
     var colors = app.utils.indexBy(category.values, function(v) {
       return [v.id, v.color];
     });

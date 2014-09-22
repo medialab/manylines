@@ -47,6 +47,9 @@
           this.pipes[j].call(instance, a[i]);
         }
       }
+
+      // TODO: find more elegant way than this.
+      this.pipes = [];
       return this;
     };
 

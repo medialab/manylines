@@ -82,6 +82,7 @@
       // Registering vital modules
       modules: function(next) {
 
+        app.control.addModule(app.modules.alerts);
         app.control.addModule(app.modules.location);
         app.control.addModule(app.modules.layout);
         app.control.addModule(app.modules.menu);

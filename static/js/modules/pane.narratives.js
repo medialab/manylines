@@ -14,5 +14,5 @@
     Pane.call(this,  {
       name: 'narratives'
     });
-  }
+  };
 }).call(this);

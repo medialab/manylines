@@ -19,9 +19,6 @@
       layout.slowDown = 2;
     }
 
-    if (layout.gravity)
-      layout.gravity /= 1000;
-
     return layout;
   };
 }).call(this);

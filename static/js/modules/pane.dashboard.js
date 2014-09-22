@@ -14,5 +14,5 @@
     Pane.call(this,  {
       name: 'dashboard'
     });
-  }
+  };
 }).call(this);

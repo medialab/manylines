@@ -13,6 +13,7 @@
 
     // Properties
     this.mainTemplate = null;
+    this.childModules = [];
 
     var s = app.control.get('mainSigma');
 
@@ -87,6 +88,11 @@
       });
     };
 
+    this.addChildModule = function(module, args) {
+      this.childModules.push(app.control.addModule(module, (args ||  []).concat(this)));
+      return this.childModules[this.childModules.length - 1];
+    };
+
     this.mount = function() {
 
       // Rendering
@@ -101,6 +107,13 @@
         $('.sigma-panel')[0].removeChild(app.control.get('mainRendererContainer'));
       }
 
+      // Killing childs
+      this.childModules.forEach(function(module) {
+        module.unmount && (module.unmount())
+        app.control.killModule(module);
+      });
+
+      // Hook
       this.willUnmount && (this.willUnmount())
     };
   };
