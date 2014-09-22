@@ -273,11 +273,23 @@
     {
       triggers: 'snapshot.take',
       method: function(e) {
+        var s = this.get('mainSigma');
 
         // If the graph has not been saved yet, we shun the user
-        if (this.expand('isSpaceNew')) {
-          this.dispatchEvent('error', {reason: 'dev - graph must be saved.'});
-        }
+        if (this.expand('isSpaceNew'))
+          return this.dispatchEvent('error', {reason: 'dev - graph must be saved.'});
+
+        // Else we can proceed
+        this.request('snapshot.save', {
+          data: {
+            snapshot: {
+              view: {
+                camera: s.saveCamera('main')
+              },
+              filters: e.data.filter ? [e.data.filter] : []
+            }
+          }
+        });
       }
     }
   ];

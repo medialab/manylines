@@ -13,11 +13,33 @@
    *
    */
 
-  sigma.classes.camera.prototype.saveCamera = function() {
+  sigma.prototype.saveCamera = function(name) {
+    var camera = this.cameras[name];
 
+    var b = sigma.utils.getBoundaries(this.graph, 'read_cam' + camera.id + ':'),
+        w = b.maxX - b.minX,
+        h = b.maxY - b.minY;
+
+    return {
+      x: (camera.x * 100) / w,
+      y: (camera.y * 100) / h,
+      ratio: camera.ratio,
+      angle: camera.angle
+    };
   };
 
-  sigma.classes.camera.prototype.applySavedCamera = function() {
+  sigma.prototype.loadCamera = function(name, save) {
+    var camera = this.cameras[name];
 
+    var b = sigma.utils.getBoundaries(this.graph, 'read_cam' + camera.id + ':'),
+        w = b.maxX - b.minX,
+        h = b.maxY - b.minY;
+
+    camera.goTo({
+      x: (save.x * w) / 100,
+      y: (save.y * h) / 100,
+      ratio: save.ratio,
+      angle: save.angle
+    });
   };
 }).call(this);

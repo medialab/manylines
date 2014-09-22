@@ -10,6 +10,8 @@
   var cameraCounter = 0;
 
   this.Thumbnail = function(el, params) {
+    params = params || {};
+
     var self = this,
         s = app.control.get('mainSigma');
 
@@ -22,7 +24,11 @@
       if (!this.renderer)
         return this;
 
+      if (this.camera)
+        s.loadCamera(this.camera.id, params.camera);
+
       this.renderer.render({process: true});
+
       return this;
     };
 
@@ -49,15 +55,6 @@
       // Is a custom camera needed?
       if (params.camera) {
         this.camera = s.addCamera('thumbnail' + (cameraCounter++));
-
-        // Applying camera
-        // TODO: use custom method to do something nice when we have
-        // the formula
-        this.camera.goTo({
-          ratio: params.camera.ratio,
-          x: (params.camera.x * $el.width()) / 100,
-          y: (params.camera.y * $el.height()) / 100
-        });
       }
 
       // Adding a thumbnail renderer
@@ -71,7 +68,7 @@
             res[obj.id] = obj.color;
             return res;
           }, {}),
-          filter: params.filter,
+          filter: (params.filter || {}).values || [],
           camera: params.camera
         }
       });

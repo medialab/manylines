@@ -138,11 +138,17 @@
      * ---------------------
      */
     {
-      id: 'snasphot.save',
+      id: 'snapshot.save',
       url: '/api/space/:spaceId/snapshot/:version',
       type: 'POST',
-      success: function(data)  {
+      success: function(data, sent)  {
+        this.dispatchEvent('success', {reason: 'snapshots.saved'});
         this.dispatchEvent('snapshot.taken');
+
+        // Updating snapshots list
+        var snapshots = this.get('snapshots');
+        snapshots.push(app.utils.extend(sent.data.snapshot, {id: data.id}));
+        this.update('snapshots', snapshots);
       }
     },
     {

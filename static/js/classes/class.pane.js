@@ -14,6 +14,7 @@
     // Properties
     this.mainTemplate = null;
     this.childModules = [];
+    this.rendered = false;
 
     var s = app.control.get('mainSigma');
 
@@ -84,6 +85,7 @@
         self.emitters && (self.emitters(self.dom));
 
         // Hook
+        self.rendered = true;
         self.didRender && (self.didRender())
       });
     };

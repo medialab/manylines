@@ -92,5 +92,75 @@
       s.renderers.main.resize();
       s.renderers.main.render();
     };
+
+    this.renderSnapshots = function() {
+      var $container = $('.views-band tr:first');
+
+      // Cleaning
+      this.unmountSnapshotThumbnails();
+
+      // Templating
+      app.templates.require('misc.snapshot', function(template) {
+        var snapshots = app.control.get('snapshots');
+
+        $container.empty();
+        snapshots.forEach(function(snapshot) {
+          var $el = $(template(snapshot));
+          $container.append($el);
+
+          var filter = (snapshot.filters || [])[0],
+              category = app.control.query('nodeCategory', (filter || {}).category);
+
+          self.snapshotThumbnails.push(
+            new Thumbnail(
+              $el.find('.view-thumbnail')[0],
+              {
+                category: category,
+                camera: snapshot.view.camera,
+                filter: filter
+              }
+            )
+          );
+        });
+
+        self.refreshSnapshotTumbnails();
+      });
+    };
+
+    this.refreshSnapshotTumbnails = function() {
+      s.refresh();
+      this.snapshotThumbnails.forEach(function(t) {
+        t.render();
+      });
+    };
+
+    this.unmountSnapshotThumbnails = function() {
+      this.snapshotThumbnails.forEach(function(t) {
+        t.unmount();
+      });
+
+      this.snapshotThumbnails = [];
+    };
+
+
+    // Initialization
+    this.didRender = function() {
+      this.renderSnapshots();
+    };
+
+    // Receptors
+    this.triggers.events['snapshots.updated'] = function() {
+      if (!self.rendered)
+        return;
+
+      self.renderSnapshots();
+    }
+
+    // On unmount
+    this.willUnmount = function() {
+      this.unmountSnapshotThumbnails();
+    };
+
+
   };
 }).call(this);
