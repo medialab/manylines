@@ -20,13 +20,21 @@
     },
     meta: 'object',
     snapshots: 'array',
-    narratives: [{
+    slide: {
       title: 'string',
-      text: '?string',
-      snapshot: 'string'
+      text: 'string',
+      snapshots: ['string']
+    },
+    narratives: [{
+      id: 'string',
+      title: 'string',
+      slides: ['slide']
     }],
     sigma: function(v) {
       return v instanceof sigma;
+    },
+    element: function(v) {
+      return v instanceof Element;
     }
   };
 

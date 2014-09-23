@@ -42,7 +42,15 @@ exports.retrieve = function(spaceId, version, callback) {
       models.space.get(spaceId, next);
     },
     function getNarratives(space, next) {
-      models.narrative.get(space.graphs[version].narratives, {id: true}, next);
+
+      if ((space.graphs[version].narratives || []).length)
+        models.narrative.get(
+          space.graphs[version].narratives,
+          {id: true},
+          next
+        );
+      else
+        next(null, []);
     }
   ], callback);
 };

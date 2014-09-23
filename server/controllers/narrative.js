@@ -49,7 +49,7 @@ module.exports = {
    */
   get: {
     method: function(req, res) {
-
+      return res.json({notYetImplemented: true});
     }
   },
 
@@ -64,9 +64,10 @@ module.exports = {
       id: 'string',
       version: 'string'
     },
+    policies: 'authenticated',
     method: function(req, res) {
       var id = req.param('id'),
-          version = req.param('version');
+          version = +req.param('version');
 
       repositories.narrative.retrieve(id, version, function(err, narratives) {
         if (err)
@@ -91,6 +92,7 @@ module.exports = {
         slides: ['slide']
       }
     },
+    policies: 'authenticated',
     method: function(req, res) {
       var id = req.param('id'),
           narrative = req.param('narrative');

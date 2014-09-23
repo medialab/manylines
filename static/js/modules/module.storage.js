@@ -23,6 +23,7 @@
       data.meta = d.get('meta');
       data.graph = d.get('graph');
       data.modified = d.get('modified');
+      data.narratives = d.get('narratives');
 
       try {
         localStorage.setItem(

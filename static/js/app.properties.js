@@ -44,10 +44,10 @@
     },
     {
       id: 'narratives',
-      dispatch: ['narratives.updated'],
+      dispatch: ['data.updated', 'narratives.updated'],
       description: '[data] - The current graph\'s narratives.',
-      type: '?narratives',
-      value: null
+      type: 'narratives',
+      value: []
     },
 
     /**
@@ -74,6 +74,13 @@
       type: 'object',
       value: {}
     },
+    {
+      id: 'currentNarrative',
+      dispatch: ['currentNarrative.updated'],
+      description: '[state] - The current narrative being edited.',
+      type: '?string',
+      value: null
+    },
 
     /**
      * Sigma
@@ -90,7 +97,7 @@
     {
       id: 'mainRendererContainer',
       description: 'Main sigma renderer container cached for optimization purposes.',
-      type: '?*',
+      type: '?element',
       value: null
     }
   ];
@@ -164,6 +171,28 @@
 
         return app.utils.first(snapshots, function(snapshot) {
           return id === snapshot.id;
+        });
+      }
+    },
+    {
+      id: 'snasphotsById',
+      description: 'Retrieves array of snapshots by their id.',
+      method: function(ids) {
+        var snapshots = this.get('snasphots');
+
+        return snapshots.filter(function(snapshot) {
+          return ~id.indexOf(snapshot.id);
+        });
+      }
+    },
+    {
+      id: 'narrativeById',
+      description: 'Retrieves a narrative by its id else undefined.',
+      method: function(id) {
+        var narratives = this.get('narratives');
+
+        return app.utils.first(narratives, function(narrative) {
+          return id === narrative.id;
         });
       }
     }

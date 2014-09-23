@@ -158,6 +158,54 @@
       success: function(data) {
         this.update('snapshots', data);
       }
+    },
+
+    /**
+     * Narratives management
+     * ----------------------
+     */
+    {
+      id: 'narrative.save',
+      url: '/api/space/:spaceId/narrative/:version',
+      type: 'POST',
+      success: function(data) {
+        var narratives = this.get('narratives'),
+            modified = this.get('modified');
+
+        var temp = app.utils.first(narratives, function(n) {
+          return n.id === 'temp';
+        });
+
+        temp.id = data.id;
+        modified.narratives.splice(modified.narratives.indexOf('temp'), 1);
+
+        if (!modified.length)
+          delete modified.narratives;
+
+        this.update('narratives', narratives);
+        this.update('modified', modified);
+
+        if (this.get('currentNarrative') === 'temp')
+          this.update('currentNarrative', data.id);
+      }
+    },
+    {
+      id: 'narratives.load',
+      url: '/api/space/:spaceId/narratives/:version',
+      type: 'GET',
+      success: function(data) {
+
+        // Re-arranging data
+        data = data.map(function(narrative) {
+          return {
+            id: narrative.id,
+            title: narrative.title,
+            slides: narrative.slides
+          };
+        });
+
+        this.update('narratives', data);
+      }
     }
   ];
 

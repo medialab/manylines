@@ -64,13 +64,21 @@
         }
 
         // Do we need to retrieve space data?
-        if (spaceId && !this.expand('version'))
+        if (spaceId && !this.expand('version')) {
           this.request('space.load', {
             shortcuts: {
               spaceId: spaceId,
               version: version
             }
           });
+
+          this.request('narratives.load', {
+            shortcuts: {
+              spaceId: spaceId,
+              version: version
+            }
+          });
+        }
 
         this.update('pane', wantedPane);
       }
@@ -91,6 +99,7 @@
         this.update('graph', e.data.graph);
         this.update('meta', e.data.meta);
         this.update('modified', e.data.modified);
+        this.update('narratives', e.data.narratives);
 
         this.dispatchEvent('graph.render');
 
@@ -208,15 +217,47 @@
             // Saving the current space
             var modified = this.get('modified');
 
-            // TODO: possibility to update narratives
             // TODO: domino has a bug where it will force the execution
             // of twice the first service here...
-            for (var k in modified) {
-              var data = {};
-              data[k] = this.get(k);
-              this.request(k + '.update', {
-                data: data
+
+            // Saving graph
+            if ('graph' in modified)
+              this.request('graph.update', {
+                data: {
+                  graph: this.get('graph')
+                }
               });
+
+            // Saving meta
+            if ('meta' in modified)
+              this.request('meta.update', {
+                data: {
+                  meta: this.get('meta')
+                }
+              });
+
+            // Saving narratives
+            if ('narratives' in modified) {
+              modified.narratives.forEach(function(nid) {
+                var narrative = app.control.query('narrativeById', nid);
+
+                if (nid === 'temp') {
+
+                  // Creating the narrative
+                  this.request('narrative.save', {
+                    data: {
+                      narrative: {
+                        title: narrative.title,
+                        slides: narrative.slides
+                      }
+                    }
+                  });
+                }
+                else {
+
+                  // Updating the narrative
+                }
+              }, this);
             }
           }
         }
@@ -290,6 +331,35 @@
             }
           }
         });
+      }
+    },
+
+    /**
+     * Adding a narrative.
+     */
+    {
+      triggers: 'narrative.add',
+      method: function(e) {
+        var newNarrative = {
+          id: 'temp',
+          title: i18n.t('narratives.default_narrative_title'),
+          slides: []
+        };
+
+        var narratives = this.get('narratives'),
+            modified = this.get('modified');
+
+        narratives.push(newNarrative);
+        modified.narratives = modified.narratives || [];
+        modified.narratives.push('temp');
+
+        // Updating properties
+        this.update('narratives', narratives);
+        this.update('modified', modified);
+        this.update('currentNarrative', 'temp');
+
+        // Dispatching
+        this.dispatchEvent('narrative.added', newNarrative);
       }
     }
   ];
