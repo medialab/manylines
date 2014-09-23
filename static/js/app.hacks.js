@@ -121,6 +121,31 @@
 
         this.update('pane', desiredPane);
       }
+    },
+
+    /**
+     * Going back to narratives list
+     */
+    {
+      triggers: 'narratives.back',
+      method: function(e) {
+        this.update('currentNarrative', null);
+      }
+    },
+
+    /**
+     * Ensuring the modified object remains clean
+     */
+    {
+      triggers: 'modified.updated',
+      method: function(e) {
+        var modified = this.get('modified');
+
+        if (modified.narratives && !modified.narratives.length) {
+          delete modified.narratives;
+          this.update('modified', modified);
+        }
+      }
     }
   ];
 
@@ -256,6 +281,17 @@
                 else {
 
                   // Updating the narrative
+                  this.request('narrative.update', {
+                    shortcuts: {
+                      id: nid
+                    },
+                    data: {
+                      narrative: {
+                        title: narrative.title,
+                        slides: narrative.slides
+                      }
+                    }
+                  });
                 }
               }, this);
             }
@@ -360,6 +396,43 @@
 
         // Dispatching
         this.dispatchEvent('narrative.added', newNarrative);
+      }
+    },
+
+    /**
+     * Selecting a narrative
+     */
+    {
+      triggers: 'narrative.select',
+      method: function(e) {
+        this.update('currentNarrative', e.data);
+      }
+    },
+
+    /**
+     * Editing a narrative
+     */
+    {
+      triggers: 'narrative.edit',
+      method: function(e) {
+        var narratives = this.get('narratives'),
+            modified = this.get('modified'),
+            currentId = this.get('currentNarrative'),
+            current = app.utils.first(narratives, function(n) {
+              return n.id === currentId;
+            });
+
+        if (e.data.title) {
+          current.title = e.data.title;
+        }
+
+        modified.narratives = modified.narratives || [];
+        if (!~modified.narratives.indexOf(current.id))
+          modified.narratives.push(current.id);
+
+        // Updating
+        this.update('modified', modified);
+        this.update('narratives', narratives);
       }
     }
   ];

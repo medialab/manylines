@@ -30,15 +30,51 @@
       dom.on('click', '[data-app-narratives-action="add"]', function()  {
         self.dispatchEvent('narrative.add');
       });
+
+      /**
+       * Editing an existing narrative.
+       */
+      dom.on('click', '[data-app-narratives-action="edit"]', function()  {
+        var nid = $(this).attr('data-app-narrative-id');
+
+        self.dispatchEvent('narrative.select', nid);
+        edition(app.control.query('narrativeById', nid));
+      });
     };
 
     this.editionEmitters = function(dom) {
 
+      /**
+       * Going back to the menu
+       */
+      dom.on('click', '[data-app-narratives-action="back"]', function()  {
+        self.dispatchEvent('narrative.back');
+        menu();
+      });
+
+      /**
+       * Edit one of the possible fields
+       */
+      dom.on('change', '[data-app-narratives-editable]', function() {
+        var prop = $(this).attr('data-app-narratives-editable'),
+            val = $(this).val().trim();
+
+        if (prop === 'title') {
+          self.dispatchEvent('narrative.edit', {title: val});
+        }
+        else if (prop === 'slide_title') {
+
+        }
+        else if (prop === 'slide_text') {
+
+        }
+      });
     };
 
     // Rendering possibilities
     function menu() {
       self.mode = 'menu';
+      self.unmountThumbnails();
 
       // Templating
       app.templates.require(

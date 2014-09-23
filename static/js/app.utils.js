@@ -68,6 +68,19 @@
   }
 
   /**
+   * Retrieve the index of the first element matching function or -1
+   */
+  function indexOf(a, fn) {
+    var i, l;
+
+    for (i = 0, l = a.length; i < l; i++) {
+      if (fn(a[i]))
+        return i;
+    }
+    return -1;
+  }
+
+  /**
    * Mute a color using chroma scales.
    */
   function muteColor(color) {
@@ -86,6 +99,7 @@
     extend: extend,
     first: first,
     indexBy: indexBy,
+    indexOf: indexOf,
     muteColor: muteColor
   };
 }).call(this);

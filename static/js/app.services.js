@@ -190,6 +190,21 @@
       }
     },
     {
+      id: 'narrative.update',
+      url: '/api/narrative/:id',
+      type: 'POST',
+      success: function(data, sent) {
+        var modified = this.get('modified'),
+            index = app.utils.indexOf(modified.narratives, function(nid) {
+              return sent.data.narrative.id === nid;
+            });
+
+        modified.narratives.splice(index, 1);
+
+        this.update('modified', modified);
+      }
+    },
+    {
       id: 'narratives.load',
       url: '/api/space/:spaceId/narratives/:version',
       type: 'GET',
