@@ -23,7 +23,7 @@
     slide: {
       title: 'string',
       text: 'string',
-      snapshots: ['string']
+      snapshot: 'string'
     },
     narratives: [{
       id: 'string',

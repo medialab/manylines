@@ -124,7 +124,65 @@
     };
 
     this.renderSnapshots = function() {
+      var snapshots = app.control.get('snapshots'),
+          narrative = app.control.query('narrativeById', app.control.get('currentNarrative'));
 
+      if (!snapshots.length)
+        return;
+
+      var $unchosen = $('.unchosen-views-band tr'),
+          $chosen = $('.chosen-views-band tr');
+
+      // Cleaning
+      $unchosen.empty();
+      $chosen.empty();
+      this.unmountThumbnails();
+
+      // Templating
+      app.templates.require('misc.snapshot', function(template) {
+
+        var fix = '<td class="no-drag" style="width:10px;height:90px;"></td>';
+        $('.chosen-views-band tr, .unchosen-views-band tr').prepend(fix);
+
+        var order = narrative.slides.map(function(slide) {
+          return slide.snapshot;
+        });
+
+        // TODO: this is hardly optimal...
+        var orderedSnapshots = order.map(function(snaphotId) {
+          return app.utils.first(snapshots, function(s) { return s.id === snaphotId});
+        }).concat(snapshots.filter(function(s) {
+          return !~order.indexOf(s.id);
+        }));
+
+        orderedSnapshots.forEach(function(snapshot) {
+          var $el = $(template(snapshot));
+
+          var $container =
+            narrative.slides.some(function(slide) {
+              return slide.snapshot === snapshot.id;
+            }) ? $chosen : $unchosen;
+
+          $container.append($el);
+
+          var filter = (snapshot.filters || [])[0],
+              category = app.control.query('nodeCategory', (filter || {}).category);
+
+          self.thumbnails.push(
+            new Thumbnail(
+              $el.find('.view-thumbnail')[0],
+              {
+                category: category,
+                camera: snapshot.view.camera,
+                filter: filter
+              }
+            )
+          );
+
+          self.refreshThumbnails();
+          self.registerSortables();
+        });
+      });
     };
 
     this.refreshThumbnails = function() {
@@ -140,6 +198,54 @@
       });
 
       this.thumbnails = [];
+    };
+
+    this.registerSortables = function() {
+      this.unregisterSortables();
+
+      // Unchosen list
+      this.unchosen = new Sortable(
+        $('.unchosen-views-band tr')[0],
+        {
+          group: 'snapshots',
+          draggable: 'td',
+          filter: '.no-drag',
+          ghostClass: 'drag-ghost'
+        }
+      );
+
+      // Chosen list with attached events
+      this.chosen = new Sortable(
+        $('.chosen-views-band tr')[0],
+        {
+          group: 'snapshots',
+          draggable: 'td',
+          filter: '.no-drag',
+          ghostClass: 'drag-ghost',
+          onAdd: function(e) {
+            var snapshotId = $(e.item).find('.view-thumbnail').attr('data-app-thumbnail-snapshot');
+            self.dispatchEvent('narrative.edit', {addSlide: snapshotId});
+          },
+          onRemove: function(e) {
+            var snapshotId = $(e.item).find('.view-thumbnail').attr('data-app-thumbnail-snapshot');
+            self.dispatchEvent('narrative.edit', {removeSlide: snapshotId});
+          },
+          onUpdate: function(e) {
+            var order = $('.chosen-views-band [data-app-thumbnail-snapshot]').get().map(function(e) {
+              return $(e).attr('data-app-thumbnail-snapshot');
+            });
+
+            self.dispatchEvent('narrative.edit', {reorderSlides: order});
+          }
+        }
+      );
+    };
+
+    this.unregisterSortables = function() {
+      if (this.unchosen || this.chosen) {
+        this.unchosen.destroy();
+        this.chosen.destroy();
+      }
     };
 
     // Receptors
@@ -158,6 +264,12 @@
         edition(app.control.query('narrativeById', currentNarrative));
       else
         menu();
+    };
+
+    // On unmount
+    this.willUnmount = function() {
+      this.unmountThumbnails();
+      this.unregisterSortables();
     };
   };
 }).call(this);

@@ -25,6 +25,22 @@
   hacks.state = [
 
     /**
+     * Login is required to continue.
+     */
+    {
+      triggers: 'login.required',
+      method: function(e) {
+        var pane = this.get('pane');
+
+        if (pane === 'login')
+          return;
+
+        this.update('lastPane', pane);
+        this.update('pane', 'login');
+      }
+    },
+
+    /**
      * Called when the application is deemed initialized by the init script.
      */
     {
@@ -416,23 +432,47 @@
       triggers: 'narrative.edit',
       method: function(e) {
         var narratives = this.get('narratives'),
-            modified = this.get('modified'),
             currentId = this.get('currentNarrative'),
             current = app.utils.first(narratives, function(n) {
               return n.id === currentId;
             });
 
+        // Updating title
         if (e.data.title) {
           current.title = e.data.title;
         }
 
-        modified.narratives = modified.narratives || [];
-        if (!~modified.narratives.indexOf(current.id))
-          modified.narratives.push(current.id);
+        // Adding a slide
+        if (e.data.addSlide) {
+          current.slides.push({
+            title: i18n.t('narratives.default_slide_title'),
+            text: '',
+            snapshot: e.data.addSlide
+          });
+        }
+
+        // Removing a slide
+        if (e.data.removeSlide) {
+          current.slides = current.slides.filter(function(slide) {
+            return slide.snapshot !== e.data.removeSlide;
+          });
+        }
+
+        // Reordering slides
+        if (e.data.reorderSlides) {
+          var slideIndex = app.utils.indexBy(current.slides, 'snapshot');
+
+          var newOrder = e.data.reorderSlides.map(function(snapshot) {
+            return slideIndex[snapshot];
+          });
+          current.slides = newOrder;
+        }
 
         // Updating
-        this.update('modified', modified);
         this.update('narratives', narratives);
+
+        // Touching
+        app.control.query('touchNarrative', currentId);
       }
     }
   ];

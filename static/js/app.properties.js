@@ -195,6 +195,19 @@
           return id === narrative.id;
         });
       }
+    },
+    {
+      id: 'touchNarrative',
+      description: 'Edit the modified object to tell a precise narrative has been updated.',
+      method: function(id) {
+        var modified = this.get('modified');
+
+        modified.narratives = modified.narratives || [];
+        if (!~modified.narratives.indexOf(id))
+          modified.narratives.push(id);
+
+        this.update('modified', modified);
+      }
     }
   ];
 }).call(this);

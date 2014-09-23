@@ -40,6 +40,7 @@
       "/js/modules/module.modals.js",
       "/js/modules/module.forceAtlas.js",
       "/js/modules/module.categoriesFilter.js",
+      "/js/modules/pane.login.js",
       "/js/modules/pane.upload.js",
       "/js/modules/pane.basemap.js",
       "/js/modules/pane.dashboard.js",
