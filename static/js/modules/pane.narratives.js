@@ -102,6 +102,10 @@
       });
     }
 
+    function slide(data) {
+
+    }
+
     // Methods
     this.renderNarrativeList = function() {
       app.templates.require(
@@ -254,6 +258,13 @@
         return;
 
       edition(e.data);
+    };
+
+    this.triggers.events['currentSlide.updated'] = function(d, e) {
+      if (self.mode !== 'edition')
+        return;
+
+      slide(app.control.query('currentSlide'));
     };
 
     // Initialization

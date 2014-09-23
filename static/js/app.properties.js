@@ -81,6 +81,13 @@
       type: '?string',
       value: null
     },
+    {
+      id: 'currentSlide',
+      dispatch: ['currentSlide.updated'],
+      description: '[state] - The current edited narrative slide by its snasphot id.',
+      type: '?string',
+      value: null
+    },
 
     /**
      * Sigma
@@ -193,6 +200,22 @@
 
         return app.utils.first(narratives, function(narrative) {
           return id === narrative.id;
+        });
+      }
+    },
+    {
+      id: 'currentSlide',
+      description: 'Retrieves a slide by its snapshot it.',
+      method: function() {
+        var narratives = this.get('narratives'),
+            currentId = this.get('currentNarrative'),
+            currentSlideId = this.get('currentSlide'),
+            current = app.utils.first(narratives, function(n) {
+              return n.id === currentId;
+            });
+
+        return app.utils.first(current.slides, function(slide) {
+          return slide.snapshot = currentSlideId;
         });
       }
     },

@@ -426,6 +426,16 @@
     },
 
     /**
+     * Selecting a slide
+     */
+    {
+      triggers: 'slide.select',
+      method: function(e) {
+        this.update('currentSlide', e.data);
+      }
+    },
+
+    /**
      * Editing a narrative
      */
     {
