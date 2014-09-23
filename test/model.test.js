@@ -100,6 +100,7 @@ describe('Concerning models', function() {
   it('should retrieve an inexistant item as null.', function(done) {
 
     test.models.user.get('random', function(err, result) {
+      assert(err === null);
       assert(result === null);
       done();
     });
