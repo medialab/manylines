@@ -94,12 +94,26 @@
     return chroma.rgb(rgb).hex();
   }
 
+  /**
+   * Parse a hash
+   */
+  function parseHash(hash) {
+    var hs = hash.split('/');
+
+    return {
+      pane: hs[1],
+      spaceId: hs[2],
+      version: hs[3]
+    };
+  }
+
   // Exporting
   app.utils = {
     extend: extend,
     first: first,
     indexBy: indexBy,
     indexOf: indexOf,
-    muteColor: muteColor
+    muteColor: muteColor,
+    parseHash: parseHash
   };
 }).call(this);

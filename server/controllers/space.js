@@ -42,7 +42,7 @@ module.exports = {
         return res.json({
           id: id,
           email: result.email,
-          version: result.graphs.length
+          version: result.graphs.length - 1
         });
       });
     }

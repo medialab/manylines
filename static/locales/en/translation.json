@@ -84,7 +84,7 @@
     "missing_email": "Missing email"
   },
   "errors": {
-    "default": "An error occured.",
-    "unauthorized": "Unauthorized logon failed due to server configuration."
+    "unknown": "An unknown error occured.",
+    "unauthorized": "Unauthorized"
   }
 }

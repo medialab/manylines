@@ -41,6 +41,23 @@
     },
 
     /**
+     * Attempt to log in.
+     */
+    {
+      triggers: 'login.attempt',
+      method: function(e) {
+        var hash = app.utils.parseHash(window.location.hash);
+
+        this.request('login', {
+          shortcuts: {
+            spaceId: hash.spaceId,
+            password: e.data
+          }
+        });
+      }
+    },
+
+    /**
      * Called when the application is deemed initialized by the init script.
      */
     {
@@ -59,44 +76,61 @@
     {
       triggers: 'hash.load',
       method: function(e) {
-        var hash = e.data.hash;
+        var hash = app.utils.parseHash(e.data.hash);
 
-        if (!hash) {
-          hash = '/upload';
-          window.location.hash = hash;
-          this.update('pane', 'upload');
-          return;
-        }
+        this.update('lastPane', hash.pane);
 
-        // Which pane is requested?
-        var hashSplit = hash.split('/'),
-            wantedPane = hashSplit[1],
-            spaceId = hashSplit[2],
-            version = hashSplit[3];
+        if (hash.pane === 'login')
+          return this.dispatchEvent('login.required');
 
-        // If the graph has not been saved yet, we check the storage
-        if (!spaceId || !version) {
-          this.dispatchEvent('storage.load');
-        }
-
-        // Do we need to retrieve space data?
-        if (spaceId && !this.expand('version')) {
-          this.request('space.load', {
+        // First of all we try to retrieve data from server
+        if (hash.spaceId && hash.version)
+          return this.request('space.load', {
             shortcuts: {
-              spaceId: spaceId,
-              version: version
+              spaceId: hash.spaceId,
+              version: hash.version
             }
           });
 
-          this.request('narratives.load', {
-            shortcuts: {
-              spaceId: spaceId,
-              version: version
-            }
-          });
-        }
+        // Else we try to get unsaved data from the localstorage
+        this.dispatchEvent('storage.load');
 
-        this.update('pane', wantedPane);
+        // if (!hash) {
+        //   hash = '/upload';
+        //   window.location.hash = hash;
+        //   this.update('pane', 'upload');
+        //   return;
+        // }
+
+        // // Which pane is requested?
+        // var hashSplit = hash.split('/'),
+        //     wantedPane = hashSplit[1],
+        //     spaceId = hashSplit[2],
+        //     version = hashSplit[3];
+
+        // // If the graph has not been saved yet, we check the storage
+        // if (!spaceId || !version) {
+        //   this.dispatchEvent('storage.load');
+        // }
+
+        // // Do we need to retrieve space data?
+        // if (spaceId && !this.expand('version')) {
+        //   this.request('space.load', {
+        //     shortcuts: {
+        //       spaceId: spaceId,
+        //       version: version
+        //     }
+        //   });
+
+        //   this.request('narratives.load', {
+        //     shortcuts: {
+        //       spaceId: spaceId,
+        //       version: version
+        //     }
+        //   });
+        // }
+
+        // this.update('pane', wantedPane);
       }
     },
 

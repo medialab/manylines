@@ -22,8 +22,11 @@
 
     // Receptors
     function updateHash(d) {
+      var hash = app.utils.parseHash(window.location.hash);
+
       var newHash = '/' + d.get('pane');
       d.expand('spaceId') && (newHash += '/' + d.expand('spaceId') + '/' + d.expand('version'))
+      d.get('pane') === 'login' && (newHash += '/' + hash.spaceId + '/' + hash.version)
       window.location.hash = newHash;
     }
 

@@ -16,27 +16,26 @@
 
   // Repeating logic
   function onUnauthorized(m, x, p) {
-    console.log(this);
     if (x.status)
-      this.dispatchEvent('error', {reason: 'unauthorized'});
+      this.dispatchEvent('error', {reason: 'errors.unauthorized'});
     else
-      this.dispatchEvent('error', {reason: 'unknown'});
+      this.dispatchEvent('error', {reason: 'errors.unknown'});
   }
 
   function onInvalidData(m, x, p) {
     if (m === 'INVALID_EMAIL')
-      this.dispatchEvent('warning', {reason: 'invalid_email'});
+      this.dispatchEvent('warning', {reason: 'warnings.invalid_email'});
     else if (m === 'INVALID_PASSWORD')
-      this.dispatchEvent('warning', {reason: 'invalid_password'});
+      this.dispatchEvent('warning', {reason: 'warnings.invalid_password'});
     else
-      this.dispatchEvent('error', {reason: 'unknown'});
+      this.dispatchEvent('error', {reason: 'errors.unknown'});
   }
 
   function onLoginNeeded(m, x, p) {
     if (+x.status === 401)
       this.dispatchEvent('login.required');
     else
-      this.dispatchEvent('error', {reason: 'unknown'});
+      this.dispatchEvent('error', {reason: 'errors.unknown'});
   }
 
   // Services
@@ -54,8 +53,9 @@
 
         // Updating properties
         this.update('space', data);
-        this.update('lastPane', null);
-        this.update('pane', lastPane || 'basemap');
+
+        // Requesting more data
+        this.request('space.load');
       },
       error: onUnauthorized
     },
@@ -102,6 +102,9 @@
         this.update('graph', data.graph);
         this.update('meta', data.meta);
         this.update('snapshots', data.snapshots);
+
+        this.update('pane', this.get('lastPane') || 'basemap');
+        this.update('lastPane', null);
 
         this.dispatchEvent('graph.render');
       },
