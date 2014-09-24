@@ -69,6 +69,16 @@
 
         }
       });
+
+      /**
+       * Selecting a slide
+       */
+      dom.on('click', '.chosen-views-band [data-app-thumbnail-snapshot]', function() {
+        if ($(this).parent().hasClass('active'))
+          return;
+
+        self.dispatchEvent('slide.select', $(this).attr('data-app-thumbnail-snapshot'));
+      });
     };
 
     // Rendering possibilities
@@ -103,7 +113,16 @@
     }
 
     function slide(data) {
+      var $container = $('.slide-container');
 
+      // Templating
+      app.templates.require('narratives.slide', function(template) {
+
+        $container.empty().append(template({
+          slide: data,
+          placeholder: i18n.t('narratives.default_slide_text')
+        }));
+      });
     }
 
     // Methods
@@ -145,7 +164,7 @@
       // Templating
       app.templates.require('misc.snapshot', function(template) {
 
-        var fix = '<td class="no-drag" style="width:10px;height:90px;"></td>';
+        var fix = '<td class="no-drag" style="width:20px;height:90px;"></td>';
         $('.chosen-views-band tr, .unchosen-views-band tr').prepend(fix);
 
         var order = narrative.slides.map(function(slide) {
@@ -214,7 +233,10 @@
           group: 'snapshots',
           draggable: 'td',
           filter: '.no-drag',
-          ghostClass: 'drag-ghost'
+          ghostClass: 'drag-ghost',
+          onAdd: function(e) {
+            $(e.item).removeClass('active');
+          }
         }
       );
 
@@ -264,7 +286,12 @@
       if (self.mode !== 'edition')
         return;
 
-      slide(app.control.query('currentSlide'));
+      var currentSlide = app.control.query('currentSlide');
+
+      // Activating the correct slide
+      $('[data-app-thumbnail-snapshot]').parent().removeClass('active');
+      $('[data-app-thumbnail-snapshot="' + currentSlide.snapshot + '"]').parent().addClass('active');
+      slide(currentSlide);
     };
 
     // Initialization

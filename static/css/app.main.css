@@ -462,7 +462,7 @@ html,body,.container-fullheight
   box-shadow: 0px 4px 6px rgba(50, 20, 0, 0.06);
 }
 .narrative .views-band .view-item.active {
-  background-color: gray;
+  background-color: #cccccc;
 }
 .narrative .title-container p.title, .narrative .title-container input.title{
   background: none;

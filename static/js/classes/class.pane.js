@@ -77,8 +77,8 @@
           // Resizing the renderer
           s.renderers.main.resize();
 
-          // Refreshing sigma
-          s.refresh();
+          // Refreshing sigma and resetting colors
+          s.run('resetColors');
         }
 
         // Registering emitters

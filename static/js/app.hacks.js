@@ -459,6 +459,18 @@
             text: '',
             snapshot: e.data.addSlide
           });
+
+          this.update('currentSlide', e.data.addSlide);
+        }
+
+        // Editing a slide
+        if (e.data.editSlide) {
+          var updatedSlide = e.data.editSlide;
+          var slide = app.utils.first(current.slides, function(s) {
+            return updatedSlide.snapshot === s.snapshot
+          });
+
+          slide = updatedSlide;
         }
 
         // Removing a slide
@@ -466,6 +478,8 @@
           current.slides = current.slides.filter(function(slide) {
             return slide.snapshot !== e.data.removeSlide;
           });
+
+          this.update('currentSlide', (current.slides[0] || {}).snapshot || null);
         }
 
         // Reordering slides
@@ -475,6 +489,7 @@
           var newOrder = e.data.reorderSlides.map(function(snapshot) {
             return slideIndex[snapshot];
           });
+          console.log(slideIndex);
           current.slides = newOrder;
         }
 
