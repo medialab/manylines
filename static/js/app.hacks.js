@@ -441,7 +441,7 @@
     {
       triggers: 'narrative.edit',
       method: function(e) {
-        var narratives = this.get('narratives'),
+        var narratives = domino.utils.clone(this.get('narratives')),
             currentId = this.get('currentNarrative'),
             current = app.utils.first(narratives, function(n) {
               return n.id === currentId;
@@ -453,24 +453,27 @@
         }
 
         // Adding a slide
+        // TODO: there is something fishy here in the way domino deals with references...
         if (e.data.addSlide) {
-          current.slides.push({
+          var newSlide = {
             title: i18n.t('narratives.default_slide_title'),
             text: '',
             snapshot: e.data.addSlide
-          });
+          };
 
+          current.slides.push(newSlide);
           this.update('currentSlide', e.data.addSlide);
         }
 
         // Editing a slide
         if (e.data.editSlide) {
-          var updatedSlide = e.data.editSlide;
+          var update = e.data.editSlide;
           var slide = app.utils.first(current.slides, function(s) {
-            return updatedSlide.snapshot === s.snapshot
-          });
+            return this.get('currentSlide') === s.snapshot;
+          }, this);
 
-          slide = updatedSlide;
+          update.title && (slide.title = update.title)
+          update.text && (slide.text = update.text)
         }
 
         // Removing a slide
@@ -489,7 +492,7 @@
           var newOrder = e.data.reorderSlides.map(function(snapshot) {
             return slideIndex[snapshot];
           });
-          console.log(slideIndex);
+
           current.slides = newOrder;
         }
 

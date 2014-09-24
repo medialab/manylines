@@ -21,7 +21,7 @@
 
     // Domino global settings
     domino: {
-      displayTime: true,
+      clone: false,
       verbose: true,
       strict: true
     },

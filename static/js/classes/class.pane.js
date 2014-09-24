@@ -77,6 +77,9 @@
           // Resizing the renderer
           s.renderers.main.resize();
 
+          // Recentering camera
+          s.cameras.main.goTo({x: 0, y: 0, ratio: 1, angle: 0});
+
           // Refreshing sigma and resetting colors
           s.run('resetColors');
         }

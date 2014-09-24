@@ -215,7 +215,7 @@
             });
 
         return app.utils.first(current.slides, function(slide) {
-          return slide.snapshot = currentSlideId;
+          return slide.snapshot === currentSlideId;
         });
       }
     },

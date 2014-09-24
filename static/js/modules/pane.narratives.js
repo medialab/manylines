@@ -63,10 +63,10 @@
           self.dispatchEvent('narrative.edit', {title: val});
         }
         else if (prop === 'slide_title') {
-
+          self.dispatchEvent('narrative.edit', {editSlide: {title: val}});
         }
         else if (prop === 'slide_text') {
-
+          self.dispatchEvent('narrative.edit', {editSlide: {text: val}});
         }
       });
 
@@ -288,10 +288,16 @@
 
       var currentSlide = app.control.query('currentSlide');
 
-      // Activating the correct slide
-      $('[data-app-thumbnail-snapshot]').parent().removeClass('active');
-      $('[data-app-thumbnail-snapshot="' + currentSlide.snapshot + '"]').parent().addClass('active');
-      slide(currentSlide);
+      if (currentSlide) {
+
+        // Activating the correct slide
+        $('[data-app-thumbnail-snapshot]').parent().removeClass('active');
+        $('[data-app-thumbnail-snapshot="' + currentSlide.snapshot + '"]').parent().addClass('active');
+        slide(currentSlide);
+      }
+      else {
+        $('.slide-container').empty();
+      }
     };
 
     // Initialization
