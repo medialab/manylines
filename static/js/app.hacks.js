@@ -20,7 +20,7 @@
 
   /**
    * State-related hacks
-   * -------------------
+   * --------------------
    */
   hacks.state = [
 
@@ -146,6 +146,7 @@
       triggers: 'narratives.back',
       method: function(e) {
         this.update('currentNarrative', null);
+        this.update('currentSlide', null);
       }
     },
 

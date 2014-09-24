@@ -22,6 +22,7 @@
     // Domino global settings
     domino: {
       clone: false,
+      mergeRequests: false,
       verbose: true,
       strict: true
     },

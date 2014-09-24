@@ -48,7 +48,7 @@
        * Going back to the menu
        */
       dom.on('click', '[data-app-narratives-action="back"]', function()  {
-        self.dispatchEvent('narrative.back');
+        self.dispatchEvent('narratives.back');
         menu();
       });
 
