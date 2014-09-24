@@ -66,6 +66,11 @@
         $('.category-item:not(.active)', dom).addClass('cat-item-muted');
       }
 
+      // If every value is active
+      if (!$('.category-item:not(.active)', dom).length) {
+        return $('.categories-container', dom).trigger('click');
+      }
+
       // Highlighting graph accordingly
       s.run(
         'highlightCategoryValues',
