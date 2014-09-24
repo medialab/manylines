@@ -11,7 +11,7 @@
    * in the configuration.
    *
    * @param  {?*}    conf The configuration of the instance. There are a lot of
-   *                      different recognized forms to instanciate sigma, check
+   *                      different recognized forms to instantiate sigma, check
    *                      example files, documentation in this file and unit
    *                      tests to know more.
    * @return {sigma}      The fresh new sigma instance.
@@ -19,8 +19,8 @@
    * Instanciating sigma:
    * ********************
    * If no parameter is given to the constructor, the instance will be created
-   * without any renderer or camera. It will just instanciate the graph, and
-   * other modules will have to be instanciated through the public methods,
+   * without any renderer or camera. It will just instantiate the graph, and
+   * other modules will have to be instantiated through the public methods,
    * like "addRenderer" etc:
    *
    *  > s0 = new sigma();
@@ -210,7 +210,7 @@
 
 
   /**
-   * This methods will instanciate and reference a new camera. If no id is
+   * This methods will instantiate and reference a new camera. If no id is
    * specified, then an automatic id will be generated.
    *
    * @param  {?string}              id Eventually the camera id.
@@ -275,7 +275,7 @@
   };
 
   /**
-   * This methods will instanciate and reference a new renderer. The "type"
+   * This methods will instantiate and reference a new renderer. The "type"
    * argument can be the constructor or its name in the "sigma.renderers"
    * package. If no type is specified, then "sigma.renderers.def" will be used.
    * If no id is specified, then an automatic id will be generated.
@@ -340,7 +340,7 @@
     if (this.cameras[camera.id] !== camera)
       throw 'sigma.addRenderer: The camera is not properly referenced.';
 
-    // Instanciate:
+    // Instantiate:
     renderer = new fn(this.graph, camera, this.settings, o);
     this.renderers[id] = renderer;
     Object.defineProperty(renderer, 'id', {
@@ -352,12 +352,16 @@
       renderer.bind(
         [
           'click',
+          'rightClick',
           'clickStage',
           'doubleClickStage',
+          'rightClickStage',
           'clickNode',
           'clickNodes',
           'doubleClickNode',
           'doubleClickNodes',
+          'rightClickNode',
+          'rightClickNodes',
           'overNode',
           'overNodes',
           'outNode',
@@ -636,7 +640,7 @@
   /**
    * The current version of sigma:
    */
-  sigma.version = '1.0.2';
+  sigma.version = '1.0.3';
 
 
 
@@ -1547,7 +1551,7 @@
   /**
    * This function simply clones an object. This object must contain only
    * objects, arrays and immutable values. Since it is not public, it does not
-   * deal with cyclic references, DOM elements and instanciated objects - so
+   * deal with cyclic references, DOM elements and instantiated objects - so
    * use it carefully.
    *
    * @param  {Object} The object to clone.
@@ -2367,6 +2371,8 @@
     // {number} The hovered node's label font. If not specified, will heritate
     //          the "font" value.
     hoverFont: '',
+    // {boolean} If true, then only one node can be hovered at a time.
+    singleHover: false,
     // {string} Example: 'bold'
     hoverFontStyle: '',
     // {string} Indicates how to choose the hovered nodes shadow color.
@@ -2857,6 +2863,7 @@
       _indexes = Object.create(null),
       _initBindings = Object.create(null),
       _methodBindings = Object.create(null),
+      _methodBeforeBindings = Object.create(null),
       _defaultSettings = {
         immutable: true,
         clone: true
@@ -2961,6 +2968,10 @@
       var k,
           res;
 
+      // Execute "before" bound functions:
+      for (k in _methodBeforeBindings[methodName])
+        _methodBeforeBindings[methodName][k].apply(scope, arguments);
+
       // Apply the method:
       res = fn.apply(scope, arguments);
 
@@ -3025,19 +3036,39 @@
     )
       throw 'addMethod: Wrong arguments.';
 
-    if (_methods[methodName])
+    if (_methods[methodName] || graph[methodName])
       throw 'The method "' + methodName + '" already exists.';
 
     _methods[methodName] = fn;
     _methodBindings[methodName] = Object.create(null);
+    _methodBeforeBindings[methodName] = Object.create(null);
 
     return this;
   };
 
   /**
+   * This global method returns true if the method has already been added, and
+   * false else.
+   *
+   * Here are some examples:
+   *
+   *  > graph.hasMethod('addNode'); // returns true
+   *  > graph.hasMethod('hasMethod'); // returns true
+   *  > graph.hasMethod('unexistingMethod'); // returns false
+   *
+   * @param  {string}  methodName The name of the method.
+   * @return {boolean}            The result.
+   */
+  graph.hasMethod = function(methodName) {
+    return !!(_methods[methodName] || graph[methodName]);
+  };
+
+  /**
    * This global methods attaches a function to a method. Anytime the specified
    * method is called, the attached function is called right after, with the
-   * same arguments and in the same scope.
+   * same arguments and in the same scope. The attached function is called
+   * right before if the last argument is true, unless the method is the graph
+   * constructor.
    *
    * To attach a function to the graph constructor, use 'constructor' as the
    * method name (first argument).
@@ -3056,18 +3087,32 @@
    *  > myGraph.addNode({ id: '1' }).addNode({ id: '2' });
    *  > console.log(timesAddNodeCalled); // outputs 2
    *
+   * The idea for calling a function before is to provide pre-processors, for
+   * instance:
+   *
+   *  > var colorPalette = { Person: '#C3CBE1', Place: '#9BDEBD' };
+   *  > graph.attach('addNode', 'applyNodeColorPalette', function(n) {
+   *  >   n.color = colorPalette[n.category];
+   *  > }, true);
+   *  >
+   *  > var myGraph = new graph();
+   *  > myGraph.addNode({ id: 'n0', category: 'Person' });
+   *  > console.log(myGraph.nodes('n0').color); // outputs '#C3CBE1'
+   *
    * @param  {string}   methodName The name of the related method or
    *                               "constructor".
    * @param  {string}   key        The key to identify the function to attach.
    * @param  {function} fn         The function to bind.
+   * @param  {boolean}  before     If true the function is called right before.
    * @return {object}              The global graph constructor.
    */
-  graph.attach = function(methodName, key, fn) {
+  graph.attach = function(methodName, key, fn, before) {
     if (
       typeof methodName !== 'string' ||
       typeof key !== 'string' ||
       typeof fn !== 'function' ||
-      arguments.length !== 3
+      arguments.length < 3 ||
+      arguments.length > 4
     )
       throw 'attach: Wrong arguments.';
 
@@ -3076,10 +3121,18 @@
     if (methodName === 'constructor')
       bindings = _initBindings;
     else {
-      if (!_methodBindings[methodName])
+      if (before) {
+        if (!_methodBeforeBindings[methodName])
         throw 'The method "' + methodName + '" does not exist.';
 
-      bindings = _methodBindings[methodName];
+        bindings = _methodBeforeBindings[methodName];
+      }
+      else {
+        if (!_methodBindings[methodName])
+          throw 'The method "' + methodName + '" does not exist.';
+
+        bindings = _methodBindings[methodName];
+      }
     }
 
     if (bindings[key])
@@ -3089,6 +3142,13 @@
     bindings[key] = fn;
 
     return this;
+  };
+
+  /**
+   * Alias of attach(methodName, key, fn, true).
+   */
+  graph.attachBefore = function(methodName, key, fn) {
+    return this.attach(methodName, key, fn, true);
   };
 
   /**
@@ -3284,27 +3344,35 @@
     this.edgesArray.push(validEdge);
     this.edgesIndex[validEdge.id] = validEdge;
 
-    if (!this.inNeighborsIndex[edge.target][edge.source])
-      this.inNeighborsIndex[edge.target][edge.source] = Object.create(null);
-    this.inNeighborsIndex[edge.target][edge.source][edge.id] = edge;
+    if (!this.inNeighborsIndex[validEdge.target][validEdge.source])
+      this.inNeighborsIndex[validEdge.target][validEdge.source] =
+        Object.create(null);
+    this.inNeighborsIndex[validEdge.target][validEdge.source][validEdge.id] =
+      validEdge;
 
-    if (!this.outNeighborsIndex[edge.source][edge.target])
-      this.outNeighborsIndex[edge.source][edge.target] = Object.create(null);
-    this.outNeighborsIndex[edge.source][edge.target][edge.id] = edge;
+    if (!this.outNeighborsIndex[validEdge.source][validEdge.target])
+      this.outNeighborsIndex[validEdge.source][validEdge.target] =
+        Object.create(null);
+    this.outNeighborsIndex[validEdge.source][validEdge.target][validEdge.id] =
+      validEdge;
 
-    if (!this.allNeighborsIndex[edge.source][edge.target])
-      this.allNeighborsIndex[edge.source][edge.target] = Object.create(null);
-    this.allNeighborsIndex[edge.source][edge.target][edge.id] = edge;
+    if (!this.allNeighborsIndex[validEdge.source][validEdge.target])
+      this.allNeighborsIndex[validEdge.source][validEdge.target] =
+        Object.create(null);
+    this.allNeighborsIndex[validEdge.source][validEdge.target][validEdge.id] =
+      validEdge;
 
-    if (!this.allNeighborsIndex[edge.target][edge.source])
-      this.allNeighborsIndex[edge.target][edge.source] = Object.create(null);
-    this.allNeighborsIndex[edge.target][edge.source][edge.id] = edge;
+    if (!this.allNeighborsIndex[validEdge.target][validEdge.source])
+      this.allNeighborsIndex[validEdge.target][validEdge.source] =
+        Object.create(null);
+    this.allNeighborsIndex[validEdge.target][validEdge.source][validEdge.id] =
+      validEdge;
 
     // Keep counts up to date:
-    this.inNeighborsCount[edge.target]++;
-    this.outNeighborsCount[edge.source]++;
-    this.allNeighborsCount[edge.target]++;
-    this.allNeighborsCount[edge.source]++;
+    this.inNeighborsCount[validEdge.target]++;
+    this.outNeighborsCount[validEdge.source]++;
+    this.allNeighborsCount[validEdge.target]++;
+    this.allNeighborsCount[validEdge.source]++;
 
     return this;
   });
@@ -4652,7 +4720,13 @@
       if (_settings('mouseEnabled'))
         _self.dispatchEvent('mousemove', {
           x: sigma.utils.getX(e) - e.target.width / 2,
-          y: sigma.utils.getY(e) - e.target.height / 2
+          y: sigma.utils.getY(e) - e.target.height / 2,
+          clientX: e.clientX,
+          clientY: e.clientY,
+          ctrlKey: e.ctrlKey,
+          metaKey: e.metaKey,
+          altKey: e.altKey,
+          shiftKey: e.shiftKey
         });
 
       if (_settings('mouseEnabled') && _isMouseDown) {
@@ -4740,7 +4814,13 @@
 
         _self.dispatchEvent('mouseup', {
           x: x - e.target.width / 2,
-          y: y - e.target.height / 2
+          y: y - e.target.height / 2,
+          clientX: e.clientX,
+          clientY: e.clientY,
+          ctrlKey: e.ctrlKey,
+          metaKey: e.metaKey,
+          altKey: e.altKey,
+          shiftKey: e.shiftKey
         });
 
         // Update _isMoving flag:
@@ -4756,8 +4836,6 @@
      */
     function _downHandler(e) {
       if (_settings('mouseEnabled')) {
-        _isMouseDown = true;
-
         _startCameraX = _camera.x;
         _startCameraY = _camera.y;
 
@@ -4767,10 +4845,40 @@
         _startMouseX = sigma.utils.getX(e);
         _startMouseY = sigma.utils.getY(e);
 
-        _self.dispatchEvent('mousedown', {
-          x: _startMouseX - e.target.width / 2,
-          y: _startMouseY - e.target.height / 2
-        });
+        switch (e.which) {
+          case 2:
+            // Middle mouse button pressed
+            // Do nothing.
+            break;
+          case 3:
+            // Right mouse button pressed
+            _self.dispatchEvent('rightclick', {
+              x: _startMouseX - e.target.width / 2,
+              y: _startMouseY - e.target.height / 2,
+              clientX: e.clientX,
+              clientY: e.clientY,
+              ctrlKey: e.ctrlKey,
+              metaKey: e.metaKey,
+              altKey: e.altKey,
+              shiftKey: e.shiftKey
+            });
+            break;
+          // case 1:
+          default:
+            // Left mouse button pressed
+            _isMouseDown = true;
+
+            _self.dispatchEvent('mousedown', {
+              x: _startMouseX - e.target.width / 2,
+              y: _startMouseY - e.target.height / 2,
+              clientX: e.clientX,
+              clientY: e.clientY,
+              ctrlKey: e.ctrlKey,
+              metaKey: e.metaKey,
+              altKey: e.altKey,
+              shiftKey: e.shiftKey
+            });
+        }
       }
     }
 
@@ -4795,7 +4903,13 @@
       if (_settings('mouseEnabled'))
         _self.dispatchEvent('click', {
           x: sigma.utils.getX(e) - e.target.width / 2,
-          y: sigma.utils.getY(e) - e.target.height / 2
+          y: sigma.utils.getY(e) - e.target.height / 2,
+          clientX: e.clientX,
+          clientY: e.clientY,
+          ctrlKey: e.ctrlKey,
+          metaKey: e.metaKey,
+          altKey: e.altKey,
+          shiftKey: e.shiftKey
         });
 
       if (e.preventDefault)
@@ -4823,7 +4937,13 @@
 
         _self.dispatchEvent('doubleclick', {
           x: _startMouseX - e.target.width / 2,
-          y: _startMouseY - e.target.height / 2
+          y: _startMouseY - e.target.height / 2,
+          clientX: e.clientX,
+          clientY: e.clientY,
+          ctrlKey: e.ctrlKey,
+          metaKey: e.metaKey,
+          altKey: e.altKey,
+          shiftKey: e.shiftKey
         });
 
         if (_settings('doubleClickEnabled')) {
@@ -5175,7 +5295,13 @@
 
               _self.dispatchEvent('mousemove', {
                 x: pos0.x - e.target.width / 2,
-                y: pos0.y - e.target.height / 2
+                y: pos0.y - e.target.height / 2,
+                clientX: e.clientX,
+                clientY: e.clientY,
+                ctrlKey: e.ctrlKey,
+                metaKey: e.metaKey,
+                altKey: e.altKey,
+                shiftKey: e.shiftKey
               });
 
               _self.dispatchEvent('drag');
@@ -5275,7 +5401,13 @@
         pos = position(e.touches[0]);
         _self.dispatchEvent('doubleclick', {
           x: pos.x - e.target.width / 2,
-          y: pos.y - e.target.height / 2
+          y: pos.y - e.target.height / 2,
+          clientX: e.clientX,
+          clientY: e.clientY,
+          ctrlKey: e.ctrlKey,
+          metaKey: e.metaKey,
+          altKey: e.altKey,
+          shiftKey: e.shiftKey
         });
 
         if (_settings('doubleClickEnabled')) {
@@ -6198,7 +6330,8 @@
    */
   sigma.renderers.webgl.prototype.initDOM = function(tag, id, webgl) {
     var gl,
-        dom = document.createElement(tag);
+        dom = document.createElement(tag),
+        self = this;
 
     dom.style.position = 'absolute';
     dom.setAttribute('class', 'sigma-' + id);
@@ -6206,10 +6339,24 @@
     this.domElements[id] = dom;
     this.container.appendChild(dom);
 
-    if (tag.toLowerCase() === 'canvas')
+    if (tag.toLowerCase() === 'canvas') {
       this.contexts[id] = dom.getContext(webgl ? 'experimental-webgl' : '2d', {
         preserveDrawingBuffer: true
       });
+
+      // Adding webgl context loss listeners
+      if (webgl) {
+        dom.addEventListener('webglcontextlost', function(e) {
+          console.log('sigma: context lost.');
+          e.preventDefault();
+        }, false);
+
+        dom.addEventListener('webglcontextrestored', function(e) {
+          console.log('sigma: context restored.');
+          self.render();
+        }, false);
+      }
+    }
   };
 
   /**
@@ -7679,14 +7826,14 @@
       (node.color || settings('defaultNodeColor')) :
       settings('defaultHoverLabelBGColor');
 
-    if (settings('labelHoverShadow')) {
+    if (node.label && settings('labelHoverShadow')) {
       context.shadowOffsetX = 0;
       context.shadowOffsetY = 0;
       context.shadowBlur = 8;
       context.shadowColor = settings('labelHoverShadowColor');
     }
 
-    if (typeof node.label === 'string') {
+    if (node.label && typeof node.label === 'string') {
       x = Math.round(node[prefix + 'x'] - fontSize / 2 - 2);
       y = Math.round(node[prefix + 'y'] - fontSize / 2 - 2);
       w = Math.round(
@@ -7856,7 +8003,26 @@
         prefix = settings('prefix') || '',
         edgeColor = settings('edgeColor'),
         defaultNodeColor = settings('defaultNodeColor'),
-        defaultEdgeColor = settings('defaultEdgeColor');
+        defaultEdgeColor = settings('defaultEdgeColor'),
+        sSize = source[prefix + 'size'],
+        sX = source[prefix + 'x'],
+        sY = source[prefix + 'y'],
+        tX = target[prefix + 'x'],
+        tY = target[prefix + 'y'],
+        controlX,
+        controlY,
+        controlX2,
+        controlY2;
+
+    if (source.id === target.id) {
+      controlX = sX - sSize * 7;
+      controlY = sY;
+      controlX2 = sX;
+      controlY2 = sY + sSize * 7;
+    } else {
+      controlX = (sX + tX) / 2 + (tY - sY) / 4;
+      controlY = (sY + tY) / 2 + (sX - tX) / 4;
+    }
 
     if (!color)
       switch (edgeColor) {
@@ -7874,18 +8040,12 @@
     context.strokeStyle = color;
     context.lineWidth = edge[prefix + 'size'] || 1;
     context.beginPath();
-    context.moveTo(
-      source[prefix + 'x'],
-      source[prefix + 'y']
-    );
-    context.quadraticCurveTo(
-      (source[prefix + 'x'] + target[prefix + 'x']) / 2 +
-        (target[prefix + 'y'] - source[prefix + 'y']) / 4,
-      (source[prefix + 'y'] + target[prefix + 'y']) / 2 +
-        (source[prefix + 'x'] - target[prefix + 'x']) / 4,
-      target[prefix + 'x'],
-      target[prefix + 'y']
-    );
+    context.moveTo(sX, sY);
+    if (source.id === target.id) {
+      context.bezierCurveTo(controlX2, controlY2, controlX, controlY, tX, tY);
+    } else {
+      context.quadraticCurveTo(controlX, controlY, tX, tY);
+    }
     context.stroke();
   };
 })();
@@ -7986,18 +8146,28 @@
         edgeColor = settings('edgeColor'),
         defaultNodeColor = settings('defaultNodeColor'),
         defaultEdgeColor = settings('defaultEdgeColor'),
-        thickness = edge[prefix + 'size'] || 1,
         tSize = target[prefix + 'size'],
         sX = source[prefix + 'x'],
         sY = source[prefix + 'y'],
-        controlX = (source[prefix + 'x'] + target[prefix + 'x']) / 2 +
-                   (target[prefix + 'y'] - source[prefix + 'y']) / 4,
-        controlY = (source[prefix + 'y'] + target[prefix + 'y']) / 2 +
-                   (source[prefix + 'x'] - target[prefix + 'x']) / 4,
         tX = target[prefix + 'x'],
         tY = target[prefix + 'y'],
-        aSize = thickness * 2.5,
-        d = Math.sqrt(Math.pow(tX - controlX, 2) + Math.pow(tY - controlY, 2)),
+        controlX,
+        controlY,
+        controlX2,
+        controlY2;
+
+    if (source.id === target.id) {
+      controlX = sX - tSize * 7;
+      controlY = sY;
+      controlX2 = sX;
+      controlY2 = sY + tSize * 7;
+    } else {
+      controlX = (sX + tX) / 2 + (tY - sY) / 4;
+      controlY = (sY + tY) / 2 + (sX - tX) / 4;
+    }
+
+    var d = Math.sqrt(Math.pow(tX - controlX, 2) + Math.pow(tY - controlY, 2)),
+        aSize = (edge[prefix + 'size'] || 1) * 2.5,
         aX = controlX + (tX - controlX) * (d - aSize - tSize) / d,
         aY = controlY + (tY - controlY) * (d - aSize - tSize) / d,
         vX = (tX - controlX) * aSize / d,
@@ -8017,10 +8187,14 @@
       }
 
     context.strokeStyle = color;
-    context.lineWidth = thickness;
+    context.lineWidth = edge[prefix + 'size'] || 1;
     context.beginPath();
     context.moveTo(sX, sY);
-    context.quadraticCurveTo(controlX, controlY, aX, aY);
+    if (source.id === target.id) {
+      context.bezierCurveTo(controlX2, controlY2, controlX, controlY, aX, aY);
+    } else {
+      context.quadraticCurveTo(controlX, controlY, aX, aY);
+    }
     context.stroke();
 
     context.fillStyle = color;
@@ -8079,7 +8253,18 @@
         sizeMax = bounds.sizeMax,
         weightMax = bounds.weightMax,
         w = settings('width') || 1,
-        h = settings('height') || 1;
+        h = settings('height') || 1,
+        rescaleSettings = settings('autoRescale');
+
+    /**
+     * What elements should we rescale?
+     */
+    if (!(rescaleSettings instanceof Array))
+      rescaleSettings = ['nodePosition', 'nodeSize', 'edgeSize'];
+
+    var np = ~rescaleSettings.indexOf('nodePosition'),
+        ns = ~rescaleSettings.indexOf('nodeSize'),
+        es = ~rescaleSettings.indexOf('edgeSize');
 
     /**
      * First, we compute the scaling ratio, without considering the sizes
@@ -8151,14 +8336,16 @@
 
     // Rescale the nodes and edges:
     for (i = 0, l = e.length; i < l; i++)
-      e[i][writePrefix + 'size'] = e[i][readPrefix + 'size'] * c + d;
+      e[i][writePrefix + 'size'] =
+        e[i][readPrefix + 'size'] * (es ? c : 1) + (es ? d : 0);
 
     for (i = 0, l = n.length; i < l; i++) {
-      n[i][writePrefix + 'size'] = n[i][readPrefix + 'size'] * a + b;
+      n[i][writePrefix + 'size'] =
+        n[i][readPrefix + 'size'] * (ns ? a : 1) + (ns ? b : 0);
       n[i][writePrefix + 'x'] =
-        (n[i][readPrefix + 'x'] - (maxX + minX) / 2) * scale;
+        (n[i][readPrefix + 'x'] - (maxX + minX) / 2) * (np ? scale : 1);
       n[i][writePrefix + 'y'] =
-        (n[i][readPrefix + 'y'] - (maxY + minY) / 2) * scale;
+        (n[i][readPrefix + 'y'] - (maxY + minY) / 2) * (np ? scale : 1);
     }
   };
 
@@ -8576,13 +8763,15 @@
 
         if (nodes.length) {
           self.dispatchEvent('clickNode', {
-            node: nodes[0]
+            node: nodes[0],
+            captor: e.data
           });
           self.dispatchEvent('clickNodes', {
-            node: nodes
+            node: nodes,
+            captor: e.data
           });
         } else
-          self.dispatchEvent('clickStage');
+          self.dispatchEvent('clickStage', {captor: e.data});
       }
 
       function onDoubleClick(e) {
@@ -8595,13 +8784,34 @@
 
         if (nodes.length) {
           self.dispatchEvent('doubleClickNode', {
-            node: nodes[0]
+            node: nodes[0],
+            captor: e.data
           });
           self.dispatchEvent('doubleClickNodes', {
-            node: nodes
+            node: nodes,
+            captor: e.data
           });
         } else
-          self.dispatchEvent('doubleClickStage');
+          self.dispatchEvent('doubleClickStage', {captor: e.data});
+      }
+
+      function onRightClick(e) {
+        if (!self.settings('eventsEnabled'))
+          return;
+
+        self.dispatchEvent('rightClick', e.data);
+
+        if (nodes.length) {
+          self.dispatchEvent('rightClickNode', {
+            node: nodes[0],
+            captor: e.data
+          });
+          self.dispatchEvent('rightClickNodes', {
+            node: nodes,
+            captor: e.data
+          });
+        } else
+          self.dispatchEvent('rightClickStage', {captor: e.data});
       }
 
       function onOut(e) {
@@ -8620,11 +8830,13 @@
         // Dispatch both single and multi events:
         for (i = 0, l = out.length; i < l; i++)
           self.dispatchEvent('outNode', {
-            node: out[i]
+            node: out[i],
+            captor: e.data
           });
         if (out.length)
           self.dispatchEvent('outNodes', {
-            nodes: out
+            nodes: out,
+            captor: e.data
           });
       }
 
@@ -8662,19 +8874,23 @@
         // Dispatch both single and multi events:
         for (i = 0, l = newOvers.length; i < l; i++)
           self.dispatchEvent('overNode', {
-            node: newOvers[i]
+            node: newOvers[i],
+            captor: e.data
           });
         for (i = 0, l = newOut.length; i < l; i++)
           self.dispatchEvent('outNode', {
-            node: newOut[i]
+            node: newOut[i],
+            captor: e.data
           });
         if (newOvers.length)
           self.dispatchEvent('overNodes', {
-            nodes: newOvers
+            nodes: newOvers,
+            captor: e.data
           });
         if (newOut.length)
           self.dispatchEvent('outNodes', {
-            nodes: newOut
+            nodes: newOut,
+            captor: e.data
           });
       }
 
@@ -8685,6 +8901,7 @@
       captor.bind('mousemove', onMove);
       captor.bind('mouseout', onOut);
       captor.bind('doubleclick', onDoubleClick);
+      captor.bind('rightclick', onRightClick);
       self.bind('render', onMove);
     }
 
@@ -8711,28 +8928,21 @@
    */
   sigma.misc.drawHovers = function(prefix) {
     var self = this,
-        hoveredNodes = {};
+      hoveredNodes = [];
 
-    this.bind('overNodes', function(event) {
-      var n = event.data.nodes,
-          l = n.length,
-          i;
-
-      for (i = 0; i < l; i++)
-        hoveredNodes[n[i].id] = n[i];
-
+    this.bind('overNode', function(event) {
+      hoveredNodes.push(event.data.node);
       draw();
     });
-    this.bind('outNodes', function(event) {
-      var n = event.data.nodes,
-          l = n.length,
-          i;
 
-      for (i = 0; i < l; i++)
-        delete hoveredNodes[n[i].id];
-
+    this.bind('outNode', function(event) {
+      var indexCheck = hoveredNodes.map(function(n) {
+        return n;
+      }).indexOf(event.data.node);
+      hoveredNodes.splice(indexCheck, 1);
       draw();
     });
+
     this.bind('render', function(event) {
       draw();
     });
@@ -8742,20 +8952,47 @@
       self.contexts.hover.canvas.width = self.contexts.hover.canvas.width;
 
       var k,
-          renderers = sigma.canvas.hovers,
-          embedSettings = self.settings.embedObjects({
-            prefix: prefix
-          });
+        renderers = sigma.canvas.hovers,
+        embedSettings = self.settings.embedObjects({
+          prefix: prefix
+        });
 
-      // Render
-      if (embedSettings('enableHovering'))
-        for (k in hoveredNodes)
-          if (!hoveredNodes[k].hidden)
-            (renderers[hoveredNodes[k].type] || renderers.def)(
-              hoveredNodes[k],
+      // Single hover
+      if (
+        embedSettings('enableHovering') &&
+        embedSettings('singleHover') &&
+        hoveredNodes.length
+      ) {
+        if (! hoveredNodes[hoveredNodes.length - 1].hidden) {
+          (
+            renderers[hoveredNodes[hoveredNodes.length - 1].type] ||
+            renderers.def
+          )(
+            hoveredNodes[hoveredNodes.length - 1],
+            self.contexts.hover,
+            embedSettings
+          );
+        }
+      }
+
+      // Multiple hover
+      if (
+        embedSettings('enableHovering') &&
+        !embedSettings('singleHover') &&
+        hoveredNodes.length
+      ) {
+        for (var i = 0; i < hoveredNodes.length; i++) {
+          if (! hoveredNodes[i].hidden) {
+            (renderers[hoveredNodes[i].type] || renderers.def)(
+              hoveredNodes[i],
               self.contexts.hover,
               embedSettings
             );
+          }
+        }
+      }
+
+
     }
   };
 }).call(this);
