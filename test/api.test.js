@@ -10,7 +10,7 @@ var assert = require('assert'),
     agent = request.agent(app),
     utils = require('../lib/utils.js'),
     types = require('typology'),
-    models = require('../server/models.js'),
+    entities = require('../server/entities.js'),
     schemas = require('../server/schemas.js');
 
 describe('Concerning the API', function() {
@@ -188,8 +188,8 @@ describe('Concerning the API', function() {
           assert(res.body.ok);
 
           // Checking data in model
-          models.space.get(cache.spaceId, function(err, space) {
-            models.graph.get(space.graphs[0].id, function(err, data) {
+          entities.space.get(cache.spaceId, function(err, space) {
+            entities.graph.get(space.graphs[0].id, function(err, data) {
               assert.deepEqual(newGraph, data);
               done();
             })
@@ -212,7 +212,7 @@ describe('Concerning the API', function() {
           assert(res.body.ok);
 
           // Checking data in model
-          models.space.get(cache.spaceId, function(err, space) {
+          entities.space.get(cache.spaceId, function(err, space) {
             assert.deepEqual(space.graphs[0].meta, newMeta);
             done();
           });

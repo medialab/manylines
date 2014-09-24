@@ -153,8 +153,7 @@
 
         this.dispatchEvent('graph.render');
 
-        if (!this.expand('isSpaceNew'))
-          this.update('pane', this.get('lastPane') || 'basemap');
+        this.update('pane', this.get('lastPane') || 'basemap');
       }
     },
 

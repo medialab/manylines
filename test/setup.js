@@ -7,8 +7,8 @@ var async = require('async'),
     buckets = require('../server/buckets.js'),
     logger = require('../lib/log.js').api.logger,
     server = require('../server/api.js'),
-    models = require('../server/models.js'),
-    Model = require('../lib/model.js');
+    entities = require('../server/entities.js'),
+    Entity = require('../lib/entity.js');
 
 // Useful namespace
 var test = {
@@ -64,7 +64,7 @@ before(function(done) {
     buckets: function(next) {
       buckets.connectForTests(function() {
         test.bucket = buckets.buckets[Object.keys(buckets.buckets)[0]];
-        models.init();
+        entities.init();
         next();
       });
     },
@@ -72,9 +72,9 @@ before(function(done) {
       server.start(test.port);
       next();
     },
-    models: function(next) {
-      test.models = {
-        user: new Model('user', test.bucket, {
+    entities: function(next) {
+      test.entities = {
+        user: new Entity('user', test.bucket, {
           firstname: 'string',
           lastname: 'string'
         })

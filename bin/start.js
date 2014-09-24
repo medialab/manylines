@@ -4,8 +4,8 @@ var config = require('../server/config.js');
 require('../server/buckets.js').connect(function() {
   console.log('');
 
-  // Initializing models
-  require('../server/models.js').init();
+  // Initializing entities
+  require('../server/entities.js').init();
 
   // Launch API:
   require('../server/api.js').start(config.api.port);

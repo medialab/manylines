@@ -4,20 +4,20 @@
  *
  */
 var async = require('async'),
-    models = require('../models'),
+    entities = require('../entities.js'),
     utils = require('../../lib/utils.js');
 
 exports.create = function(spaceId, version, data, callback) {
 
   async.waterfall([
     function narrativeCreation(next) {
-      models.narrative.create(
+      entities.narrative.create(
         utils.extend(data, {space: spaceId, version: version}),
         next
       );
     },
     function spaceIndexation(narrative, next) {
-      models.space.get(spaceId, function(err, space) {
+      entities.space.get(spaceId, function(err, space) {
         err && (next(err));
 
         // Adding the narrative to the graph version
@@ -27,7 +27,7 @@ exports.create = function(spaceId, version, data, callback) {
         space.graphs[version].narratives.push(narrative.id);
 
         // Updating
-        models.space.set(spaceId, space, function(err, result) {
+        entities.space.set(spaceId, space, function(err, result) {
           next(err, narrative.id);
         });
       });
@@ -39,12 +39,12 @@ exports.retrieve = function(spaceId, version, callback) {
 
   async.waterfall([
     function getSpace(next) {
-      models.space.get(spaceId, next);
+      entities.space.get(spaceId, next);
     },
     function getNarratives(space, next) {
 
       if ((space.graphs[version].narratives || []).length)
-        models.narrative.get(
+        entities.narrative.get(
           space.graphs[version].narratives,
           {id: true},
           next
@@ -56,5 +56,5 @@ exports.retrieve = function(spaceId, version, callback) {
 };
 
 exports.update = function(id, data, callback) {
-  models.narrative.update(id, data, callback);
+  entities.narrative.update(id, data, callback);
 };

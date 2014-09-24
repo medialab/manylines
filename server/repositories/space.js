@@ -4,7 +4,7 @@
  *
  */
 var async = require('async'),
-    models = require('../models'),
+    entities = require('../entities.js'),
     utils = require('../../lib/utils.js'),
     types = require('typology');
 
@@ -13,7 +13,7 @@ exports.initialize = function(email, password, graphData, graphMeta, callback) {
   // Creating the needed items
   async.waterfall([
     function graph(next) {
-      models.graph.create(graphData, next);
+      entities.graph.create(graphData, next);
     },
     function space(graph, next) {
       var data = {
@@ -27,7 +27,7 @@ exports.initialize = function(email, password, graphData, graphMeta, callback) {
         ]
       };
 
-      models.space.create(data, next);
+      entities.space.create(data, next);
     }
   ], callback);
 };
@@ -38,7 +38,7 @@ exports.update = function(id, email, password, callback) {
   email && (updateData.email = email);
   password && (updateData.password = password);
 
-  models.space.update(id, updateData, callback);
+  entities.space.update(id, updateData, callback);
 };
 
 exports.getVersion = function(id, version, callback) {
@@ -46,13 +46,13 @@ exports.getVersion = function(id, version, callback) {
   // Retrieving space and the desired graph version
   async.waterfall([
     function space(next) {
-      models.space.get(id, next);
+      entities.space.get(id, next);
     },
     function graph(space, next) {
       if (!space || space.graphs.length - 1 < version)
         return next(new Error('inexistant-version'));
 
-      models.graph.get(space.graphs[version].id, function(err, graph) {
+      entities.graph.get(space.graphs[version].id, function(err, graph) {
         next(err, {
           space: space,
           graph: graph,
@@ -69,13 +69,13 @@ exports.getGraphData = function(id, version, callback) {
   // Retrieving space and then the desired graph data
   async.waterfall([
     function space(next) {
-      models.space.get(id, next);
+      entities.space.get(id, next);
     },
     function graphData(space, next) {
       if (!space || space.graphs.length - 1 < version)
         return next(new Error('inexistant-version'));
 
-      models.graph.get(space.graphs[version].id, next);
+      entities.graph.get(space.graphs[version].id, next);
     }
   ], callback);
 };
@@ -85,13 +85,13 @@ exports.updateGraphData = function(id, version, data, callback) {
   // Retrieving space and update said version
   async.waterfall([
     function space(next) {
-      models.space.get(id, next);
+      entities.space.get(id, next);
     },
     function updateGraph(space, next) {
       if (!space || space.graphs.length - 1 < version)
         return next(new Error('inexistant-version'));
 
-      models.graph.set(space.graphs[version].id, data, next);
+      entities.graph.set(space.graphs[version].id, data, next);
     }
   ], callback);
 };
@@ -101,7 +101,7 @@ exports.updateGraphMeta = function(id, version, data, callback) {
   // Retrieving space and update said version
   async.waterfall([
     function space(next) {
-      models.space.get(id, next);
+      entities.space.get(id, next);
     },
     function updateMeta(space, next) {
       if (!space || space.graphs.length - 1 < version)
@@ -109,7 +109,7 @@ exports.updateGraphMeta = function(id, version, data, callback) {
 
       space.graphs[version].meta = data;
 
-      models.space.set(id, space, next);
+      entities.space.set(id, space, next);
     }
   ], callback);
 };
@@ -126,7 +126,7 @@ exports.addSnapshot = function(id, version, data, callback) {
   // Retrieving the space and add the snapshot
   async.waterfall([
     function space(next) {
-      models.space.get(id, next);
+      entities.space.get(id, next);
     },
     function updateGraph(space, next) {
       if (!space || space.graphs.length - 1 < version)
@@ -136,7 +136,7 @@ exports.addSnapshot = function(id, version, data, callback) {
       snapshots.push(data);
       space.graphs[version].snapshots = snapshots;
 
-      models.space.set(id, space, function(err, result) {
+      entities.space.set(id, space, function(err, result) {
         next(err, data.id);
       });
     }
@@ -146,7 +146,7 @@ exports.addSnapshot = function(id, version, data, callback) {
 exports.getSnapshots = function(id, version, callback) {
 
   // Retrieving the snapshots within the space
-  models.space.get(id, function(err, space) {
+  entities.space.get(id, function(err, space) {
     if (!space || space.graphs.length - 1 < version)
       return callback(new Error('inexistant-version'));
 
