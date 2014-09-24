@@ -19,7 +19,7 @@
 
       var data = {};
 
-      data.spaceId = d.expand('spaceId');
+      data.space = d.get('space');
       data.meta = d.get('meta');
       data.graph = d.get('graph');
       data.modified = d.get('modified');
@@ -47,7 +47,7 @@
         enabled = false;
       }
 
-      self.dispatchEvent('storage.loaded', data);
+      self.dispatchEvent('storage.loaded', {storage: data});
     }
 
     function clear() {

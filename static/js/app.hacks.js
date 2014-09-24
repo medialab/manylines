@@ -9,7 +9,6 @@
 
   // Simple extraneous events
   var eventsRegister = [
-    'hash.changed',
     'error',
     'warning',
     'info'
@@ -85,52 +84,51 @@
 
         // First of all we try to retrieve data from server
         if (hash.spaceId && hash.version)
-          return this.request('space.load', {
-            shortcuts: {
-              spaceId: hash.spaceId,
-              version: hash.version
-            }
+          return this.dispatchEvent('data.load', {
+            spaceId: hash.spaceId,
+            version: hash.version
           });
 
         // Else we try to get unsaved data from the localstorage
         this.dispatchEvent('storage.load');
+      }
+    },
 
-        // if (!hash) {
-        //   hash = '/upload';
-        //   window.location.hash = hash;
-        //   this.update('pane', 'upload');
-        //   return;
-        // }
+    /**
+     * The hash has been changed voluntarily.
+     */
+    {
+      triggers: 'hash.changed',
+      method: function(e) {
+        var hash = app.utils.parseHash(e.data.hash);
 
-        // // Which pane is requested?
-        // var hashSplit = hash.split('/'),
-        //     wantedPane = hashSplit[1],
-        //     spaceId = hashSplit[2],
-        //     version = hashSplit[3];
+        if (hash.pane !== this.get('pane'))
+          this.update('pane', hash.pane);
+      }
+    },
 
-        // // If the graph has not been saved yet, we check the storage
-        // if (!spaceId || !version) {
-        //   this.dispatchEvent('storage.load');
-        // }
+    /**
+     * Loading application data from server.
+     */
+    {
+      triggers: 'data.load',
+      method: function(e) {
 
-        // // Do we need to retrieve space data?
-        // if (spaceId && !this.expand('version')) {
-        //   this.request('space.load', {
-        //     shortcuts: {
-        //       spaceId: spaceId,
-        //       version: version
-        //     }
-        //   });
+        // Space data
+        this.request('space.load', {
+          shortcuts: {
+            spaceId: e.data.spaceId,
+            version: e.data.version
+          }
+        });
 
-        //   this.request('narratives.load', {
-        //     shortcuts: {
-        //       spaceId: spaceId,
-        //       version: version
-        //     }
-        //   });
-        // }
-
-        // this.update('pane', wantedPane);
+        // Narratives data
+        this.request('narratives.load', {
+          shortcuts: {
+            spaceId: e.data.spaceId,
+            version: e.data.version
+          }
+        });
       }
     },
 
@@ -140,21 +138,23 @@
     {
       triggers: 'storage.loaded',
       method: function(e) {
+        var storage = e.data.storage;
 
         // If not data were to be found, we go to upload
-        if (!e.data)
+        if (!storage || (storage.space && this.expand('isSpaceNew')))
           return this.update('pane', 'upload');
 
         // Else we update the data accordingly
-        this.update('graph', e.data.graph);
-        this.update('meta', e.data.meta);
-        this.update('modified', e.data.modified);
-        this.update('narratives', e.data.narratives);
+        this.update('space', storage.space);
+        this.update('graph', storage.graph);
+        this.update('meta', storage.meta);
+        this.update('modified', storage.modified);
+        this.update('narratives', storage.narratives);
 
         this.dispatchEvent('graph.render');
 
-        // TODO: if we do have a spaceId, we check our space id hash and we
-        // look for our id. if not, we clean the store and load the server data
+        if (!this.expand('isSpaceNew'))
+          this.update('pane', this.get('lastPane') || 'basemap');
       }
     },
 

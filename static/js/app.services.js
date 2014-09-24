@@ -55,7 +55,7 @@
         this.update('space', data);
 
         // Requesting more data
-        this.request('space.load');
+        this.dispatchEvent('data.load');
       },
       error: onUnauthorized
     },

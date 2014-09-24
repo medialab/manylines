@@ -10,15 +10,15 @@
 
   app.modules.location = function() {
     var self = this,
-        cache = window.location.hash;
+        cache = null;
 
     // Emitters
-    // window.onhashchange = function() {
-    //   if (cache !== window.location.hash) {
-    //     self.dispatchEvent('hash.changed', window.location.hash);
-    //     cache = window.location.hash;
-    //   }
-    // };
+    window.onhashchange = function() {
+      if (cache !== window.location.hash) {
+        self.dispatchEvent('hash.changed', {hash: window.location.hash});
+        cache = window.location.hash;
+      }
+    };
 
     // Receptors
     function updateHash(d) {
