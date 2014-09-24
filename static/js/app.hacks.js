@@ -11,7 +11,8 @@
   var eventsRegister = [
     'error',
     'warning',
-    'info'
+    'info',
+    'storage.clear'
   ];
 
   // Application hacks

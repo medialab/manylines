@@ -20,8 +20,13 @@
       /**
        * Clicking the button triggers the file input.
        */
-      $('a[role="button"]', dom).click(function() {
+      $('a[role="button"]', dom).click(function(e) {
         $('input:file', dom).click();
+
+        // Cleaning storage
+        self.dispatchEvent('storage.clear');
+
+        e.preventDefault();
       });
 
       /**
