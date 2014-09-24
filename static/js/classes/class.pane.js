@@ -16,48 +16,6 @@
     this.childModules = [];
     this.rendered = false;
 
-    var s = app.control.get('mainSigma');
-
-    // Privates
-    function bindSigmaActions() {
-
-      // Zoom
-      $('*[data-app-sigma-action="zoom"]', self.dom).click(function() {
-        var cam = s.cameras.main;
-
-        sigma.misc.animation.camera(
-          cam,
-          { ratio: cam.ratio / 1.5 },
-          { duration: 150 }
-        );
-      });
-
-      // Unzoom
-      $('*[data-app-sigma-action="unzoom"]', self.dom).click(function() {
-        var cam = s.cameras.main;
-
-        sigma.misc.animation.camera(
-          cam,
-          { ratio: cam.ratio * 1.5 },
-          { duration: 150 }
-        );
-      });
-
-      // Recenter
-      $('*[data-app-sigma-action="recenter"]', self.dom).click(function() {
-        var cam = s.cameras.main;
-
-        sigma.misc.animation.camera(
-          cam,
-          { x: 0,
-            y: 0,
-            angle: 0,
-            ratio: 1 },
-          { duration: 150 }
-        );
-      });
-    }
-
     // Methods
     this.render = function() {
       app.templates.require(params.name, function(template) {
@@ -68,21 +26,8 @@
         self.dom = $beforeMain.next('div');
 
         // Rendering graph if necessary
-        if (params.graph) {
-          $('.sigma-expand').replaceWith(app.control.get('mainRendererContainer'));
-
-          // Binding actions
-          bindSigmaActions();
-
-          // Resizing the renderer
-          s.renderers.main.resize();
-
-          // Recentering camera
-          s.cameras.main.goTo({x: 0, y: 0, ratio: 1, angle: 0});
-
-          // Refreshing sigma and resetting colors
-          s.run('resetColors');
-        }
+        if (params.graph)
+          self.addChildModule(app.modules.graph, [self.dom]);
 
         // Registering emitters
         self.emitters && (self.emitters(self.dom));
@@ -98,6 +43,12 @@
       return this.childModules[this.childModules.length - 1];
     };
 
+    this.removeChildModule = function(module) {
+      var index = this.childModules.indexOf(module);
+      module.unmount && (module.unmount())
+      this.childModules.splice(index, 1);
+    };
+
     this.mount = function() {
 
       // Rendering
@@ -105,12 +56,6 @@
     };
 
     this.unmount = function() {
-
-      if (params.graph) {
-
-        // Unmounting graph renderer
-        $('.sigma-panel')[0].removeChild(app.control.get('mainRendererContainer'));
-      }
 
       // Killing childs
       this.childModules.forEach(function(module) {

@@ -34,6 +34,7 @@
       "/js/modules/module.alerts.js",
       "/js/modules/module.location.js",
       "/js/modules/module.layout.js",
+      "/js/modules/module.graph.js",
       "/js/modules/module.menu.js",
       "/js/modules/module.status.js",
       "/js/modules/module.storage.js",

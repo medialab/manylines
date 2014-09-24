@@ -53,13 +53,21 @@
       defaultLabelSize: 13,
       minEdgeSize: 1.5,
       maxEdgeSize: 1.5,
+      maxNodeSize: 8,
       defaultEdgeColor: '#ddd',
       defaultNodeColor: '#ccc',
       edgeColor: 'default',
-      rescaleIgnoreSize: true,
+      rescaleIgnoreSize: false,
       labelThreshold: 8,
       zoomMin: 0.002,
       zoomMax: 2
+    },
+
+    // Slide rendering options
+    slideSigma: {
+      maxNodeSize: 3,
+      minEdgeSize: 0.5,
+      maxEdgeSize: 0.5
     },
 
     // Storage utilities

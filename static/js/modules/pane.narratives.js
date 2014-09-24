@@ -20,6 +20,7 @@
     // State
     this.thumbnails = [];
     this.mode = null;
+    this.graph = null;
 
     // Emitters
     this.menuEmitters = function(dom) {
@@ -109,11 +110,19 @@
 
         self.renderSnapshots();
         self.editionEmitters($newDom);
+
+        if (app.control.get('currentSlide')) {
+          var currentSlide = app.control.query('currentSlide');
+          slide(currentSlide);
+        }
       });
     }
 
     function slide(data) {
       var $container = $('.slide-container');
+
+      if (self.graph)
+        self.removeChildModule(self.graph);
 
       // Templating
       app.templates.require('narratives.slide', function(template) {
@@ -122,6 +131,12 @@
           slide: data,
           placeholder: i18n.t('narratives.default_slide_text')
         }));
+
+        $('[data-app-thumbnail-snapshot="' + data.snapshot + '"]').parent().addClass('active');
+
+        // Adding the graph
+        var snapshot = app.control.query('snapshotById', data.snapshot);
+        self.graph = self.addChildModule(app.modules.graph, [$container, {snapshot: snapshot}]);
       });
     }
 
