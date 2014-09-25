@@ -169,6 +169,14 @@
         if (!this.get('graph') && desiredPane !== 'upload')
           return;
 
+        if (!this.expand('hasSnaphots') && desiredPane === 'narratives') {
+          this.dispatchEvent('warning', {reason: 'narratives.impossible'});
+          return;
+        }
+
+        if (desiredPane === 'dashboard')
+          return this.dispatchEvent('info', {reason: 'dashboard.impossible'});
+
         this.update('pane', desiredPane);
       }
     },
@@ -405,7 +413,7 @@
 
         // If the graph has not been saved yet, we shun the user
         if (this.expand('isSpaceNew'))
-          return this.dispatchEvent('error', {reason: 'dev - graph must be saved.'});
+          return this.dispatchEvent('error', {reason: 'snapshots.impossible'});
 
         // Else we can proceed
         this.request('snapshot.save', {

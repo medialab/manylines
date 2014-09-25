@@ -149,6 +149,13 @@
       }
     },
     {
+      id: 'hasSnaphots',
+      description: 'Returns whether snapshots exist for the graph.',
+      method: function() {
+        return !!this.get('snapshots').length;
+      }
+    },
+    {
       id: 'nodeModel',
       description: 'Little helper to return a node model if existant or an empty array otherwise.',
       method: function() {

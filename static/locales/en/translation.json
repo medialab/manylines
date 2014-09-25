@@ -27,7 +27,8 @@
     "category_plural": "__count__ categories"
   },
   "snapshots": {
-    "saved": "View taken"
+    "saved": "View taken",
+    "impossible": "You cannot take a view without saving your graph first."
   },
 
   "login": {
@@ -68,10 +69,14 @@
       "description": "The layout is usually cleaner when most connected nodes are bigger. The degree is the number of links, the indegree (outdegree) is the number of inbound links (outbound). "
     }
   },
+  "dashboard": {
+    "impossible": "The dashboard is currently unavailable."
+  },
   "narratives": {
     "create": "Create a new narrative",
-    "slide": "__count__ slide.",
-    "slide_plural": "__count__ slides.",
+    "impossible": "You cannot create narratives without any view taken.",
+    "slide": "__count__ slide",
+    "slide_plural": "__count__ slides",
     "created": "Narrative created",
     "back_button": "Back to narratives",
     "default_narrative_title": "New Narrative",
