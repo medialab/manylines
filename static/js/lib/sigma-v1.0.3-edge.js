@@ -8959,7 +8959,8 @@
       // Single hover
       if (
         embedSettings('enableHovering') &&
-        embedSettings('singleHover')
+        embedSettings('singleHover') &&
+        Object.keys(hoveredNodes).length
       ) {
         hoveredNode = hoveredNodes[Object.keys(hoveredNodes)[0]];
         (renderers[hoveredNode.type] || renderers.def)(

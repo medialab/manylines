@@ -59,6 +59,7 @@
       edgeColor: 'default',
       rescaleIgnoreSize: false,
       labelThreshold: 8,
+      singleHover: true,
       zoomMin: 0.002,
       zoomMax: 2
     },
