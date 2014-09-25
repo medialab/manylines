@@ -1,10 +1,17 @@
 {{! Narratives menu view: }}
 <div class="container-fluid container-fullheight narrative">
   <div class="row row-fullheight main widget-background">
-    <div class="col-left col-xs-9" data-app-module="narratives">
+    <div class="col-left col-lg-4 col-xs-6" data-app-module="narratives">
       <ul class="narratives-list">
-      	{{!-- Here comes the narratives --}}
+        {{!-- Here comes the narratives --}}
       </ul>
+      <div>
+        <button type="button"
+                class="btn btn-primary center-block"
+                data-app-narratives-action="add">
+          {{t "narratives.create" }}
+        </button>
+      </div>
     </div>
   </div>
 </div>

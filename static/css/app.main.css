@@ -449,8 +449,23 @@ html,body,.container-fullheight
 .splitlayout-container.narrative .splitlayout-bottom{
   height: 234px;
 }
+.narratives-list {
+  margin-top: 10px;
+  list-style-type: none;
+}
+.narrative h3{
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 14px;
+}
+.narrative h3 > a{
+  color: #000;
+}
 .narrative .views-container{
   height: 117px;
+}
+.narrative .view-item{
+  border-bottom: 1px solid #ccc;
 }
 .narrative .views-band-container{
   height: 117px;

@@ -35,11 +35,14 @@
       /**
        * Editing an existing narrative.
        */
-      dom.on('click', '[data-app-narratives-action="edit"]', function()  {
-        var nid = $(this).attr('data-app-narrative-id');
+      dom.on('click', '[data-app-narratives-action="edit"] a', function(e)  {
+        var nid = $(this).parents('[data-app-narratives-action="edit"]').attr('data-app-narrative-id');
 
         self.dispatchEvent('narrative.select', nid);
         edition(app.control.query('narrativeById', nid));
+
+        e.preventDefault();
+        e.stopPropagation();
       });
     };
 
@@ -142,21 +145,14 @@
 
     // Methods
     this.renderNarrativeList = function() {
-      app.templates.require(
-        ['narratives.item', 'narratives.addItem'],
-        function(templates) {
-          var item = templates['narratives.item'],
-              controls = templates['narratives.addItem'];
+      app.templates.require('narratives.item', function(template) {
 
           // Templating the menu items
           var $list = $('.narratives-list');
 
           app.control.get('narratives').forEach(function(narrative) {
-            $list.append(item(narrative));
+            $list.append(template(narrative));
           });
-
-          // Adding the controls
-          $list.append(controls());
         }
       );
     };

@@ -7,8 +7,14 @@
    * Compilation of handy handlebars helpers.
    */
 
-  Handlebars.registerHelper('t', function(i18n_key) {
-    var result = i18n.t(i18n_key);
+  Handlebars.registerHelper('t', function(i18n_key, length) {
+    var result;
+
+    if (typeof length !== 'number')
+      result = i18n.t(i18n_key);
+    else
+      result = i18n.t(i18n_key, {count: length});
+
     return new Handlebars.SafeString(result);
   });
 
