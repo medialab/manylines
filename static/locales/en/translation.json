@@ -14,6 +14,10 @@
   "space": {
     "save_graph": "Save the graph",
     "save_graph_description": "You need to select a password to prevent your network to be edited by other people, and an email address in case you forget the password.",
+    "bump_graph": "Bump the graph",
+    "bump_graph_description": "You are attempting to update your graph while having already taken views of it and maybe also narratives.<br><br>Do you really want to bump your graph?",
+    "bump_confirm": "Yes",
+    "bump_cancel": "No",
     "password": "Password",
     "email": "Mail address",
     "save": "Save"

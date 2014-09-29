@@ -27,9 +27,11 @@
       var newHash = '/' + d.get('pane');
       d.expand('spaceId') && (newHash += '/' + d.expand('spaceId') + '/' + d.expand('version'))
       d.get('pane') === 'login' && (newHash += '/' + hash.spaceId + '/' + hash.version)
+      cache = newHash;
       window.location.hash = newHash;
     }
 
+    this.triggers.events['hash.update'] = updateHash;
     this.triggers.events['pane.updated'] = updateHash;
     this.triggers.events['space.updated'] = updateHash;
   };

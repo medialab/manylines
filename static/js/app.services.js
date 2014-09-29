@@ -93,6 +93,26 @@
       error: onInvalidData
     },
     {
+      id: 'space.bump',
+      url: '/api/space/:spaceId/bump',
+      type: 'POST',
+      success: function(data) {
+
+        // Updating properties
+        var space = this.get('space');
+        space.version = data.version;
+
+        this.update('space', space);
+        this.update('snapshots', []);
+        this.update('narratives', []);
+        this.update('currentNarrative', null);
+        this.update('currentSlide', null);
+
+        // Updating hash to display new version
+        this.dispatchEvent('hash.update');
+      }
+    },
+    {
       id: 'space.load',
       url: '/api/space/:spaceId/:version',
       success: function(data) {

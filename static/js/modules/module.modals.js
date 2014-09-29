@@ -12,6 +12,25 @@
 
     // Modals
     var modals = {
+      bump: {
+        emitters: function(modal) {
+
+          /**
+           * Closing the modal
+           */
+          $('#space-bump-cancel', modal).click(function() {
+            modal.modal('hide');
+          });
+
+          /**
+           * Bumping the graph
+           */
+          $('#space-bump-confirm', modal).click(function() {
+            self.dispatchEvent('bump');
+            modal.modal('hide');
+          });
+        }
+      },
       save: {
         emitters: function(modal) {
 
@@ -53,6 +72,14 @@
 
     // Methods
     this.openModal = function(name) {
+
+      // Retrieving modal if existant
+      var $modal = $('[data-app-modal="' + name + '"]');
+
+      if ($modal.length) {
+        modals[name].emitters($modal);
+        return $modal.modal('show');
+      }
 
       // Requesting template
       app.templates.require('modals.' + name, function(template) {

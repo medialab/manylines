@@ -9,10 +9,12 @@
 
   // Simple extraneous events
   var eventsRegister = [
+    'modal',
     'error',
     'warning',
     'info',
-    'storage.clear'
+    'storage.clear',
+    'hash.update'
   ];
 
   // Application hacks
@@ -169,7 +171,7 @@
         if (!this.get('graph') && desiredPane !== 'upload')
           return;
 
-        if (!this.expand('hasSnaphots') && desiredPane === 'narratives') {
+        if (!this.expand('hasSnapshots') && desiredPane === 'narratives') {
           this.dispatchEvent('warning', {reason: 'narratives.impossible'});
           return;
         }
@@ -356,6 +358,21 @@
             }
           }
         }
+      }
+    },
+
+    /**
+     * Attempt to bump the current space
+     */
+    {
+      triggers: 'bump',
+      method: function(e) {
+        this.request('space.bump', {
+          data: {
+            graph: this.get('graph'),
+            meta: this.get('meta')
+          }
+        });
       }
     },
 

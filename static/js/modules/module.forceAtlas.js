@@ -15,6 +15,12 @@
      * Starting layout
      */
     dom.on('click', '*[data-app-basemap-action="startLayout"]', function(e) {
+
+      // If a snapshot has already been taken, we urge the user to bump
+      // TODO: move this logic elsewhere (in a hack typically)
+      if (app.control.expand('hasSnapshots'))
+        return self.dispatchEvent('modal', {type: 'bump'});
+
       $('div[data-app-basemap-switchlayout]', dom).attr('data-app-basemap-switchlayout', 'on');
       var settings = app.control.expand('forceAtlasConfig');
 

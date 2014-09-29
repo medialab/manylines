@@ -149,7 +149,7 @@
       }
     },
     {
-      id: 'hasSnaphots',
+      id: 'hasSnapshots',
       description: 'Returns whether snapshots exist for the graph.',
       method: function() {
         return !!this.get('snapshots').length;
