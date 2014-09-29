@@ -32,6 +32,30 @@ exports.initialize = function(email, password, graphData, graphMeta, callback) {
   ], callback);
 };
 
+exports.bump = function(id, graphData, graphMeta, callback) {
+
+  // Creating graph
+  async.waterfall([
+    function graph(next) {
+      entities.graph.create(graphData, next);
+    },
+    function updateSpace(graph, next) {
+      entities.space.get(id, function(err, space) {
+        if (err)
+          return next(err);
+
+        space.graphs.push({
+          id: graph.id,
+          meta: graphMeta
+        });
+
+        // Updating space with new information
+        entities.space.set(id, space, next);
+      });
+    }
+  ], callback);
+};
+
 exports.update = function(id, email, password, callback) {
   var updateData = {};
 

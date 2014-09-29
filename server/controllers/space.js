@@ -213,8 +213,30 @@ module.exports = {
   },
 
   bump: {
+    validate: {
+      id: 'string',
+      graph: {
+        nodes: 'array',
+        edges: 'array'
+      },
+      meta: 'object'
+    },
+    policies: 'authenticated',
     method: function(req, res) {
+      repositories.space.bump(
+        req.param('id'),
+        req.param('graph'),
+        req.param('meta'),
+        function(err, space) {
+          if (err)
+            return res.error('Error on space bump.');
 
+          return res.json({
+            id: space.id,
+            version: space.graphs.length - 1
+          });
+        }
+      );
     }
   }
 };

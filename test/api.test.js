@@ -310,6 +310,29 @@ describe('Concerning the API', function() {
 
   // MISC
   describe('when dealing with miscellaneous things', function() {
+    it('should be possible to bump the space.', function(done) {
+      var newGraph = utils.extend(test.samples.graph);
+      newGraph.nodes.push({id: 'n04'});
+
+      agent
+        .post('/api/space/' + cache.spaceId + '/bump')
+        .send({graph: newGraph, meta: test.samples.meta})
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end(function(err, res) {
+          if (err)
+            throw err;
+
+          assert(res.body.version === 1);
+
+          // Fetching the space and counting the graphs
+          entities.space.get(cache.spaceId, function(err, space) {
+            assert(space.graphs.length === 2);
+            done();
+          });
+        })
+    });
+
     it('should be possible to logout.', function(done) {
       agent
         .get('/api/logout/' + cache.spaceId)
