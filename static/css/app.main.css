@@ -126,8 +126,8 @@ div.central-panel{
 
 .sigma-tools {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
+  top: 12px;
+  left: 12px;
 
   background-color: #FFF;
 

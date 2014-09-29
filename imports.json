@@ -63,7 +63,10 @@
       "/js/lib/handlebars-v1.3.0.min.js",
       "/js/lib/sigma-v1.0.3-edge.js",
       "/js/graph/sigma.plugins.saveCamera.js",
-      "/js/embed.main.js"
+      "/js/graph/sigma.plugins.pipe.js",
+      "/js/embed.main.js",
+      "/js/app.utils.js",
+      "/js/graph/graph.tasks.js"
     ],
 
     "css": [

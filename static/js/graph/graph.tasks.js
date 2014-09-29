@@ -7,6 +7,8 @@
    * Unitary functions and tasks to be run on the application's main graph.
    */
 
+  var base = ('app' in this ? app : embed);
+
   /**
    * Unitary functions
    * ------------------
@@ -81,7 +83,7 @@
 
       var color = colors[node.attributes[category.id]];
 
-      node.color = muted ? app.utils.muteColor(color) : color;
+      node.color = muted ? base.utils.muteColor(color) : color;
 
       node.muted = muted;
     };
@@ -120,7 +122,7 @@
    */
   sigma.task('mapColors', function(graph, category) {
     var colors = category ?
-      app.utils.indexBy(category.values, function(v) {
+      base.utils.indexBy(category.values, function(v) {
         return [v.id, v.color];
       }) :
       null;
@@ -153,10 +155,12 @@
    * Highlight a precise set of values for a given category.
    */
   sigma.task('highlightCategoryValues', function(graph, category, values) {
-    if (!values.length)
+    if (!category)
+      return this.run('resetColors');
+    if (!(values || []).length)
       return this.run('mapColors', category);
 
-    var colors = app.utils.indexBy(category.values, function(v) {
+    var colors = base.utils.indexBy(category.values, function(v) {
       return [v.id, v.color];
     });
 

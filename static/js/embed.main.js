@@ -19,6 +19,7 @@
    * Helpers
    * --------
    */
+
   function parseHash() {
     var hash = window.location.hash,
         split = hash.split('/');
@@ -105,22 +106,26 @@
   }
 
   function renderGraph() {
-    var snapshot = embed.data.snapshots[embed.currentSlide.snapshot];
+    var snapshot = embed.data.snapshots[embed.currentSlide.snapshot],
+        filter = (snapshot.filters[0] || {});
 
     if (!embed.graphLoaded) {
       embed.sig.graph.read(embed.data.graph);
-
-      embed.sig.refresh();
-      embed.currentCamera = embed.sig.retrieveCamera('main', snapshot.view.camera);
-
-      sigma.misc.animation.camera(
-        embed.sig.cameras.main,
-        embed.currentCamera,
-        {duration: 150}
-      );
-
       embed.graphLoaded = true;
     }
+
+    embed.sig.run(
+      'highlightCategoryValues',
+      embed.data.categories[filter.category],
+      filter.value
+    );
+    embed.currentCamera = embed.sig.retrieveCamera('main', snapshot.view.camera);
+
+    sigma.misc.animation.camera(
+      embed.sig.cameras.main,
+      embed.currentCamera,
+      { duration: 500, easing: 'cubicInOut' }
+    );
   }
 
   /*--------------------------------------------------------------------------*/
@@ -136,6 +141,7 @@
   embed.graphLoaded = false;
   embed.sig = new sigma({
     settings: {
+      animationsTime: 1000,
       hideEdgesOnMove: true,
       font: 'Roboto Condensed',
       fontStyle: '300',
@@ -169,6 +175,10 @@
   getData(embed.params.view, embed.params.id, function(data) {
     embed.data = data;
     embed.currentSlide= data.narrative.slides[0];
+
+    // Compute node model
+    embed.data.categories =
+      embed.utils.indexBy((((embed.data.meta || {}).model || {}).node || []), 'id');
 
     // Render first slide
     renderSlide();
@@ -216,7 +226,7 @@
     sigma.misc.animation.camera(
       cam,
       embed.currentCamera,
-      { duration: 150 }
+      { duration: 500, easing: 'cubicInOut' }
     );
   });
 

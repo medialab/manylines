@@ -108,7 +108,7 @@
   }
 
   // Exporting
-  app.utils = {
+  ('app' in this ? app : embed).utils = {
     extend: extend,
     first: first,
     indexBy: indexBy,
