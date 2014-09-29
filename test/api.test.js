@@ -308,6 +308,36 @@ describe('Concerning the API', function() {
     });
   });
 
+  // EMBEDS
+  describe('when dealing with embeds', function() {
+    it('should be possible to retrieve narrative data.', function(done) {
+      agent
+        .get('/api/embed/narrative/' + cache.narrativeId)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end(function(err, res) {
+          if (err)
+            throw err;
+
+          assert(types.check(res.body, {
+            narrative: {
+              title: 'string',
+              slides: 'array',
+              space: 'string',
+              version: 'number'
+            },
+            graph: {
+              nodes: 'array',
+              edges: 'array'
+            },
+            snapshots: 'object',
+            meta: 'object'
+          }));
+          done();
+        });
+    });
+  });
+
   // MISC
   describe('when dealing with miscellaneous things', function() {
     it('should be possible to bump the space.', function(done) {

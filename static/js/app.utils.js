@@ -4,7 +4,7 @@
    * TubeMyNet Misc Utilities
    * =========================
    *
-   * JVarious useful functions used throughout the application code.
+   * Various useful functions used throughout the application code.
    */
 
   /**

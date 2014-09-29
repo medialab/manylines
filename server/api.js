@@ -3,7 +3,7 @@
  * =====================
  *
  * This server is meant to be called through a reverse proxy by the
- * static server.
+ * static files.
  *
  * Its goal is to provide a RESTful interface to the couchbase database
  * storing the application graphs.
@@ -24,6 +24,7 @@ var express = require('express'),
     Router = require('../lib/router.js'),
     policies = require('./policies.js'),
     controllers = {
+      embed: require('./controllers/embed.js'),
       graph: require('./controllers/graph.js'),
       narrative: require('./controllers/narrative.js'),
       snapshot: require('./controllers/snapshot.js'),
@@ -90,6 +91,9 @@ router.get('/narrative/:id', controllers.narrative.get);
 router.post('/narrative/:id', controllers.narrative.update);
 router.get('/space/:id/narratives/:version', controllers.narrative.getAll);
 router.post('/space/:id/narrative/:version', controllers.narrative.create);
+
+// Embed routes
+router.get('/embed/narrative/:id', controllers.embed.narrative);
 
 /**
  * STATIC FILES:

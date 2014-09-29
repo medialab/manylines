@@ -59,12 +59,13 @@
 
   "embed": {
     "js": [
-      "/js/lib/sigma-v1.0.1.min.js",
-      "/js/lib/sigma.parsers.json.min.js",
+      "/js/lib/jquery-v2.1.1.min.js",
+      "/js/lib/sigma-v1.0.3-edge.js",
       "/js/embed.main.js"
     ],
 
     "css": [
+      "/css/bootstrap.min.css",
       "/css/embed.main.css"
     ]
   }
