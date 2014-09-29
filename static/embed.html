@@ -11,12 +11,77 @@
 
     <!-- Application stylesheet -->
     <link href="/dist/embed.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700|Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
   </head>
 
   <body>
 
-    <!-- Sigma graph container -->
-    <div id="graph-container"></div>
+    <!-- Main -->
+    <div class="widget-container container-fluid">
+      <div class="row top-row">
+        <div class="col col-xs-12 sigma-panel">
+          <div class="sigma-expand"></div>
+          <div class="sigma-overlay">
+          </div>
+          <div class="sigma-tools">
+            <div class="btn-group-vertical">
+              <button type="button" data-embed-sigma-action="recenter" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-record"></span></button>
+              <button type="button" data-embed-sigma-action="zoom" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
+              <button type="button" data-embed-sigma-action="unzoom" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row bottom-row">
+        <div class="col col-xs-2 col-md-1 left-arrow-container">
+        <!-- Left arrow -->
+        </div>
+        <div class="col-xs-0 col-md-1">
+        </div>
+        <div class="col col-xs-8 view-content">
+          <!-- Slide content -->
+        </div>
+        <div class="col-xs-0 col-md-1">
+        </div>
+        <div class="col col-xs-2 col-md-1 right-arrow-container">
+          <!-- Right arrow -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Templates -->
+    <script id="tpl-slide" type="text/x-handlebars">
+      <div class="view-title">
+        {{ title }}
+      </div>
+      <div class="view-text">
+        {{ text }}
+      </div>
+    </script>
+
+    <script id="tpl-left" type="text/x-handlebars">
+      <div id="left" class="sibling-info sibling-left" role="button">
+        <div class="sibling-icon">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </div>
+        <div class="sibling-title">
+          {{ title }}
+        </div>
+      </div>
+    </script>
+
+    <script id="tpl-right" type="text/x-handlebars">
+      <div id="right" class="sibling-info sibling-right" role="button">
+        <div class="sibling-icon">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </div>
+        <div class="sibling-title">
+          {{ title }}
+        </div>
+      </div>
+    </script>
 
     <!-- JavaScript application -->
     <script src="/dist/embed.min.js"></script>

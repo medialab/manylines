@@ -60,7 +60,9 @@
   "embed": {
     "js": [
       "/js/lib/jquery-v2.1.1.min.js",
+      "/js/lib/handlebars-v1.3.0.min.js",
       "/js/lib/sigma-v1.0.3-edge.js",
+      "/js/graph/sigma.plugins.saveCamera.js",
       "/js/embed.main.js"
     ],
 

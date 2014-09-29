@@ -28,18 +28,25 @@
     };
   };
 
-  sigma.prototype.loadCamera = function(name, save) {
+  sigma.prototype.retrieveCamera = function(name, save) {
     var camera = this.cameras[name];
 
     var b = sigma.utils.getBoundaries(this.graph, 'read_cam' + camera.id + ':'),
         w = b.maxX - b.minX,
         h = b.maxY - b.minY;
 
-    camera.goTo({
+    return {
       x: (save.x * w) / 100,
       y: (save.y * h) / 100,
       ratio: save.ratio,
       angle: save.angle
-    });
+    };
+  };
+
+  sigma.prototype.loadCamera = function(name, save) {
+    var camera = this.cameras[name],
+        coord = this.retrieveCamera(name, save);
+
+    camera.goTo(coord);
   };
 }).call(this);
