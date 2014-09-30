@@ -139,7 +139,7 @@
     };
 
     this.renderSnapshots = function() {
-      var $container = $('.views-band tr:first');
+      var $container = $('.views-band');
 
       // Cleaning
       this.unmountSnapshotThumbnails();

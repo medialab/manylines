@@ -171,8 +171,8 @@
       if (!snapshots.length)
         return;
 
-      var $unchosen = $('.unchosen-views-band tr'),
-          $chosen = $('.chosen-views-band tr');
+      var $unchosen = $('.unchosen-views-band'),
+          $chosen = $('.chosen-views-band');
 
       // Cleaning
       $unchosen.empty();
@@ -181,10 +181,6 @@
 
       // Templating
       app.templates.require('misc.snapshot', function(template) {
-
-        var fix = '<td class="no-drag" style="width:20px;height:90px;"></td>';
-        $('.chosen-views-band tr, .unchosen-views-band tr').prepend(fix);
-
         var order = narrative.slides.map(function(slide) {
           return slide.snapshot;
         });
@@ -246,10 +242,10 @@
 
       // Unchosen list
       this.unchosen = new Sortable(
-        $('.unchosen-views-band tr')[0],
+        $('.unchosen-views-band')[0],
         {
           group: 'snapshots',
-          draggable: 'td',
+          draggable: 'li',
           filter: '.no-drag',
           ghostClass: 'drag-ghost',
           onAdd: function(e) {
@@ -260,10 +256,10 @@
 
       // Chosen list with attached events
       this.chosen = new Sortable(
-        $('.chosen-views-band tr')[0],
+        $('.chosen-views-band')[0],
         {
           group: 'snapshots',
-          draggable: 'td',
+          draggable: 'li',
           filter: '.no-drag',
           ghostClass: 'drag-ghost',
           onAdd: function(e) {

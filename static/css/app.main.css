@@ -399,13 +399,14 @@ html,body,.container-fullheight
   height: 117px;
 }
 .views-band{
+  min-width: 100%;
+  min-height: 100%;
 }
 .views-band .view-item{
+  display: inline-block;
   vertical-align: top;
   height: 117px;
   width: 120px;
-}
-.views-band .view-item{
   cursor: pointer;
   margin: 6px 0px 6px 6px;
   padding: 6px;
