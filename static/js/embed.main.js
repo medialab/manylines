@@ -168,6 +168,12 @@
     container: document.getElementsByClassName('sigma-expand')[0]
   });
 
+  // TODO: Clear that HACK
+  // Fixes problem with sigma and window resizing
+  window.addEventListener('resize', function() {
+    window.setTimeout(embed.sig.refresh.bind(embed.sig), 0);
+  });
+
   if (!embed.params.id || !embed.params.view)
     throw Error('embed: wrong hash parameters.');
 
