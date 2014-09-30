@@ -42,18 +42,6 @@ module.exports = {
   },
 
   /**
-   * get:
-   * ----
-   * Get a single narrative plus its graph and snapshot for embed purposes.
-   *
-   */
-  get: {
-    method: function(req, res) {
-      return res.json({notYetImplemented: true});
-    }
-  },
-
-  /**
    * getAll:
    * -------
    * Retrieve every narratives for a given space version.

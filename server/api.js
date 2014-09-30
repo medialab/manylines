@@ -87,7 +87,6 @@ router.get('/space/:id/snapshots/:version', controllers.snapshot.get);
 router.post('/space/:id/snapshot/:version', controllers.snapshot.add);
 
 // Narrative routes
-router.get('/narrative/:id', controllers.narrative.get);
 router.post('/narrative/:id', controllers.narrative.update);
 router.get('/space/:id/narratives/:version', controllers.narrative.getAll);
 router.post('/space/:id/narrative/:version', controllers.narrative.create);
