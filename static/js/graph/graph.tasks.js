@@ -121,6 +121,9 @@
    * Cache the nodes' color and apply categories colors on it.
    */
   sigma.task('mapColors', function(graph, category) {
+    if (!category)
+      return this.run('resetColors');
+
     var colors = category ?
       base.utils.indexBy(category.values, function(v) {
         return [v.id, v.color];
