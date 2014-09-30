@@ -158,7 +158,7 @@
           var $list = $('.narratives-list');
 
           app.control.get('narratives').forEach(function(narrative) {
-            $list.append(template(app.utils.extend(narrative, {urlNeeded: narrative.id !== 'temp'})));
+            $list.append(template(narrative));
           });
         }
       );

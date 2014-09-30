@@ -69,7 +69,18 @@
         }
       },
       share: {
+        renderData: function(params) {
+          return {
+            url: location.protocol + location.host + '/embed#/narrative/' +
+                 app.control.query('narrativeById', app.control.expand('currentNarrative')).id
+          };
+        },
         emitters: function(modal) {
+
+          /**
+           * Selecting the iframe text.
+           */
+          $('#iframe-code', modal).select();
         }
       }
     };
@@ -79,7 +90,7 @@
 
       // Retrieving modal if existant
       var $modal = $('[data-app-modal="' + name + '"]');
-       console.log('this.openModal', $modal.length, modals[name])
+
       if ($modal.length) {
         modals[name].emitters && (modals[name].emitters($modal))
         return $modal.modal('show');
@@ -87,7 +98,7 @@
 
       // Requesting template
       app.templates.require('modals.' + name, function(template) {
-        var modal = $(template()).i18n().modal();
+        var modal = $(template((modals[name].renderData && modals[name].renderData()) || {})).i18n().modal();
         modals[name].emitters && (modals[name].emitters(modal));
       });
     };

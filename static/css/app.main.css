@@ -608,3 +608,6 @@ html,body,.container-fullheight
   overflow-y: auto;
   padding-top: 43px;
 }
+#iframe-code{
+  resize: vertical;
+}
