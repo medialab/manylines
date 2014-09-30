@@ -57,6 +57,13 @@
       });
 
       /**
+       * Show the modal that hold iframe code
+       */
+      dom.on('click', '[data-app-narratives-action="share"]', function(e)  {
+        self.dispatchEvent('modal', {type: 'share'});
+      });
+
+      /**
        * Edit one of the possible fields
        */
       dom.on('change', '[data-app-narratives-editable]', function() {

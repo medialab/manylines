@@ -67,6 +67,10 @@
             }
           });
         }
+      },
+      share: {
+        emitters: function(modal) {
+        }
       }
     };
 
@@ -75,16 +79,16 @@
 
       // Retrieving modal if existant
       var $modal = $('[data-app-modal="' + name + '"]');
-
+       console.log('this.openModal', $modal.length, modals[name])
       if ($modal.length) {
-        modals[name].emitters($modal);
+        modals[name].emitters && (modals[name].emitters($modal))
         return $modal.modal('show');
       }
 
       // Requesting template
       app.templates.require('modals.' + name, function(template) {
         var modal = $(template()).i18n().modal();
-        modals[name].emitters(modal);
+        modals[name].emitters && (modals[name].emitters(modal));
       });
     };
 
