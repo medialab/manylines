@@ -125,7 +125,7 @@
            this.filter.length === 0)) {
 
         this.contexts.nodes.fillStyle = this.values[a[i].attributes[this.category.id]] ||
-          a[i].color || this.settings('defaultNodeColor');
+          (a[i].original || {}).color || a[i].color || this.settings('defaultNodeColor');
         this.contexts.nodes.beginPath();
         this.contexts.nodes.arc(
           // WARNING:

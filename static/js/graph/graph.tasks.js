@@ -22,7 +22,7 @@
       element.original = element.original || {};
 
       if (!element.original[property])
-        element.original[property] = element[property];
+        element.original[property] = element[property] || null;
     };
   }
 
@@ -34,6 +34,9 @@
       element[property] = (element.original || {})[property] || element[property];
       if (element.original && element.original[property])
         delete element.original[property];
+
+      if (element.original && element.original[property] === null)
+        delete element[property];
     };
   }
 
