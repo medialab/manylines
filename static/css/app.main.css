@@ -533,7 +533,7 @@ html,body,.container-fullheight
   height: 100%;
 }
 .narrative .widget-panel .widget{
-  border: 1px solid #E2E2E2;
+  /*border: 1px solid #E2E2E2;*/
   height: 100%;
   overflow: hidden;
 }
@@ -611,4 +611,130 @@ html,body,.container-fullheight
 }
 #iframe-code{
   resize: vertical;
+}
+
+
+/* mods for bootstrap*/
+.btn-group-vertical>.btn:first-child:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+/* mods to be included by replacing the corresponding selectors; (@daniele)*/
+.top-row{
+  border-width: 0px;
+  background: #fff;
+}
+
+.nav-tmn-menu {
+  border-bottom: 1px solid #d2d2d2;
+  margin-left: 4px;
+  padding-bottom: 10px;
+}
+
+.nav-tmn-menu li{
+  border-right: 1px solid #ddd;
+  margin-left: 0;
+}
+
+.nav-tmn-menu li a{
+  padding: 0px 12px 0px 3px;
+  transition: background-color .3s ease-in-out;
+}
+
+.nav-tmn-menu li a:hover{
+  border-width: 0px;
+  background-color: transparent
+}
+
+.nav-tmn-menu li.active a{
+  border-top: 0px transparent; 
+  border-bottom: 0px transparent;
+  margin-bottom: 0;
+  z-index: 10;
+  
+}
+
+.nav-tmn-menu li .nav-tmn-title{
+  text-transform: lowercase;
+  font-size: 13px;
+}
+
+
+.nav-tmn-menu li .nav-tmn-subtitle {
+  background: white;
+  display: inline-block;
+  line-height: 18px;
+  width: 18px;
+  text-align: center;
+  border-radius: 18px;
+  font-size: 11px;
+  margin-right: 3px;
+  
+}
+
+.nav-tmn-menu li.active .nav-tmn-title{
+  color: #181818;
+}
+
+.nav-tmn-menu li.active .nav-tmn-subtitle{
+  color: white;
+  background-color: #3276b1;
+}
+
+.nav-tmn-menu li a:hover .nav-tmn-title{
+  color: #181818;
+}
+
+.nav-tmn-menu li a:hover .nav-tmn-subtitle{
+  color: #181818;
+}
+
+.nav-tmn-menu li.active a:hover .nav-tmn-subtitle{
+  color: #fff;
+}
+
+
+
+.narrative .widget-panel {
+  padding: 0;
+}
+
+.narrative .widget-panel .widget {
+  border: 1px solid #d2d2d2;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sigma-panel {
+height: 100%;
+min-height: 200px;
+background: rgb(252,252,252);
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+position: relative;
+border-bottom: 1px solid #ddd;
+}
+
+.sigma-tools {
+  border: 1px solid #d2d2d2;
+}
+
+.splitlayout-bottom{
+  border-top: 1px solid #d2d2d2;
+}
+
+.narrative .row.narrative-row{
+  background: #fff;
+}
+
+.narrative .widget-background{
+  background: #e9e9e9;
+}
+
+.narrative .row.narrative-row .title-container{
+  text-align: center;
 }

@@ -1,5 +1,6 @@
 html, body, .widget-container{
   height: 100%;
+  overflow: hidden;
 }
 body {
   color: #555;
@@ -43,8 +44,10 @@ body {
 
 .sigma-tools {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
+  top: 12px;
+  left: 12px;
+  border: 1px solid #d2d2d2;
+
 
   background-color: #FFF;
 

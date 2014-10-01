@@ -5,9 +5,7 @@
       <div class="row row-fullheight widget-background">
         <div class="col col-lg-4 col-xs-3">
           <button data-app-narratives-action="back" class="btn btn-default btn-sm btn-link back-button"><span class="glyphicon glyphicon-arrow-left"></span> {{t "narratives.back_button" }}</button>
-          <div>
-          <button style="position:absolute;top:100px;" data-app-narratives-action="share" class="btn btn-default btn-sm ">{{t "narratives.share" }}</button>
-          </div>
+          
         </div>
         <div class="col col-lg-4 col-xs-6 slide-container">
           {{!-- Here comes the slide --}}
@@ -23,6 +21,8 @@
           <div class="col col-xs-2">
             <div class="title-container">
               <input type="text" data-app-narratives-editable="title" class="title inline-editable" value="{{ title }}" />
+              <button data-app-narratives-action="share" class="btn btn-link btn-sm">{{t "narratives.share" }}</button>
+          
             </div>
           </div>
           <div class="col col-xs-10">
