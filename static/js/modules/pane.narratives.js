@@ -39,7 +39,6 @@
         var nid = $(this).parents('[data-app-narratives-action="edit"]').attr('data-app-narrative-id');
 
         self.dispatchEvent('narrative.select', nid);
-        edition(app.control.query('narrativeById', nid));
 
         e.preventDefault();
         e.stopPropagation();
@@ -121,10 +120,7 @@
         self.renderSnapshots();
         self.editionEmitters($newDom);
 
-        if (app.control.get('currentSlide')) {
-          var currentSlide = app.control.query('currentSlide');
-          slide(currentSlide);
-        }
+        handleCurrentSlide();
       });
     }
 
@@ -219,6 +215,14 @@
           self.refreshThumbnails();
           self.registerSortables();
         });
+
+        // TODO: dirty, this should not be here.
+        // Getting selected slide
+        var currentSlide = app.control.get('currentSlide');
+        if (currentSlide) {
+          $('[data-app-thumbnail-snapshot]').parent().removeClass('active');
+          $('[data-app-thumbnail-snapshot="' + currentSlide + '"]').parent().addClass('active');
+        }
       });
     };
 
@@ -289,14 +293,14 @@
     };
 
     // Receptors
-    this.triggers.events['narrative.added'] = function(d, e) {
+    function handleEdition(d, e) {
       if (self.mode !== 'menu')
         return;
 
       edition(e.data);
-    };
+    }
 
-    this.triggers.events['currentSlide.updated'] = function(d, e) {
+    function handleCurrentSlide(d, e) {
       if (self.mode !== 'edition')
         return;
 
@@ -312,7 +316,12 @@
       else {
         $('.slide-container').empty();
       }
-    };
+    }
+
+    this.triggers.events['narrative.added'] = handleEdition;
+    this.triggers.events['narrative.selected'] = handleEdition;
+
+    this.triggers.events['currentSlide.updated'] = handleCurrentSlide;
 
     // Initialization
     this.didRender = function() {
