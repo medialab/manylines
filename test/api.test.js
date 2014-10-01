@@ -254,16 +254,13 @@ describe('Concerning the API', function() {
     });
 
     it('should be possible to destroy snapshots.', function(done) {
-      var memo = null;
-
       agent
         .post('/api/space/' + cache.spaceId + '/snapshot/0')
         .send({snapshot: test.samples.snapshot})
         .end(function(err, res) {
-          memo = res.body.id;
 
           agent
-            .delete('/api/space/' + cache.spaceId + '/snapshot/0/' + memo)
+            .delete('/api/space/' + cache.spaceId + '/snapshot/0/' + res.body.id)
             .expect(200)
             .expect('Content-Type', /json/)
             .end(function(err, res) {
@@ -338,6 +335,31 @@ describe('Concerning the API', function() {
           assert(res.body[0].slides.length === 1);
           assert(res.body[0].title === 'Updated title');
           done();
+        });
+    });
+
+    it('should be possible to destroy a narrative.', function(done) {
+      agent
+        .post('/api/space/' + cache.spaceId + '/narrative/0')
+        .send({narrative: test.samples.narrative})
+        .end(function(err, res) {
+
+          agent
+            .delete('/api/space/' + cache.spaceId + '/narrative/0/' + res.body.id)
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+              if (err)
+                throw err;
+
+              assert(res.body.ok);
+
+              // Checking model just to be sure
+              entities.space.get(cache.spaceId, function(err, space) {
+                assert(space.graphs[0].narratives.length === 1);
+                done();
+              });
+            });
         });
     });
   });

@@ -92,5 +92,34 @@ module.exports = {
         res.json({ok: true});
       });
     }
+  },
+
+  /**
+   * Destroy:
+   * --------
+   * Remove the desired narrative.
+   *
+   */
+  destroy: {
+    validate: {
+      id: 'string',
+      version: 'string',
+      narrativeId: 'string'
+    },
+    policies: 'authenticated',
+    method: function(req, res) {
+      var id = req.param('id'),
+          version = +req.param('version'),
+          narrativeId = req.param('narrativeId');
+
+      repositories.narrative.remove(id, version, narrativeId, function(err, result) {
+        if (err && ~err.message.search(/inexistant/))
+          return res.error(err, 404);
+        else if (err)
+          return res.error(err, 400);
+
+        res.json({ok: true});
+      });
+    }
   }
 };

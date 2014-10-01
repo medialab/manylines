@@ -23,7 +23,9 @@ exports.initialize = function(email, password, graphData, graphMeta, callback) {
         graphs: [
           {
             id: graph.id,
-            meta: graphMeta
+            meta: graphMeta,
+            snapshots: [],
+            narratives: []
           }
         ]
       };
@@ -47,7 +49,9 @@ exports.bump = function(id, graphData, graphMeta, callback) {
 
         space.graphs.push({
           id: graph.id,
-          meta: graphMeta
+          meta: graphMeta,
+          snapshots: [],
+          narratives: []
         });
 
         // Updating space with new information
@@ -187,14 +191,14 @@ exports.removeSnapshot = function(id, version, snapshotId, callback) {
     },
     function updateSpace(space, next) {
       if (!space || space.graphs.length - 1 < version)
-        return callback(new Error('inexistant-version'));
+        return next(new Error('inexistant-version'));
 
       var index = _.findIndex(space.graphs[version].snapshots, function(snapshot) {
         return snapshot.id === snapshotId;
       });
 
       if (!~index)
-        return callback(new Error('inexistant-snapshot'));
+        return next(new Error('inexistant-snapshot'));
 
       // Splicing
       space.graphs[version].snapshots.splice(index, 1);
