@@ -3,7 +3,8 @@
  * ===========================
  *
  */
-var async = require('async'),
+var _ = require('lodash'),
+    async = require('async'),
     entities = require('../entities.js'),
     utils = require('../../lib/utils.js'),
     types = require('typology');
@@ -176,4 +177,30 @@ exports.getSnapshots = function(id, version, callback) {
 
     callback(null, space.graphs[version].snapshots || []);
   });
+};
+
+exports.removeSnapshot = function(id, version, snapshotId, callback) {
+
+  async.waterfall([
+    function getSpace(next) {
+      entities.space.get(id, next);
+    },
+    function updateSpace(space, next) {
+      if (!space || space.graphs.length - 1 < version)
+        return callback(new Error('inexistant-version'));
+
+      var index = _.findIndex(space.graphs[version].snapshots, function(snapshot) {
+        return snapshot.id === snapshotId;
+      });
+
+      if (!~index)
+        return callback(new Error('inexistant-snapshot'));
+
+      // Splicing
+      space.graphs[version].snapshots.splice(index, 1);
+
+      // Updating
+      entities.space.set(id, space, next);
+    }
+  ], callback);
 };

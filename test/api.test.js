@@ -252,6 +252,40 @@ describe('Concerning the API', function() {
           done();
         });
     });
+
+    it('should be possible to destroy snapshots.', function(done) {
+      var memo = null;
+
+      agent
+        .post('/api/space/' + cache.spaceId + '/snapshot/0')
+        .send({snapshot: test.samples.snapshot})
+        .end(function(err, res) {
+          memo = res.body.id;
+
+          agent
+            .delete('/api/space/' + cache.spaceId + '/snapshot/0/' + memo)
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+              if (err)
+                throw err;
+
+              assert(res.body.ok);
+
+              // Checking the number of snapshots in model to be sure
+              entities.space.get(cache.spaceId, function(err, space) {
+                assert(space.graphs[0].snapshots.length === 1);
+                done();
+              });
+            });
+        });
+    });
+
+    it('should return a 404 when attempting to destroy an inexistant snapshot.', function(done) {
+      agent
+        .delete('/api/space/' + cache.spaceId + '/snapshot/0/blabla')
+        .expect(404, done);
+    });
   });
 
   // NARRATIVES

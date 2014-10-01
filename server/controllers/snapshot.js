@@ -60,5 +60,34 @@ module.exports = {
         res.json(snapshots);
       });
     }
+  },
+
+  /**
+   * destroy:
+   * --------
+   * Remove the given snapshot from a space id and a graph version.
+   *
+   */
+  destroy: {
+    validate: {
+      id: 'string',
+      version: 'string',
+      snapshotId: 'string'
+    },
+    policies: 'authenticated',
+    method: function(req, res) {
+      var id = req.param('id'),
+          version = +req.param('version'),
+          snapshotId = req.param('snapshotId');
+
+      repositories.space.removeSnapshot(id, version, snapshotId, function(err) {
+        if (err && ~err.message.search(/inexistant/))
+          return res.error(err, 404);
+        else if (err)
+          return res.error(err, 400);
+
+        res.json({ok: true});
+      });
+    }
   }
 };

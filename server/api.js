@@ -85,6 +85,7 @@ router.post('/space/:id/meta/:version', controllers.graph.updateMeta);
 // Snapshot sub space routes
 router.get('/space/:id/snapshots/:version', controllers.snapshot.get);
 router.post('/space/:id/snapshot/:version', controllers.snapshot.add);
+router.delete('/space/:id/snapshot/:version/:snapshotId', controllers.snapshot.destroy);
 
 // Narrative routes
 router.post('/narrative/:id', controllers.narrative.update);
