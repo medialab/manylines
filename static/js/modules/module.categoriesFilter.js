@@ -144,7 +144,7 @@
     };
 
     // Receptors
-    this.triggers.events['meta.updated'] = this.renderCategories.bind(this);
+    // this.triggers.events['meta.updated'] = this.renderCategories.bind(this);
     this.triggers.events['layout.stop'] = this.refreshThumbnails.bind(this);
     this.renderCategories();
 
