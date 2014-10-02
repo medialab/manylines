@@ -81,10 +81,9 @@
 
       sigma.misc.animation.camera(
         cam,
-        { x: 0,
-          y: 0,
-          angle: 0,
-          ratio: 1 },
+        params.snapshot ?
+          s.retrieveCamera('main', params.snapshot.view.camera) :
+          {x: 0, y: 0, angle: 0, ratio: 1},
         { duration: 150 }
       );
     });
@@ -95,7 +94,11 @@
 
       // Unmounting graph renderer
       if (container)
-        container.removeChild(app.control.get('mainRendererContainer'));
+        try {
+          container.removeChild(app.control.get('mainRendererContainer'));
+        } catch (e) {
+          // pass...
+        }
     };
   };
 }).call(this);

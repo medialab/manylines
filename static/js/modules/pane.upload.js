@@ -41,8 +41,18 @@
         var reader = new FileReader();
         reader.readAsText(file, 'UTF-8');
 
+        reader.onloadstart = function(e) {
+
+          // Stopping upload if file is bigger than settings
+          if (e.total > app.settings.upload.maxSize) {
+            self.dispatchEvent('error', {reason: 'upload.too_big'});
+            reader.abort();
+          }
+        };
+
         reader.onerror = function(e) {
-          self.dispatchEvent('error', {reason: 'upload.error_uploading_file'});
+          if (e.target.error.name !== 'AbortError')
+            self.dispatchEvent('error', {reason: 'upload.error_uploading_file'});
         };
 
         reader.onload = function(e) {

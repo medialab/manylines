@@ -195,7 +195,8 @@
       if (!~k.indexOf(':') &&
           !~k.indexOf('true') &&
           k !== 'muted' &&
-          k !== 'hidden') {
+          k !== 'hidden' &&
+          !(n.original && n.original[k] === null)) {
         o[k] = (n.original && n.original[k]) || n[k];
       }
     }

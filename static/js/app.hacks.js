@@ -482,6 +482,13 @@
       triggers: 'narrative.select',
       method: function(e) {
         this.update('currentNarrative', e.data);
+
+        // Updating the currentSlide to the first one if existant
+        var narrative = app.control.query('narrativeById', e.data);
+        if (narrative.slides.length)
+          this.update('currentSlide', narrative.slides[0].snapshot);
+
+        this.dispatchEvent('narrative.selected', narrative);
       }
     },
 

@@ -81,6 +81,11 @@
       path: '/templates/',
       prefix: 'app',
       suffix: 'handlebars'
+    },
+
+    // Upload
+    upload: {
+      maxSize: 4500000
     }
   };
 }).call(this);

@@ -252,6 +252,37 @@ describe('Concerning the API', function() {
           done();
         });
     });
+
+    it('should be possible to destroy snapshots.', function(done) {
+      agent
+        .post('/api/space/' + cache.spaceId + '/snapshot/0')
+        .send({snapshot: test.samples.snapshot})
+        .end(function(err, res) {
+
+          agent
+            .delete('/api/space/' + cache.spaceId + '/snapshot/0/' + res.body.id)
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+              if (err)
+                throw err;
+
+              assert(res.body.ok);
+
+              // Checking the number of snapshots in model to be sure
+              entities.space.get(cache.spaceId, function(err, space) {
+                assert(space.graphs[0].snapshots.length === 1);
+                done();
+              });
+            });
+        });
+    });
+
+    it('should return a 404 when attempting to destroy an inexistant snapshot.', function(done) {
+      agent
+        .delete('/api/space/' + cache.spaceId + '/snapshot/0/blabla')
+        .expect(404, done);
+    });
   });
 
   // NARRATIVES
@@ -304,6 +335,31 @@ describe('Concerning the API', function() {
           assert(res.body[0].slides.length === 1);
           assert(res.body[0].title === 'Updated title');
           done();
+        });
+    });
+
+    it('should be possible to destroy a narrative.', function(done) {
+      agent
+        .post('/api/space/' + cache.spaceId + '/narrative/0')
+        .send({narrative: test.samples.narrative})
+        .end(function(err, res) {
+
+          agent
+            .delete('/api/space/' + cache.spaceId + '/narrative/0/' + res.body.id)
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+              if (err)
+                throw err;
+
+              assert(res.body.ok);
+
+              // Checking model just to be sure
+              entities.space.get(cache.spaceId, function(err, space) {
+                assert(space.graphs[0].narratives.length === 1);
+                done();
+              });
+            });
         });
     });
   });

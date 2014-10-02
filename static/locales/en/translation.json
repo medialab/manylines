@@ -14,8 +14,8 @@
   "space": {
     "save_graph": "Save the graph",
     "save_graph_description": "You need to select a password to prevent your network to be edited by other people, and an email address in case you forget the password.",
-    "bump_graph": "Bump the graph",
-    "bump_graph_description": "You are attempting to update your graph while having already taken views of it and maybe also narratives.<br><br>Do you really want to bump your graph?",
+    "bump_graph": "Updating the graph's version",
+    "bump_graph_description": "You are attempting to change your graph's data. This will invalidate any views taken or narrative written about the current version of the graph.<br><br>To continue, you must update your graph's version.<br><br>Is this really what you want?",
     "bump_confirm": "Yes",
     "bump_cancel": "No",
     "password": "Password",
@@ -46,7 +46,9 @@
     "error_uploading_file": "An error occured while uploading the file",
     "invalid_JSON_file": "The JSON file is not valid.",
     "invalid_GEXF_file": "The GEXF file is not valid.",
-    "invalid_file_format": "The file format is not recognized yet."
+    "invalid_file_format": "The file format is not recognized yet.",
+    "too_big": "Your graph is too big. Try a lighter one.",
+    "disclaimer": "Please note that this application targets small to medium graphs and won't be able to handle large graphs.<br><br>Please try to provide graphs smaller than 5MB (~1000 nodes, ~10 000 edges)."
   },
   "basemap": {
     "apply_layout": "Apply layout",

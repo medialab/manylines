@@ -85,11 +85,13 @@ router.post('/space/:id/meta/:version', controllers.graph.updateMeta);
 // Snapshot sub space routes
 router.get('/space/:id/snapshots/:version', controllers.snapshot.get);
 router.post('/space/:id/snapshot/:version', controllers.snapshot.add);
+router.delete('/space/:id/snapshot/:version/:snapshotId', controllers.snapshot.destroy);
 
 // Narrative routes
 router.post('/narrative/:id', controllers.narrative.update);
 router.get('/space/:id/narratives/:version', controllers.narrative.getAll);
 router.post('/space/:id/narrative/:version', controllers.narrative.create);
+router.delete('/space/:id/narrative/:version/:narrativeId', controllers.narrative.destroy);
 
 // Embed routes
 router.get('/embed/narrative/:id', controllers.embed.narrative);
