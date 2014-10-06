@@ -20,7 +20,7 @@
   <body>
 
     <!-- Main -->
-    <div class="widget-container container-fluid">
+    <div id="fullscreen-container" class="widget-container container-fluid">
       <div class="row top-row">
         <div class="col col-xs-12 sigma-panel">
           <div class="sigma-expand"></div>
@@ -39,9 +39,47 @@
       <div class="row bottom-row">
 
         <div class="legend-wrapper">
+          <div class="col-xs-2 col-md-2 col-xs-offset-2 col-md-offset-2">
 
-          <div class="legend col-xs-8 col-xs-offset-2 col-md-8 col-md-offset-2" >
-            <button id="toggle-legend" data-embed-legend-action="toggle" class="btn btn-default btn-sm">5 more categories ...</button>
+            </div>
+            <div class="col-xs-4 col-md-4" >
+
+              <!-- button data-embed-legend-action="toggle" class="btn btn-link btn-sm">legend</button -->
+              
+            </div>
+            <div class="col-xs-2 col-md-2 ">
+              <button data-embed-sigma-action="fullscreen" class="btn btn-link btn-sm">fullscreen</button>
+            </div>
+          
+        </div>
+        <div class="col col-xs-2 col-md-1 left-arrow-container">
+        <!-- Left arrow -->
+        </div>
+        <div class="col-xs-0 col-md-1">
+        </div>
+        <div class="col col-xs-8">
+          <div class="view-content-wrapper">
+            <div class="view-content">
+            <!-- Slide content -->
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-0 col-md-1">
+        </div>
+        <div class="col col-xs-2 col-md-1 right-arrow-container">
+          <!-- Right arrow -->
+        </div>
+      </div>
+      <div style="position :absolute; bottom:0px; left:0px; width: 100%" id="legend-wrapper">
+        <div class="container">
+        
+        </div>
+      </div>
+    </div>
+
+    <!-- Templates -->
+    <script id="tpl-legend" type="text/x-handlebars">
+          
             <div class="content">
               <span class="category">
                 <span class="fa fa-circle"></span>
@@ -100,43 +138,16 @@
                 Category color
               </span>
             </div>
-          </div>
+    </script>
 
-        </div>
-        <div class="col col-xs-2 col-md-1 left-arrow-container">
-        <!-- Left arrow -->
-        </div>
-        <div class="col-xs-0 col-md-1">
-        </div>
-        <div class="col col-xs-8">
-          <div class="view-content-wrapper">
-            <div class="view-content">
-            <!-- Slide content -->
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-0 col-md-1">
-        </div>
-        <div class="col col-xs-2 col-md-1 right-arrow-container">
-          <!-- Right arrow -->
-        </div>
-      </div>
-      <div style="position :absolute; bottom:0px; left:0px; width: 100%" id="legend-wrapper">
-        <div class="container">
-        
-        </div>
-      </div>
-    </div>
-
-    <!-- Templates -->
     <script id="tpl-slide" type="text/x-handlebars">
 
 
       <div class="view-title" data-embed-legend-action="toggle">
-        {{ title }}
+        <span class="view-index">{{meta.index}}</span> {{ title }}
       </div>
       <div class="view-text" data-embed-legend-action="toggle">
-        {{ text }}
+        {{{ text }}}
       </div>
     </script>
 
@@ -144,6 +155,8 @@
       <div id="left" class="sibling-info sibling-left" role="button">
         <div class="sibling-icon">
           <span class="fa fa-angle-left"></span>
+          <span class="sibling-progress">{{meta.index}} of {{meta.total}}</span> 
+          
         </div>
         <div class="sibling-title">
           {{ title }}
@@ -154,10 +167,10 @@
     <script id="tpl-right" type="text/x-handlebars">
       <div id="right" class="sibling-info sibling-right" role="button">
         <div class="sibling-icon">
-          <span class="fa fa-angle-right"></span>
+          <span class="sibling-progress">{{meta.index}} of {{meta.total}}</span> <span class="fa fa-angle-right"></span>
         </div>
         <div class="sibling-title">
-          {{ title }}
+          {{ title }} 
         </div>
       </div>
     </script>

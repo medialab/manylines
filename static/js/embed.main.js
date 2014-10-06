@@ -59,11 +59,14 @@
 
   function getNextSlide() {
     var index = embed.data.narrative.slides.indexOf(embed.currentSlide);
+    // add information on total number of slides and current slide.
+    
     return embed.data.narrative.slides[index + 1];
   }
 
   function getPreviousSlide() {
     var index = embed.data.narrative.slides.indexOf(embed.currentSlide);
+    
     return embed.data.narrative.slides[index - 1];
   }
 
@@ -77,13 +80,18 @@
     var $container = $('.view-content'),
         $wrapper = $('.view-content-wrapper'),
         $left = $('.left-arrow-container'),
-        $right = $('.right-arrow-container'),
-        $legend = $('.legend');
+        $right = $('.right-arrow-container');
+        
 
     // Cleaning
     $container.empty();
     $left.empty();
     $right.empty();
+
+    // adding info to current sldie...
+    embed.currentSlide.text = embed.currentSlide.text.replace('\n', '<br/>');
+    embed.currentSlide.total = embed.data.narrative.slides.length;
+
 
     $container.append(embed.templates.slide(embed.currentSlide));
 
@@ -100,16 +108,21 @@
 
       // We render the left arrow
       var previousSlide = getPreviousSlide();
+
       $left.append(embed.templates.left(previousSlide));
     }
 
-    resizeLegend($legend, $wrapper);
+    
     // update slide text scrollbar
-    $container.perfectScrollbar();
+
     $container.scrollTop(0);
-    $container.perfectScrollbar('update');
+    
     // We render the graph
     renderGraph();
+  }
+
+  function renderLegend() {
+    var $container = $('.legend-wrapper');
   }
 
   function toggleLegend(options) {
@@ -201,11 +214,23 @@
   // Fetching needed data
   getData(embed.params.view, embed.params.id, function(data) {
     embed.data = data;
-    embed.currentSlide= data.narrative.slides[0];
+    
+    // enrich slide with contextual elements
+    for(var i=0; i<data.narrative.slides.length; i++) {
+      data.narrative.slides[i].meta = {
+        total: embed.data.narrative.slides.length,
+        index: i+1
+      }
+    };
 
+    embed.currentSlide = data.narrative.slides[0];
+    
     // Compute node model
     embed.data.categories =
       embed.utils.indexBy((((embed.data.meta || {}).model || {}).node || []), 'id');
+
+    // render legend
+    renderLegend();
 
     // Render first slide
     renderSlide();
@@ -256,6 +281,23 @@
       { duration: 500, easing: 'cubicInOut' }
     );
   });
+
+  /**
+   * going fullscreen
+   */
+  $('*[data-embed-sigma-action="fullscreen"]').click(function() {
+    var elem = document.getElementById("fullscreen-container");
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    }
+  });
+
 
   /**
    * Changing slide.

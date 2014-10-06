@@ -91,7 +91,7 @@
       // Retrieving modal if existant
       var $modal = $('[data-app-modal="' + name + '"]');
 
-      if ($modal.length) {
+      if ($modal.length && !modals[name].renderData) {
         modals[name].emitters && (modals[name].emitters($modal))
         return $modal.modal('show');
       }
