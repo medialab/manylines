@@ -62,6 +62,7 @@
       "/js/lib/jquery-v2.1.1.min.js",
       "/js/lib/handlebars-v1.3.0.min.js",
       "/js/lib/sigma-v1.0.3-edge.js",
+      "/js/lib/perfect-scrollbar.js",
       "/js/graph/sigma.plugins.saveCamera.js",
       "/js/graph/sigma.plugins.pipe.js",
       "/js/embed.main.js",

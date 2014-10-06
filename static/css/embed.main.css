@@ -60,26 +60,27 @@ body {
  * Sibling navigation (next / previous)
  */
 .sibling-info{
-  padding-top: 12px;
+  padding-bottom: 12px;
   cursor: pointer;
   height: 100%;
 }
 .sibling-info .sibling-title{
   color: #CCC;
   font-weight: 300;
-  font-size: 11px;
+  font-size: 12px;
+
 }
 .sibling-info:hover .sibling-title{
-  color: #555;
+  color: #888;
 }
 .sibling-info .sibling-icon{
   font-size: 24px;
 }
 .sibling-info.sibling-left:hover .sibling-icon {
-  margin-left: -4px;
+  margin-left: 0px;
 }
 .sibling-info.sibling-right:hover .sibling-icon {
-  margin-right: -4px;
+  margin-right: 0px;
 }
 .sibling-info.sibling-left{
   text-align: left;
@@ -97,15 +98,208 @@ body {
  */
 .view-content{
   height: 100%;
-  overflow-y: auto;
+  overflow:hidden;
+  position:relative;
+  border-bottom: 1px solid #eee;
 }
 .view-title{
   padding: 12px 6px 0px 6px;
-  font-weight: 700;
-  font-size: 18px;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 1.6em;
   color: #000;
 }
 .view-text{
-  padding: 12px 6px 0px 6px;
-  color: #777;
+  padding: 12px 6px 12px 6px;
+  color: #373737;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  line-height: 1.6em;
 }
+.view-content-wrapper{
+  padding:48px 0 12px 0;
+  height: 100%;
+  transition: all .3s ease-in-out;
+}
+
+.view-content-wrapper.show-legend{
+  padding-top:142px;
+}
+
+/*
+  Legend
+*/
+.legend-wrapper{
+  position:absolute;
+  width:100%;
+  left:0;
+  
+}
+
+.legend{
+  height:48px;
+  overflow: hidden;
+  z-index:1;
+  background: #fff;
+  border-bottom : 1px solid #eaeaea;
+  padding: 0;
+  transition: height .3s ease-in-out;
+}
+
+.legend .content{
+  padding:8px 100px 12px 12px;
+}
+
+.legend.show-legend {
+  height:142px;
+}
+
+.legend .category{
+  line-height: 32px;
+  margin-right: 6px;
+}
+
+.legend .node-label{ /* same lineheigth as circle height*/
+  line-height: 36px;
+  font-size: 13px;
+  display: inline-block;
+  padding: 2px 4px;
+}
+
+#toggle-legend {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index:2;
+}
+
+
+
+
+.ps-container .ps-scrollbar-x-rail {
+    position: absolute; /* please don't change 'position' */
+    bottom: 3px; /* there must be 'bottom' for ps-scrollbar-x-rail */
+    height: 8px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -o-transition: background-color .2s linear, opacity .2s linear;
+    -webkit-transition: background-color .2s linear, opacity .2s linear;
+    -moz-transition: background-color .2s linear, opacity .2s linear;
+    transition: background-color .2s linear, opacity .2s linear;
+}
+
+.ps-container:hover .ps-scrollbar-x-rail,
+.ps-container.hover .ps-scrollbar-x-rail {
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+}
+
+.ps-container .ps-scrollbar-x-rail:hover,
+.ps-container .ps-scrollbar-x-rail.hover {
+    background-color: #eee;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+}
+
+.ps-container .ps-scrollbar-x-rail.in-scrolling {
+    background-color: #eee;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+}
+
+.ps-container .ps-scrollbar-y-rail {
+    position: absolute; /* please don't change 'position' */
+    right: 3px; /* there must be 'right' for ps-scrollbar-y-rail */
+    width: 8px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    opacity: 0;
+    filter: alpha(opacity = 0);
+    -o-transition: background-color .2s linear, opacity .2s linear;
+    -webkit-transition: background-color .2s linear, opacity .2s linear;
+    -moz-transition: background-color .2s linear, opacity .2s linear;
+    transition: background-color .2s linear, opacity .2s linear;
+}
+
+.ps-container:hover .ps-scrollbar-y-rail,
+.ps-container.hover .ps-scrollbar-y-rail {
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+}
+
+.ps-container .ps-scrollbar-y-rail:hover,
+.ps-container .ps-scrollbar-y-rail.hover {
+    background-color: #eee;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+}
+
+.ps-container .ps-scrollbar-y-rail.in-scrolling {
+    background-color: #eee;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+}
+
+.ps-container .ps-scrollbar-x {
+    position: absolute; /* please don't change 'position' */
+    bottom: 0; /* there must be 'bottom' for ps-scrollbar-x */
+    height: 8px;
+    background-color: #aaa;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -o-transition: background-color .2s linear;
+    -webkit-transition: background-color.2s linear;
+    -moz-transition: background-color .2s linear;
+    transition: background-color .2s linear;
+}
+
+.ps-container.ie6 .ps-scrollbar-x {
+    font-size: 0; /* fixed scrollbar height in xp sp3 ie6 */
+}
+
+.ps-container .ps-scrollbar-x-rail:hover .ps-scrollbar-x,
+.ps-container .ps-scrollbar-x-rail.hover .ps-scrollbar-x {
+    background-color: #999;
+}
+
+.ps-container .ps-scrollbar-y {
+    position: absolute; /* please don't change 'position' */
+    right: 0; /* there must be 'right' for ps-scrollbar-y */
+    width: 8px;
+    background-color: #aaa;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -o-transition: background-color .2s linear;
+    -webkit-transition: background-color.2s linear;
+    -moz-transition: background-color .2s linear;
+    transition: background-color .2s linear;
+}
+
+.ps-container.ie6 .ps-scrollbar-y {
+    font-size: 0; /* fixed scrollbar height in xp sp3 ie6 */
+}
+
+.ps-container .ps-scrollbar-y-rail:hover .ps-scrollbar-y,
+.ps-container .ps-scrollbar-y-rail.hover .ps-scrollbar-y {
+    background-color: #999;
+}
+
+.ps-container.ie .ps-scrollbar-x,
+.ps-container.ie .ps-scrollbar-y {
+    visibility: hidden;
+}
+
+.ps-container.ie:hover .ps-scrollbar-x,
+.ps-container.ie:hover .ps-scrollbar-y,
+.ps-container.ie.hover .ps-scrollbar-x,
+.ps-container.ie.hover .ps-scrollbar-y {
+    visibility: visible;
+}
+
+

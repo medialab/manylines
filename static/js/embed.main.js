@@ -75,8 +75,10 @@
    */
   function renderSlide() {
     var $container = $('.view-content'),
+        $wrapper = $('.view-content-wrapper'),
         $left = $('.left-arrow-container'),
-        $right = $('.right-arrow-container');
+        $right = $('.right-arrow-container'),
+        $legend = $('.legend');
 
     // Cleaning
     $container.empty();
@@ -101,8 +103,27 @@
       $left.append(embed.templates.left(previousSlide));
     }
 
+    resizeLegend($legend, $wrapper);
+    // update slide text scrollbar
+    $container.perfectScrollbar();
+    $container.scrollTop(0);
+    $container.perfectScrollbar('update');
     // We render the graph
     renderGraph();
+  }
+
+  function toggleLegend(options) {
+    var options = $.extend({
+      open: 'toggle'
+    }, options);
+    console.log(options.open)
+  }
+
+  function resizeLegend($legend, $wrapper) {
+    // check if there is a legend and the legend is on one line
+    console.log($legend[0].scrollHeight, $legend.innerHeight());
+
+
   }
 
   function renderGraph() {
@@ -253,6 +274,26 @@
     renderSlide();
   });
 
+  // close legend
+  $(document).on('click', '[data-embed-legend-action="close"]', function() {
+    var $wrapper = $('.view-content-wrapper');
+    if(!$wrapper.hasClass('show-legend')) {
+      toggleLegend({open:false});
+    }
+  });
+  // open/ toggle legend
+  $('*[data-embed-legend-action="toggle"]').click(function() {
+    var $wrapper = $('.view-content-wrapper');
+
+    if(!$wrapper.hasClass('show-legend')) {
+      console.log('toggle legend', $wrapper.height());
+
+    };
+
+    $wrapper.toggleClass('show-legend');
+    
+    //$('.legend').height(Math.max())
+  });
   // Exporting for convenience
   this.embed = embed;
 }).call(this);
