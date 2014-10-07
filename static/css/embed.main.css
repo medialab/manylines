@@ -117,18 +117,33 @@ body {
   border-top: 1px solid #eee;
 }
 
-.view-index{
-  color: #a0a0a0;
-  size: 14px;
-}
-
 .view-title{
-  padding: 12px 6px 0px 6px;
+  margin: 12px 6px 0px 6px;
   font-weight: normal;
   font-size: 24px;
-  line-height: 1.6em;
+  line-height: 40px;
   color: #000;
+  position: relative;
 }
+
+.view-title .view-index{
+  color: #a0a0a0;
+  size: 14px;
+  height: 100%;
+  display: block;
+  position: absolute;
+  width: 40px;
+  text-align: center;
+  top: 50%;
+  margin-top: -20px;
+  line-height: 40px;
+}
+
+.view-title .view-label{
+  margin-left: 40px;
+  display: block;
+}
+
 .view-text{
   padding: 12px 6px 12px 6px;
   color: #373737;
