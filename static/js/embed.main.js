@@ -60,13 +60,13 @@
   function getNextSlide() {
     var index = embed.data.narrative.slides.indexOf(embed.currentSlide);
     // add information on total number of slides and current slide.
-    
+
     return embed.data.narrative.slides[index + 1];
   }
 
   function getPreviousSlide() {
     var index = embed.data.narrative.slides.indexOf(embed.currentSlide);
-    
+
     return embed.data.narrative.slides[index - 1];
   }
 
@@ -81,7 +81,7 @@
         $wrapper = $('.view-content-wrapper'),
         $left = $('.left-arrow-container'),
         $right = $('.right-arrow-container');
-        
+
 
     // Cleaning
     $container.empty();
@@ -112,11 +112,11 @@
       $left.append(embed.templates.left(previousSlide));
     }
 
-    
+
     // update slide text scrollbar
 
     $container.scrollTop(0);
-    
+
     // We render the graph
     renderGraph();
   }
@@ -151,7 +151,7 @@
     embed.sig.run(
       'highlightCategoryValues',
       embed.data.categories[filter.category],
-      filter.value
+      filter.values
     );
     embed.currentCamera = embed.sig.retrieveCamera('main', snapshot.view.camera);
 
@@ -214,7 +214,7 @@
   // Fetching needed data
   getData(embed.params.view, embed.params.id, function(data) {
     embed.data = data;
-    
+
     // enrich slide with contextual elements
     for(var i=0; i<data.narrative.slides.length; i++) {
       data.narrative.slides[i].meta = {
@@ -224,7 +224,7 @@
     };
 
     embed.currentSlide = data.narrative.slides[0];
-    
+
     // Compute node model
     embed.data.categories =
       embed.utils.indexBy((((embed.data.meta || {}).model || {}).node || []), 'id');
@@ -334,7 +334,7 @@
     };
 
     $wrapper.toggleClass('show-legend');
-    
+
     //$('.legend').height(Math.max())
   });
   // Exporting for convenience

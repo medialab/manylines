@@ -85,7 +85,7 @@
    */
   function muteColor(color) {
     var rgb = chroma(color).rgb(),
-        m = app.settings.colors.mutedBasis;
+        m = 248;
 
     // Chroma deals with the potentially negative numbers, no need to worry
     for (var i = 0; i < 3; i++)
