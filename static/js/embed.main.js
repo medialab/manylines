@@ -286,6 +286,7 @@
    * going fullscreen
    */
   $('*[data-embed-sigma-action="fullscreen"]').click(function() {
+    debugger
     var elem = document.getElementById("fullscreen-container");
     if (elem.requestFullscreen) {
       elem.requestFullscreen();

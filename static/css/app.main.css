@@ -37,7 +37,11 @@ body {
   cursor: pointer;
 }
 .top-row a.top-row-brand{
-  padding: 5px 0px 0px 0px;
+  padding: 0px;
+  line-height: 38px;
+  color: #181818;
+font-weight: bold;
+font-family: 'Roboto';
 }
 
 /*
@@ -623,25 +627,38 @@ html,body,.container-fullheight
 }
 
 /* mods to be included by replacing the corresponding selectors; (@daniele)*/
+.before-main{
+  border-top:1px solid #c1bfb8;
+}
+
 .top-row{
   border-width: 0px;
   background: #fff;
 }
 
 .nav-tmn-menu {
-  border-bottom: 1px solid #d2d2d2;
-  margin-left: 4px;
-  padding-bottom: 10px;
+  border-bottom: 1px solid #b2b1ab;
+  margin: 0;
 }
 
 .nav-tmn-menu li{
-  border-right: 1px solid #ddd;
+  border-right: none transparent;
   margin-left: 0;
+  padding: 0 10px;
+  margin-bottom: 0px;
+  border-bottom: 3px transparent;
+  transition: all .2s ease-in-out;
+  padding-top: 6px;
 }
 
 .nav-tmn-menu li a{
   padding: 0px 12px 0px 3px;
-  transition: background-color .3s ease-in-out;
+  padding:0;
+  margin:0;
+  border-top: 0px transparent; 
+  line-height:40px;
+  display: block;
+  
 }
 
 .nav-tmn-menu li a:hover{
@@ -649,12 +666,17 @@ html,body,.container-fullheight
   background-color: transparent
 }
 
+.nav-tmn-menu li.active{
+  border-bottom: 3px solid #539bdb;
+  
+}
+
 .nav-tmn-menu li.active a{
   border-top: 0px transparent; 
   border-bottom: 0px transparent;
   margin-bottom: 0;
-  z-index: 10;
-  
+  margin: 0;
+  z-index: 10;  
 }
 
 .nav-tmn-menu li .nav-tmn-title{
@@ -680,8 +702,7 @@ html,body,.container-fullheight
 }
 
 .nav-tmn-menu li.active .nav-tmn-subtitle{
-  color: white;
-  background-color: #3276b1;
+  color: #181818;
 }
 
 .nav-tmn-menu li a:hover .nav-tmn-title{
@@ -693,7 +714,7 @@ html,body,.container-fullheight
 }
 
 .nav-tmn-menu li.active a:hover .nav-tmn-subtitle{
-  color: #fff;
+  
 }
 
 
@@ -711,10 +732,10 @@ html,body,.container-fullheight
 .sigma-panel {
 height: 100%;
 min-height: 200px;
-background: rgb(252,252,252);
--webkit-box-shadow: none;
--moz-box-shadow: none;
-box-shadow: none;
+background: #f2f0e9;
+-webkit-box-shadow: inset 0px 0px 10px #eae7df;
+-moz-box-shadow: inset 0px 0px 10px #eae7df;
+box-shadow: inset 0px 0px 10px #eae7df;
 position: relative;
 border-bottom: 1px solid #ddd;
 }
