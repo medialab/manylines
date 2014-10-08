@@ -430,7 +430,7 @@
 
         // If the graph has not been saved yet, we shun the user
         if (this.expand('isSpaceNew'))
-          return this.dispatchEvent('error', {reason: 'snapshots.impossible'});
+          return this.dispatchEvent('save');
 
         // Else we can proceed
         this.request('snapshot.save', {
