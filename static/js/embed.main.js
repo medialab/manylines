@@ -285,17 +285,39 @@
   /**
    * going fullscreen
    */
-  $('*[data-embed-sigma-action="fullscreen"]').click(function() {
-    debugger
-    var elem = document.getElementById("fullscreen-container");
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen();
-    } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen();
+  $('*[data-embed-action="fullscreen"]').click(function() {
+    var elem = document.getElementById('fullscreen-container'),
+        fullScreen =
+          document.isFullScreen ||
+          document.msIsFullscreen ||
+          document.mozIsFullScreen ||
+          document.webkitIsFullScreen;
+
+    if (!fullScreen) {
+      $(this).text('exit fullscreen');
+
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      }
+    }
+    else {
+      $(this).text('fullscreen');
+
+      if (document.cancelFullscreen) {
+        document.cancelFullscreen();
+      } else if (document.msCancelFullscreen) {
+        document.msCancelFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitCancelFullScreen) {
+        document.webkitCancelFullScreen();
+      }
     }
   });
 
