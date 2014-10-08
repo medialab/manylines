@@ -110,14 +110,12 @@ div.central-panel{
 .sigma-panel{
   height: 100%;
   min-height: 200px;
-
-  background: rgb(252,252,252);
-
-  -webkit-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
-  -moz-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
-  box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
-
+  background: #f2f0e9;
+  -webkit-box-shadow: inset 0px 0px 10px #eae7df;
+  -moz-box-shadow: inset 0px 0px 10px #eae7df;
+  box-shadow: inset 0px 0px 10px #eae7df;
   position: relative;
+  border-bottom: none;
 }
 
 .sigma-expand {
@@ -251,7 +249,7 @@ html,body,.container-fullheight
 }
 .network-item .network-thumbnail{
   height: 80px;
-  background-color: #FAFAFA;
+  background-color: #f7f5f0;
   -webkit-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.05);
   -moz-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.05);
   box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.05);
@@ -376,7 +374,7 @@ html,body,.container-fullheight
  }
 .splitlayout-bottom{
   height: 117px;
-  border-top: 1px solid #E2E2E2;
+  border-top: 1px solid #b2b1ab;
 }
 
 /*
@@ -398,15 +396,20 @@ html,body,.container-fullheight
 }
 
 .views-band-container{
-  overflow-x: auto;
+  overflow-x:scroll;
   overflow-y: hidden;
   height: 117px;
+  width: auto;
+  margin: 10px;
 }
 .views-band{
-  min-width: 100%;
   min-height: 100%;
+  display: inline-block;
+  white-space: nowrap;
+
 }
 .views-band .view-item{
+  list-style-type: none;
   display: inline-block;
   vertical-align: top;
   height: 117px;
@@ -416,7 +419,7 @@ html,body,.container-fullheight
   padding: 6px;
   width: 120px;
   height: 90px;
-  border: 1px solid #E2E2E2;
+  border: 1px solid #c1bfb8;
   background-color: #FFF;
 
 
@@ -433,7 +436,7 @@ html,body,.container-fullheight
 }
 .views-band .view-item .view-thumbnail{
   height: 100%;
-  background-color: #FAFAFA;
+  background-color: #f7f5f0;
   -webkit-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.05);
   -moz-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.05);
   box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.05);
@@ -472,9 +475,7 @@ html,body,.container-fullheight
 .narrative .view-item{
   border-bottom: 1px solid #ccc;
 }
-.narrative .views-band-container{
-  height: 117px;
-}
+
 .narrative .views-band .view-item:hover{
   margin-top: 2px;
   -webkit-box-shadow: 0px 4px 6px rgba(50, 20, 0, 0.06);
@@ -502,7 +503,7 @@ html,body,.container-fullheight
   border-bottom: 1px solid #E2E2E2;
 }
 .narrative .widget-background{
-  background-color: rgb(248, 248, 248);
+  background-color: #e5e3df;
 }
 .narrative .back-button{
   position: absolute;
@@ -537,9 +538,10 @@ html,body,.container-fullheight
   height: 100%;
 }
 .narrative .widget-panel .widget{
-  /*border: 1px solid #E2E2E2;*/
+  border: 1px solid #b2b1ab;
   height: 100%;
   overflow: hidden;
+
 }
 .narrative .widget .view-title{
   padding: 12px 6px 0px 6px;
@@ -639,6 +641,7 @@ html,body,.container-fullheight
 .nav-tmn-menu {
   border-bottom: 1px solid #b2b1ab;
   margin: 0;
+  text-align: center;
 }
 
 .nav-tmn-menu li{
@@ -646,7 +649,7 @@ html,body,.container-fullheight
   margin-left: 0;
   padding: 0 10px;
   margin-bottom: 0px;
-  border-bottom: 3px transparent;
+  border-bottom: 3px solid #fff;
   transition: all .2s ease-in-out;
   padding-top: 6px;
 }
@@ -723,37 +726,14 @@ html,body,.container-fullheight
   padding: 0;
 }
 
-.narrative .widget-panel .widget {
-  border: 1px solid #d2d2d2;
-  height: 100%;
-  overflow: hidden;
-}
 
-.sigma-panel {
-height: 100%;
-min-height: 200px;
-background: #f2f0e9;
--webkit-box-shadow: inset 0px 0px 10px #eae7df;
--moz-box-shadow: inset 0px 0px 10px #eae7df;
-box-shadow: inset 0px 0px 10px #eae7df;
-position: relative;
-border-bottom: 1px solid #ddd;
-}
 
 .sigma-tools {
   border: 1px solid #d2d2d2;
 }
 
-.splitlayout-bottom{
-  border-top: 1px solid #d2d2d2;
-}
-
 .narrative .row.narrative-row{
   background: #fff;
-}
-
-.narrative .widget-background{
-  background: #e9e9e9;
 }
 
 .narrative .row.narrative-row .title-container{
