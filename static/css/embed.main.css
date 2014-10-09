@@ -345,3 +345,12 @@ body {
 }
 
 
+#view-legend h3{
+  line-height: 46px;
+  padding: 0;
+  font-size: 14px;
+  margin: 0;
+  color: #b2b1ab;
+  display: inline-block;
+}
+
