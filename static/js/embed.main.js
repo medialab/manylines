@@ -117,12 +117,21 @@
 
     $container.scrollTop(0);
 
+    // we render the legend
+    renderLegend();
     // We render the graph
     renderGraph();
   }
 
   function renderLegend() {
-    var $container = $('.legend-wrapper');
+    var $container = $('.legend-wrapper'),
+        categories = embed.data.snapshots[embed.currentSlide.snapshot].filters
+          .map(function(d){
+            d.category_enriched = embed.data.categories[d.category] ;
+            return d
+          }); // enrich category
+    console.log(categories, embed.data.snapshots[embed.currentSlide.snapshot]);
+    $("#view-legend").empty().append(embed.templates.categories({categories: categories}));
   }
 
   function toggleLegend(options) {

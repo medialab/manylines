@@ -75,9 +75,10 @@ body {
 .sibling-info .sibling-progress {
   color: #a0a0a0;
   font-weight: 300;
-  font-size: 14px;
-  line-height: 48px;
+  font-size: 15px;
+  line-height: 24px;
   margin: 0 12px;
+  padding:0;
 }
 
 .sibling-info:hover .sibling-title{
@@ -112,7 +113,7 @@ body {
  */
 .view-content{
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   position: relative;
   border-bottom: 1px solid #b2b1ab;
   border-top: 1px solid #c1bfb8;

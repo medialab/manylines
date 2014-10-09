@@ -39,15 +39,15 @@
       <div class="row bottom-row">
 
         <div class="legend-wrapper">
-          <div class="col-xs-2 col-md-2 col-xs-offset-2 col-md-offset-2">
-
-            </div>
-            <div class="col-xs-4 col-md-4" >
+            <div class="col-xs-6 col-md-6 col-xs-offset-2 col-md-offset-2" >
 
               <!-- button data-embed-legend-action="toggle" class="btn btn-link btn-sm">legend</button -->
+              <div id="view-legend">
 
+              </div>
             </div>
             <div class="col-xs-2 col-md-2 ">
+              <!-- expand / collapse -->
               <button data-embed-action="fullscreen" class="btn btn-link btn-sm">fullscreen</button>
             </div>
 
@@ -78,6 +78,9 @@
     </div>
 
     <!-- Templates -->
+    <script id="tpl-categories" type="text/x-handlebars">
+      <h3>{{#each categories}}{{this.category_enriched.title}}{{/each}}</h3>
+    </script>
     <script id="tpl-legend" type="text/x-handlebars">
 
             <div class="content">
