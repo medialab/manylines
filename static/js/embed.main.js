@@ -113,25 +113,38 @@
     }
 
 
-    // update slide text scrollbar
-
+    // Update slide text scrollbar
     $container.scrollTop(0);
 
-    // we render the legend
+    // We render the legend
     renderLegend();
+
     // We render the graph
     renderGraph();
   }
 
   function renderLegend() {
-    var $container = $('.legend-wrapper'),
-        categories = embed.data.snapshots[embed.currentSlide.snapshot].filters
-          .map(function(d){
-            d.category_enriched = embed.data.categories[d.category] ;
-            return d
-          }); // enrich category
-    console.log(categories, embed.data.snapshots[embed.currentSlide.snapshot]);
-    $("#view-legend").empty().append(embed.templates.categories({categories: categories}));
+    var $container = $('#view-legend'),
+        snapshot = embed.data.snapshots[embed.currentSlide.snapshot],
+        filter = snapshot.filters.length ? snapshot.filters[0] : {};
+
+    // Clearing container
+    $container.empty();
+
+    if (!filter.category)
+      return;
+
+    var category = embed.data.categories[filter.category],
+        renderingData = {
+          title: category.title,
+          values: !filter.values.length ?
+            category.values :
+            category.values.filter(function(v) {
+              return ~filter.values.indexOf(v.id);
+            })
+        };
+
+    $("#view-legend").empty().append(embed.templates.categories(renderingData));
   }
 
   function toggleLegend(options) {
@@ -144,8 +157,6 @@
   function resizeLegend($legend, $wrapper) {
     // check if there is a legend and the legend is on one line
     console.log($legend[0].scrollHeight, $legend.innerHeight());
-
-
   }
 
   function renderGraph() {
@@ -221,29 +232,31 @@
     throw Error('embed: wrong hash parameters.');
 
   // Fetching needed data
-  getData(embed.params.view, embed.params.id, function(data) {
-    embed.data = data;
+  setTimeout(function() {
+    getData(embed.params.view, embed.params.id, function(data) {
+      embed.data = data;
 
-    // enrich slide with contextual elements
-    for(var i=0; i<data.narrative.slides.length; i++) {
-      data.narrative.slides[i].meta = {
-        total: embed.data.narrative.slides.length,
-        index: i+1
-      }
-    };
+      // enrich slide with contextual elements
+      for(var i=0; i<data.narrative.slides.length; i++) {
+        data.narrative.slides[i].meta = {
+          total: embed.data.narrative.slides.length,
+          index: i+1
+        }
+      };
 
-    embed.currentSlide = data.narrative.slides[0];
+      embed.currentSlide = data.narrative.slides[0];
 
-    // Compute node model
-    embed.data.categories =
-      embed.utils.indexBy((((embed.data.meta || {}).model || {}).node || []), 'id');
+      // Compute node model
+      embed.data.categories =
+        embed.utils.indexBy((((embed.data.meta || {}).model || {}).node || []), 'id');
 
-    // render legend
-    renderLegend();
+      // render legend
+      renderLegend();
 
-    // Render first slide
-    renderSlide();
-  });
+      // Render first slide
+      renderSlide();
+    });
+  }, 0);
 
   /*--------------------------------------------------------------------------*/
 
@@ -349,7 +362,7 @@
   });
 
   // close legend
-  $(document).on('click', '[data-embed-legend-action="close"]', function() {
+  $('body').on('click', '[data-embed-legend-action="close"]', function() {
     var $wrapper = $('.view-content-wrapper');
     if(!$wrapper.hasClass('show-legend')) {
       toggleLegend({open:false});
