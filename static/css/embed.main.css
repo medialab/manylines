@@ -111,10 +111,11 @@ body {
  */
 .view-content{
   height: 100%;
-  overflow:scroll;
-  position:relative;
-  border-bottom: 1px solid #eee;
-  border-top: 1px solid #eee;
+  overflow-y: scroll;
+  position: relative;
+  border-bottom: 1px solid #b2b1ab;
+  border-top: 1px solid #c1bfb8;
+  overflow-x: hidden;
 }
 
 .view-title{
