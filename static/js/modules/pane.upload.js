@@ -16,11 +16,12 @@
 
     // Emitters
     this.emitters = function(dom) {
+      var $button = $('a[role="button"]', dom);
 
       /**
        * Clicking the button triggers the file input.
        */
-      $('a[role="button"]', dom).click(function(e) {
+      $button.click(function(e) {
         $('input:file', dom).click();
 
         // Cleaning storage
@@ -43,6 +44,9 @@
 
         reader.onloadstart = function(e) {
 
+          // Feedback
+          $button.button('loading');
+
           // Stopping upload if file is bigger than settings
           if (e.total > app.settings.upload.maxSize) {
             self.dispatchEvent('error', {reason: 'upload.too_big'});
@@ -53,6 +57,8 @@
         reader.onerror = function(e) {
           if (e.target.error.name !== 'AbortError')
             self.dispatchEvent('error', {reason: 'upload.error_uploading_file'});
+
+          $button.button('reset');
         };
 
         reader.onload = function(e) {

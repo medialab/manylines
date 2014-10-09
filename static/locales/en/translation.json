@@ -48,6 +48,7 @@
     "invalid_GEXF_file": "The GEXF file is not valid.",
     "invalid_file_format": "The file format is not recognized yet.",
     "too_big": "Your graph is too big. Try a lighter one.",
+    "loading": "Processing graph...",
     "disclaimer": "Please note that this application targets small to medium graphs and won't be able to handle large graphs.<br><br>Please try to provide graphs smaller than 5MB (~1000 nodes, ~10 000 edges)."
   },
   "basemap": {
