@@ -27,11 +27,12 @@ body {
 .sigma-panel{
   height: 100%;
   width: 100%;
-  background: rgb(248,248,248);
-  -webkit-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
-  -moz-box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
-  box-shadow: inset 0px 1px 5px rgba(50, 20, 0, 0.10);
+  background: #f2f0e9;
+  -webkit-box-shadow: inset 0px 0px 10px #eae7df;
+  -moz-box-shadow: inset 0px 0px 10px #eae7df;
+  box-shadow: inset 0px 0px 10px #eae7df;
   position: relative;
+  border-bottom: 1px solid #b2b1ab;
 }
 
 .sigma-expand {
