@@ -79,7 +79,12 @@
 
     <!-- Templates -->
     <script id="tpl-categories" type="text/x-handlebars">
-      <h3>{{#each categories}}{{this.category_enriched.title}}{{/each}}</h3>
+      {{#each categories}}
+      <h3>legend for {{this.category_enriched.title}}</h3>
+      <div class="category-items">
+        {{#each this.values}}<span class="category-item"><i class="fa fa-circle"></i> {{this}}</span>{{/each}}
+      </div>
+      {{/each}}
     </script>
     <script id="tpl-legend" type="text/x-handlebars">
 

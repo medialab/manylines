@@ -345,12 +345,30 @@ body {
 }
 
 
-#view-legend h3{
-  line-height: 46px;
+.legend-wrapper h3{
+  line-height: 48px;
   padding: 0;
-  font-size: 14px;
+  font-size: 13px;
   margin: 0;
   color: #b2b1ab;
   display: inline-block;
+  border-right: 1px solid #C1BFB9;
+  padding-right: 20px;
+  margin-right: 10px;
+  float: left;
+}
+
+.legend-wrapper .category-items{
+  float: left;
+  margin-top: 15px;
+}
+
+.legend-wrapper .category-item {
+  margin: 0 10px;
+  font-size: 13px;
+}
+
+.legend-wrapper .category-item .circle{
+  border-bottom: 2px solid red;
 }
 
