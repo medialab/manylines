@@ -57,7 +57,12 @@
         // Requesting more data
         this.dispatchEvent('data.load');
       },
-      error: onUnauthorized
+      error: function(m, x, p) {
+        if (x.status)
+          this.dispatchEvent('error', {reason: 'errors.wrong_password'});
+        else
+          this.dispatchEvent('error', {reason: 'errors.unknown'});
+      }
     },
     {
       id: 'logout',
