@@ -10,7 +10,7 @@
 
   app.modules.storage = function() {
     var self = this,
-        enabled = true;
+        enabled = !app.control.expand('spaceId');
 
     // Functions
     function save(d) {
