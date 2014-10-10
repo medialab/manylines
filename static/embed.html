@@ -74,12 +74,14 @@
     <script id="tpl-categories" type="text/x-handlebars">
       <div class="legend-toggler" data-embed-legend-action="toggle"><i class="fa fa-angle-down"></i></div>
       <h3>{{ title }}</h3>
-      <div class="category-items">
-        {{#each values}}
-          <div class="category-item">
-            <i style="color: {{ color }};" class="fa fa-circle"></i>{{#if label}} {{ label }}{{else}} {{ id }}{{/if}}
-          </div>
-        {{/each}}
+      <div class="category-items-wrapper">
+        <div class="category-items">
+          {{#each values}}
+            <div class="category-item">
+              <i style="color: {{ color }};" class="fa fa-circle"></i>{{#if label}} {{ label }}{{else}} {{ id }}{{/if}}
+            </div>
+          {{/each}}
+        </div>
       </div>
     </script>
 
