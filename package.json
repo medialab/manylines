@@ -2,10 +2,10 @@
   "name": "tube-my-net",
   "version": "0.0.1",
   "description": "The Youtube of networks.",
-  "bugs": "http://github.com/medialab/TubeMyNet/issues",
+  "bugs": "http://github.com/medialab/Manylines/issues",
   "repository": {
     "type": "git",
-    "url": "http://github.com/medialab/TubeMyNet.git"
+    "url": "http://github.com/medialab/Manylines.git"
   },
   "license": "LGPL-3.0",
   "scripts": {

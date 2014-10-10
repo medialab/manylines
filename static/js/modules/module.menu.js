@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Menu Module
+   * Manylines Menu Module
    * ======================
    *
    * This modules enable menu interactions to change the application's pane.

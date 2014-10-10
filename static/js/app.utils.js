@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Misc Utilities
+   * Manylines Misc Utilities
    * =========================
    *
    * Various useful functions used throughout the application code.

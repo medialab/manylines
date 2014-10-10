@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Location Module
+   * Manylines Location Module
    * ==========================
    *
    * This module tracks changes concerning the url hash and triggers

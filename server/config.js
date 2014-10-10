@@ -1,5 +1,5 @@
 /**
- * TubeMyNet Default Configuration
+ * Manylines Default Configuration
  * ================================
  *
  * Ensuring the configuration passed to the application respond to some
@@ -25,9 +25,9 @@ var defaults = {
     admin: 'admin',
     password: null,
     buckets: {
-      graph: 'tubemynet',
-      narrative: 'tubemynet',
-      space: 'tubemynet'
+      graph: 'manylines',
+      narrative: 'manylines',
+      space: 'manylines'
     }
   },
   log: {

@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Storage Module
+   * Manylines Storage Module
    * =========================
    *
    * Stores temporary data into the HTML5 storage to ensure one would not
@@ -10,7 +10,7 @@
 
   app.modules.storage = function() {
     var self = this,
-        enabled = true;
+        enabled = !app.control.expand('spaceId');
 
     // Functions
     function save(d) {

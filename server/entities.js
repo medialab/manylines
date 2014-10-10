@@ -1,5 +1,5 @@
 /**
- * TubeMyNet Entities Registration
+ * Manylines Entities Registration
  * ================================
  *
  * Instantiating any entities needed by the API server to run.

@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Schemas
+   * Manylines Schemas
    * ==================
    *
    * Data validation schemas for the controller's properties.

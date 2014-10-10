@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Application Initialization
+   * Manylines Application Initialization
    * =====================================
    *
    * Instantiating the controller and launching the application.

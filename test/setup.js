@@ -1,5 +1,5 @@
 /**
- * TubeMyNet Space Unit Tests Setup
+ * Manylines Space Unit Tests Setup
  * =================================
  *
  */
@@ -58,7 +58,7 @@ before(function(done) {
     logger: function(next) {
 
       // TODO: find more elegant way to do this
-      logger.remove(logger.transports.TubeMyNet);
+      logger.remove(logger.transports.Manylines);
       next();
     },
     buckets: function(next) {

@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Narratives Pane
+   * Manylines Narratives Pane
    * ==========================
    *
    * This pane enables the user to compose narratives around his/her graph.

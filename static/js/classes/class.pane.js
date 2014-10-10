@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Pane Class
+   * Manylines Pane Class
    * ======================
    *
    * Pane abstraction providing helpers for cleaner code.

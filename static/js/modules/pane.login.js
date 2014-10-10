@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Login Pane
+   * Manylines Login Pane
    * =====================
    *
    * Simply displaying the login form.

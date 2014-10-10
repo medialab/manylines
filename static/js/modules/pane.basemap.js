@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Basemap Pane
+   * Manylines Basemap Pane
    * =======================
    *
    * The basemap pane presents the graph in a simple fashion and enable you to

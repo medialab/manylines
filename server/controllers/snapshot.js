@@ -1,5 +1,5 @@
 /**
- * TubeMyNet Snapshot Controller
+ * Manylines Snapshot Controller
  * ==============================
  *
  */

@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Layout Module
+   * Manylines Layout Module
    * ========================
    *
    * This module updates the viewed pane and register/kill relevant modules

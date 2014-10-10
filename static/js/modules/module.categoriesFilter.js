@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Categories Filter Module
+   * Manylines Categories Filter Module
    * ===================================
    *
    * A simple submodule to plug when one needs to deal with categories and

@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Services
+   * Manylines Services
    * ===================
    *
    * Bridge to the API.
@@ -249,6 +249,15 @@
 
         this.update('narratives', data);
       }
+    },
+    {
+      id: 'narratives.delete',
+      url: '/api/space/:id/narrative/:version/:narrativeId',
+      type: 'DELETE',
+      success: function(data) {
+        // Something to do here?
+      },
+      error: onLoginNeeded
     }
   ];
 

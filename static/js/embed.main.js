@@ -1,10 +1,10 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Embed Controller
+   * Manylines Embed Controller
    * ===========================
    *
-   * TubeMyNet utility to display the application's widgets.
+   * Manylines utility to display the application's widgets.
    */
 
   /**
@@ -42,7 +42,7 @@
   }
 
   function getData(view, id, callback) {
-    $.get('/api/embed/' + view + '/' + id, callback);
+    return $.get('/api/embed/' + view + '/' + id, callback);
   }
 
   // TODO: modelize an object to perform this?
@@ -277,6 +277,8 @@
 
       // Render first slide
       renderSlide();
+    }).fail(function(x, s, m) {
+      $('body').empty().text(m);
     });
   }, 0);
 
