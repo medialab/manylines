@@ -10,7 +10,12 @@ var entities = require('../entities.js'),
 exports.narrativeData = function(id, callback) {
   async.waterfall([
     function getNarrative(next) {
-      entities.narrative.get(id, next);
+      entities.narrative.get(id, function(err, narrative) {
+        if (err || !narrative)
+          return next(new Error('inexistant-narrative'));
+
+        next(null, narrative);
+      });
     },
     function getSpace(narrative, next) {
       entities.space.get(narrative.space, function(err, space) {

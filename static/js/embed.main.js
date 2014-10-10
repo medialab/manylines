@@ -42,7 +42,7 @@
   }
 
   function getData(view, id, callback) {
-    $.get('/api/embed/' + view + '/' + id, callback);
+    return $.get('/api/embed/' + view + '/' + id, callback);
   }
 
   // TODO: modelize an object to perform this?
@@ -255,6 +255,8 @@
 
       // Render first slide
       renderSlide();
+    }).fail(function(x, s, m) {
+      $('body').empty().text(m);
     });
   }, 0);
 

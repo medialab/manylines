@@ -22,7 +22,9 @@ module.exports = {
     },
     method: function(req, res) {
       repositories.embed.narrativeData(req.param('id'), function(err, data) {
-        if (err)
+        if (err && ~err.message.search(/inexistant/))
+          return res.error(err, 404);
+        else if (err)
           return res.error(err, 400);
 
         return res.json(data);
