@@ -163,8 +163,13 @@
     var $wrapper = $(".legend-wrapper"),
         $categories = $wrapper.find(".category-items"),
 
+
         h = $categories[0].scrollHeight + $categories.position().top; // the final height of the legend, according to container height
-    
+    console.log('resizeLegend', $categories[0].scrollHeight, $categories.position().top)
+
+    h = Math.min(h, $wrapper.parent().height() - 92);
+
+
     if($wrapper.hasClass('opened')) {
       $wrapper.height(h);
     } else {
