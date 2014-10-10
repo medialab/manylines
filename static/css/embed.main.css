@@ -171,7 +171,8 @@ body {
 }
 
 /*
-  Legend
+  Legend wrapper normally is hidden.
+  Set its class to active to show the opener toggler
 */
 .legend-wrapper{
   position:absolute;
@@ -189,7 +190,7 @@ body {
 .legend-wrapper.opened{
   height: 50%;
 }
-.legend-wrapper.closed{
+.legend-wrapper.active{
   height: 48px;
 }
 

@@ -25,7 +25,6 @@ var defaults = {
     admin: 'admin',
     password: null,
     buckets: {
-      snapshot: 'tubemynet',
       graph: 'tubemynet',
       narrative: 'tubemynet',
       space: 'tubemynet'

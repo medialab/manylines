@@ -73,73 +73,14 @@
     <!-- Templates -->
     <script id="tpl-categories" type="text/x-handlebars">
       <div class="legend-toggler"><i class="fa fa-angle-down"></i></div>
-      {{#each categories}}
-      <h3>filter <span class="category-title">{{this.category_enriched.title}}</div></h3>
+      <h3>{{ title }}</h3>
       <div class="category-items">
-        {{#each this.values}}<span class="category-item"><i class="fa fa-circle"></i> {{this}}</span>{{/each}}
+        {{#each values}}
+          <span class="category-item">
+            <i style="color: {{ color }};" class="fa fa-circle"></i>{{#if label}} {{ label }}{{else}} {{ id }}{{/if}}
+          </span>
+        {{/each}}
       </div>
-      {{/each}}
-    </script>
-    <script id="tpl-legend" type="text/x-handlebars">
-
-            <div class="content">
-              <span class="category">
-                <span class="fa fa-circle"></span>
-                Category color
-              </span>
-
-              <span class="category">
-                <span class="fa fa-circle"></span>
-                Category color
-              </span>
-
-              <span class="category">
-                <span class="fa fa-circle"></span>
-                Category color
-              </span>
-              <span class="category">
-                <span class="fa fa-circle"></span>
-                Category color
-              </span>
-
-              <span class="category">
-                <span class="fa fa-circle"></span>
-                Category color
-              </span>
-
-              <span class="category">
-                <span class="fa fa-circle"></span>
-                Category color
-              </span>
-              <span class="category">
-                <span class="fa fa-circle"></span>
-                Category color
-              </span>
-
-              <span class="category">
-                <span class="fa fa-circle"></span>
-                Category color
-              </span>
-
-              <span class="category">
-                <span class="fa fa-circle"></span>
-                Category color
-              </span>
-              <span class="category">
-                <span class="fa fa-circle"></span>
-                Category color
-              </span>
-
-              <span class="category">
-                <span class="fa fa-circle"></span>
-                Category color
-              </span>
-
-              <span class="category">
-                <span class="fa fa-circle"></span>
-                Category color
-              </span>
-            </div>
     </script>
 
     <script id="tpl-slide" type="text/x-handlebars">
