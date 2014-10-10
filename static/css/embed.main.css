@@ -12,7 +12,9 @@ body {
 }
 .row.top-row{
   height: 60%;
+  position: relative;
 }
+
 .row.bottom-row{
   height: 40%;
   background-color: #FFF;
@@ -116,10 +118,14 @@ body {
   overflow-y: auto;
   position: relative;
   border-bottom: 1px solid #b2b1ab;
-  border-top: 1px solid #c1bfb8;
+  
   overflow-x: hidden;
 }
 
+.view-actions{
+   border-bottom: 1px solid #c1bfb8;
+   line-height: 36px;
+}
 .view-title{
   margin: 12px 6px 0px 6px;
   font-weight: normal;
@@ -127,6 +133,7 @@ body {
   line-height: 40px;
   color: #000;
   position: relative;
+ 
 }
 
 .view-title .view-index{
@@ -155,9 +162,8 @@ body {
   line-height: 1.6em;
 }
 .view-content-wrapper{
-  padding:48px 0 12px 0;
+  padding:0px 0 12px 0;
   height: 100%;
-  transition: all .3s ease-in-out;
 }
 
 .view-content-wrapper.show-legend{
@@ -165,13 +171,43 @@ body {
 }
 
 /*
-  Legend
+  Legend wrapper normally is hidden.
+  Set its class to active to show the opener toggler
 */
 .legend-wrapper{
   position:absolute;
-  width:100%;
   left:0;
+  bottom: 1px;
   z-index: 2;
+  height: 0;
+  overflow: hidden;
+  transition: height .3s ease-in-out;
+  background-color: white;
+  border-top: 1px solid #b2b1ab;
+  border-right: 1px solid #b2b1ab;
+}
+
+.legend-wrapper.active.opened{
+  height: 50%;
+}
+.legend-wrapper.active{
+  height: 48px;
+}
+
+.legend-wrapper .legend-toggler{
+  float: right;
+  height: 48px;
+  line-height: 48px;
+  padding: 0 20px 0 20px;
+  border-left: 1px solid #c1bfb8;
+  display:block;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color .3s ease-in-out;
+}
+
+.legend-wrapper .legend-toggler:hover{
+  background: #f2efe7;
 }
 
 .legend{
@@ -203,6 +239,39 @@ body {
   display: inline-block;
   padding: 2px 4px;
 }
+
+
+.legend-wrapper h3{
+  line-height: 48px;
+  padding: 0;
+  font-size: 13px;
+  margin: 0;
+  color: #b2b1ab;
+  /*border-right: 1px solid #C1BFB9; */
+  padding: 0 20px;
+  margin-right: 50px;
+}
+
+.legend-wrapper h3 .category-title{
+  color: #181818;
+  padding-left: 10px;
+}
+
+.legend-wrapper .category-items{
+  padding: 0 20px;
+  border-top: 1px solid #e0ddd5;
+}
+
+.legend-wrapper .category-item {
+  margin: 15px 0px;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.legend-wrapper .category-item .circle{
+  border-bottom: 2px solid red;
+}
+
 
 #toggle-legend {
   position: absolute;
@@ -345,28 +414,4 @@ body {
 }
 
 
-.legend-wrapper h3{
-  line-height: 48px;
-  padding: 0;
-  font-size: 13px;
-  margin: 0;
-  color: #b2b1ab;
-  display: inline-block;
-  padding-right: 20px;
-  float: left;
-}
-
-.legend-wrapper .category-items{
-  float: left;
-  margin-top: 15px;
-}
-
-.legend-wrapper .category-item {
-  margin: 0 10px;
-  font-size: 13px;
-}
-
-.legend-wrapper .category-item .circle{
-  border-bottom: 2px solid red;
-}
 

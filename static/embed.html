@@ -22,6 +22,12 @@
     <!-- Main -->
     <div id="fullscreen-container" class="widget-container container-fluid">
       <div class="row top-row">
+        <div class="legend-wrapper">
+          <div id="view-legend">
+          </div>
+          
+        </div>
+        
         <div class="col col-xs-12 sigma-panel">
           <div class="sigma-expand"></div>
           <div class="sigma-overlay">
@@ -38,20 +44,7 @@
 
       <div class="row bottom-row">
 
-        <div class="legend-wrapper">
-            <div class="col-xs-6 col-md-6 col-xs-offset-2 col-md-offset-2" >
-
-              <!-- button data-embed-legend-action="toggle" class="btn btn-link btn-sm">legend</button -->
-              <div id="view-legend">
-
-              </div>
-            </div>
-            <div class="col-xs-2 col-md-2 ">
-              <!-- expand / collapse -->
-              <button data-embed-action="fullscreen" class="btn btn-link btn-sm">fullscreen</button>
-            </div>
-
-        </div>
+        
         <div class="col col-xs-2 col-md-1 left-arrow-container">
         <!-- Left arrow -->
         </div>
@@ -79,17 +72,21 @@
 
     <!-- Templates -->
     <script id="tpl-categories" type="text/x-handlebars">
-      <h3>{{ title }}:</h3>
+      <div class="legend-toggler" data-embed-legend-action="toggle"><i class="fa fa-angle-down"></i></div>
+      <h3>{{ title }}</h3>
       <div class="category-items">
         {{#each values}}
-          <span class="category-item">
+          <div class="category-item">
             <i style="color: {{ color }};" class="fa fa-circle"></i>{{#if label}} {{ label }}{{else}} {{ id }}{{/if}}
-          </span>
+          </div>
         {{/each}}
       </div>
     </script>
 
     <script id="tpl-slide" type="text/x-handlebars">
+      <div class="view-actions">
+        <button data-embed-action="fullscreen" class="btn btn-link btn-sm">fullscreen</button>
+      </div>
       <div class="view-title" data-embed-legend-action="toggle">
         <span class="view-index">{{meta.index}}</span><span class="view-label">{{ title }}</span>
       </div>

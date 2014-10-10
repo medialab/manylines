@@ -131,8 +131,12 @@
     // Clearing container
     $container.empty();
 
-    if (!filter.category)
+    if (!filter.category) {
+      $(".legend-wrapper").removeClass('active');
       return;
+    }
+    
+    $(".legend-wrapper").addClass('active');
 
     var category = embed.data.categories[filter.category],
         renderingData = {
@@ -371,17 +375,11 @@
     }
   });
   // open/ toggle legend
-  $('*[data-embed-legend-action="toggle"]').click(function() {
-    var $wrapper = $('.view-content-wrapper');
-
-    if(!$wrapper.hasClass('show-legend')) {
-      console.log('toggle legend', $wrapper.height());
-
+  $('body').on('click','*[data-embed-legend-action="toggle"]', function() {
+    var $wrapper = $('.legend-wrapper');
+    if($wrapper.hasClass('active')) {
+      $wrapper.toggleClass('opened');
     };
-
-    $wrapper.toggleClass('show-legend');
-
-    //$('.legend').height(Math.max())
   });
   // Exporting for convenience
   this.embed = embed;
