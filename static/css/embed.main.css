@@ -258,13 +258,14 @@ body {
 }
 
 .legend-wrapper .category-items{
-  padding: 20px;
+  padding: 0 20px;
   border-top: 1px solid #e0ddd5;
 }
 
 .legend-wrapper .category-item {
-  margin: 0 10px;
+  margin: 15px 0px;
   font-size: 13px;
+  line-height: 20px;
 }
 
 .legend-wrapper .category-item .circle{

@@ -76,9 +76,9 @@
       <h3>{{ title }}</h3>
       <div class="category-items">
         {{#each values}}
-          <span class="category-item">
+          <div class="category-item">
             <i style="color: {{ color }};" class="fa fa-circle"></i>{{#if label}} {{ label }}{{else}} {{ id }}{{/if}}
-          </span>
+          </div>
         {{/each}}
       </div>
     </script>
