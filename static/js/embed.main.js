@@ -123,20 +123,25 @@
     renderGraph();
   }
 
+
   function renderLegend() {
     var $container = $('#view-legend'),
+        $wrapper = $(".legend-wrapper"),
+
         snapshot = embed.data.snapshots[embed.currentSlide.snapshot],
         filter = snapshot.filters.length ? snapshot.filters[0] : {};
 
     // Clearing container
     $container.empty();
 
-    if (!filter.category) {
-      $(".legend-wrapper").removeClass('active');
+    if(!filter.category) {
+      $wrapper.removeClass('opened').css('height', '').removeClass('active');
       return;
     }
+
+    $wrapper.addClass('active');
     
-    $(".legend-wrapper").addClass('active');
+    
 
     var category = embed.data.categories[filter.category],
         renderingData = {
@@ -149,7 +154,24 @@
         };
 
     $("#view-legend").empty().append(embed.templates.categories(renderingData));
+    resizeLegend();
+
   }
+
+
+  function resizeLegend() {
+    var $wrapper = $(".legend-wrapper"),
+        $categories = $wrapper.find(".category-items"),
+
+        h = $categories[0].scrollHeight + $categories.position().top; // the final height of the legend, according to container height
+    
+    if($wrapper.hasClass('opened')) {
+      $wrapper.height(h);
+    } else {
+      $wrapper.css("height", "");
+    };
+  }
+
 
   function toggleLegend(options) {
     var options = $.extend({
@@ -158,10 +180,6 @@
     console.log(options.open)
   }
 
-  function resizeLegend($legend, $wrapper) {
-    // check if there is a legend and the legend is on one line
-    console.log($legend[0].scrollHeight, $legend.innerHeight());
-  }
 
   function renderGraph() {
     var snapshot = embed.data.snapshots[embed.currentSlide.snapshot],
@@ -311,7 +329,7 @@
   /**
    * going fullscreen
    */
-  $('*[data-embed-action="fullscreen"]').click(function() {
+  $('body').on('click', '*[data-embed-action="fullscreen"]', function() {
     var elem = document.getElementById('fullscreen-container'),
         fullScreen =
           document.isFullScreen ||
@@ -375,8 +393,10 @@
   // open/ toggle legend
   $('body').on('click','*[data-embed-legend-action="toggle"]', function() {
     var $wrapper = $('.legend-wrapper');
-    if($wrapper.hasClass('active')) {
+
+    if($wrapper.hasClass('active')) { // calculate real height then
       $wrapper.toggleClass('opened');
+      resizeLegend();
     };
   });
   // Exporting for convenience

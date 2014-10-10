@@ -187,9 +187,7 @@ body {
   border-right: 1px solid #b2b1ab;
 }
 
-.legend-wrapper.active.opened{
-  height: 50%;
-}
+
 .legend-wrapper.active{
   height: 48px;
 }
