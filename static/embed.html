@@ -51,6 +51,9 @@
         <div class="col-xs-0 col-md-1">
         </div>
         <div class="col col-xs-8">
+          <div class="view-actions">
+        <button data-embed-action="fullscreen" class="btn btn-link btn-sm">fullscreen</button>
+      </div>
           <div class="view-content-wrapper">
             <div class="view-content">
             <!-- Slide content -->
@@ -72,8 +75,8 @@
 
     <!-- Templates -->
     <script id="tpl-categories" type="text/x-handlebars">
-      <div class="legend-toggler" data-embed-legend-action="toggle"><i class="fa fa-angle-down"></i></div>
-      <h3>{{ title }}</h3>
+      <div class="legend-toggler" data-embed-legend-action="toggle"><i class="fa fa-angle-up up"></i><i class="fa fa-angle-down down"></i></div>
+      <h3>colors for <span class="category-title"> {{ title }}</span></h3>
       <div class="category-items-wrapper">
         <div class="category-items">
           {{#each values}}
@@ -86,9 +89,7 @@
     </script>
 
     <script id="tpl-slide" type="text/x-handlebars">
-      <div class="view-actions">
-        <button data-embed-action="fullscreen" class="btn btn-link btn-sm">fullscreen</button>
-      </div>
+      
       <div class="view-title" data-embed-legend-action="toggle">
         <span class="view-index">{{meta.index}}</span><span class="view-label">{{ title }}</span>
       </div>
