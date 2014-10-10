@@ -251,7 +251,7 @@
       }
     },
     {
-      id: 'narratives.delete',
+      id: 'narrative.delete',
       url: '/api/space/:id/narrative/:version/:narrativeId',
       type: 'DELETE',
       success: function(data) {

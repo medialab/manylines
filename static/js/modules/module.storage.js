@@ -12,6 +12,9 @@
     var self = this,
         enabled = !app.control.expand('spaceId');
 
+    if (!enabled)
+      clear();
+
     // Functions
     function save(d) {
       if (!enabled)
