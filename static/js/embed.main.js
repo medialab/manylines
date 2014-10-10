@@ -160,20 +160,21 @@
 
 
   function resizeLegend() {
-    var $wrapper = $(".legend-wrapper"),
-        $categories = $wrapper.find(".category-items"),
+    var $wrapper = $('.legend-wrapper'),
+        $categories = $wrapper.find('.category-items'),
 
 
-        h = $categories[0].scrollHeight + $categories.position().top; // the final height of the legend, according to container height
-    console.log('resizeLegend', $categories[0].scrollHeight, $categories.position().top)
+        h =  $categories[0].scrollHeight + 1 +$categories.position().top; // the final height of the legend, according to container height
 
     h = Math.min(h, $wrapper.parent().height() - 92);
 
 
     if($wrapper.hasClass('opened')) {
+      $wrapper.css('max-height', '100%');
       $wrapper.height(h);
     } else {
-      $wrapper.css("height", "");
+      $wrapper.css('max-height', '');
+      $wrapper.css('height', '');
     };
   }
 
