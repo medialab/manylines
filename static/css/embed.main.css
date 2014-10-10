@@ -177,7 +177,7 @@ body {
 .legend-wrapper{
   position:absolute;
   left:0;
-  bottom: 0px;
+  bottom: 1px;
   z-index: 2;
   height: 0;
   overflow: hidden;
@@ -187,7 +187,7 @@ body {
   border-right: 1px solid #b2b1ab;
 }
 
-.legend-wrapper.opened{
+.legend-wrapper.active.opened{
   height: 50%;
 }
 .legend-wrapper.active{
@@ -249,6 +249,7 @@ body {
   color: #b2b1ab;
   /*border-right: 1px solid #C1BFB9; */
   padding: 0 20px;
+  margin-right: 50px;
 }
 
 .legend-wrapper h3 .category-title{
@@ -257,7 +258,7 @@ body {
 }
 
 .legend-wrapper .category-items{
-  margin-top: 15px;
+  padding: 20px;
   border-top: 1px solid #e0ddd5;
 }
 
