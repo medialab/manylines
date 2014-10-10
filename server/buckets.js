@@ -1,5 +1,5 @@
 /**
- * TubeMyNet Bucket Connection
+ * Manylines Bucket Connection
  * ============================
  *
  * This routine aims at connecting every needed bucket through couchbase

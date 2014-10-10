@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Filter Class
+   * Manylines Filter Class
    * =======================
    *
    * A simple data structure to deal with view filters.

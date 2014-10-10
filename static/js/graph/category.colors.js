@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Category Colors
+   * Manylines Category Colors
    * ==========================
    *
    * Methods to apply colors to graph categories

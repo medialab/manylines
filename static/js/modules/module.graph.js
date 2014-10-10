@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Graph Module
+   * Manylines Graph Module
    * =======================
    *
    * A simple module to display the main graph of a given pane.

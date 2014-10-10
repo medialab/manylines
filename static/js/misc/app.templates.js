@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Template engine
+   * Manylines Template engine
    * ==========================
    *
    * Simple helpers to retrieve the application templates.

@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Snapshots Pane
+   * Manylines Snapshots Pane
    * =========================
    *
    * This pane enable you to take photographs of your graph in order to organize

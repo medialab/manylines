@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Upload Pane
+   * Manylines Upload Pane
    * ======================
    *
    * This module takes care of graph uploading.

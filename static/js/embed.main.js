@@ -1,10 +1,10 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Embed Controller
+   * Manylines Embed Controller
    * ===========================
    *
-   * TubeMyNet utility to display the application's widgets.
+   * Manylines utility to display the application's widgets.
    */
 
   /**

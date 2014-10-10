@@ -1,5 +1,5 @@
 /**
- * TubeMyNet Api Server
+ * Manylines Api Server
  * =====================
  *
  * This server is meant to be called through a reverse proxy by the

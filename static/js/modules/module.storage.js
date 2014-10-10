@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Storage Module
+   * Manylines Storage Module
    * =========================
    *
    * Stores temporary data into the HTML5 storage to ensure one would not

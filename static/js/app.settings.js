@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Application Settings
+   * Manylines Application Settings
    * ===============================
    *
    * Generic options concerning graph rendering, graph layout and so on...

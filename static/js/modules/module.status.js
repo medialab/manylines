@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet status Module
+   * Manylines status Module
    * ========================
    *
    * This modules tracks the modification status of the current space

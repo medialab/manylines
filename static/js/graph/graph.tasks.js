@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Graph Tasks
+   * Manylines Graph Tasks
    * ======================
    *
    * Unitary functions and tasks to be run on the application's main graph.

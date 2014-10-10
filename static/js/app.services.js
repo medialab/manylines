@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Services
+   * Manylines Services
    * ===================
    *
    * Bridge to the API.

@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Thumbnail Class
+   * Manylines Thumbnail Class
    * ==========================
    *
    * Abstraction used to build sigma thumbnail easily.

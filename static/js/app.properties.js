@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Controller Properties
+   * Manylines Controller Properties
    * ================================
    *
    * Collection of properties needed for the controller to run its model.

@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Layout Constraints
+   * Manylines Layout Constraints
    * =============================
    *
    * Methods to apply on a given layout settings to ensure some best practices

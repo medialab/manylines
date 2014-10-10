@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Alerts Module
+   * Manylines Alerts Module
    * ========================
    *
    * Display feeback on user's action through a fading banner.

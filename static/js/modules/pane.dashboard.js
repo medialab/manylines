@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Dashboard Pane
+   * Manylines Dashboard Pane
    * =========================
    *
    * 'Tis not known the purpose of this pane yet, my liege.

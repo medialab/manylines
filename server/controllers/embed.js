@@ -1,5 +1,5 @@
 /**
- * TubeMyNet Embed Controller
+ * Manylines Embed Controller
  * ===========================
  *
  */

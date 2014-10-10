@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet ForceAtlas Module
+   * Manylines ForceAtlas Module
    * ============================
    *
    * A simple submodule to plug when Force Atlas 2 Layout is required.

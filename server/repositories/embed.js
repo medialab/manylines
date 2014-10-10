@@ -1,5 +1,5 @@
 /**
- * TubeMyNet Embed Repository
+ * Manylines Embed Repository
  * ===========================
  *
  */

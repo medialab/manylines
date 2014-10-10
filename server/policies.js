@@ -1,8 +1,8 @@
 /**
- * TubeMyNet Policies Middlewares
+ * Manylines Policies Middlewares
  * ===============================
  *
- * Here should be archived every middlewares used by TubeMyNet's API.
+ * Here should be archived every middlewares used by Manylines's API.
  */
 
 // Authentication policy

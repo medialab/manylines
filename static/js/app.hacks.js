@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Hacks
+   * Manylines Hacks
    * ================
    *
    * Listening to main events.

@@ -1,8 +1,8 @@
 /**
- * TubeMyNet Model Schemas
+ * Manylines Model Schemas
  * ========================
  *
- * Structural data schemas for every TubeMyNet's models.
+ * Structural data schemas for every Manylines's models.
  */
 var types = require('typology');
 

@@ -1,5 +1,5 @@
 /**
- * TubeMyNet Default Configuration
+ * Manylines Default Configuration
  * ================================
  *
  * Ensuring the configuration passed to the application respond to some

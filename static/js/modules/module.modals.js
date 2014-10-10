@@ -1,7 +1,7 @@
 ;(function(undefined) {
 
   /**
-   * TubeMyNet Modals Module
+   * Manylines Modals Module
    * ========================
    *
    * A simple module dealing with bootstrap modals.
