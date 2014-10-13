@@ -569,6 +569,37 @@
         // Touching
         app.control.query('touchNarrative', currentId);
       }
+    },
+
+    /**
+     * Deleting a narrative
+     */
+    {
+      triggers: 'narrative.delete',
+      method: function(e) {
+        var nid = e.data,
+            narratives = this.get('narratives');
+
+        // Search and destroy
+        var idx = app.utils.indexOf(narratives, function(narrative) {
+          return narrative.id === nid;
+        });
+
+        narratives.splice(idx, 1);
+
+        // Updating
+        this.update('narratives', narratives);
+
+        // Requesting
+        if (nid !== 'temp')
+          this.request('narrative.delete', {
+            shortcuts: {
+              narrativeId: nid
+            }
+          });
+        else
+          this.dispatchEvent('narrative.deleted', nid);
+      }
     }
   ];
 

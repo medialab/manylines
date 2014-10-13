@@ -43,6 +43,15 @@
         e.preventDefault();
         e.stopPropagation();
       });
+
+      /**
+       * Deleting an existant narrative
+       */
+      dom.on('click', '[data-app-narratives-action="delete"]', function()  {
+        var nid = $(this).parents('[data-app-narratives-action="edit"]').attr('data-app-narrative-id');
+
+        self.dispatchEvent('narrative.delete', nid);
+      });
     };
 
     this.editionEmitters = function(dom) {
@@ -327,6 +336,12 @@
     this.triggers.events['narrative.selected'] = handleEdition;
 
     this.triggers.events['currentSlide.updated'] = handleCurrentSlide;
+
+    this.triggers.events['narrative.deleted'] = function(d, e) {
+      var nid = e.data;
+
+      $('[data-app-narrative-id="' + nid + '"]').parent().fadeOut();
+    };
 
     // Initialization
     this.didRender = function() {

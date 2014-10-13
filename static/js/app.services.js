@@ -252,10 +252,10 @@
     },
     {
       id: 'narrative.delete',
-      url: '/api/space/:id/narrative/:version/:narrativeId',
+      url: '/api/space/:spaceId/narrative/:version/:narrativeId',
       type: 'DELETE',
-      success: function(data) {
-        // Something to do here?
+      success: function(data, sent) {
+        this.dispatchEvent('narrative.deleted', sent.shortcuts.narrativeId);
       },
       error: onLoginNeeded
     }
