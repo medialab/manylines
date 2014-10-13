@@ -54,6 +54,10 @@ npm start
 *For production*
 
 ```bash
+# Build assets
+gulp
+
+# Starting app
 NODE_ENV='prod' npm start
 ```
 
