@@ -3,7 +3,7 @@
  */
 body {
   color: #555;
-  /*font-family: 'Roboto Condensed', sans-serif;*/
+  /*font-family: 'Roboto', sans-serif;*/
   font-family: 'Roboto', sans-serif;
 }
 .label, .badge{
@@ -478,6 +478,17 @@ html,body,.container-fullheight
   -moz-box-shadow: 0px 1px 5px rgba(50, 20, 0, 0.20);
   box-shadow: 0px 1px 5px rgba(50, 20, 0, 0.20);
   padding: 2px 20px;
+  margin: 15px 0;
+}
+
+.narratives-list li a {
+  color: #818181;
+  transition: color, .3s ease-in-out;
+}
+
+.narratives-list li a:hover{
+  color: #181818;
+  text-decoration: none;
 }
 
 .narratives-list li h3{
@@ -498,13 +509,17 @@ html,body,.container-fullheight
   display: block;
   text-align: center;
   border: 0px;
-  border-left: 1px solid #c1bfb8;
+  opacity: .3;
   position: absolute;
   right: 0;
   top: 0;
   cursor: pointer;
-  
+  transition: opacity .3s ease-in-out;
   background: white;
+}
+
+.narratives-list li .action:hover {
+  opacity: 1;
 }
 
 .narrative h3{
@@ -638,7 +653,7 @@ html,body,.container-fullheight
 }
 .narrative .widget {
   color: #555;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .narrative .widget .col{
   padding: 0px;
