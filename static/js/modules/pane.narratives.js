@@ -268,7 +268,12 @@
           ghostClass: 'drag-ghost',
           onAdd: function(e) {
             var snapshotId = $(e.item).find('.view-thumbnail').attr('data-app-thumbnail-snapshot');
-            self.dispatchEvent('narrative.edit', {addSlide: snapshotId});
+
+            var order = $('.chosen-views-band [data-app-thumbnail-snapshot]').get().map(function(e) {
+              return $(e).attr('data-app-thumbnail-snapshot');
+            });
+
+            self.dispatchEvent('narrative.edit', {addSlide: snapshotId, reorderSlides: order});
           },
           onRemove: function(e) {
             var snapshotId = $(e.item).find('.view-thumbnail').attr('data-app-thumbnail-snapshot');
