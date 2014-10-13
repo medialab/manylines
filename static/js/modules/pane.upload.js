@@ -83,7 +83,8 @@
               }
             );
           } catch (err) {
-            app.danger(i18n.t('upload.invalid_GEXF_file'));
+            $button.button('reset');
+            return self.dispatchEvent('error', {reason: 'upload.invalid_GEXF_file'});
           }
 
           // If we have valid data, let's update:
