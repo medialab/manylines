@@ -33,11 +33,6 @@ var express = require('express'),
     server;
 
 /**
- * LOG:
- * ****
- */
-
-/**
  * MIDDLEWARES:
  * ************
  */
