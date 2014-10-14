@@ -78,7 +78,7 @@
 
     // Handlebars templates
     templates: {
-      path: '/templates/',
+      path: '/manylines/templates/',
       prefix: 'app',
       suffix: 'handlebars'
     },
