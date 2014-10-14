@@ -42,7 +42,7 @@
   }
 
   function getData(view, id, callback) {
-    return $.get('/api/embed/' + view + '/' + id, callback);
+    return $.get('/manylines/api/embed/' + view + '/' + id, callback);
   }
 
   // TODO: modelize an object to perform this?
@@ -140,8 +140,8 @@
     }
 
     $wrapper.addClass('active');
-    
-    
+
+
 
     var category = embed.data.categories[filter.category],
         renderingData = {
