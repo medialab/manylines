@@ -30,7 +30,7 @@
     // Internationalization options
     i18n: {
       lang: 'en',
-      url: '/locales/__lng__/__ns__.json'
+      url: '/manylines/locales/__lng__/__ns__.json'
     },
 
     // Layout defaults
