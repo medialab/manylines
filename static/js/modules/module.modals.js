@@ -71,7 +71,7 @@
       share: {
         renderData: function(params) {
           return {
-            url: location.protocol + '//' + location.host + '/embed#/narrative/' +
+            url: location.protocol + '//' + location.host + '/manylines/embed#/narrative/' +
                  app.control.query('narrativeById', app.control.expand('currentNarrative')).id
           };
         },
