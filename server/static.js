@@ -56,9 +56,9 @@ app.get('/app/', function(req, res) {
     var json = JSON.parse(fs.readFileSync(__dirname + '/../imports.json', 'utf8'));
 
     res.send(html.replace(/^[^<]*<link href=".*\/app\.min\.css" rel="stylesheet">/mg, json.app.css.map(function(path) {
-      return '    <link href="' + path + '" rel="stylesheet">';
+      return '    <link href="/manylines' + path + '" rel="stylesheet">';
     }).join('\n')).replace(/^[^<]*<script src=".*\/app\.min\.js"><\/script>/mg, json.app.js.map(function(path) {
-      return '    <script src="' + path + '"></script>';
+      return '    <script src="/manylines' + path + '"></script>';
     }).join('\n')));
   } else {
     res.send(html);
@@ -71,9 +71,9 @@ app.get('/embed/', function(req, res) {
     var json = JSON.parse(fs.readFileSync(__dirname + '/../imports.json', 'utf8'));
 
     res.send(html.replace(/^[^<]*<link href=".*\/embed\.min\.css" rel="stylesheet">/mg, json.embed.css.map(function(path) {
-      return '    <link href="' + path + '" rel="stylesheet">';
+      return '    <link href="/manylines' + path + '" rel="stylesheet">';
     }).join('\n')).replace(/^[^<]*<script src=".*\/embed\.min\.js"><\/script>/mg, json.embed.js.map(function(path) {
-      return '    <script src="' + path + '"></script>';
+      return '    <script src="/manylines' + path + '"></script>';
     }).join('\n')));
   } else {
     res.send(html);

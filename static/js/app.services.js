@@ -47,7 +47,7 @@
      */
     {
       id: 'login',
-      url: '/api/login/:spaceId/:password',
+      url: '/manylines/api/login/:spaceId/:password',
       success: function(data) {
         var lastPane = this.get('lastPane');
 
@@ -66,7 +66,7 @@
     },
     {
       id: 'logout',
-      url: '/api/logout/:spaceId',
+      url: '/manylines/api/logout/:spaceId',
       success: function(data) {
 
         // Updating properties
@@ -82,7 +82,7 @@
      */
     {
       id: 'space.create',
-      url: '/api/space',
+      url: '/manylines/api/space',
       type: 'POST',
       before: function() {
 
@@ -99,7 +99,7 @@
     },
     {
       id: 'space.bump',
-      url: '/api/space/:spaceId/bump',
+      url: '/manylines/api/space/:spaceId/bump',
       type: 'POST',
       success: function(data) {
 
@@ -119,7 +119,7 @@
     },
     {
       id: 'space.load',
-      url: '/api/space/:spaceId/:version',
+      url: '/manylines/api/space/:spaceId/:version',
       success: function(data) {
 
         // Updating properties
@@ -142,7 +142,7 @@
      */
     {
       id: 'graph.update',
-      url: '/api/space/:spaceId/graph/:version',
+      url: '/manylines/api/space/:spaceId/graph/:version',
       type: 'POST',
       success: function(data) {
         var modified = this.get('modified');
@@ -152,7 +152,7 @@
     },
     {
       id: 'meta.update',
-      url: '/api/space/:spaceId/meta/:version',
+      url: '/manylines/api/space/:spaceId/meta/:version',
       type: 'POST',
       success: function(data) {
         var modified = this.get('modified');
@@ -167,7 +167,7 @@
      */
     {
       id: 'snapshot.save',
-      url: '/api/space/:spaceId/snapshot/:version',
+      url: '/manylines/api/space/:spaceId/snapshot/:version',
       type: 'POST',
       success: function(data, sent)  {
         this.dispatchEvent('success', {reason: 'snapshots.saved'});
@@ -181,7 +181,7 @@
     },
     {
       id: 'snapshots.load',
-      url: '/api/space/:spaceId/snapshots/:version',
+      url: '/manylines/api/space/:spaceId/snapshots/:version',
       type: 'GET',
       success: function(data) {
         this.update('snapshots', data);
@@ -194,7 +194,7 @@
      */
     {
       id: 'narrative.save',
-      url: '/api/space/:spaceId/narrative/:version',
+      url: '/manylines/api/space/:spaceId/narrative/:version',
       type: 'POST',
       success: function(data) {
         var narratives = this.get('narratives'),
@@ -219,7 +219,7 @@
     },
     {
       id: 'narrative.update',
-      url: '/api/narrative/:id',
+      url: '/manylines/api/narrative/:id',
       type: 'POST',
       success: function(data, sent) {
         var modified = this.get('modified'),
@@ -234,7 +234,7 @@
     },
     {
       id: 'narratives.load',
-      url: '/api/space/:spaceId/narratives/:version',
+      url: '/manylines/api/space/:spaceId/narratives/:version',
       type: 'GET',
       success: function(data) {
 
@@ -252,7 +252,7 @@
     },
     {
       id: 'narrative.delete',
-      url: '/api/space/:spaceId/narrative/:version/:narrativeId',
+      url: '/manylines/api/space/:spaceId/narrative/:version/:narrativeId',
       type: 'DELETE',
       success: function(data, sent) {
         this.dispatchEvent('narrative.deleted', sent.shortcuts.narrativeId);
