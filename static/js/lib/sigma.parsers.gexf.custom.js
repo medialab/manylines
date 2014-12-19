@@ -83,7 +83,7 @@
       }
 
       // Default behavior: we use the degree to make the size
-      // if(nSizeMiss){
+      if(nSizeMiss){
         nIndex = {};
         for (i = 0, l = arr.length; i < l; i++) {
           obj = arr[i];
@@ -95,7 +95,7 @@
           obj = arr[i];
           obj.size = 1 + 2 * Math.sqrt((nIndex[obj.id] || 0));
         }
-      // }
+      }
 
       // If node positions are missing, draw them in circle
       if(nPosMiss){
