@@ -43,7 +43,7 @@
     "signin": "Sign in"
   },
   "upload": {
-    "upload_network": "Upload a network",
+    "upload_network": "Upload a gexf file",
     "error_uploading_file": "An error occured while uploading the file",
     "invalid_JSON_file": "The JSON file is not valid.",
     "invalid_GEXF_file": "The GEXF file is not valid.",
