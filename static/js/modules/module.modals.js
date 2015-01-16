@@ -78,9 +78,18 @@
         emitters: function(modal) {
 
           /**
-           * Selecting the iframe text.
+           * Selecting the url.
            */
-          $('#iframe-code', modal).select();
+          $('#share-url', modal).select();
+
+          /**
+           * Selecting on focus.
+           */
+          $('input, textarea', modal).focus(function() {
+            setTimeout((function() {
+              this.select();
+            }).bind(this), 0);
+          });
         }
       }
     };

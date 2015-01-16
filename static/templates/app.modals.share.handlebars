@@ -17,8 +17,16 @@
       <div class="modal-body">
 
         <form role="form">
-           <label>copy this code wherever you like</label>
-          <textarea id="iframe-code" class="form-control" autofocus><iframe src="{{ url }}" width="100%" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></textarea>
+          <div>
+            <label>Url</label>
+            <br>
+            <input id="share-url" class="form-control" type="text" value="{{ url }}" />
+          </div>
+          <br>
+          <div>
+            <label>Iframe</label>
+            <textarea id="iframe-code" class="form-control"><iframe src="{{ url }}" width="100%" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></textarea>
+          </div>
         </form>
 
 
