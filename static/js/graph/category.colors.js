@@ -9,7 +9,7 @@
 
   app.graph.applyCategoriesColors = function(nodeModel, graph) {
     nodeModel.forEach(function(cat) {
-      var colorsThreshold = 5,
+      var colorsThreshold = 10,
         colors,
         scale,
         k,

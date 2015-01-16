@@ -18,9 +18,10 @@
     "bump_graph_description": "You are attempting to change your graph's data. This will invalidate any views taken or narrative written about the current version of the graph.<br><br>To continue, you must update your graph's version.<br><br>Is this really what you want?",
     "bump_confirm": "Yes",
     "bump_cancel": "No",
-    "password": "Password",
-    "email": "Mail address",
-    "save": "Save"
+    "password": "Workspace password",
+    "email": "E-mail address",
+    "save": "Save",
+    "disclaimer": "To store your graph workspace, we need an e-mail for maintenance issues (this information won't be distributed anywhere)."
   },
   "graph": {
     "node": "__count__ node",
@@ -42,7 +43,7 @@
     "signin": "Sign in"
   },
   "upload": {
-    "upload_network": "Upload a network",
+    "upload_network": "Upload a gexf file",
     "error_uploading_file": "An error occured while uploading the file",
     "invalid_JSON_file": "The JSON file is not valid.",
     "invalid_GEXF_file": "The GEXF file is not valid.",

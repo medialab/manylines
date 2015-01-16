@@ -97,14 +97,14 @@
 
     var position = getSlidePosition(embed.currentSlide);
 
-    if (position === 'first' || position === 'middle') {
+    if (embed.currentSlide.total > 1 && (position === 'first' || position === 'middle')) {
 
       // We render the right arrow
       var nextSlide = getNextSlide();
       $right.append(embed.templates.right(nextSlide));
     }
 
-    if (position === 'last' || position === 'middle') {
+    if (embed.currentSlide.total > 1 && (position === 'last' || position === 'middle')) {
 
       // We render the left arrow
       var previousSlide = getPreviousSlide();
