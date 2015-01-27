@@ -11,6 +11,11 @@
     "take_views": "Take views",
     "narratives": "Narratives"
   },
+  "reminder": {
+    "title": "Your graph's url",
+    "text": "Don't forget to save your graph's url so you can get find it back later.",
+    "ps": "Note also that your current graphs' urls can be found on the app's welcome page if you ever need it."
+  },
   "space": {
     "save_graph": "Save the graph",
     "save_graph_description": "You need to select a password to prevent your network to be edited by other people, and an email address in case you forget the password.",

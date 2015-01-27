@@ -91,6 +91,29 @@
             }).bind(this), 0);
           });
         }
+      },
+      reminder: {
+        renderData: function() {
+          return {
+            url: location.href
+          };
+        },
+        emitters: function(modal) {
+
+          /**
+           * Selecting the url.
+           */
+          $('#reminder-url', modal).select().focus();
+
+          /**
+           * Selecting on focus.
+           */
+          $('input', modal).focus(function() {
+            setTimeout((function() {
+              this.select();
+            }).bind(this), 0);
+          });
+        }
       }
     };
 

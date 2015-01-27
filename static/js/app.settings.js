@@ -73,7 +73,8 @@
 
     // Storage utilities
     storage: {
-      key: 'app-current'
+      key: 'app-current',
+      corpora: 'manylines-corpora'
     },
 
     // Handlebars templates

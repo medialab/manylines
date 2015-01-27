@@ -206,6 +206,10 @@
           delete modified.narratives;
           this.update('modified', modified);
         }
+
+        // Auto-save
+        if (this.expand('isModified') && !this.expand('isSpaceNew'))
+          this.dispatchEvent('save');
       }
     }
   ];
@@ -402,10 +406,10 @@
     {
       triggers: 'layout.start',
       method: function(e) {
-        var modified = this.get('modified');
+        // var modified = this.get('modified');
 
-        modified.graph = true;
-        this.update('modified', modified);
+        // modified.graph = true;
+        // this.update('modified', modified);
       }
     },
 
@@ -417,6 +421,11 @@
       method: function(e) {
         var newGraph = this.get('mainSigma').retrieveGraphData();
         this.update('graph', newGraph);
+
+        var modified = this.get('modified');
+
+        modified.graph = true;
+        this.update('modified', modified);
       }
     },
 

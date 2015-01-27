@@ -22,10 +22,12 @@
 
     // Receptors
     this.triggers.events['modified.updated'] = function(d) {
-      if (d.expand('isModified'))
+      if (d.expand('isModified')) {
         dom.show();
-      else
+      }
+      else {
         dom.hide();
+      }
     };
   };
 }).call(this);
