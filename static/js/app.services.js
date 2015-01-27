@@ -101,6 +101,9 @@
 
         corpora.push(data.id);
         localStorage.setItem(key, JSON.stringify(corpora));
+
+        // DIRTY: displaying reminder modal
+        this.dispatchEvent('modal', {type: 'reminder'});
       },
       error: onInvalidData
     },
