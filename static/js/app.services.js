@@ -94,6 +94,13 @@
         // Updating properties
         this.update('space', data);
         this.update('modified', {});
+
+        // DIRTY: storing corpora into localStorage
+        var key = app.settings.storage.corpora,
+            corpora = JSON.parse(localStorage.getItem(key) || "[]");
+
+        corpora.push(data.id);
+        localStorage.setItem(key, JSON.stringify(corpora));
       },
       error: onInvalidData
     },

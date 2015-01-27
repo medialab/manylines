@@ -67,6 +67,10 @@ body {
   padding-bottom: 20px;
 }
 
+#corpora {
+  display: none;
+}
+
     </style>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -115,6 +119,11 @@ body {
       <p>
         <a href="https://github.com/medialab/manylines">Github Repository</a>
       </p>
+      <br>
+      <div id="corpora">
+        <h4>Your graphs:</h4>
+        <ul id="list"></ul>
+      </div>
 
 <!--       <footer>
         <p>Footer - Work in progress</p>
@@ -128,5 +137,20 @@ body {
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/lib/jquery-v2.1.1.min.js"></script>
     <script src="js/lib/bootstrap-v3.1.1.min.js"></script>
+    <script type="text/javascript">
+      ;(function(undefined) {
+        var corpora = JSON.parse(localStorage.getItem('manylines-corpora') || '[]');
+
+        if (!corpora.length)
+          return;
+
+        function renderItem(id) {
+          return '<li><a target="_blank" href="' + location.href + 'app/#/basemap/' + id + '/0">' + id + '</a></li>';
+        }
+
+        $('#list').append(corpora.map(renderItem));
+        $('#corpora').show();
+      }).call(this);
+    </script>
   </body>
 </html>
