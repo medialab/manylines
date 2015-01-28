@@ -42,17 +42,21 @@ Key is spacialisation algorithm
 Mathieu designed ForceAtlas 2 (PlosOne)
 
 ---
-## First problem manylines solves
-visualize networks on the web...
-...without coding
----
-## Second problem manylines solves
-network visualisation is great for people who build the network
-How to share your findings on a network visually?
+## First problem
+visualize networks
 
-And without showing the whole complexity at once!
+on the web
+
+without coding
+---
+## Second problem
+network storytelling
+
 ---
 ## let's explore the wikipedia seealso "sexual deviance" graph
+
+---
+## network story writting
 
 ---
 ## Stack
