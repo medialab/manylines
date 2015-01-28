@@ -1,11 +1,11 @@
 {
-  "name": "tube-my-net",
-  "version": "0.0.1",
-  "description": "The Youtube of networks.",
-  "bugs": "http://github.com/medialab/Manylines/issues",
+  "name": "manylines",
+  "version": "0.0.2",
+  "description": "Explore networks and publish narratives.",
+  "bugs": "http://github.com/medialab/manylines/issues",
   "repository": {
     "type": "git",
-    "url": "http://github.com/medialab/Manylines.git"
+    "url": "http://github.com/medialab/manylines.git"
   },
   "contributors": [
     {
