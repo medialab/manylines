@@ -61,16 +61,20 @@ And without showing the whole complexity at once!
 - domino.js + handlebars.js
 - sigma.js
 ---
-## Scaling ForceAtlas 2 for the web - workers
-- using `web workers` so the computations are not done by the UI thread
-- using `transferables` to perform zero-copy data transfer between UI and worker
+### Scaling ForceAtlas 2 for the web
+#### Web workers
+workers
+- using **web workers** so the computations are not done by the UI thread
+- using **transferables** to perform zero-copy data transfer between UI and worker
 ---
-## Scaling ForceAtlas 2 for the web - low-level
+### Scaling ForceAtlas 2 for the web
+#### low-level
 - working over a byte array representation of nodes and edges
-- avoiding the `new` keyword to dodge browser implementation's quirks
+- avoiding the **new** keyword to dodge browser implementation's quirks
 - dropping any dynamic structures and functions
 ---
-## Scaling ForceAtlas 2 for the web - iterative Barnes-Hut
+### Scaling ForceAtlas 2 for the web
+#### Iterative Barnes-Hut
 - building an iterative version of the Barnes-Hut optimization
 ---
 ## future
