@@ -31,6 +31,19 @@
       {{t "basemap.force.gravity_description" }}
     </p>
   </div>
+  <div class="setting-item">
+    <p class="title">{{t "basemap.force.barneshut" }}</p>
+    <p>
+      <div role="form">
+        <label class="checkbox-inline">
+          <input data-app-basemap-layout-option="barnesHutOptimize" type="checkbox" value="barnesHutOptimize" {{#if barnesHutOptimize }} checked="checked" {{/if}}> {{t "basemap.force.barneshut" }}
+        </label>
+      </div>
+    </p>
+    <p class="text-info">
+      {{t "basemap.force.barneshut_description" }}
+    </p>
+  </div>
   {{!--<div class="setting-item">
     <p class="title">{{t "basemap.force.stronger_gravity" }}</p>
     <p>
