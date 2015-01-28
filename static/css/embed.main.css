@@ -85,8 +85,16 @@ body {
   font-weight: 300;
   font-size: 17px;
   line-height: 24px;
-  margin: 0 12px;
+  margin: 0;
   padding:0;
+}
+
+.sibling-info.sibling-right .sibling-progress {
+  margin-right: 6px;
+}
+
+.sibling-info.sibling-left .sibling-progress {
+  margin-left: 6px;
 }
 
 .sibling-info:hover .sibling-title{
@@ -196,7 +204,7 @@ body {
   overflow: hidden;
   transition: height .3s ease-in-out;
   border-top: 1px solid #e5e4df;
-  border-left: 1px solid #e5e4df;
+  border-right: 1px solid #e5e4df;
   background-color: #f7f6f1 ;
 }
 
