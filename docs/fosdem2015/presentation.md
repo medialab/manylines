@@ -1,7 +1,10 @@
+
 # Manylines
 ###in one line
 a web application to storify a network
+
 ---
+
 ## médialab Sciences Po
 Research center led by Bruno Latour specialized in studying society through digital traces.
 
@@ -12,13 +15,14 @@ Research center led by Bruno Latour specialized in studying society through digi
 - Guillaume Plique, *full stack developer*
 
 ---
+
 <!-- .slide: data-background="#f0f0f0" -->
 ## we love networks
 - we work with social scientists
 - we love networks
 - we do Visual Network Analysis
 ---
-<!-- .slide: data-background="#f0f0f0" -->
+<!-- .slide: data-background="resources/our_tools.png" -->
 ## we help researchers play with data
 - table2net
 - sciencescape
@@ -28,7 +32,10 @@ Research center led by Bruno Latour specialized in studying society through digi
 
 tools map?
 
+Note:coucou
+
 ---
+
 ## Visual Network Analysis
 Network Visualisation to do exploratory data analysis!
 
