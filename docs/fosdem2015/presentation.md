@@ -73,7 +73,7 @@ network storytelling
 
 ---
 
-## network story writting
+## network story telling
 
 ---
 
@@ -87,8 +87,6 @@ network storytelling
 ---
 
 ## Scaling graphs for the web is hard
-
-- Let's try d3
 
 ---
 
@@ -117,6 +115,18 @@ network storytelling
 #### Iterative Barnes-Hut
 
 - building an iterative version of the Barnes-Hut optimization
+
+---
+
+### ForceAtlas 2
+
+<a href="yeoldeforce.html" target="_blank"><h4>Before</h4></a>
+
+---
+
+### ForceAtlas2
+
+<a href="force.html" target="_blank"><h4>After</h4></a>
 
 ---
 
