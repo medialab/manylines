@@ -204,7 +204,7 @@
 
         if (modified.narratives && !modified.narratives.length) {
           delete modified.narratives;
-          this.update('modified', modified);
+          return this.update('modified', modified);
         }
 
         // Auto-save
@@ -576,7 +576,10 @@
         this.update('narratives', narratives);
 
         // Touching
-        app.control.query('touchNarrative', currentId);
+        // DOMINO ALERT!
+        setTimeout(function() {
+          app.control.query('touchNarrative', currentId);
+        }, 100);
       }
     },
 
