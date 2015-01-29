@@ -97,23 +97,94 @@ network storytelling
 ### Scaling ForceAtlas for the web
 #### Web workers
 
-- using **web workers** so the computations are not done by the UI thread
-- using **transferables** to perform zero-copy data transfer between UI and worker
+- using [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/basic_usage) so the computations are not done in the UI thread.
+- using [transferables](https://developer.mozilla.org/fr/docs/Web/API/Transferable) to perform zero-copy data transfer between UI and worker.
+
+Note: To be able to use transferables, we need to pass byte arrays. Good, this will lead us to our second point: low-level coding.
 
 ---
 
 ### Scaling ForceAtlas for the web
 #### low-level
 
-- working over a byte array representation of nodes and edges
-- avoiding the **new** keyword to dodge browser implementation's quirks
-- dropping any dynamic structures and functions
+*Working over a byte array representation of nodes and edges*
+
+```js
+var nodesByteArray = new Float32Array(nbytes);
+
+for (i = j = 0, l = nodes.length; i < l; i++) {
+  nodesByteArray[j] = nodes[i].x;
+  nodesByteArray[j + 1] = nodes[i].y;
+  nodesByteArray[j + 2] = 0;
+  nodesByteArray[j + 3] = 0;
+  nodesByteArray[j + 4] = 0;
+  nodesByteArray[j + 5] = 0;
+  nodesByteArray[j + 6] = 1 + graph.degree(nodes[i].id);
+  nodesByteArray[j + 7] = 1;
+  nodesByteArray[j + 8] = nodes[i].size;
+  nodesByteArray[j + 9] = 0;
+  j += propertiesCount;
+}
+```
+
+---
+
+### Scaling ForceAtlas for the web
+#### low-level
+
+*Repressing from instantiating too much*
+
+```js
+if (adjustBySize) {
+  if (logAttr) {
+    if (distributedAttr) {
+      return new this.logAttr_degreeDistributed_antiCollision(c);
+    } else {
+      return new this.logAttr_antiCollision(c);
+    }
+  } else {
+    if (distributedAttr) {
+      return new this.linAttr_degreeDistributed_antiCollision(c);
+    } else {
+      return new this.linAttr_antiCollision(c);
+    }
+  }
+}
+```
+
+---
+
+### Scaling ForceAtlas for the web
+#### low-level
+
+*Dynamic structures and functions considered harmful*
+
+```js
+// Accessing matrices with some sugar was slowing us down
+NodeMatrix[np(n, 'dx')] += xDist * factor;
+NodeMatrix[np(n, 'dy')] += yDist * factor;
+
+// So let's crush that!
+function crush(fnString) {
+  for (var i = 0, l = np.length; i < l; i++) {
+    var p = new RegExp('np\\(([^,]*), \'' + np[i] + '\'\\)', 'g');
+    fnString = fnString.replace(
+      p,
+      (i === 0) ? '$1' : '$1 + ' + i
+    );
+  }
+  return fnString;
+}
+```
+
+Note: Here the new problem was that our Barnes-Hut optimization is recursive and cannot work without functions. This meant that running the algorithm with the optimizations was actually slowing it down. Time for an iterative version of the algorithm.
 
 ---
 
 ### Scaling ForceAtlas for the web
 #### Iterative Barnes-Hut
 
+- Barnes-Hut optimization presentation: Matthieu?
 - building an iterative version of the Barnes-Hut optimization
 
 ---
