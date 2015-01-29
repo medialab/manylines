@@ -1,7 +1,7 @@
 <!-- START SIGMA IMPORTS -->
 <script src="js/sigma.min.js"></script>
-<script src="js/sigma.graph.dropOrphans.js"></script>
 <script src="js/sigma.layout.forceAtlas2.min.js"></script>
+<script src="js/sigma.parsers.json.min.js"></script>
 <!-- END SIGMA IMPORTS -->
 <div id="container">
   <style>
@@ -35,84 +35,26 @@
  * links is stronger inside the clusters. So, we expect the algorithm to
  * regroup the nodes of each cluster.
  */
-var palette = [
-  '#A762B1',
-  '#95BF55',
-  '#C46446',
-  '#94B8B5',
-  '#544440'
-];
-
-var i,
-    s,
-    o,
-    N = 1000,
-    E = 5000,
-    C = 5,
-    d = 0.5,
-    cs = [],
-    g = {
-      nodes: [],
-      edges: []
-    };
-
-// Generate the graph:
-for (i = 0; i < C; i++)
-  cs.push({
-    id: i,
-    nodes: [],
-    color: palette[i]
-  });
-
-for (i = 0; i < N; i++) {
-  o = cs[(Math.random() * C) | 0];
-  g.nodes.push({
-    id: 'n' + i,
-    label: 'Node' + i,
-    x: 100 * Math.cos(2 * i * Math.PI / N),
-    y: 100 * Math.sin(2 * i * Math.PI / N),
-    size: Math.random(),
-    color: o.color
-  });
-  o.nodes.push('n' + i);
-}
-
-for (i = 0; i < E; i++) {
-  if (Math.random() < 1 - d)
-    g.edges.push({
-      id: 'e' + i,
-      source: 'n' + ((Math.random() * N) | 0),
-      target: 'n' + ((Math.random() * N) | 0)
-    });
-  else {
-    o = cs[(Math.random() * C) | 0]
-    g.edges.push({
-      id: 'e' + i,
-      source: o.nodes[(Math.random() * o.nodes.length) | 0],
-      target: o.nodes[(Math.random() * o.nodes.length) | 0]
-    });
-  }
-}
-
-s = new sigma({
-  graph: g,
+sigma.parsers.json('resources/EuroSiS.json', {
   container: 'graph-container',
   settings: {
-    drawEdges: false
+    edgeColor: 'default',
+    defaultEdgeColor: '#ccc',
+    defaultEdgeSize: 0.8
   }
+}, function(s) {
+  window.s = s;
+
+  // Start the ForceAtlas2 algorithm:
+  s.startForceAtlas2({worker: true, barnesHutOptimize: false, iterationsPerRender: 2});
+
+  var running = true;
+  document.getElementById('layout').onclick = function() {
+    if (running)
+      s.killForceAtlas2();
+    else
+      s.startForceAtlas2();
+    running = !running;
+  };
 });
-
-s.graph.dropOrphans();
-
-var running = true;
-document.getElementById('layout').onclick = function() {
-  if (running)
-    s.killForceAtlas2();
-  else
-    s.startForceAtlas2();
-  running = !running;
-};
-
-// Start the ForceAtlas2 algorithm:
-s.startForceAtlas2({worker: true, barnesHutOptimize: false, iterationsPerRender: 2});
 </script>
