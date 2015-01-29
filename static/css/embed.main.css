@@ -182,7 +182,7 @@ body {
   padding: 0;
   position: absolute;
   top: 12px;
-  bottom: 12px;
+  bottom: 0px;
   width: 100%;
   /* background: #f7f6f1; */
 }
