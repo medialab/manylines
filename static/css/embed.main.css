@@ -34,7 +34,8 @@ body {
   -moz-box-shadow: inset 0px 0px 10px #eae7df;
   box-shadow: inset 0px 0px 10px #eae7df;
   position: relative;
-  border-bottom: 1px solid #b2b1ab;
+  /*border-bottom: 1px solid #b2b1ab;*/
+  border-bottom:1px solid #e5e4df;
 }
 
 .sigma-expand {
@@ -59,6 +60,11 @@ body {
   box-shadow: 0px 1px 5px rgba(50, 20, 0, 0.20);
 }
 
+.sigma-tools button{
+  padding: 2px 5px;
+}
+
+
 /*
  * Sibling navigation (next / previous)
  */
@@ -77,10 +83,18 @@ body {
 .sibling-info .sibling-progress {
   color: #a0a0a0;
   font-weight: 300;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 24px;
-  margin: 0 12px;
+  margin: 0;
   padding:0;
+}
+
+.sibling-info.sibling-right .sibling-progress {
+  margin-right: 6px;
+}
+
+.sibling-info.sibling-left .sibling-progress {
+  margin-left: 6px;
 }
 
 .sibling-info:hover .sibling-title{
@@ -101,13 +115,15 @@ body {
 }
 .sibling-info.sibling-left{
   text-align: left;
-  margin-left: 12px;
+  margin-left: 18px;
   padding-right: 6px;
+  margin-top:8px;
 }
 .sibling-info.sibling-right{
   text-align: right;
-  margin-right: 12px;
+  margin-right: 18px;
   padding-left: 6px;
+  margin-top:8px;
 }
 
 /*
@@ -117,19 +133,19 @@ body {
   height: 100%;
   overflow-y: auto;
   position: relative;
-  border-bottom: 1px solid #b2b1ab;
+  /*border-bottom: 1px solid #b2b1ab;*/
   overflow-x: hidden;
 }
 
 .view-actions{
-   border-bottom: 1px solid #c1bfb8;
-   line-height: 36px;
+   /* border-bottom: 1px solid #c1bfb8;
+   line-height: 36px;*/
    width: 100%;
    position: absolute;
 }
 
 .view-title{
-  margin: 12px 6px 0px 6px;
+  margin: 0px 6px 0px 6px;
   font-weight: normal;
   font-size: 24px;
   line-height: 40px;
@@ -156,15 +172,19 @@ body {
 }
 
 .view-text{
-  padding: 12px 6px 12px 6px;
+  padding: 12px 6px 12px 42px;
   color: #373737;
   font-family: 'Roboto', sans-serif;
   font-size: 1em;
   line-height: 1.6em;
 }
 .view-content-wrapper{
-  padding: 36px 0 12px 0;
-  height: 100%;
+  padding: 0;
+  position: absolute;
+  top: 12px;
+  bottom: 0px;
+  width: 100%;
+  /* background: #f7f6f1; */
 }
 
 .view-content-wrapper.show-legend{
@@ -185,6 +205,21 @@ body {
   transition: height .3s ease-in-out;
   border-top: 1px solid #e5e4df;
   border-right: 1px solid #e5e4df;
+  background-color: #f7f6f1 ;
+}
+
+/*
+  fullscreen pbutton, in the left-right corner
+*/
+.fullscreen-wrapper{
+  position:absolute;
+  right:0;
+  bottom: 1px;
+  z-index: 2;
+  overflow: hidden;
+  transition: height .3s ease-in-out;
+  border-top: 1px solid #e5e4df;
+  border-left: 1px solid #e5e4df;
   background-color: #f7f6f1 ;
 }
 

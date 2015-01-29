@@ -1,12 +1,34 @@
 {
-  "name": "tube-my-net",
-  "version": "0.0.1",
-  "description": "The Youtube of networks.",
-  "bugs": "http://github.com/medialab/Manylines/issues",
+  "name": "manylines",
+  "version": "0.0.2",
+  "description": "Explore networks and publish narratives.",
+  "bugs": "http://github.com/medialab/manylines/issues",
   "repository": {
     "type": "git",
-    "url": "http://github.com/medialab/Manylines.git"
+    "url": "http://github.com/medialab/manylines.git"
   },
+  "contributors": [
+    {
+      "name": "Paul Girard",
+      "url": "https://github.com/paulgirard"
+    },
+    {
+      "name": "Daniele Guido",
+      "url": "https://github.com/danieleguido"
+    },
+    {
+      "name": "Alexis Jacomy",
+      "url": "https://github.com/jacomyal"
+    },
+    {
+      "name": "Matthieu Jacomy",
+      "url": "https://github.com/jacomyma"
+    },
+    {
+      "name": "Guillaume Plique",
+      "url": "https://github.com/Yomguithereal"
+    }
+  ],
   "license": "LGPL-3.0",
   "scripts": {
     "start": "node bin/start.js",
