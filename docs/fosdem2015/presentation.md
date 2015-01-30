@@ -45,7 +45,7 @@ Network Visualisation to do exploratory data analysis!
 
 - [gephi.org](http://gephi.org) : Java Desktop Application
 - [sigma.js](http://sigmajs.org) : Javascript Network Visualisation library  
-  => *attend Alexis's talk in an hour!* 
+  => *attend Alexis' talk in an hour!* 
 - agent smith : to-be-released Neo4J visual admin webapp
 - [manylines](http://tools.medialabs.sciences-po.fr/manylines) : a web application to storify a network
 
