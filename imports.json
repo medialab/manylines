@@ -59,6 +59,7 @@
 
   "embed": {
     "js": [
+      "/js/lib/marked.min.js",
       "/js/lib/jquery-v2.1.1.min.js",
       "/js/lib/handlebars-v1.3.0.min.js",
       "/js/lib/chroma-v0.5.7.min.js",
