@@ -23,9 +23,9 @@ specialized in studying society through digital traces.
 
 <!-- .slide: data-background="#f0f0f0" -->
 ## we love networks
-- we work with social scientists
-- we love networks
-- we do Visual Network Analysis
+- We work with social scientists
+- We love networks
+- We do Visual Network Analysis
 
 ---
 
@@ -52,22 +52,20 @@ Network Visualisation to do exploratory data analysis!
 ---
 
 ## Visual Network Analysis
-Key is spacialisation algorithm
-Mathieu designed ForceAtlas 2 (PlosOne)
+- Key is spatialization algorithm
+- Mathieu designed ForceAtlas 2 ([PlosOne](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0098679))
 
 ---
 
-## First problem
-visualize networks
-
-on the web
-
-without coding
+## First problems
+- How tovisualize networks
+- ...on the web
+- ...without coding
 
 ---
 
-## Second problem
-network storytelling
+## More problems
+Network storytelling
 
 ---
 
