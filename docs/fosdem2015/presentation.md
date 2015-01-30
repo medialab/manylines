@@ -1,20 +1,25 @@
 
 # Manylines
-###in one line
-a web application to storify a network
+### in one line
+web app to storify a network
 
 ---
 
 ![médialab's logo](resources/logo_medialab.png)
 
+<<<<<<< HEAD
 Research center led by Bruno Latour
 specialized in studying society through digital traces.
+=======
+Research center led by Bruno Latour
+specialized in studying society through digital traces
+>>>>>>> cbcc882186d7daa7d9729b7186cfc1bc5873013c
 
 [medialab.sciences-po.fr](http://www.medialab.sciences-po.fr)
 
 ---
 
-### speakers
+### Speakers
 - Paul Girard - *CTO*
 - Mathieu Jacomy - *digital methods research engineer*
 - Guillaume Plique - *superhero developer*
@@ -22,10 +27,10 @@ specialized in studying society through digital traces.
 ---
 
 <!-- .slide: data-background="#f0f0f0" -->
-## we love networks
-- we work with social scientists
-- we love networks
-- we do Visual Network Analysis
+## We love networks
+- We work with social scientists
+- We love networks
+- We do Visual Network Analysis
 
 ---
 
@@ -52,26 +57,24 @@ Network Visualisation to do exploratory data analysis!
 ---
 
 ## Visual Network Analysis
-Key is spacialisation algorithm
-Mathieu designed ForceAtlas 2 (PlosOne)
+- Key is spatialization algorithm
+- Mathieu designed ForceAtlas 2 ([PlosOne](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0098679))
 
 ---
 
-## First problem
-visualize networks
-
-on the web
-
-without coding
+## First problems
+- How to visualize networks
+- ...on the web
+- ...without coding
 
 ---
 
-## Second problem
-network storytelling
+## Additionnal problem
+Network storytelling
 
 ---
 
-## let's explore the wikipedia *see-also* "sex behaviours" graph
+## Let's explore the wikipedia *see-also* "sex behaviours" graph
 - choose one or many wikipedia page
 - follow the *see-also* links in wikipedia
 - for as many depth as you want
@@ -81,16 +84,16 @@ network storytelling
 
 ---
 
-## network story telling
+## Network storytelling
 
 ---
 
 ## Stack
 
-- couchbase (yep we loved their presentation at FOSDEM 2014)
-- node.js / express
-- domino.js + handlebars.js
-- sigma.js
+- Couchbase (yep we loved their presentation at FOSDEM 2014)
+- Node.js / express
+- Domino.js + handlebars.js
+- Sigma.js
 
 ---
 
@@ -100,13 +103,17 @@ network storytelling
 
 ## ForceAtlas 2
 
+- Live layout
+- Efficient on 10 to 10,000 nodes
+- Minimal settings
+
 ---
 
 ### Scaling ForceAtlas for the web
 #### Web workers
 
-- using [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/basic_usage) so the computations are not done in the UI thread.
-- using [transferables](https://developer.mozilla.org/fr/docs/Web/API/Transferable) to perform zero-copy data transfer between UI and worker.
+- Using [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/basic_usage) so the computations are not done in the UI thread.
+- Using [transferables](https://developer.mozilla.org/fr/docs/Web/API/Transferable) to perform zero-copy data transfer between UI and worker.
 
 Note: To be able to use transferables, we need to pass byte arrays. Good, this will lead us to our second point: low-level coding.
 
@@ -192,7 +199,9 @@ Note: Here the new problem was that our Barnes-Hut optimization is recursive and
 ### Scaling ForceAtlas for the web
 #### Barnes-Hut Optimization
 
-- Barnes-Hut optimization presentation: Matthieu?
+- Repulsion from *n²* to *n.log(n)*
+- Approximation disturbs the convergence (swinging)
+- Relevant starting from ~250 nodes
 
 ---
 
