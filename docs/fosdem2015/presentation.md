@@ -1,6 +1,6 @@
 
 # Manylines
-###in one line
+### in one line
 a web application to storify a network
 
 ---
@@ -14,7 +14,7 @@ specialized in studying society through digital traces.
 
 ---
 
-### speakers
+### Speakers
 - Paul Girard - *CTO*
 - Mathieu Jacomy - *digital methods research engineer*
 - Guillaume Plique - *superhero developer*
@@ -22,7 +22,7 @@ specialized in studying society through digital traces.
 ---
 
 <!-- .slide: data-background="#f0f0f0" -->
-## we love networks
+## We love networks
 - We work with social scientists
 - We love networks
 - We do Visual Network Analysis
@@ -58,18 +58,18 @@ Network Visualisation to do exploratory data analysis!
 ---
 
 ## First problems
-- How tovisualize networks
+- How to visualize networks
 - ...on the web
 - ...without coding
 
 ---
 
-## More problems
+## Additionnal problem
 Network storytelling
 
 ---
 
-## let's explore the wikipedia *see-also* "sex behaviours" graph
+## Let's explore the wikipedia *see-also* "sex behaviours" graph
 - choose one or many wikipedia page
 - follow the *see-also* links in wikipedia
 - for as many depth as you want
@@ -79,16 +79,16 @@ Network storytelling
 
 ---
 
-## network story telling
+## Network storytelling
 
 ---
 
 ## Stack
 
-- couchbase (yep we loved their presentation at FOSDEM 2014)
-- node.js / express
-- domino.js + handlebars.js
-- sigma.js
+- Couchbase (yep we loved their presentation at FOSDEM 2014)
+- Node.js / express
+- Domino.js + handlebars.js
+- Sigma.js
 
 ---
 
@@ -98,13 +98,17 @@ Network storytelling
 
 ## ForceAtlas 2
 
+- Live layout
+- Efficient on 10 to 10,000 nodes
+- Minimal settings
+
 ---
 
 ### Scaling ForceAtlas for the web
 #### Web workers
 
-- using [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/basic_usage) so the computations are not done in the UI thread.
-- using [transferables](https://developer.mozilla.org/fr/docs/Web/API/Transferable) to perform zero-copy data transfer between UI and worker.
+- Using [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/basic_usage) so the computations are not done in the UI thread.
+- Using [transferables](https://developer.mozilla.org/fr/docs/Web/API/Transferable) to perform zero-copy data transfer between UI and worker.
 
 Note: To be able to use transferables, we need to pass byte arrays. Good, this will lead us to our second point: low-level coding.
 
