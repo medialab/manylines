@@ -89,7 +89,7 @@
     $right.empty();
 
     // adding info to current sldie...
-    embed.currentSlide.text = embed.currentSlide.text.replace('\n', '<br/>');
+    embed.currentSlide.text = embed.currentSlide.text.replace(/\n/g, '<br/>');
     embed.currentSlide.total = embed.data.narrative.slides.length;
 
 
