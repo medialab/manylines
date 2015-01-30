@@ -5,14 +5,19 @@ a web application to storify a network
 
 ---
 
-## médialab Sciences Po
-Research center led by Bruno Latour specialized in studying society through digital traces.
+![médialab's logo](resources/logo_medialab.png)
+
+Research center led by Bruno Latour  
+specialized in studying society through digital traces.
 
 [medialab.sciences-po.fr](http://www.medialab.sciences-po.fr)
-#### speakers
-- Paul Girard, *technical director*
-- Mathieu Jacomy, *research engineer specialized in web mining*
-- Guillaume Plique, *full stack developer*
+
+---
+
+### speakers
+- Paul Girard - *CTO*
+- Mathieu Jacomy - *digital methods research engineer*
+- Guillaume Plique - *superhero developer*
 
 ---
 
