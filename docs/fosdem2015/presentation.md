@@ -31,26 +31,23 @@ specialized in studying society through digital traces.
 
 <!-- .slide: data-background="resources/our_tools.png" -->
 
-## we help researchers play with data
+Note: we help researchers play with data
 - table2net
 - sciencescape
 - hyphe
 - artoo.js
 - ANTA
 
-tools map?
-
-Note:coucou
-
 ---
 
 ## Visual Network Analysis
 Network Visualisation to do exploratory data analysis!
 
-- using Gephi
-- using sigma.js (see Alexis' talk in one hour)
-- agent smith
-- manylines
+- [gephi.org](http://gephi.org) : Java Desktop Application
+- [sigma.js](http://sigmajs.org) : Javascript Network Visualisation library  
+  => *attend Alexis's talk in an hour!* 
+- agent smith : to-be-released Neo4J visual admin webapp
+- [manylines](http://tools.medialabs.sciences-po.fr/manylines) : a web application to storify a network
 
 ---
 
