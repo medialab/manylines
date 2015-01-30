@@ -71,7 +71,13 @@ network storytelling
 
 ---
 
-## let's explore the wikipedia seealso "sexual deviance" graph
+## let's explore the wikipedia *see-also* "sex behaviours" graph
+- choose one or many wikipedia page
+- follow the *see-also* links in wikipedia
+- for as many depth as you want
+- filter the results, yes, manually
+- create a *see-also* network
+
 
 ---
 
