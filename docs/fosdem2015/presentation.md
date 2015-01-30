@@ -1,14 +1,14 @@
 
 # Manylines
 ### in one line
-a web application to storify a network
+web app to storify a network
 
 ---
 
 ![médialab's logo](resources/logo_medialab.png)
 
 Research center led by Bruno Latour  
-specialized in studying society through digital traces.
+specialized in studying society through digital traces
 
 [medialab.sciences-po.fr](http://www.medialab.sciences-po.fr)
 
@@ -194,8 +194,9 @@ Note: Here the new problem was that our Barnes-Hut optimization is recursive and
 ### Scaling ForceAtlas for the web
 #### Iterative Barnes-Hut
 
-- Barnes-Hut optimization presentation: Matthieu?
-- building an iterative version of the Barnes-Hut optimization
+- Repulsion from *n²* to *n.log(n)*
+- Approximation disturbs the convergence (swinging)
+- Relevant starting from ~250 nodes
 
 ---
 
