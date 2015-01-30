@@ -17,7 +17,7 @@ specialized in studying society through digital traces.
 ### speakers
 - Paul Girard - *CTO*
 - Mathieu Jacomy - *digital methods research engineer*
-- Guillaume Plique - *superhero developer*
+- Guillaume Plique - *développeur bonheur a.k.a. superhero developer*
 
 ---
 
@@ -41,7 +41,7 @@ Note: we help researchers play with data
 ---
 
 ## Visual Network Analysis
-Network Visualisation to do exploratory data analysis!
+Network Visualisation to do Exploratory Data Analysis!
 
 - [gephi.org](http://gephi.org) : Java Desktop Application
 - [sigma.js](http://sigmajs.org) : Javascript Network Visualisation library  
@@ -72,7 +72,7 @@ network storytelling
 ---
 
 ## let's explore the wikipedia *see-also* "sex behaviours" graph
-- choose one or many wikipedia page
+- choose one or many wikipedia page, yes, manually
 - follow the *see-also* links in wikipedia
 - for as many depth as you want
 - filter the results, yes, manually
@@ -81,10 +81,15 @@ network storytelling
 
 ---
 
-## network story telling
+<!-- .slide: data-background-iframe="http://tools.medialab.sciences-po.fr/manylines/embed#/narrative/290135dd-49a6-4a8e-a730-1e7c8c9c7bb2" -->
 
 ---
 
+# Disclaimer
+Nothing I said here is sociology.  
+It's a tool, let's use it together !
+
+---
 ## Stack
 
 - couchbase (yep we loved their presentation at FOSDEM 2014)
@@ -212,6 +217,6 @@ Note: Here the new problem was that our Barnes-Hut optimization is recursive and
 ## The future!
 
 - Complete UI refactoring and redesign
-- Impressed by oddysey.js storytelling and design
+- Impressed by [oddysey.js](http://cartodb.github.io/odyssey.js) storytelling and design
 - Moving to react and baobab.js
 - Any ideas?
