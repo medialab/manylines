@@ -7,7 +7,7 @@ a web application to storify a network
 
 ![médialab's logo](resources/logo_medialab.png)
 
-Research center led by Bruno Latour  
+Research center led by Bruno Latour
 specialized in studying society through digital traces.
 
 [medialab.sciences-po.fr](http://www.medialab.sciences-po.fr)
@@ -44,8 +44,8 @@ Note: we help researchers play with data
 Network Visualisation to do exploratory data analysis!
 
 - [gephi.org](http://gephi.org) : Java Desktop Application
-- [sigma.js](http://sigmajs.org) : Javascript Network Visualisation library  
-  => *attend Alexis's talk in an hour!* 
+- [sigma.js](http://sigmajs.org) : Javascript Network Visualisation library
+  => *attend Alexis's talk in an hour!*
 - agent smith : to-be-released Neo4J visual admin webapp
 - [manylines](http://tools.medialabs.sciences-po.fr/manylines) : a web application to storify a network
 
@@ -190,10 +190,27 @@ Note: Here the new problem was that our Barnes-Hut optimization is recursive and
 ---
 
 ### Scaling ForceAtlas for the web
-#### Iterative Barnes-Hut
+#### Barnes-Hut Optimization
 
 - Barnes-Hut optimization presentation: Matthieu?
-- building an iterative version of the Barnes-Hut optimization
+
+---
+
+### Scaling ForceAtlas for the web
+#### Iterative Barnes-Hut
+
+```js
+// Building the Barnes-Hut root region
+RegionMatrix[rp(0, 'node')] = -1;
+RegionMatrix[rp(0, 'centerX')] = (minX + maxX) / 2;
+RegionMatrix[rp(0, 'centerY')] = (minY + maxY) / 2;
+RegionMatrix[rp(0, 'size')] = Math.max(maxX - minX, maxY - minY);
+RegionMatrix[rp(0, 'nextSibling')] = -1;
+RegionMatrix[rp(0, 'firstChild')] = -1;
+RegionMatrix[rp(0, 'mass')] = 0;
+RegionMatrix[rp(0, 'massCenterX')] = 0;
+RegionMatrix[rp(0, 'massCenterY')] = 0;
+```
 
 ---
 
