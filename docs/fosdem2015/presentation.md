@@ -52,8 +52,9 @@ Network Visualisation to do Exploratory Data Analysis!
 ---
 
 ## Visual Network Analysis
-- Key is spatialization algorithm
-- Mathieu designed ForceAtlas 2 ([PlosOne](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0098679))
+- Use a spatialization algorithm (structure)
+- Visualize categories as colors (content)
+- Search for structure-content matchings
 
 ---
 
@@ -106,6 +107,7 @@ It's a tool, let's use it together !
 - Live layout
 - Efficient on 10 to 10,000 nodes
 - Minimal settings
+- Mathieu designed it ([PlosOne](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0098679))
 
 ---
 
