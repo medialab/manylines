@@ -4,7 +4,7 @@
 web app to storify a network
 
 ---
-
+<!-- .slide: data-background="9C291A" -->
 ![médialab's logo](resources/logo_medialab.png)
 
 Research center led by Bruno Latour
@@ -13,24 +13,21 @@ specialized in studying society through digital traces.
 [medialab.sciences-po.fr](http://www.medialab.sciences-po.fr)
 
 ---
-
+<!-- .slide: data-background="9C291A" -->
 ### Speakers
 - Paul Girard - *CTO*
 - Mathieu Jacomy - *digital methods research engineer*
 - Guillaume Plique - *développeur bonheur a.k.a. superhero developer*
 
 ---
-
-<!-- .slide: data-background="#f0f0f0" -->
+<!-- .slide: data-background="9C291A" -->>
 ## We love networks
 - We work with social scientists
 - We love networks
 - We do Visual Network Analysis
 
 ---
-
-<!-- .slide: data-background="resources/our_tools.png" -->
-
+<!-- .slide: data-background="9C291A" -->
 Note: we help researchers play with data
 - table2net
 - sciencescape
@@ -39,7 +36,7 @@ Note: we help researchers play with data
 - ANTA
 
 ---
-
+<!-- .slide: data-background="9C291A" -->
 ## Visual Network Analysis
 Network Visualisation to do Exploratory Data Analysis!
 
@@ -50,25 +47,25 @@ Network Visualisation to do Exploratory Data Analysis!
 - [manylines](http://tools.medialabs.sciences-po.fr/manylines) : a web application to storify a network
 
 ---
-
+<!-- .slide: data-background="9C291A" -->
 ## Visual Network Analysis
 - Key is spatialization algorithm
 - Mathieu designed ForceAtlas 2 ([PlosOne](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0098679))
 
 ---
-
+<!-- .slide: data-background="9C291A" -->
 ## First problems
 - How to visualize networks
 - ...on the web
 - ...without coding
 
 ---
-
+<!-- .slide: data-background="9C291A" -->
 ## Additionnal problem
 Network storytelling
 
 ---
-
+<!-- .slide: data-background="9C291A" -->
 ## let's explore the wikipedia *see-also* "sex behaviours" graph
 - choose one or many wikipedia page, yes, manually
 - follow the *see-also* links in wikipedia
@@ -82,14 +79,21 @@ Network storytelling
 <!-- .slide: data-background-iframe="http://tools.medialab.sciences-po.fr/manylines/embed#/narrative/290135dd-49a6-4a8e-a730-1e7c8c9c7bb2" -->
 
 ---
-
+<!-- .slide: data-background="9C291A" -->
 # Disclaimer
 Nothing I said here is sociology.  
 It's a tool, let's use it together !
 
 ---
-## Stack
+<!-- .slide: data-background="9C291A" -->
+# How did we **do** that ?
 
+[let me give you a tour of the admin page](http://tools.medialab.sciences-po.fr/manylines/)
+
+---
+
+<!-- .slide: data-background="792F21" -->
+## How did we **build** that
 - Couchbase (yep we loved their presentation at FOSDEM 2014)
 - Node.js / express
 - Domino.js + handlebars.js
@@ -97,18 +101,20 @@ It's a tool, let's use it together !
 
 ---
 
+<!-- .slide: data-background="792F21" -->
 ## Scaling graphs for the web is hard
 
 ---
 
+<!-- .slide: data-background="792F21" -->
 ## ForceAtlas 2
-
 - Live layout
 - Efficient on 10 to 10,000 nodes
 - Minimal settings
 
 ---
 
+<!-- .slide: data-background="C12B18" -->
 ### Scaling ForceAtlas for the web
 #### Web workers
 
@@ -119,6 +125,7 @@ Note: To be able to use transferables, we need to pass byte arrays. Good, this w
 
 ---
 
+<!-- .slide: data-background="C12B18" -->
 ### Scaling ForceAtlas for the web
 #### low-level
 
@@ -144,6 +151,7 @@ for (i = j = 0, l = nodes.length; i < l; i++) {
 
 ---
 
+<!-- .slide: data-background="C12B18" -->
 ### Scaling ForceAtlas for the web
 #### low-level
 
@@ -169,6 +177,7 @@ if (adjustBySize) {
 
 ---
 
+<!-- .slide: data-background="C12B18" -->
 ### Scaling ForceAtlas for the web
 #### low-level
 
@@ -195,7 +204,7 @@ function crush(fnString) {
 Note: Here the new problem was that our Barnes-Hut optimization is recursive and cannot work without functions. This meant that running the algorithm with the optimizations was actually slowing it down. Time for an iterative version of the algorithm.
 
 ---
-
+<!-- .slide: data-background="C12B18" -->
 ### Scaling ForceAtlas for the web
 #### Barnes-Hut Optimization
 
@@ -204,6 +213,7 @@ Note: Here the new problem was that our Barnes-Hut optimization is recursive and
 - Relevant starting from ~250 nodes
 
 ---
+<!-- .slide: data-background="792F21" -->
 
 ### Scaling ForceAtlas for the web
 #### Iterative Barnes-Hut
@@ -222,19 +232,19 @@ RegionMatrix[rp(0, 'massCenterY')] = 0;
 ```
 
 ---
-
+<!-- .slide: data-background="792F21" -->
 ### ForceAtlas 2
 
 <a href="yeoldeforce.html" target="_blank"><h4>Before</h4></a>
 
 ---
-
+<!-- .slide: data-background="792F21" -->
 ### ForceAtlas2
 
 <a href="force.html" target="_blank"><h4>After</h4></a>
 
 ---
-
+<!-- .slide: data-background="9C291A" -->
 ## The future!
 
 - Complete UI refactoring and redesign
