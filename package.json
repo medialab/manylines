@@ -1,67 +1,48 @@
 {
-  "name": "manylines",
-  "version": "0.0.2",
-  "description": "Explore networks and publish narratives.",
-  "bugs": "http://github.com/medialab/manylines/issues",
+  "name": "reveal.js",
+  "version": "3.0.0",
+  "description": "The HTML Presentation Framework",
+  "homepage": "http://lab.hakim.se/reveal-js",
+  "subdomain": "revealjs",
+  "scripts": {
+    "test": "grunt test",
+    "start": ""
+  },
+  "author": {
+    "name": "Hakim El Hattab",
+    "email": "hakim.elhattab@gmail.com",
+    "web": "http://hakim.se"
+  },
   "repository": {
     "type": "git",
-    "url": "http://github.com/medialab/manylines.git"
+    "url": "git://github.com/hakimel/reveal.js.git"
   },
-  "contributors": [
-    {
-      "name": "Paul Girard",
-      "url": "https://github.com/paulgirard"
-    },
-    {
-      "name": "Daniele Guido",
-      "url": "https://github.com/danieleguido"
-    },
-    {
-      "name": "Alexis Jacomy",
-      "url": "https://github.com/jacomyal"
-    },
-    {
-      "name": "Matthieu Jacomy",
-      "url": "https://github.com/jacomyma"
-    },
-    {
-      "name": "Guillaume Plique",
-      "url": "https://github.com/Yomguithereal"
-    }
-  ],
-  "license": "LGPL-3.0",
-  "scripts": {
-    "start": "node bin/start.js",
-    "flush": "node bin/flush.js",
-    "make": "node bin/make.js",
-    "test": "mocha -R spec"
+  "engines": {
+    "node": "~0.10.0"
   },
   "dependencies": {
-    "couchbase": "~1.2.4",
-    "express": "^4.8.8",
-    "node-uuid": "~1.4.1",
-    "connect": "^3.1.1",
-    "http-proxy": "^1.3.0",
-    "validator": "^3.17.1",
-    "body-parser": "^1.2.0",
-    "serve-static": "^1.1.0",
-    "cookie-parser": "^1.1.0",
-    "express-session": "^1.1.0",
-    "errorhandler": "^1.0.1",
-    "winston": "^0.7.3",
-    "async": "^0.9.0",
-    "request": "^2.36.0",
-    "chalk": "^0.5.1",
-    "on-finished": "^2.1.0",
-    "lodash": "^2.4.1",
-    "typology": "^0.1.0"
+    "underscore": "~1.5.1",
+    "express": "~2.5.9",
+    "mustache": "~0.7.2",
+    "socket.io": "~0.9.16"
   },
   "devDependencies": {
-    "mocha": "^1.18.2",
-    "supertest": "^0.13.0",
-    "gulp-cssmin": "^0.1.6",
-    "gulp-concat": "^2.4.1",
-    "gulp-uglify": "^1.0.1",
-    "gulp": "^3.8.8"
-  }
+    "grunt-contrib-qunit": "~0.5.2",
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-cssmin": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-sass": "~0.14.0",
+    "grunt-contrib-connect": "~0.8.0",
+    "grunt-autoprefixer": "~1.0.1",
+    "grunt-zip": "~0.7.0",
+    "grunt": "~0.4.0",
+    "node-sass": "~0.9.3"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/hakimel/reveal.js/blob/master/LICENSE"
+    }
+  ]
 }
