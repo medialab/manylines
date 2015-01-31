@@ -74,9 +74,9 @@ Network storytelling
 ---
 
 ## let's explore the wikipedia *see-also* "sexual behaviours" graph
-- choose one or many wikipedia page, yes, manually
+- choose one or many wikipedia pages, yes, manually
 - follow the *see-also* links in wikipedia
-- for as many depth as you want
+- for as much depth as you want
 - filter the results, yes, manually
 - create a *see-also* network
 
