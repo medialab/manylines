@@ -73,7 +73,7 @@ Network storytelling
 
 ---
 
-## let's explore the wikipedia *see-also* "sex behaviours" graph
+## let's explore the wikipedia *see-also* "sexual behaviours" graph
 - choose one or many wikipedia page, yes, manually
 - follow the *see-also* links in wikipedia
 - for as many depth as you want
@@ -259,3 +259,6 @@ RegionMatrix[rp(0, 'massCenterY')] = 0;
 - Impressed by [oddysey.js](http://cartodb.github.io/odyssey.js) storytelling and design
 - Moving to react and baobab.js
 - Any ideas?
+
+read our slides on [http://medialab.github.io/manylines/#/](http://medialab.github.io/manylines/#/)  
+explore [manylines narrative on sexual behaviours](http://tools.medialab.sciences-po.fr/manylines/embed#/narrative/290135dd-49a6-4a8e-a730-1e7c8c9c7bb2)
