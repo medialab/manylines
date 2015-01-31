@@ -4,7 +4,7 @@
 web app to storify a network
 
 ---
-<!-- .slide: data-background="9C291A" -->
+<!-- .slide: data-background="#9C291A" -->
 ![médialab's logo](resources/logo_medialab.png)
 
 Research center led by Bruno Latour
