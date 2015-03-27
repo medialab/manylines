@@ -40,7 +40,7 @@
       scalingRatio: 10,
       slowDown: 2,
       barnesHutOptimize: false,
-      nodesize: "degree"
+      nodesize: 'original'
     },
 
     // Renderer to use by default for the main graph

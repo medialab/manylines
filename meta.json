@@ -1,0 +1,9 @@
+{
+  "name": "manylines",
+  "authors": ["Guillaume Plique"],
+  "url": "http://tools.medialab.sciences-po.fr/manylines/",
+  "source": "https://github.com/medialab/manylines",
+  "licence": "LGPL-3.0",
+  "description": "Explore networks and publish narratives.",
+  "doc": ""
+}
