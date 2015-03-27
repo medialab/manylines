@@ -197,7 +197,7 @@
           k !== 'muted' &&
           k !== 'hidden' &&
           !(n.original && n.original[k] === null)) {
-        o[k] = (n.original && n.original[k]) || n[k];
+        o[k] = (k !== 'size' && n.original && n.original[k]) || n[k];
       }
     }
 
