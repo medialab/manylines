@@ -47,6 +47,11 @@ specialized in studying society through digital traces.
 ![Linkedin](resources/linkedin.png)
 
 ---
+## Visual Network storytelling
+- on the web ?
+- storytelling a network ?
+
+---
 <!-- .slide: data-background="#F0F8F8" -->
 # Manylines
 ### in one line
@@ -64,37 +69,47 @@ web app to storify a network
 <!-- .slide: data-background="#F0F8F8" -->
 ## storytelling style
 - structure/content analysis
-  - **color** : comparing tow sets of metadata
-  - **footprint** : filtering based on metada
+  - **coloring** : coloring node with metadata
+  - **category impact** : filtering based on metada
 - in-depth view
-  - **look here** : zoom to reveal details  
+  - **pinpointing** : zoom to reveal details  
 
 ---
 <!-- .slide: data-background="#F0F8F8" -->
 ## French trade in 18th century
-On going research for [the TOFLIT18 project](http://toflit18.hypotheses.org/)
+On going research for [the TOFLIT18 project](http://toflit18.hypotheses.org/) 
 ![French trade archive page](resources/toflit18.png)
 
 ---
-<!-- .slide: data-background-iframe="http://tools.medialab.sciences-po.fr/manylines/embed#/narrative/290135dd-49a6-4a8e-a730-1e7c8c9c7bb2" -->
-
-[manylines' slideshow](http://tools.medialab.sciences-po.fr/manylines/embed#/narrative/290135dd-49a6-4a8e-a730-1e7c8c9c7bb2)
+<!-- .slide: data-background-iframe="http://tools.medialab.sciences-po.fr/manylines/embed#/narrative/4827de8f-568a-4b0f-af33-d78b5b0e3bfe" -->
+[Toflit18 18th century french trade merchandises](http://tools.medialab.sciences-po.fr/manylines/embed#/narrative/4827de8f-568a-4b0f-af33-d78b5b0e3bfe)
 
 ---
 <!-- .slide: data-background="#F0F8F8" -->
 ## a different storytelling style
-- explain the network model
-- illustrate it with some very clear example
-- browse the main structural clusters
-- look here a mistake !
-- open to exploration
+- explain the **network model**
+- **pinpointing** on wine to illustrate this model 
+- **peer-to-peer exploration** to browse the wine cluster
+- **back-to-source** by adding a picture in the commentary
+- **thematic confrontation** to create a joke on Wine/Water
+- **peer-to-peer exploration** from water to chemical
+- **pinpointing** on data cleaning problems (gomme/gommes)
+- **guided tour** of fabric cluster and some others
+- **open to exploration**
 
 ---
 <!-- .slide: data-background="#F0F8F8" -->
+
 ## Toward a visual grammar of networks
-- write and replay exploration brings the need of a grammar
-- there are many **Story** lines
-- differences with Prezi : spacialisation is set not constructed
+- there are *many **Story** lines*
+- differences with Prezi : spatialisation is set not constructed
+- stories are different path in the network spaciality
+- write and replay exploration brings the opportunity of setting a grammar: 
+
+
+**color, category impact, pinpointing, peer-to-peer exploration, back-to-source, thematic jump, guided tour, open to exploration**<!-- .elements: class="fragment" data-fragment-index="2"-->
+
+
 
 ---
 <!-- .slide: data-background="#F0F8F8" -->
@@ -107,6 +122,6 @@ On going research for [the TOFLIT18 project](http://toflit18.hypotheses.org/)
 
 ---
 ## thank you
-- explore [manylines narrative on  18th French trade goods](http://tools.medialab.sciences-po.fr/manylines/embed#/narrative/290135dd-49a6-4a8e-a730-1e7c8c9c7bb2)  
+- explore [manylines narrative on  18th French trade goods](http://tools.medialab.sciences-po.fr/manylines/embed#/narrative/4827de8f-568a-4b0f-af33-d78b5b0e3bfe)  
 - test [http://tools.medialab.sciences-po.fr/manylines/](http://tools.medialab.sciences-po.fr/manylines/)  
 - this slides are at [http://medialab.github.io/manylines/ars2015/](http://medialab.github.io/manylines/ars2015/)  
