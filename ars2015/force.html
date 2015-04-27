@@ -1,0 +1,60 @@
+<!-- START SIGMA IMPORTS -->
+<script src="js/sigma.min.js"></script>
+<script src="js/sigma.layout.forceAtlas2.min.js"></script>
+<script src="js/sigma.parsers.json.min.js"></script>
+<!-- END SIGMA IMPORTS -->
+<div id="container">
+  <style>
+    #graph-container {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: absolute;
+      z-index: 10;
+    }
+    #layout {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 20;
+    }
+  </style>
+  <div id="graph-container">
+    <button id="layout">Layout</button>
+  </div>
+</div>
+
+<script>
+/**
+ * Just a simple example to show how to use the sigma.layout.forceAtlas2
+ * plugin:
+ *
+ * A random graph is generated, such that its nodes are separated in some
+ * distinct clusters. Each cluster has its own color, and the density of
+ * links is stronger inside the clusters. So, we expect the algorithm to
+ * regroup the nodes of each cluster.
+ */
+sigma.parsers.json('resources/EuroSiS.json', {
+  container: 'graph-container',
+  settings: {
+    edgeColor: 'default',
+    defaultEdgeColor: '#ccc',
+    defaultEdgeSize: 0.8
+  }
+}, function(s) {
+  window.s = s;
+
+  // Start the ForceAtlas2 algorithm:
+  s.startForceAtlas2({worker: true, barnesHutOptimize: false, iterationsPerRender: 2});
+
+  var running = true;
+  document.getElementById('layout').onclick = function() {
+    if (running)
+      s.killForceAtlas2();
+    else
+      s.startForceAtlas2();
+    running = !running;
+  };
+});
+</script>
