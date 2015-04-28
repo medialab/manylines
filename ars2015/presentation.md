@@ -70,9 +70,9 @@ web app to storify a network
 ## storytelling style
 - structure/content analysis
   - **coloring** : coloring node with metadata
-  - **category impact** : filtering based on metada
+  - **feature distinction** : filtering based on metada
 - in-depth view
-  - **pinpointing** : zoom to reveal details  
+  - **close-up** : zoom to reveal details  
 
 ---
 <!-- .slide: data-background="#F0F8F8" -->
@@ -88,28 +88,43 @@ On going research for [the TOFLIT18 project](http://toflit18.hypotheses.org/)
 <!-- .slide: data-background="#F0F8F8" -->
 ## a different storytelling style
 - explain the **network model**
-- **pinpointing** on wine to illustrate this model 
+- **close-up** on wine to illustrate this model 
 - **peer-to-peer exploration** to browse the wine cluster
-- **back-to-source** by adding a picture in the commentary
+- **back-to-source** by adding a picture as an **annotation**
 - **thematic confrontation** to create a joke on Wine/Water
 - **peer-to-peer exploration** from water to chemical
-- **pinpointing** on data cleaning problems (gomme/gommes)
+- **close-up** on data cleaning problems (gomme/gommes)
 - **guided tour** of fabric cluster and some others
 - **open to exploration**
 
 ---
 <!-- .slide: data-background="#F0F8F8" -->
 
-## Toward a visual grammar of networks
+## lines and spatiality
 - there are *many **Story** lines*
 - differences with Prezi : spatialisation is set not constructed
-- stories are different path in the network spaciality
-- write and replay exploration brings the opportunity of setting a grammar: 
+- stories are different path in the network spatiality
 
+---
+<!-- .slide: data-background="#F0F8F8" -->
 
-**color, category impact, pinpointing, peer-to-peer exploration, back-to-source, thematic jump, guided tour, open to exploration**<!-- .elements: class="fragment" data-fragment-index="2"-->
+## network narrative visualization
 
+- setting a visual grammar ?  
+  **color, feature distinction, close-up, peer-to-peer exploration, back-to-source, annotations, thematic confrontation, guided tour, open to exploration**
 
+---
+<!-- .slide: data-background="#F0F8F8" -->
+
+## network narrative visualization
+- mix of author-driven and reader-driven stories
+- interactive slideshow behaving as a Martini Glass Structure
+
+![martini glass structure](resources/martiniglass-structure.png)![slideshow structure](resources/interactive_slideshow_structure.png)
+
+**Narrative Visualization: Telling Stories with Data**  
+Edward Segel, Jeffrey Heer  
+*IEEE Trans. Visualization & Comp. Graphics (Proc. InfoVis)*, 2010
 
 ---
 <!-- .slide: data-background="#F0F8F8" -->
