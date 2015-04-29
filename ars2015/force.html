@@ -46,14 +46,13 @@ sigma.parsers.json('resources/EuroSiS.json', {
   window.s = s;
 
   // Start the ForceAtlas2 algorithm:
-  s.startForceAtlas2({worker: true, barnesHutOptimize: false, iterationsPerRender: 2});
-
-  var running = true;
+  
+  var running = false;
   document.getElementById('layout').onclick = function() {
     if (running)
       s.killForceAtlas2();
     else
-      s.startForceAtlas2();
+      s.startForceAtlas2({worker: true, barnesHutOptimize: false, iterationsPerRender: 2});
     running = !running;
   };
 });
