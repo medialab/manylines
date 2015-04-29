@@ -6,7 +6,10 @@ Paul Girard - Sciences Po médialab
 ![médialab's logo](resources/logo_medialab.png)
 
 Research center led by Bruno Latour  
-specialized in studying society through digital traces.
+
+- Sciences and Technology Studies
+- Sociology of Digital
+- Digital Methods
 
 [medialab.sciences-po.fr](http://www.medialab.sciences-po.fr)
 
@@ -53,16 +56,31 @@ specialized in studying society through digital traces.
 
 ---
 <!-- .slide: data-background="#F0F8F8" -->
+<!-- .slide: data-background-iframe="force.html" -->
+Force Atlas 2  
+javascript implementation  
+in [sigma.js](http://sigmajs.org)  
+[Jacomy & al. PLOSONE 2014](https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCQQFjAA&url=http%3A%2F%2Fjournals.plos.org%2Fplosone%2Farticle%3Fid%3D10.1371%2Fjournal.pone.0098679&ei=_Y9AVc6LJInuaJTNgaAM&usg=AFQjCNHNMz3yKuMgZWbs-OorygpvfPEWuQ&bvm=bv.91665533,d.bGQ)
+
+
+---
+<!-- .slide: data-background="#F0F8F8" -->
 # Manylines
 ### in one line
 web app to storify a network
 
 ---
 <!-- .slide: data-background="#F0F8F8" -->
+## Intended users
+- writers : researchers, journalists, activists, students 
+- readers : anyone interested in exploring your network
+
+---
+<!-- .slide: data-background="#F0F8F8" -->
 ## live demo
 - a webcrawl network about RIO+20
 - created and qualified by Débora Pereira 
-- analyse it in Gephi
+- edited in Gephi
 - let's share our findings using [manylines](http://tools.medialab.sciences-po.fr/manylines)
 
 ---
@@ -101,7 +119,7 @@ On going research for [the TOFLIT18 project](http://toflit18.hypotheses.org/)
 <!-- .slide: data-background="#F0F8F8" -->
 
 ## lines and spatiality
-- there are *many **Story** lines*
+- there are *many **story** lines*
 - differences with Prezi : spatialisation is set not constructed
 - stories are different path in the network spatiality
 
@@ -117,11 +135,9 @@ On going research for [the TOFLIT18 project](http://toflit18.hypotheses.org/)
 <!-- .slide: data-background="#F0F8F8" -->
 
 ## network narrative visualization
-- mix of author-driven and reader-driven stories
-- interactive slideshow behaving as a Martini Glass Structure
+mix of author-driven and reader-driven stories
 
-![martini glass structure](resources/martiniglass-structure.png)![slideshow structure](resources/interactive_slideshow_structure.png)
-
+![martini glass structure](resources/martiniglass-structure.png)![slideshow structure](resources/interactive_slideshow_structure.png)  
 **Narrative Visualization: Telling Stories with Data**  
 Edward Segel, Jeffrey Heer  
 *IEEE Trans. Visualization & Comp. Graphics (Proc. InfoVis)*, 2010
@@ -132,6 +148,7 @@ Edward Segel, Jeffrey Heer
 ## to be continued
 - manylines is a Proof of Concept
 - a great tool to experiment with sharing network exploration
+- it's [open source](https://github.com/medialab/manylines)
 - but it needs Complete UI refactoring and redesign
 - impressed by [oddysey.js](http://cartodb.github.io/odyssey.js) storytelling and design
 
@@ -139,4 +156,5 @@ Edward Segel, Jeffrey Heer
 ## thank you
 - explore [manylines narrative on  18th French trade goods](http://tools.medialab.sciences-po.fr/manylines/embed#/narrative/4827de8f-568a-4b0f-af33-d78b5b0e3bfe)  
 - test [http://tools.medialab.sciences-po.fr/manylines/](http://tools.medialab.sciences-po.fr/manylines/)  
-- this slides are at [http://medialab.github.io/manylines/ars2015/](http://medialab.github.io/manylines/ars2015/)  
+- ars15 slides are at [http://medialab.github.io/manylines/ars2015/](http://medialab.github.io/manylines/ars2015/)
+- for implementation  details see [FOSDEM 2015](http://medialab.github.io/manylines/fosdem2015/)  
