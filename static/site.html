@@ -18,59 +18,51 @@
 
     <!-- Page-specific CSS -->
     <style>
-/*
- * No navbar
- */
-body {
-  padding-top: 0px;
-}
+      /*
+       * No navbar
+       */
+      body {
+        padding-top: 0px;
+      }
 
-/*
- * Jumbotron
- */
 
-.jumbotron{
-  background-color: #334;
-  color: #FFF;
-  padding-bottom: 70px;
-}
+      .jumbotron{
+        background-color: #334;
+        color: #FFF;
+      }
 
-/* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  .jumbotron{
-    padding-top: 50px;
-  }
-}
+      .jumbotron a:hover {
+        text-decoration: none;
+      }
 
-/* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-  .jumbotron{
-    padding-top: 100px;
-    padding-bottom: 100px;
-  }
-}
+      #corpora {
+        display: none;
+      }
 
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-  .jumbotron{
-    padding-top: 160px;
-    padding-bottom: 160px;
-  }
-}
+      .embedWrapper {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 */
+        padding-top: 25px;
+        height: 0;
+      }
 
-/* Bring some air */
-.main {
-  padding-top: 10px;
-  padding-bottom: 150px;
-}
-.section {
-  padding-bottom: 20px;
-}
+      .embedWrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
 
-#corpora {
-  display: none;
-}
+        border: none;
+      }
 
+      a {
+        color:#cc021a;
+      }
+
+      .logo {
+        max-width: 200px;
+      }
     </style>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -85,50 +77,55 @@ body {
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>manylines</h1>
-        <p>Make up and publish your network, and tell its story.</p>
 
-        <a type="button" class="btn btn-primary" href="/manylines/app/">
-          <span class="glyphicon glyphicon-send"></span>
-          &nbsp;Publish Now!
-        </a>
+        <div class="col-sm-8">
+          <div class="embedWrapper">
+            <iframe allowfullscreen="true" src="http://tools.medialab.sciences-po.fr/manylines/embed#/narrative/290135dd-49a6-4a8e-a730-1e7c8c9c7bb2"></iframe>
+          </div>
+         </div>
+
+        <div class="col-sm-4">
+          <h1>manylines</h1>
+          <p>Make up and publish your network, and tell its story.</p>
+
+          <h1>
+            <a type="button"  class="btn-lg btn-default" href="/manylines/app/">
+              <span class="glyphicon glyphicon-send"></span>&nbsp;Publish Now!
+            </a>
+          </h1>
+        </div>
 
       </div>
     </div>
 
     <div class="container">
-<!--       <div class="main">
-        <div class="row">
-          <div class="col-md-4 section">
-            <h2>Latest news</h2>
-            <p>We are still in progress again</p>
+          <div class="col-sm-3 section">
+            <h4>
+              <a target="_blank"href="http://medialab.sciences-po.fr"><img class="img-responsive logo" src="img/SciencesPO_Appellations_MEDIALAB_RGB.png"></a>
+            </h4>
+            <hr>
+            <p><a target="_blank" href="https://twitter.com/medialab_scpo">@medialab_ScPo</a></p>
+            <p>Discover other médialab's tools on <a target="_blank" href="http://tools.medialab.sciences-po.fr">tools.medialab.sciences-po.fr</a></p>
           </div>
-          <div class="col-md-4 section">
-            <h2>Latest networks</h2>
-            <p>To be designed</p>
-         </div>
-          <div class="col-md-4 section">
-            <h2>Help</h2>
-            <p>To be designed</p>
+
+          <div class="col-md-5 section">
+            <h4>sourcecode </h4>
+            <p>Manylines is a free software under GNU Lesser General Public License version 3. Source code and documentation available on <a href="https://github.com/medialab/manylines">GitHub.</a> </p>
+
+            <h4>presentation</h4>
+              <p>
+                Manylines was presented at FOSDEM 2015 in the <a href="https://archive.fosdem.org/2015/schedule/event/graph_manylines/">Graph processing room</a>.
+
+                You’ll find in <a href="http://medialab.github.io/manylines/fosdem2015/#/">our presentation</a> a guided tour of the sexual behaviours wikipedia articles network !
+              </p>
           </div>
-        </div>
-      </div> -->
 
-      <hr>
+          <div class="col-md-3 section">
+            <h4>your graphs</h2>
+            <div id="corpora"><ul id="list"></ul></div>
+            <ul><li><a href="/app/">Create new graphs ?</a></li></ul>
+          </div>
 
-      <p>
-        <a href="https://github.com/medialab/manylines">Github Repository</a>
-      </p>
-      <br>
-      <div id="corpora">
-        <h4>Your graphs:</h4>
-        <ul id="list"></ul>
-      </div>
-
-<!--       <footer>
-        <p>Footer - Work in progress</p>
-        <p>Developed at the SciencesPo médialab</p>
-      </footer> -->
     </div> <!-- /container -->
 
 
