@@ -12,6 +12,8 @@ specialized in studying society through digital traces.
 
 [medialab.sciences-po.fr](http://www.medialab.sciences-po.fr)
 
+<span style="font-size:0.7em"><i>This work is supported by [DIME-WEB](http://dimeweb.dime-shs.sciences-po.fr/) part of [DIME-SHS](http://www.sciencespo.fr/dime-shs/) research equipment financed by the EQUIPEX program (ANR-10-EQPX-19-01).</i></span>
+
 ---
 
 ### Speakers
