@@ -1,9 +1,11 @@
 {
-  "name": "manylines",
-  "authors": ["Guillaume Plique"],
-  "url": "http://tools.medialab.sciences-po.fr/manylines/",
+  "name": "Manylines",
+  "authors": ["Guillaume Plique", "Alexis Jacomy", "Mathieu Jacomy", "Daniele Guido", "Paul Girard"],
+  "url": "http://tools.medialab.sciences-po.fr/manylines",
+  "doc": "http://medialab.github.io/manylines/",
   "source": "https://github.com/medialab/manylines",
-  "licence": "LGPL-3.0",
-  "description": "Explore networks and publish narratives.",
-  "doc": ""
+  "licence": "LGPL/CECILL-C",
+  "visual": "http://tools.medialab.sciences-po.fr/manylines.png",
+  "description": "Explore networks and publish narratives. More and more people work with graphs nowadays, but it is not always easy to publish and share the graph interpretation on the web. Manylines is a web tool to solve this issue. It allows the user to display, spatialize and categorize a network, before explaining it and sharing a narrative about it: an interactive story where each “slide” is a particular zoom, pan and filtering of the network, completed by a title and description, with fluid transitions like in Prezi.",
+  "description_vf_old": "Manylines est la version en-ligne de . Son objectif est d’être l’équivalent de YouTube pour les graphes : une plateforme extrêmement user-friendly permettant à des chercheurs, journalistes voire à toute personne intéressée par les réseaux d’analyser et publier ses graphes."
 }
