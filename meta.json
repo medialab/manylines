@@ -1,6 +1,6 @@
 {
   "name": "Manylines",
-  "authors": ["Guillaume Plique", "Alexis Jacomy", "Mathieu Jacomy", "Daniele Guido", "Paul Girard"],
+  "authors": ["Mathieu Jacomy", "Guillaume Plique", "Alexis Jacomy", "Paul Girard", "Daniele Guido"],
   "url": "http://tools.medialab.sciences-po.fr/manylines",
   "doc": "http://medialab.github.io/manylines/",
   "source": "https://github.com/medialab/manylines",
