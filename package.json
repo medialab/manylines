@@ -34,6 +34,7 @@
   ],
   "license": "LGPL-3.0",
   "scripts": {
+    "build": "gulp && ./build.sh",
     "start": "node bin/start.js",
     "flush": "node bin/flush.js",
     "make": "node bin/make.js",
