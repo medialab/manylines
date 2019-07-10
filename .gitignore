@@ -20,3 +20,6 @@ config.json
 
 # Front-end:
 static/dist
+
+# Working directories:
+backup

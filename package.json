@@ -1,6 +1,6 @@
 {
   "name": "manylines",
-  "version": "0.0.2",
+  "version": "0.2.0",
   "description": "Explore networks and publish narratives.",
   "bugs": "http://github.com/medialab/manylines/issues",
   "engines": {
