@@ -11,3 +11,6 @@ mkdir build/app
 mkdir build/embed
 cp build/app.html build/app/index.html
 cp build/embed.html build/embed/index.html
+
+echo "Grabbing presentations..."
+find ./presentations -type d ! -name index.html -depth 1 -exec cp -r {} build/ \;
