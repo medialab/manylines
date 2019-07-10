@@ -45,6 +45,13 @@
     return $.get('/api/embed/' + view + '/' + id, callback);
   }
 
+  function getStaticData(_, id, callback) {
+    return $.get('/manylines_data/' + id + '.json', callback);
+  }
+
+  if (document.body.getAttribute('archived'))
+    getData = getStaticData;
+
   // TODO: modelize an object to perform this?
   function getSlidePosition(slide) {
     var index = embed.data.narrative.slides.indexOf(slide);

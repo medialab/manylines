@@ -5,6 +5,9 @@ mkdir build
 echo "Copying files..."
 cp -r static/* build/
 
+echo "Bootstrapping archived data"
+sed -i '' 's/<body>/<body archived="true">/' build/embed.html
+
 echo "Building HTML architecture..."
 cp build/site.html build/index.html
 mkdir build/app
