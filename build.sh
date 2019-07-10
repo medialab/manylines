@@ -1,3 +1,9 @@
+PREFIX="/manylines/"
+
+function prefixPaths() {
+  sed -i '' "s@href=\"/\([^/]\)@href=\"$PREFIX\1@g" $1;
+}
+
 echo "Cleanup..."
 rm -rf build
 mkdir build
@@ -17,3 +23,8 @@ cp build/embed.html build/embed/index.html
 
 echo "Grabbing presentations..."
 find ./presentations -type d ! -name index.html -depth 1 -exec cp -r {} build/ \;
+
+echo "Prefixing paths..."
+prefixPaths build/app.html
+prefixPaths build/embed.html
+prefixPaths build/site.html
