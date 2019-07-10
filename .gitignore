@@ -22,4 +22,4 @@ config.json
 static/dist
 
 # Working directories:
-backup
+backup/*.sqlite
