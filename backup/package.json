@@ -1,0 +1,19 @@
+{
+  "name": "manylines-backup-scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dump": "node dump.js",
+    "serialize": "node serialize.js"
+  },
+  "author": "yomguithereal <kropotkinepiotr@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^3.1.0",
+    "fs-extra": "^8.1.0",
+    "glob": "^7.1.4",
+    "lodash": "^4.17.13",
+    "sqlite3": "^4.0.9"
+  }
+}
