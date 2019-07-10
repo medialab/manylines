@@ -46,7 +46,7 @@
   }
 
   function getStaticData(_, id, callback) {
-    return $.get('//manylines_data/' + id + '.json', callback);
+    return $.get('/manylines_data/' + id + '.json', callback);
   }
 
   if (document.body.getAttribute('archived'))
