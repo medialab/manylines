@@ -14,6 +14,11 @@ cp -r static/* build/
 echo "Bootstrapping archived data"
 sed -i '' 's/<body>/<body archived="true">/' build/embed.html
 
+echo "Prefixing paths..."
+prefixPaths build/app.html
+prefixPaths build/embed.html
+prefixPaths build/site.html
+
 echo "Building HTML architecture..."
 cp build/site.html build/index.html
 mkdir build/app
@@ -23,8 +28,3 @@ cp build/embed.html build/embed/index.html
 
 echo "Grabbing presentations..."
 find ./presentations -type d ! -name index.html -depth 1 -exec cp -r {} build/ \;
-
-echo "Prefixing paths..."
-prefixPaths build/app.html
-prefixPaths build/embed.html
-prefixPaths build/site.html
