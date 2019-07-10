@@ -36,6 +36,7 @@
   "scripts": {
     "deploy": "npm run build && gh-pages -d ./build",
     "build": "gulp && ./build.sh",
+    "serve": "node bin/serve-static.js",
     "start": "node bin/start.js",
     "flush": "node bin/flush.js",
     "make": "node bin/make.js",
