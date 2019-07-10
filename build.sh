@@ -2,6 +2,7 @@ PREFIX="/manylines/"
 
 function prefixPaths() {
   sed -i '' "s@href=\"/\([^/]\)@href=\"$PREFIX\1@g" $1;
+  sed -i '' "s@src=\"/\([^/]\)@src=\"$PREFIX\1@g" $1;
 }
 
 echo "Cleanup..."
