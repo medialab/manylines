@@ -30,7 +30,7 @@
     // Internationalization options
     i18n: {
       lang: 'en',
-      url: '/locales/__lng__/__ns__.json'
+      url: PATH_PREFIX + '/locales/__lng__/__ns__.json'
     },
 
     // Layout defaults
@@ -80,7 +80,7 @@
 
     // Handlebars templates
     templates: {
-      path: '/templates/',
+      path: PATH_PREFIX + '/templates/',
       prefix: 'app',
       suffix: 'handlebars'
     },
