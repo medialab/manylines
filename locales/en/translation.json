@@ -1,0 +1,115 @@
+{
+  "main": {
+    "tubemynet": "tubemynet",
+
+    "not_saved_yet": "Not saved yet",
+    "saving": "Saving...",
+
+    "new_network": "New network",
+    "basemap": "Basemap",
+    "dashboard": "Dashboard",
+    "take_views": "Take views",
+    "narratives": "Narratives"
+  },
+  "reminder": {
+    "title": "Your graph's url",
+    "text": "Don't forget to save your graph's url so you can get find it back later.",
+    "ps": "Note also that your current graphs' urls can be found on the app's welcome page if you ever need it."
+  },
+  "space": {
+    "save_graph": "Save the graph",
+    "save_graph_description": "You need to select a password to prevent your network to be edited by other people, and an email address in case you forget the password.",
+    "bump_graph": "Updating the graph's version",
+    "bump_graph_description": "You are attempting to change your graph's data. This will invalidate any views taken or narrative written about the current version of the graph.<br><br>To continue, you must update your graph's version.<br><br>Is this really what you want?",
+    "bump_confirm": "Yes",
+    "bump_cancel": "No",
+    "password": "Workspace password",
+    "email": "E-mail address",
+    "save": "Save",
+    "disclaimer": "To store your graph workspace, we need an e-mail for maintenance issues (this information won't be distributed anywhere)."
+  },
+  "graph": {
+    "node": "__count__ node",
+    "node_plural": "__count__ nodes",
+    "edge": "__count__ edge",
+    "edge_plural": "__count__ edges",
+    "category": "__count__ category",
+    "category_plural": "__count__ categories"
+  },
+  "snapshots": {
+    "saved": "View taken",
+    "impossible": "You cannot take a view without saving your graph first."
+  },
+
+  "login": {
+    "login": "Login",
+    "password": "Password",
+    "forgotpassword": "Forgot password?",
+    "signin": "Sign in"
+  },
+  "upload": {
+    "upload_network": "Upload a gexf file",
+    "error_uploading_file": "An error occured while uploading the file",
+    "invalid_JSON_file": "The JSON file is not valid.",
+    "invalid_GEXF_file": "The GEXF file is not valid.",
+    "invalid_file_format": "The file format is not recognized yet.",
+    "too_big": "Your graph is too big. Try a lighter one.",
+    "loading": "Processing graph...",
+    "disclaimer": "Please note that this application targets small to medium graphs and won't be able to handle large graphs.<br><br>Please try to provide graphs smaller than 5MB (~1000 nodes, ~10 000 edges)."
+  },
+  "basemap": {
+    "apply_layout": "Apply layout",
+    "stop_layout": "Stop layout",
+
+    "force": {
+      "linlog": "LinLog mode",
+      "linlog_description": "Different equations with slower convergence but more clustering. Avoid if disconnected components or nodes.",
+      "gravity": "gravity",
+      "gravity_description": "Attracts all nodes to the center, preventing disconnected components to drift away",
+      "gravity_placeholder": "Enter a number",
+      "barneshut": "Barnes-Hut optimization",
+      "barneshut_description": "Group nodes into regions to scale the algorithm's repulsion.<br>Note: use this option on large graphs only.",
+      "stronger_gravity": "stronger gravity",
+      "stronger_gravity_description": "Another gravity equation that keeps nodes in a close circle",
+      "no_overlapping": "no overlapping",
+      "no_overlapping_description": "When the layout is converged, prevents node to overlap<br>Note: If you do this too early, the network might get entangled"
+    },
+
+    "nodesize": {
+      "title": "Node size",
+      "select_original": "original",
+      "select_degree": "degree",
+      "select_indegree": "indegree",
+      "select_outdegree": "outdegree",
+      "description": "The layout is usually cleaner when most connected nodes are bigger. The degree is the number of links, the indegree (outdegree) is the number of inbound links (outbound). "
+    }
+  },
+  "dashboard": {
+    "impossible": "The dashboard is currently unavailable."
+  },
+  "narratives": {
+    "create": "Create a new narrative",
+    "impossible": "You cannot create narratives without any view taken.",
+    "slide": "__count__ slide",
+    "slide_plural": "__count__ slides",
+    "created": "Narrative created",
+    "back_button": "Back to narratives",
+    "default_narrative_title": "New Narrative",
+    "default_slide_title": "Slide Title",
+    "default_slide_text": "Write the content of your slide here...",
+    "views": "Views",
+    "share": "Publish your narrative"
+  },
+
+  "warnings": {
+    "invalid_password": "Invalid password",
+    "invalid_email": "Invalid email",
+    "missing_password": "Missing password",
+    "missing_email": "Missing email"
+  },
+  "errors": {
+    "unknown": "An unknown error occured.",
+    "wrong_password": "Wrong password",
+    "unauthorized": "Unauthorized"
+  }
+}

@@ -1,0 +1,87 @@
+{{! Views edition view: }}
+<div class="splitlayout-container">
+
+  <!-- Top Container -->
+  <div class="splitlayout-top main">
+    <div class="container-fluid container-fullheight">
+      <div class="row row-fullheight">
+        <div class="col-left col-xs-9" data-app-module="snapshots" data-app-snapshots-panel="sigma">
+          <div class="sigma-panel">
+            <div class="sigma-expand"></div>
+            <div class="sigma-overlay">
+              <!-- UNCOMMENT TO USE PROGRESS BARS -->
+              <!-- <div class="progress progress-striped active">
+                <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                  Network loading...
+                </div>
+              </div> -->
+            </div>
+
+            <div class="sigma-tools">
+              <div class="btn-group-vertical">
+                <button type="button"
+                        class="btn btn-primary btn-sm"
+                        data-app-snapshots-action="snapshot">
+                  <span class="glyphicon glyphicon-camera"></span>
+                </button>
+                <button type="button"
+                        class="btn btn-link btn-sm"
+                        data-app-sigma-action="recenter">
+                  <span class="glyphicon glyphicon-record"></span>
+                </button>
+                <button type="button"
+                        class="btn btn-link btn-sm"
+                        data-app-sigma-action="zoom">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </button>
+                <button type="button"
+                        class="btn btn-link btn-sm"
+                        data-app-sigma-action="unzoom">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-middle col-xs-3" data-app-module="snapshots" style="display: none;">
+          {{!-- Middle panel --}}
+        </div>
+
+        <div class="col-right col-xs-3" data-app-module="snapshots" data-app-snapshots-panel="sidebar">
+
+          {{!-- TODO: clear styles attribute below --}}
+          <div class="container-networklist" style="padding-top: 0px;">
+            <div class="subcontainer-networklist" style="margin-top: 0px;">
+              {{!-- Here comes the list of categories --}}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Container -->
+    <div class="splitlayout-bottom">
+      <div class="container-fluid">
+        <div class="row views-container">
+          <div class="col col-xs-10">
+            <div class="views-band-container">
+              <ul class="views-band">
+                {{!-- Here comes the snapshots --}}
+              </ul>
+            </div>
+          </div>
+          <div class="col col-xs-2">
+            <div class="makeview-button-container">
+              <a href="#" class="btn btn-primary" data-app-snapshots-action="snapshot" role="button">Take a view &nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-camera"></span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

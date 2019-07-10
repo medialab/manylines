@@ -1,0 +1,50 @@
+{{! Space creation form: }}
+<div data-app-modal="share" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Share
+            <span class="dropdown">
+              <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Narrative <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                <li role="presentation"><a href="#">Basemap</a></li>
+
+              </ul>
+            </span>
+        </h4>
+      </div>
+      <div class="modal-body">
+
+        <form role="form">
+          <div>
+            <label>Url</label>
+            <br>
+            <input id="share-url" class="form-control" type="text" value="{{ url }}" />
+          </div>
+          <br>
+          <div>
+            <label>Iframe</label>
+            <textarea id="iframe-code" class="form-control"><iframe src="{{ url }}" width="100%" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></textarea>
+          </div>
+        </form>
+
+
+      </div>
+      <iframe src="{{ url }}" width="100%" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      <!-- iframe sample here -->
+      <!-- div style="">
+          <img src="http://upload.wikimedia.org/wikipedia/commons/2/24/Network_Tree_diagram.png">
+          <h2>Storytelling est divisé en deux parties distinctes relatant deux histoires n'ayant aucun rapport l'une avec l'autre, Fiction et Non-fiction.
+          </h2>
+          <div>
+            Many Eyes is just one of the tools NYTimes.com will be releasing in the next few weeks to help our readers and our journalists (we also have a version of Many Eyes we use internally) create compelling online experiences without the need for an advanced degree in computer science.
+          </div>
+        </div -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>

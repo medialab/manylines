@@ -1,0 +1,62 @@
+{{!-- Narrative slide view --}}
+<div class="widget-container">
+  <div class="widget-pre-panel"></div>
+  <div class="widget-panel">
+    <div class="widget">
+      <div class="row top-row">
+        <div class="col col-xs-12 sigma-panel">
+          <div class="sigma-expand"></div>
+          <div class="sigma-overlay">
+          </div>
+          <div class="sigma-tools">
+            <div class="btn-group-vertical">
+            <button type="button"
+                    class="btn btn-link btn-xs"
+                    data-app-sigma-action="recenter">
+              <span class="glyphicon glyphicon-record"></span>
+            </button>
+            <button type="button"
+                    class="btn btn-link btn-xs"
+                    data-app-sigma-action="zoom">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+            <button type="button"
+                    class="btn btn-link btn-xs"
+                    data-app-sigma-action="unzoom">
+              <span class="glyphicon glyphicon-minus"></span>
+            </button>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="row bottom-row">
+        <div class="col col-xs-1">
+          <div class="sibling-info sibling-left" role="button">
+            {{#if left}}
+              <div data-app-narratives-action="previous_slide" class="sibling-icon">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </div>
+            {{/if}}
+          </div>
+        </div>
+        <div class="col col-xs-10 view-content">
+          <div class="view-title">
+            <input type="text" data-app-narratives-editable="slide_title" value="{{ slide.title }}" />
+          </div>
+          <div class="view-text">
+            <textarea data-app-narratives-editable="slide_text" placeholder="{{ placeholder }}">{{ slide.text }}</textarea>
+          </div>
+        </div>
+        <div class="col col-xs-1">
+          <div class="sibling-info sibling-right" role="button">
+            {{#if right}}
+              <div data-app-narratives-action="next_slide" class="sibling-icon">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
