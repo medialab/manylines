@@ -55,7 +55,7 @@
     "gh-pages": "^2.0.1",
     "http-proxy": "^1.8.1",
     "lodash": "^2.4.1",
-    "node-uuid": "~1.4.1",
+    "node-uuid": "~1.4.8",
     "on-finished": "^2.1.0",
     "request": "^2.36.0",
     "serve-static": "^1.1.0",
