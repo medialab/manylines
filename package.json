@@ -58,7 +58,7 @@
     "node-uuid": "~1.4.1",
     "on-finished": "^2.1.0",
     "request": "^2.36.0",
-    "serve-static": "^1.1.0",
+    "serve-static": "^1.6.5",
     "typology": "^0.1.0",
     "validator": "^3.17.1",
     "winston": "^0.7.3"
