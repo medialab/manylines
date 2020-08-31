@@ -60,7 +60,7 @@
     "request": "^2.36.0",
     "serve-static": "^1.1.0",
     "typology": "^0.1.0",
-    "validator": "^3.17.1",
+    "validator": "^3.22.1",
     "winston": "^0.7.3"
   },
   "devDependencies": {
